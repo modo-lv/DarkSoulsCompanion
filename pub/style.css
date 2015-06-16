@@ -1,0 +1,36 @@
+#GuideLabelFilter_chosen {
+  min-width: 150px; }
+
+#Guide .entry.group {
+  margin-left: 1em; }
+
+#Guide .entry {
+  display: block;
+  margin: 0.5em 0; }
+  #Guide .entry .header {
+    border-radius: 0.5em; }
+    #Guide .entry .header .title {
+      display: inline-block;
+      min-width: 30em; }
+  #Guide .entry .jqx-expander-header-expanded {
+    border-radius: 0.5em 0.5em 0 0; }
+  #Guide .entry .content {
+    padding: 0.5em;
+    border-radius: 0 0 0.5em 0.5em; }
+
+#Guide .label {
+  display: inline-block;
+  border: 1px solid silver;
+  padding: 0.2em 0.6em 0.3em;
+  font-size: 75%;
+  font-weight: 700;
+  line-height: 1;
+  color: #fff;
+  text-align: center;
+  white-space: nowrap;
+  vertical-align: baseline;
+  border-radius: .5em;
+  background: #AAA; }
+
+#Guide .empty .jqx-expander-arrow {
+  display: none !important; }

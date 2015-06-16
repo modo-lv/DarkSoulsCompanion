@@ -6,6 +6,7 @@ del = require "del"
 gulp = require "gulp"
 include = require "gulp-file-include"
 livescript = require "gulp-livescript"
+sass = require "gulp-sass"
 requireDir = require "require-dir"
 vinyl_stream = require "vinyl-source-stream"
 
@@ -45,6 +46,12 @@ gulp.task "compile-html", ->
 		.pipe gulp.dest cfg.dst.dir
 
 
+gulp.task "compile-stylesheets", ->
+	gulp.src cfg.src.dir + "/style.sass"
+		.pipe sass indentedSyntax: true
+		.pipe gulp.dest(cfg.dst.dir)
+
+
 gulp.task "compile-scripts", ->
 	browserify cfg.src.main, debug: true
 		.transform "require-globify"
@@ -54,7 +61,7 @@ gulp.task "compile-scripts", ->
 		.pipe gulp.dest(cfg.dst.dir)
 
 
-gulp.task "build", ["compile-html", "copy-libs", "compile-scripts"]
+gulp.task "build", ["compile-html", "copy-libs", "compile-scripts", "compile-stylesheets"]
 
 
 gulp.task "build-everything", ["build-modules", "build"]

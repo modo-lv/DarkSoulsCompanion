@@ -1,3 +1,10 @@
-module?.exports = ['$scope', 'storageService', ($scope, storageService) !->
-	$scope.content = require './content.json'
-]
+module?.exports = ($scope, storageService) !->
+	$scope.entry =
+		children : require './content.json'
+
+	$scope.getClassesFor = (item) !->
+		classes = ["entry"]
+		if not item.content?
+			classes.push "with-content"
+		if item.children?
+			classes.push "with-children"

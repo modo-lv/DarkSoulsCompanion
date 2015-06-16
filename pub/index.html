@@ -3,6 +3,8 @@
 <head>
     <meta charset="UTF-8">
 
+    <link rel="stylesheet" href="style.css" />
+
     <script src="libs/angular/angular.min.js"></script>
     <script src="libs/angular/angular-local-storage.min.js"></script>
 
@@ -12,10 +14,25 @@
 </head>
 <body>
 
-<div ng-controller="GuideController" id="Guide">
-    <h2>Guide</h2>
+<h2>Guide</h2>
 
-<div class="WaitingForLoading">Waiting for data load to start...</div>
+<script type="text/ng-template" id="GuideEntry">
+    <div class="header" ng-if="entry.title">
+        <div class="title">{{entry.title}}</div>
+        <span class="label" ng-repeat="label in entry.labels">{{label}}</span>
+    </div>
+    <div class="content" ng-if="entry.content">{{entry.content}}</div>
+    <ul ng-if="entry.children">
+        <li ng-repeat="entry in entry.children"
+            ng-include="'GuideEntry'"
+            ng-class="getClassesFor(entry)"
+            data-id="{{entry.id}}"
+            data-labels="{{entry.labels}}">
+        </li>
+    </ul>
+</script>
+
+<div ng-controller="GuideController" id="Guide" ng-include="'GuideEntry'">
 
 </div>
 

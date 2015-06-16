@@ -1,0 +1,45 @@
+$entryBorder: 0.5em
+
+#GuideLabelFilter_chosen
+	min-width: 150px
+
+#Guide
+	.entry.group
+		margin-left: 1em
+
+	.entry
+		display: block
+		margin: 0.5em 0
+
+		.header
+			border-radius: $entryBorder
+
+			.title
+				display: inline-block
+				min-width: 30em
+
+		.jqx-expander-header-expanded
+			border-radius: $entryBorder $entryBorder 0 0
+
+
+		.content
+			padding: 0.5em
+			border-radius: 0 0 $entryBorder $entryBorder
+
+	.label
+		display: inline-block
+		border: 1px solid silver
+		padding: .2em .6em .3em
+		font-size: 75%
+		font-weight: 700
+		line-height: 1
+		color: #fff
+		text-align: center
+		white-space: nowrap
+		vertical-align: baseline
+		border-radius: .5em
+		background: #AAA
+
+	// Hide the dropdown arrow for entries without text
+	.empty .jqx-expander-arrow
+		display: none !important
