@@ -6,12 +6,22 @@ del = require "del"
 gulp = require "gulp"
 include = require "gulp-file-include"
 livescript = require "gulp-livescript"
+requireDir = require "require-dir"
 vinyl_stream = require "vinyl-source-stream"
 
 #
 # CONFIG
 #
-cfg = require "./gulp-config"
+global.cfg = require "./gulp-config"
+
+
+#
+# MODULE TASKS
+#
+requireDir "./modules"
+
+gulp.task "build-modules", ["guide/build"]
+
 
 #
 # TASKS
@@ -27,6 +37,7 @@ gulp.task "copy-static-files", ->
 gulp.task "copy-libs", ->
 	gulp.src cfg.src.libs
 		.pipe gulp.dest cfg.dst.libs
+
 
 gulp.task "compile-html", ->
 	gulp.src cfg.src.view
@@ -44,3 +55,6 @@ gulp.task "compile-scripts", ->
 
 
 gulp.task "build", ["compile-html", "copy-libs", "compile-scripts"]
+
+
+gulp.task "build-everything", ["build-modules", "build"]

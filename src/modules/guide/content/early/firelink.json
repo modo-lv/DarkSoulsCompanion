@@ -1,0 +1,67 @@
+{
+	"title": "Firelink Shrine",
+	"children": [
+		{
+			"title": "First arrival",
+			"children": [
+				{
+					"title": "Careful around NPCs!",
+					"labels": [
+						"warning"
+					],
+					"content": "NPCs can be attacked and killed, which also means you can attack them by accident. An NPC you have attacked will remain hostile <strong>for the rest of the playthrough</strong> and you will miss out on everything he might have to offer (side quests, item purchases, exposition, etc.).",
+					"id": "2164cebf-1cbd-4b15-b788-9626fc87f73e"
+				},
+				{
+					"title": "Talking to NPCs",
+					"labels": [
+						"info"
+					],
+					"content": "NPCs don't always say everything immediately. Keep talking to them until they start repeating themselves if you don't want to miss anything. And whenever you defeat a boss, open a new area or do something similarly permanent, it's a good idea to check back with NPCs and talk to them again as they might have gained new dialog, moved to another area or otherwise changed.",
+					"id": "cb8ce492-f120-42fd-8562-66a7e23062fe"
+				},
+				{
+					"title": "Leveling up: Resistance",
+					"labels": [
+						"warning"
+					],
+					"content": "Avoid spending souls on increasing Resistance. While physical, fire and poison resistance sounds good, very few enemies apart from bosses actually use either fire or poison, and such attacks are best avoided anyway. In cases where evasion is a problem, there's usually a suit of armor to compensate. Armor also has a much more effect on your physical defense than resistance ever could, and every other stat is more valuable.",
+					"id": "99707e6a-46c5-438f-ba89-445d1258c35a"
+				},
+				{
+					"title": "How does Humanity work?",
+					"labels": [
+						"info"
+					],
+					"content": "Humanity is a stat that is increased almost exclusively by using {Humanity} items dropped by enemies / found as treasure. It is lost and recovered the same way as souls. Humanity points increase all defenses and curse resistance, as well as damage dealt with all Chaos weapons, {Quelaag's Furysword} and {Abyss Greatsword}. The first 10 points of Humanity also increase the chance of enemies dropping items when they die.",
+					"id": "fd924087-cb9d-423f-ad3b-183078eed6f2"
+				},
+				{
+					"title": "What does Reverse Hollowing do?",
+					"labels": [
+						"info"
+					],
+					"content": "At the cost of 1 Humanity point, \"Reverse Hollowing\" option turns your character from hollow to human form. Human form is required for two things: participating in multiplayer and kindling bonfires. When you die, you lose your human form and it is not restored when you retrieve your Souls and Humanity points. Thus, the Humanity point you spent on becoming human it is permanently lost.",
+					"id": "b56d7ea8-5c3a-430c-9fed-0e7c2207eae6"
+				},
+				{
+					"title": "How does multiplayer work?",
+					"labels": [
+						"info"
+					],
+					"content": "This is a single-player (PvE, Player vs. Engine) guide, so it will not contain in depth information on multiplayer (PvP, Player vs. Player). At its core, taking part in online multiplayer (being in human form) lets you participate in other people's games and them in yours, either co-operating with (summoning) or fighting against one another other (invasion).",
+					"id": "106f23e6-df19-4006-9e4b-3bfce6bd0bf1"
+				},
+				{
+					"title": "What does Kindle do?",
+					"labels": [
+						"info"
+					],
+					"content": "At the cost of 1 Humanity point, \"Kindle\" increases the amount of {Estus Flasks} the bonfire restores. You have to be in human form to perform Kindle. Any bonfire that restores 10 Estus Flasks is already kindled.",
+					"id": "ed7d6dd3-170f-475b-b867-ba95bbf8e46a"
+				}
+			],
+			"id": "f42075d0-0930-4f73-88d6-ae70a07e4114"
+		}
+	]
+}
