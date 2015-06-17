@@ -5,17 +5,25 @@
         <div class="title">{{entry.title}}</div>
         <span class="label" ng-repeat="label in entry.labels">{{label}}</span>
     </div>
-    <div class="content" ng-if="entry.content">{{entry.content}}</div>
-    <ul ng-if="entry.children">
-        <li ng-repeat="entry in entry.children"
-            ng-include="'GuideEntry'"
-            ng-class="getClassesFor(entry)"
-            data-id="{{entry.id}}"
-            data-labels="{{entry.labels}}">
-        </li>
-    </ul>
+    <div class="content">
+
+        <ng-if="entry.content">{{entry.content}}</ng-if>
+
+        <ul ng-if="entry.children">
+            <li ng-repeat="entry in entry.children"
+                ng-include="'GuideEntry'"
+                ng-class="getClassesFor(entry)"
+                data-id="{{entry.id}}"
+                data-labels="{{entry.labels}}"
+                jqx-expander
+                jqx-settings="getExpanderSettingsFor(entry)">
+            </li>
+        </ul>
+
+    </div>
 </script>
 
 <div ng-controller="GuideController" id="Guide" ng-include="'GuideEntry'">
+
 
 </div>

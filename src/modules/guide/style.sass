@@ -26,6 +26,10 @@ $entryBorder: 0.5em
 			padding: 0.5em
 			border-radius: 0 0 $entryBorder $entryBorder
 
+		// Hide the dropdown arrow for entries without text
+		.without-content.without-children .jqx-expander-arrow
+			display: none !important
+
 	.label
 		display: inline-block
 		border: 1px solid silver
@@ -40,6 +44,3 @@ $entryBorder: 0.5em
 		border-radius: .5em
 		background: #AAA
 
-	// Hide the dropdown arrow for entries without text
-	.empty .jqx-expander-arrow
-		display: none !important

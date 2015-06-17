@@ -17,6 +17,8 @@
   #Guide .entry .content {
     padding: 0.5em;
     border-radius: 0 0 0.5em 0.5em; }
+  #Guide .entry .without-content.without-children .jqx-expander-arrow {
+    display: none !important; }
 
 #Guide .label {
   display: inline-block;
@@ -31,6 +33,3 @@
   vertical-align: baseline;
   border-radius: .5em;
   background: #AAA; }
-
-#Guide .empty .jqx-expander-arrow {
-  display: none !important; }

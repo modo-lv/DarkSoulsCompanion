@@ -1,7 +1,5 @@
-angular.module "dsc", ["LocalStorageModule"]
+require './modules/guide/main.ls'
+
+angular.module "dsc", ["LocalStorageModule", "jqwidgets", "dsc-guide"]
 
 require './program/services/storageService.ls'
-
-angular.module "dsc"
-	.controller "GuideController", require "./modules/guide/controller.ls"
-
