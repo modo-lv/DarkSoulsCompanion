@@ -14,6 +14,10 @@
     <script src="libs/jqwidgets/jqxangular.js"></script>
     <script src="libs/jqwidgets/jqxcore.js"></script>
     <script src="libs/jqwidgets/jqxexpander.js"></script>
+    <script src="libs/jqwidgets/jqxtabs.js"></script>
+
+    <link rel="stylesheet" href="libs/ui-grid/ui-grid-unstable.min.css"/>
+    <script src="libs/ui-grid/ui-grid-unstable.min.js"></script>
 
     <script src="main.js"></script>
 
@@ -21,7 +25,18 @@
 </head>
 <body>
 
+<div jqx-tabs>
+
+    <ul>
+        <li>Items</li>
+        <li>Guide</li>
+    </ul>
+
+@@include('./modules/items/view.html')
+
 @@include('./modules/guide/view.html')
+
+</div>
 
 </body>
 </html>

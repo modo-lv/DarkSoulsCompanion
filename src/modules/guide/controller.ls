@@ -1,7 +1,7 @@
 angular.module "dsc-guide"
 	.controller "GuideController", ($sce, $scope, storageService) !->
 		$scope.entry =
-			children : require '../content.json'
+			children : require './content.json'
 
 		$scope.userData = {
 			doneEntryIds : []

@@ -14,6 +14,10 @@
     <script src="libs/jqwidgets/jqxangular.js"></script>
     <script src="libs/jqwidgets/jqxcore.js"></script>
     <script src="libs/jqwidgets/jqxexpander.js"></script>
+    <script src="libs/jqwidgets/jqxtabs.js"></script>
+
+    <link rel="stylesheet" href="libs/ui-grid/ui-grid-unstable.min.css"/>
+    <script src="libs/ui-grid/ui-grid-unstable.min.js"></script>
 
     <script src="main.js"></script>
 
@@ -21,7 +25,16 @@
 </head>
 <body>
 
-<h2>Guide</h2>
+<div jqx-tabs>
+
+    <ul>
+        <li>Items</li>
+        <li>Guide</li>
+    </ul>
+
+<div id="Items" ng-controller="ItemsController">
+    <div ui-grid="gridOptions" style="width: 99.875%; height: 600px"></div>
+</div>
 
 <script type="text/ng-template" id="GuideEntry">
     <div class="header" ng-if="entry.title">
@@ -47,8 +60,8 @@
     </div>
 </script>
 
-<div ng-controller="GuideController" id="Guide" ng-include="'GuideEntry'">
-
+<div id="Guide" ng-controller="GuideController" ng-include="'GuideEntry'">
+</div>
 
 </div>
 

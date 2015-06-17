@@ -1,5 +1,3 @@
-<h2>Guide</h2>
-
 <script type="text/ng-template" id="GuideEntry">
     <div class="header" ng-if="entry.title">
         <button class="check-mark" ng-click="entryDone($event, entry)">✓</button>
@@ -24,7 +22,5 @@
     </div>
 </script>
 
-<div ng-controller="GuideController" id="Guide" ng-include="'GuideEntry'">
-
-
+<div id="Guide" ng-controller="GuideController" ng-include="'GuideEntry'">
 </div>
