@@ -1,3 +1,5 @@
+global? <<< require "prelude-ls"
+
 require './modules/guide/main.ls'
 
 angular.module "dsc", ["LocalStorageModule", "jqwidgets", "dsc-guide"]

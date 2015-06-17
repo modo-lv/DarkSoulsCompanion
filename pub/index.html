@@ -7,7 +7,6 @@
 
     <script src="libs/angular/angular.min.js"></script>
     <script src="libs/angular/angular-local-storage.min.js"></script>
-    <script src="libs/angular-bootstrap/ui-bootstrap-tpls-0.13.0.min.js"></script>
 
     <script src="libs/jquery/jquery-2.1.4.min.js"></script>
 
@@ -26,12 +25,12 @@
 
 <script type="text/ng-template" id="GuideEntry">
     <div class="header" ng-if="entry.title">
+        <button class="check-mark" ng-click="entryDone($event, entry)">✓</button>
         <div class="title">{{entry.title}}</div>
         <span class="label" ng-repeat="label in entry.labels">{{label}}</span>
     </div>
     <div class="content">
-
-        <ng-if="entry.content">{{entry.content}}</ng-if>
+        <span ng-if="entry.content" ng-bind-html="entry.content"></span>
 
         <ul ng-if="entry.children">
             <li ng-repeat="entry in entry.children"
@@ -39,6 +38,7 @@
                 ng-class="getClassesFor(entry)"
                 data-id="{{entry.id}}"
                 data-labels="{{entry.labels}}"
+                ng-hide="entry.done"
                 jqx-expander
                 jqx-settings="getExpanderSettingsFor(entry)">
             </li>
