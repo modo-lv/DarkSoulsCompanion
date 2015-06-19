@@ -3,8 +3,6 @@
 <head>
     <meta charset="UTF-8">
 
-    <link rel="stylesheet" href="style.css" />
-
     <script src="libs/angular/angular.min.js"></script>
     <script src="libs/angular/angular-local-storage.min.js"></script>
 
@@ -19,6 +17,8 @@
     <link rel="stylesheet" href="libs/ui-grid/ui-grid-unstable.min.css"/>
     <script src="libs/ui-grid/ui-grid-unstable.min.js"></script>
 
+
+    <link rel="stylesheet" href="style.css" />
     <script src="main.js"></script>
 
     <title></title>
@@ -28,13 +28,9 @@
 <div jqx-tabs>
 
     <ul>
-        <li>Items</li>
         <li>Guide</li>
+        <li>Items</li>
     </ul>
-
-<div id="Items" ng-controller="ItemsController">
-    <div ui-grid="gridOptions" style="width: 99.875%; height: 600px"></div>
-</div>
 
 <script type="text/ng-template" id="GuideEntry">
     <div class="header" ng-if="entry.title">
@@ -43,9 +39,9 @@
         <span class="label" ng-repeat="label in entry.labels">{{label}}</span>
     </div>
     <div class="content">
-        <span ng-if="entry.content" ng-bind-html="entry.content"></span>
+        <div ng-if="entry.content" ng-bind-html="entry.content"></div>
 
-        <ul ng-if="entry.children">
+        <ul ng-if="entry.children" ng-init="depth = depth + 1" ng-class="depth == 1 ? 'root' : ''">
             <li ng-repeat="entry in entry.children"
                 ng-include="'GuideEntry'"
                 ng-class="getClassesFor(entry)"
@@ -61,6 +57,13 @@
 </script>
 
 <div id="Guide" ng-controller="GuideController" ng-include="'GuideEntry'">
+</div>
+<div id="Items" ng-controller="ItemsController">
+    <select ng-change="selectedItemTypeChanged()" ng-model="selectedItemType"
+            ng-options="itemType as 'Show '+itemType for itemType in itemTypes">
+    </select>
+    <button ng-click="exportAsJson()">Export as JSON</button>
+    <div ui-grid-edit ui-grid-cellNav ui-grid="gridOptions"></div>
 </div>
 
 </div>

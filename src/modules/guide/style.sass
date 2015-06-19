@@ -4,8 +4,11 @@ $entryBorder: 0.5em
 	min-width: 150px
 
 #Guide
-	.entry.group
-		margin-left: 1em
+	.entry.with-children > ul
+		padding-left: 1em
+
+	ul.root
+		padding: 0
 
 	.entry
 		display: block
@@ -23,12 +26,15 @@ $entryBorder: 0.5em
 
 
 		.content
-			padding: 0.5em
 			border-radius: 0 0 $entryBorder $entryBorder
+
+			> div
+				margin: 0.5em
 
 		// Hide the dropdown arrow for entries without text
 		.without-content.without-children .jqx-expander-arrow
 			display: none !important
+
 
 	.label
 		display: inline-block

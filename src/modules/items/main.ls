@@ -1,3 +1,3 @@
-angular.module "dsc-items", []
+angular.module "dsc-items", ["dsc.services"]
 
 require "./controller.ls"

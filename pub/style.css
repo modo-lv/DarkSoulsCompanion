@@ -1,8 +1,14 @@
+.ui-grid-menu-button {
+  height: 24px; }
+
 #GuideLabelFilter_chosen {
   min-width: 150px; }
 
-#Guide .entry.group {
-  margin-left: 1em; }
+#Guide .entry.with-children > ul {
+  padding-left: 1em; }
+
+#Guide ul.root {
+  padding: 0; }
 
 #Guide .entry {
   display: block;
@@ -15,8 +21,9 @@
   #Guide .entry .jqx-expander-header-expanded {
     border-radius: 0.5em 0.5em 0 0; }
   #Guide .entry .content {
-    padding: 0.5em;
     border-radius: 0 0 0.5em 0.5em; }
+    #Guide .entry .content > div {
+      margin: 0.5em; }
   #Guide .entry .without-content.without-children .jqx-expander-arrow {
     display: none !important; }
 
@@ -33,3 +40,7 @@
   vertical-align: baseline;
   border-radius: .5em;
   background: #AAA; }
+
+.ui-grid {
+  width: 99.87%;
+  height: 600px; }

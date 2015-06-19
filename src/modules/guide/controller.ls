@@ -25,6 +25,8 @@ angular.module "dsc-guide"
 
 			return classes
 
+		$scope.depth = 0
+
 
 		$scope.getExpanderSettingsFor = (item) -> item.settings ?= {
 			expanded : item.children?

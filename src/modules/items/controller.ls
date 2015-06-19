@@ -1,37 +1,21 @@
 angular.module "dsc-items"
-	.controller "ItemsController", ($scope) !->
-		$scope.itemData = {
-			"armors" : []
-		}
+	.controller "ItemsController", ($scope, dataExportService, uiGridConstants) !->
+		for itemType in [\items \materials \armors \keys \rings]
+			$scope.{}itemData[itemType] = []
+			$scope.[]itemTypes.push itemType
 
-		for armor in require './content/armors.json'
-			armor = new (require './models/armor.ls') <<< armor
-			delete armor.EquipmentType
-			$scope.itemData[\armors].push armor
+		$scope.selectedItemTypeChanged = !->
+			$scope.gridOptions.data = $scope.itemData[$scope.selectedItemType]
+			$scope.gridOptions.columnDefs = $scope.columnConfigs[$scope.selectedItemType]
 
+		(require './program/loadItems.ls') $scope
 
-		$scope.gridOptions = {
-			data : $scope.itemData[\armors]
-			columnDefs : [
-				{ field : 'armorSet', displayName : 'Set', width : 150 }
-				{ field : 'armorType', displayName : 'Type' }
-				{ field : 'name', width : 250 }
-				{ field : 'level', displayName : '+' }
+		$scope.exportAsJson = !->
 
-				{ field : 'physical' }
-				{ field : 'strike' }
-				{ field : 'slash' }
-				{ field : 'thrust' }
-				{ field : 'magic' }
-				{ field : 'fire' }
-				{ field : 'lightning' }
+			dataExportService.exportJson ($scope.gridOptions.data |> map -> delete it.$$hashKey; return it)
 
-				{ field : 'poison' }
-				{ field : 'bleed' }
-				{ field : 'curse' }
+		(require './program/gridOptions.ls') $scope, uiGridConstants
 
-				{ field : 'poise' }
-				{ field : 'weight' }
-			]
-		}
+		$scope.selectedItemType = \items
+		$scope.selectedItemTypeChanged!
 

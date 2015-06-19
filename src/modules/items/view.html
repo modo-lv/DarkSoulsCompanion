@@ -1,3 +1,7 @@
 <div id="Items" ng-controller="ItemsController">
-    <div ui-grid="gridOptions" style="width: 99.875%; height: 600px"></div>
+    <select ng-change="selectedItemTypeChanged()" ng-model="selectedItemType"
+            ng-options="itemType as 'Show '+itemType for itemType in itemTypes">
+    </select>
+    <button ng-click="exportAsJson()">Export as JSON</button>
+    <div ui-grid-edit ui-grid-cellNav ui-grid="gridOptions"></div>
 </div>

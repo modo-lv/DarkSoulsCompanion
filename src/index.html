@@ -3,8 +3,6 @@
 <head>
     <meta charset="UTF-8">
 
-    <link rel="stylesheet" href="style.css" />
-
     <script src="libs/angular/angular.min.js"></script>
     <script src="libs/angular/angular-local-storage.min.js"></script>
 
@@ -19,6 +17,8 @@
     <link rel="stylesheet" href="libs/ui-grid/ui-grid-unstable.min.css"/>
     <script src="libs/ui-grid/ui-grid-unstable.min.js"></script>
 
+
+    <link rel="stylesheet" href="style.css" />
     <script src="main.js"></script>
 
     <title></title>
@@ -28,13 +28,12 @@
 <div jqx-tabs>
 
     <ul>
-        <li>Items</li>
         <li>Guide</li>
+        <li>Items</li>
     </ul>
 
-@@include('./modules/items/view.html')
-
 @@include('./modules/guide/view.html')
+@@include('./modules/items/view.html')
 
 </div>
 

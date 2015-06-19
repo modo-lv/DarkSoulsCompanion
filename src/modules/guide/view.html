@@ -5,9 +5,9 @@
         <span class="label" ng-repeat="label in entry.labels">{{label}}</span>
     </div>
     <div class="content">
-        <span ng-if="entry.content" ng-bind-html="entry.content"></span>
+        <div ng-if="entry.content" ng-bind-html="entry.content"></div>
 
-        <ul ng-if="entry.children">
+        <ul ng-if="entry.children" ng-init="depth = depth + 1" ng-class="depth == 1 ? 'root' : ''">
             <li ng-repeat="entry in entry.children"
                 ng-include="'GuideEntry'"
                 ng-class="getClassesFor(entry)"
