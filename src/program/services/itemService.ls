@@ -1,12 +1,17 @@
 angular.module "dsc.services"
 	.service "itemService", -> self = {
+		# Items in separate arrays, grouped by type
 		items : {}
 
+		# All items in a single array
+		allItems : []
 
 		itemTypes : [\items \materials \armors \keys \rings]
 
 
-		loadItems : ->
+		loadItems : (force = false) !->
+			return unless force or self.[]allItems.length < 1
+
 			# Instantiate for browserify so that we can then use dynamic require() calls
 			require "./itemService/content/armors.json"
 			require "./itemService/content/items.json"
@@ -16,7 +21,9 @@ angular.module "dsc.services"
 		
 			for itemType in self.itemTypes
 				for itemData in require "./itemService/content/#{itemType }.json"
-					self.items.[][itemType].push self.createItem itemData
+					self.createItem itemData
+						.. |> self.items.[][itemType].push
+						.. |> self.[]allItems.push
 
 
 		createItem : (itemData) ->
@@ -24,6 +31,10 @@ angular.module "dsc.services"
 			| 'armor' => new Armor!
 			| otherwise => new Item!
 			) <<< itemData
+
+
+		itemExists : (itemName) ->
+			self.allItems |> any (.name == itemName)
 	}
 
 

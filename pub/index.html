@@ -17,6 +17,9 @@
     <link rel="stylesheet" href="libs/ui-grid/ui-grid-unstable.min.css"/>
     <script src="libs/ui-grid/ui-grid-unstable.min.js"></script>
 
+    <script src="libs/angucomplete-alt/angucomplete-alt.min.js"></script>
+    <link rel="stylesheet" href="libs/angucomplete-alt/angucomplete-alt.css"/>
+
 
     <link rel="stylesheet" href="style.css"/>
     <script src="main.js"></script>
@@ -34,7 +37,25 @@
     </ul>
 
     <div id="Inventory" ng-controller="InventoryController">
+    <angucomplete-alt
+            id="AddToInventory"
+            local-data="allItems"
+            selected-object="selectedItem"
+            title-field="name"
+            search-fields="name"></angucomplete-alt>
+
+    <button ng-click="addItem()" ng-disabled="!selectedItem">Add to inventory</button>
+
+    <!-- Grid -->
     <div ui-grid="gridOptions"></div>
+
+    <!-- Grid action buttons -->
+    <script type="text/ng-template" id="GridRowHeader.html">
+        <button ng-click="grid.appScope.addItem(row.entity.name)">+</button>
+        <button ng-click="grid.appScope.removeItem(row.entity.name)">–</button>
+    </script>
+
+
 </div>
     <script type="text/ng-template" id="GuideEntry">
     <div class="header" ng-if="entry.title">

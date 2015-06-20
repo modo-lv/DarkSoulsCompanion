@@ -1,6 +1,28 @@
 angular.module "dsc-inventory"
-	.controller "InventoryController", ($scope, storageService, uiGridConstants) !->
-		$scope.items = storageService.load 'inventory' ? []
+	.controller "InventoryController", (
+		$scope,
+		uiGridConstants,
+		itemService,
+		storageService,
+		inventoryService
+	) !->
+		# Initialize
+		itemService.loadItems!
+		inventoryService.loadInventory!
 
+		# Models
+		$scope.allItems = itemService.allItems
+		$scope.selectedItem = null
+		$scope.inventory = inventoryService.items
 
-		(require './program/gridOptions.ls') $scope, uiGridConstants
+		# Grid
+		$scope.gridOptions = (require './program/gridOptions.ls')
+			..data = $scope.inventory
+
+		# Event handlers
+		$scope.addItem = (itemName = $scope.selectedItem.title) !->
+			inventoryService.addToInventory itemName
+
+		$scope.removeItem = inventoryService.removeFromInventory
+		$scope.removeAllOf = (itemName) !-> inventoryService.removeFromInventory itemName, true
+
