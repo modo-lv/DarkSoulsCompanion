@@ -1,4 +1,6 @@
 module?.exports = ($scope, uiGridConstants) !->
+	$scope.gridOptions = {}
+
 	$scope.columnConfigs = {
 		\armors : [
 			{
@@ -53,7 +55,3 @@ module?.exports = ($scope, uiGridConstants) !->
 				}
 			}
 		]
-
-	$scope.gridOptions = {
-		columnDefs : $scope.columnConfigs[\armors]
-	}

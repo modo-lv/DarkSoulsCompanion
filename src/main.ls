@@ -4,9 +4,11 @@ global? <<< require "prelude-ls"
 angular.module "dsc.services", []
 require './program/services/storageService.ls'
 require './program/services/dataExportService.ls'
+require './program/services/itemService.ls'
 
 require './modules/guide/main.ls'
 require './modules/items/main.ls'
+require './modules/inventory/main.ls'
 
 angular.module "dsc", [
 	"LocalStorageModule"
@@ -18,6 +20,7 @@ angular.module "dsc", [
 
 	"dsc-guide"
 	"dsc-items"
+	"dsc-inventory"
 ]
 
 
