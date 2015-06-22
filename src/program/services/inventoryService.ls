@@ -26,8 +26,7 @@ angular.module "dsc.services"
 
 
 		..removeFromInventory = (itemName, amount = 1) !->
-			item = self.items |> find (.name == itemName)
-			if not item? then return
+			item = self.getInventoryItemByFullName itemName
 
 			item.amount -= if amount == true then item.amount else amount
 
