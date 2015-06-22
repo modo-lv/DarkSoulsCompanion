@@ -1,7 +1,7 @@
 module?.exports = {
 	columnDefs : [
 		{
-			field : 'name'
+			field : 'item.fullName'
 			displayName : 'Item'
 		}
 		{

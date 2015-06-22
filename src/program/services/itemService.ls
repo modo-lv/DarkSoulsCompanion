@@ -28,11 +28,14 @@ angular.module "dsc.services"
 						.. |> self.items.[][itemType].push
 						.. |> self.[]allItems.push
 
+
 		..createItem = (itemData) ->
 			(switch itemData.itemType
 			| 'armor' => new self.models.Armor!
 			| otherwise => new self.models.Item!
 			) <<< itemData
 
-		..itemExists = (itemName) ->
-			self.allItems |> any (.name == itemName)
+
+		..getItemByFullName = (itemName) ->
+			self.allItems |> find (.fullName == itemName) ?
+				throw new Error "There is no item with the name '#{itemName }' in the database."

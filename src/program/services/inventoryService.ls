@@ -5,18 +5,22 @@ angular.module "dsc.services"
 
 		..models = {
 			\InventoryItem : class InventoryItem
-				(@item, @amount = 1) ->
+				(itemName, @amount = 1) ->
+					@item = itemService.getItemByFullName itemName
 		}
 
 
-		..addToInventory = (itemName) !->
-			if not itemService.itemExists itemName
-				throw new Error "There is no item with the name '#{itemName }' in the database."
-			existing = self.items |> find (.name == itemName)
+		..getInventoryItemByFullName = (itemName) ->
+			self.items |> find (.item.fullName == itemName) ?
+				throw new Error "Inventory does not contain [#{itemName }]."
+
+
+		..addToInventory = (itemName, amount = 1) !->
+			existing = self.getInventoryItemByFullName itemName
 			if existing
-				existing.amount++
+				existing.amount += amount
 			else
-				self.items.push new InventoryItem itemName
+				self.items.push new self.models.InventoryItem itemName, amount
 
 			self.saveInventory!
 
@@ -33,10 +37,27 @@ angular.module "dsc.services"
 			self.saveInventory!
 
 
+		..clearInventory = !->
+			self.items.length = 0
+
+
 		..loadInventory = (force) !->
 			return unless force or self.items.length < 1
-			self.items = (storageService.load 'inventory') ? []
+
+			inventoryData = (storageService.load 'inventory') ? []
+
+			..clearInventory
+
+			for item in inventoryData
+				self.addToInventory item.name, item.amount
 
 
 		..saveInventory = !->
-			storageService.save "inventory", self.items
+			inventoryData = []
+			for inventoryItem in self.items
+				inventoryData.push {
+					name : inventoryItem.item.fullName
+					amount : inventoryItem.amount
+				}
+
+			storageService.save "inventory", inventoryData
