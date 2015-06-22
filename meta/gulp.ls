@@ -32,9 +32,6 @@ gulp.task "wipe", ->
 	del.sync cfg.dst.dir, force: true
 
 
-gulp.task "copy-static-files", ->
-
-
 gulp.task "copy-libs", ->
 	gulp.src cfg.src.libs
 		.pipe gulp.dest cfg.dst.libs
@@ -52,16 +49,33 @@ gulp.task "compile-stylesheets", ->
 		.pipe gulp.dest(cfg.dst.dir)
 
 
+# Copy static files used in require() calls over to the temp directory
+gulp.task "copy-static-files", ->
+	gulp.src cfg.src.staticRequireFiles
+		.pipe gulp.dest cfg.dst.tempDir
+
+
+
+# Compile .ls scripts into .js
 gulp.task "compile-scripts", ->
-	browserify cfg.src.main, debug: true
+	gulp.src cfg.src.scriptFiles
+		.pipe livescript!
+		.on "error", !-> throw new Error it
+		.pipe gulp.dest cfg.dst.tempDir
+
+
+# Combine .js scripts into one file.
+gulp.task "compile-and-browserify", ["copy-static-files", "compile-scripts"], ->
+	browserify cfg.dst.mainTempFile, debug: true
 		.transform "require-globify"
-		.transform "liveify"
 		.bundle! .on "error", (e) -> throw new Error(e)
 		.pipe vinyl_stream(cfg.dst.mainFile)
 		.pipe gulp.dest(cfg.dst.dir)
 
 
-gulp.task "build", ["compile-html", "copy-libs", "compile-scripts", "compile-stylesheets"]
+gulp.task "build", ["compile-html", "copy-libs", "compile-and-browserify", "compile-stylesheets"], ->
+	# Once everything is done, delete the temp directory
+	del.sync cfg.dst.tempDir, force : true
 
 
 gulp.task "build-everything", ["build-modules", "build"]

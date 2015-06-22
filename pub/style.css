@@ -44,3 +44,7 @@
 .ui-grid {
   width: 99.87%;
   height: 600px; }
+
+#Inventory .ui-grid {
+  width: 45%;
+  min-width: 400px; }

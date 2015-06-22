@@ -1,3 +1,3 @@
 angular.module "dsc-guide", []
 
-require "./controller.ls"
+require "./controller"

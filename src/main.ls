@@ -1,15 +1,14 @@
 global? <<< require "prelude-ls"
 
-
 angular.module "dsc.services", []
-require './program/services/storageService.ls'
-require './program/services/dataExportService.ls'
-require './program/services/itemService.ls'
-require './program/services/inventoryService.ls'
+require './program/services/storageService'
+require './program/services/dataExportService'
+require './program/services/itemService'
+require './program/services/inventoryService'
 
-require './modules/guide/main.ls'
-require './modules/items/main.ls'
-require './modules/inventory/main.ls'
+require './modules/guide/main'
+require './modules/items/main'
+require './modules/inventory/main'
 
 angular.module "dsc", [
 	"LocalStorageModule"

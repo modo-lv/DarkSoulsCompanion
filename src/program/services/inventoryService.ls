@@ -1,8 +1,15 @@
 angular.module "dsc.services"
-	.service "inventoryService", (itemService, storageService) -> self = {
-		items : []
+	.service "inventoryService", (itemService, storageService) -> self = {}
+		..items = []
 
-		addToInventory : (itemName) !->
+
+		..models = {
+			\InventoryItem : class InventoryItem
+				(@item, @amount = 1) ->
+		}
+
+
+		..addToInventory = (itemName) !->
 			if not itemService.itemExists itemName
 				throw new Error "There is no item with the name '#{itemName }' in the database."
 			existing = self.items |> find (.name == itemName)
@@ -14,7 +21,7 @@ angular.module "dsc.services"
 			self.saveInventory!
 
 
-		removeFromInventory : (itemName, amount = 1) !->
+		..removeFromInventory = (itemName, amount = 1) !->
 			item = self.items |> find (.name == itemName)
 			if not item? then return
 
@@ -26,17 +33,10 @@ angular.module "dsc.services"
 			self.saveInventory!
 
 
-		loadInventory : (force) !->
+		..loadInventory = (force) !->
 			return unless force or self.items.length < 1
 			self.items = (storageService.load 'inventory') ? []
 
-		saveInventory : !->
+
+		..saveInventory = !->
 			storageService.save "inventory", self.items
-
-		InventoryItem : InventoryItem
-	}
-
-
-
-class InventoryItem
-	(@name, @amount = 1) ->

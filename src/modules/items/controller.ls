@@ -5,7 +5,7 @@ angular.module "dsc-items"
 		for itemType in [\items \materials \armors \keys \rings]
 			$scope.[]itemTypes.push itemType
 
-		(require './program/gridOptions.ls') $scope, uiGridConstants
+		(require './program/gridOptions') $scope, uiGridConstants
 
 		$scope.selectedItemTypeChanged = !->
 			$scope.gridOptions.data = itemService.items[$scope.selectedItemType]

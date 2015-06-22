@@ -102,7 +102,7 @@
 									"item",
 									"checklist"
 								],
-								"Flags": [
+								"flags": [
 									"abstract"
 								],
 								"id": "62fb279e-d8c2-44cb-a6f8-5cbdbfafac7c"
@@ -113,7 +113,7 @@
 									"item",
 									"checklist"
 								],
-								"Flags": [
+								"flags": [
 									"abstract"
 								],
 								"id": "7c85eeb9-548d-4b82-8082-227379f02d32"
@@ -124,7 +124,7 @@
 									"item",
 									"checklist"
 								],
-								"Flags": [
+								"flags": [
 									"abstract"
 								],
 								"id": "f5266859-8df3-40f5-8e4a-4db2e117972e"

@@ -16,7 +16,7 @@ angular.module "dsc-inventory"
 		$scope.inventory = inventoryService.items
 
 		# Grid
-		$scope.gridOptions = (require './program/gridOptions.ls')
+		$scope.gridOptions = (require './program/gridOptions')
 			..data = $scope.inventory
 
 		# Event handlers

@@ -6,6 +6,7 @@ module?.exports = {
 		}
 		{
 			field : 'amount'
+			width : 50
 		}
 	]
 	onRegisterApi : (gridApi) !->
