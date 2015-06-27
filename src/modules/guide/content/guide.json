@@ -3,6 +3,11 @@
     "title": "About this guide",
     "children": [
       {
+        "title": "Labels",
+        "content": "<ul><li><strong>info</strong>: General information on some aspect of the game.</li><li><strong>warning</strong>: Important warnings about things that can unexpectedly or inadvertently change the current playthrough. Spoiler-free as much as possible.</li></ul>",
+        "id": "f9b57259-16df-4690-ac46-46cb643ab297"
+      },
+      {
         "title": "How to use this guide",
         "content": "Instead of how most guides are used — you read what you can/should do next and then do it, I recommend doing it the other way around. Do as much as you can yourself, explore, fight, look for chests. Whenever you come across an item, an NPC or something else of note, mark it in the guide (\"Got it!\" button). Only when you've explored all of a given area and found everything you can, check back with the guide to see if you're still missing anything.",
         "id": "dd95d669-eadf-459d-83cb-97610aa70c07"
@@ -20,6 +25,31 @@
       }
     ],
     "id": "9147bfd5-8b2f-4a2b-a2d8-334f03fb8d33"
+  },
+  {
+    "labels": [
+      "info"
+    ],
+    "title": "Combat",
+    "children": [
+      {
+        "labels": [
+          "info"
+        ],
+        "title": "Parry and riposte",
+        "content": "The game tells you how to parry and riposte, but it doesn't tell you that they're only possible under the right conditions. The conditions are:<ul><li>Your left hand must wield a weapon or shield (bare fist also works) that can actually parry. Not every shield and weapon can.</li><li>The enemy must be humanoid and of a humanoid size (no more than around 1.5 times your own size).</li><li>You must be standing close to the enemy for the parry to hit his hand, regardless of how long his weapon is.</li><li>The attack itself must be parry-able. Most are, but there are always exceptions.</li></ul> If you successfully parry and then riposte, you are completely immune to all direct attacks during the animation. It is also possible to parry partially: if you're a little bit too early or too late with your parry, or simply parry an attack that is un-parry-able, you will receive reduced damage, will not suffer any physical side-effects (such as stunning or knock-back). Partial parries work on all attacks in the game, even arrows and magic missiles.",
+        "id": "b14bfc6c-efc4-4449-b960-a76df82ad8f1"
+      },
+      {
+        "labels": [
+          "info"
+        ],
+        "title": "Back-stab",
+        "content": "Similar to parrying, there are several conditions that must be met for a back-stab to be possible:<ul><li>The enemy must be humanoid and of a humanoid size (no more than around 1.5 times your own size).</li><li>You must be standing close to the enemy.</li><li>You must not be holding up your should.</li><li>You and the enemy have to be on even ground. Minor differences don't matter, but if there's too much height difference the back-stab will not happen.</li></ul> Just like with riposte, you are completely immune to all direct attacks during the back-stab animation.",
+        "id": "b14bfc6c-efc4-4449-b960-a76df82ad8f1"
+      }
+    ],
+    "id": "1e0f997e-9c59-4e9c-8389-ea744749435e"
   },
   {
     "title": "Character Creation (gifts)",

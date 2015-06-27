@@ -3,9 +3,21 @@ angular.module "dsc-guide"
 		$scope.entry =
 			children : require './content.json'
 
-		$scope.userData = {
-			doneEntryIds : []
-		}
+		# Create ID-entry index
+		$scope.entryIndex = {}
+
+		do addToIndex = (entry = $scope.entry) !->
+			if entry.id?
+				$scope.entryIndex[entry.id] = entry
+			if entry.children? then for child in entry.children
+				addToIndex child
+
+		(require './program/doneEntries') $scope, storageService
+
+		for id in $scope.userData.doneEntryIds
+			$scope.entryIndex[id].done = true
+		$scope.processDoneEntryParents!
+
 
 		trustGuideContent = (entry) !->
 			if entry.content?
@@ -34,8 +46,5 @@ angular.module "dsc-guide"
 		}
 
 
-		$scope.entryDone = ($event, entry) !->
-			$event.stopPropagation!
-			entry.done = true
-			unless $scope.userData.doneEntryIds |> any (== entry.id)
-				$scope.userData.doneEntryIds.push entry.id
+
+

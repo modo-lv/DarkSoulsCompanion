@@ -142,6 +142,14 @@
       "children": [
         {
           "labels": [
+            "exploration"
+          ],
+          "title": "Location",
+          "content": "The secret area can be reached by going up the stairs across the room from {Petrus of Thorolund} and then dropping down in either of the square, black pits (it's actually one pit).",
+          "id": "fd3e2320-8f38-4325-afc6-99942ed96ec7"
+        },
+        {
+          "labels": [
             "item",
             "checklist"
           ],
@@ -184,12 +192,119 @@
       "id": "5d662684-a5db-47d8-ab20-5f65caf779fe"
     },
     {
-      "labels": [
-        "info"
+      "title": "Graveyard",
+      "children": [
+        {
+          "labels": [
+            "help"
+          ],
+          "title": "Fighting skeletons",
+          "content": "Skeletons can be tough opponents for new character, but they also make for great training opportunities and there are ways to make them go down a bit easier.<ul><li>There's a secret area within the Firelink Shrine area that contains a {Morning Star}. Hammer weapons are very useful against skeletons because they easily make them temporarily crumble into a pile of bones, from which it takes a few seconds to reassemble.</li><li>Try to only engage one skeleton at a time — practice luring and isolating enemies.</li><li>Practice backstabbing or maybe even parry-and-riposte. This is even more effective with the {Morning Star}.</li><li>Practice kicking — maneuver the skeleton on the very edge of the cliff and kick him off.</li></ul>",
+          "id": "0e7bd83a-9f6c-4a46-a142-c2864f2131f1"
+        },
+        {
+          "labels": [
+            "item",
+            "checklist"
+          ],
+          "title": "Large Soul of a Lost Undead",
+          "id": "060f85b6-0a0b-4530-942f-d93deec9a1ab"
+        },
+        {
+          "labels": [
+            "item",
+            "checklist"
+          ],
+          "title": "Large Soul of a Lost Undead",
+          "id": "b9e59ed7-78a3-4097-8e0d-fee7b5e59683"
+        },
+        {
+          "labels": [
+            "item",
+            "checklist"
+          ],
+          "title": "Caduceus Round Shield",
+          "id": "8cdea746-5490-4338-beef-36e698a02e44"
+        },
+        {
+          "labels": [
+            "item",
+            "checklist"
+          ],
+          "title": "Zweihander",
+          "id": "21b62e72-7b98-473f-b021-cd40b4f2567a"
+        },
+        {
+          "labels": [
+            "item",
+            "checklist"
+          ],
+          "title": "Binoculars",
+          "id": "2139e882-f350-49fb-a503-885e9796b3cf"
+        },
+        {
+          "labels": [
+            "item",
+            "checklist"
+          ],
+          "title": "Winged Spear",
+          "id": "54f0ea90-7136-4713-ab6b-0f4f1992fd22"
+        }
       ],
-      "title": "What do Lloyd's Talismans do?",
-      "content": "In addition to what its description says, a {Lloyd's Talisman} can also be thrown at {Mimic} enemies to put them (back) to sleep and get their loot without having to fight and kill them.",
-      "id": "a59ac227-966d-4201-82a9-880d63fe01d9"
+      "id": "48566aa9-c5fb-48da-b844-d42a3e234743"
+    },
+    {
+      "labels": [
+        "item",
+        "checklist"
+      ],
+      "title": "Soul of a Lost Undead",
+      "id": "de5560e2-ac51-4aa5-bc6f-58c86edc7b7f"
+    },
+    {
+      "labels": [
+        "item",
+        "checklist"
+      ],
+      "title": "Soul of a Lost Undead",
+      "id": "a76ad83c-92e7-4403-8b57-2b64246653e2"
+    },
+    {
+      "title": "Bridge",
+      "children": [
+        {
+          "title": "Soul of a Lost Undead",
+          "labels": [
+            "item",
+            "checklist"
+          ],
+          "id": "d1d2c414-3b34-4665-9f13-70bb2e65b531"
+        },
+        {
+          "title": "Ring of Sacrifice",
+          "labels": [
+            "item",
+            "checklist"
+          ],
+          "id": "fa836330-5122-44d1-aced-d15ae74eb29a"
+        },
+        {
+          "labels": [
+            "item",
+            "checklist"
+          ],
+          "title": "Soul of a Lost Undead",
+          "id": "739da235-764a-4b62-b743-3f2e90ab3e1a"
+        },
+        {
+          "labels": [
+            "item",
+            "checklist"
+          ],
+          "title": "Soul of a Lost Undead",
+        }
+      ],
+      "id": "e25a1f11-a287-4b40-b6f4-f155280b2c79"
     }
   ],
   "id": "c8e2ea78-9211-4edf-90d4-d4863953bf20"
