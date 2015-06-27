@@ -9,7 +9,7 @@
     <button ng-click="addItem()" ng-disabled="!selectedItem">Add to inventory</button>
 
     <!-- Grid -->
-    <div ui-grid="gridOptions"></div>
+    <div ui-grid-auto-resize ui-grid="gridOptions"></div>
 
     <!-- Grid action buttons -->
     <script type="text/ng-template" id="GridRowHeader.html">

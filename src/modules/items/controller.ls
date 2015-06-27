@@ -14,6 +14,13 @@ angular.module "dsc-items"
 		$scope.exportAsJson = !->
 			dataExportService.exportJson ($scope.gridOptions.data |> map -> delete it.$$hashKey; return it)
 
+		$scope.exportAsCsv = !->
+			outputData = $scope.gridOptions.data |> map ->
+				item = {} <<< it
+				delete item.$$hashKey;
+				return item
+			dataExportService.exportCsv outputData
+
 		$scope.selectedItemType = \items
 		$scope.selectedItemTypeChanged!
 

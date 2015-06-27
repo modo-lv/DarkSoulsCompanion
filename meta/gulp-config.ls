@@ -31,23 +31,23 @@ module?.exports = cfg = {}
 
 	..modules = {}
 
-cfg.configureModule = (name) ->	_ = cfg.modules[name] = {}
+cfg.configureModule = (name) ->	$_ = cfg.modules[name] = {}
 	..dir = "modules/#{name }"
 
 	..name = name
 
 	..src = {}
-		..dir = "#{cfg.src.dir }/#{_.dir }"
+		..dir = "#{cfg.src.dir }/#{$_.dir }"
 
 	..dst = {}
-		..dir = "#{cfg.dst.dir }/#{_.dir }"
+		..dir = "#{cfg.dst.dir }/#{$_.dir }"
 
 	# Create a wrapper for gul.task() that automatically adds module's name as prefix to the task name
 	..task = (...args) !->
-		args.0 = "#{_.name }/#{args.0 }"
+		args.0 = "#{$_.name }/#{args.0 }"
 		if typeof args.1.indexOf == "function"
 			for task, key in args.1 by -1
-				args.1[key] = "#{_.name }/#{task }"
+				args.1[key] = "#{$_.name }/#{task }"
 
 		return gulp.task.apply gulp, args
 

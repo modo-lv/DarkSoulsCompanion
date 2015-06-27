@@ -1,67 +1,196 @@
 {
-	"title": "Firelink Shrine",
-	"children": [
-		{
-			"title": "First arrival",
-			"children": [
-				{
-					"title": "Careful around NPCs!",
-					"labels": [
-						"warning"
-					],
-					"content": "NPCs can be attacked and killed, which also means you can attack them by accident. An NPC you have attacked will remain hostile <strong>for the rest of the playthrough</strong> and you will miss out on everything he might have to offer (side quests, item purchases, exposition, etc.).",
-					"id": "2164cebf-1cbd-4b15-b788-9626fc87f73e"
-				},
-				{
-					"title": "Talking to NPCs",
-					"labels": [
-						"info"
-					],
-					"content": "NPCs don't always say everything immediately. Keep talking to them until they start repeating themselves if you don't want to miss anything. And whenever you defeat a boss, open a new area or do something similarly permanent, it's a good idea to check back with NPCs and talk to them again as they might have gained new dialog, moved to another area or otherwise changed.",
-					"id": "cb8ce492-f120-42fd-8562-66a7e23062fe"
-				},
-				{
-					"title": "Leveling up: Resistance",
-					"labels": [
-						"warning"
-					],
-					"content": "Avoid spending souls on increasing Resistance. While physical, fire and poison resistance sounds good, very few enemies apart from bosses actually use either fire or poison, and such attacks are best avoided anyway. In cases where evasion is a problem, there's usually a suit of armor to compensate. Armor also has a much more effect on your physical defense than resistance ever could, and every other stat is more valuable.",
-					"id": "99707e6a-46c5-438f-ba89-445d1258c35a"
-				},
-				{
-					"title": "How does Humanity work?",
-					"labels": [
-						"info"
-					],
-					"content": "Humanity is a stat that is increased almost exclusively by using {Humanity} items dropped by enemies / found as treasure. It is lost and recovered the same way as souls. Humanity points increase all defenses and curse resistance, as well as damage dealt with all Chaos weapons, {Quelaag's Furysword} and {Abyss Greatsword}. The first 10 points of Humanity also increase the chance of enemies dropping items when they die.",
-					"id": "fd924087-cb9d-423f-ad3b-183078eed6f2"
-				},
-				{
-					"title": "What does Reverse Hollowing do?",
-					"labels": [
-						"info"
-					],
-					"content": "At the cost of 1 Humanity point, \"Reverse Hollowing\" option turns your character from hollow to human form. Human form is required for two things: participating in multiplayer and kindling bonfires. When you die, you lose your human form and it is not restored when you retrieve your Souls and Humanity points. Thus, the Humanity point you spent on becoming human it is permanently lost.",
-					"id": "b56d7ea8-5c3a-430c-9fed-0e7c2207eae6"
-				},
-				{
-					"title": "How does multiplayer work?",
-					"labels": [
-						"info"
-					],
-					"content": "This is a single-player (PvE, Player vs. Engine) guide, so it will not contain in depth information on multiplayer (PvP, Player vs. Player). At its core, taking part in online multiplayer (being in human form) lets you participate in other people's games and them in yours, either co-operating with (summoning) or fighting against one another other (invasion).",
-					"id": "106f23e6-df19-4006-9e4b-3bfce6bd0bf1"
-				},
-				{
-					"title": "What does Kindle do?",
-					"labels": [
-						"info"
-					],
-					"content": "At the cost of 1 Humanity point, \"Kindle\" increases the amount of {Estus Flasks} the bonfire restores. You have to be in human form to perform Kindle. Any bonfire that restores 10 Estus Flasks is already kindled.",
-					"id": "ed7d6dd3-170f-475b-b867-ba95bbf8e46a"
-				}
-			],
-			"id": "f42075d0-0930-4f73-88d6-ae70a07e4114"
-		}
-	]
+  "title": "Firelink Shrine",
+  "children": [
+    {
+      "title": "First arrival",
+      "children": [
+        {
+          "title": "Information",
+          "children": [
+            {
+              "title": "Careful around NPCs!",
+              "labels": [
+                "warning"
+              ],
+              "content": "NPCs can be attacked and killed, which also means you can attack them by accident. An NPC you have attacked will remain hostile <strong>for the rest of the playthrough</strong> and you will miss out on everything he might have to offer (side quests, item purchases, exposition, etc.).",
+              "id": "2164cebf-1cbd-4b15-b788-9626fc87f73e"
+            },
+            {
+              "title": "Talking to NPCs",
+              "labels": [
+                "info"
+              ],
+              "content": "NPCs don't always say everything immediately. Keep talking to them until they start repeating themselves if you don't want to miss anything. And whenever you defeat a boss, open a new area or do something similarly permanent, it's a good idea to check back with NPCs and talk to them again as they might have gained new dialog, moved to another area or otherwise changed.",
+              "id": "cb8ce492-f120-42fd-8562-66a7e23062fe"
+            },
+            {
+              "title": "Leveling up: Resistance",
+              "labels": [
+                "warning"
+              ],
+              "content": "Avoid spending souls on increasing Resistance. While physical, fire and poison resistance sounds good, very few enemies apart from bosses actually use either fire or poison, and such attacks are best avoided anyway. In cases where evasion is a problem, there's usually a suit of armor to compensate. Armor also has a much more effect on your physical defense than resistance ever could, and every other stat is more valuable.",
+              "id": "99707e6a-46c5-438f-ba89-445d1258c35a"
+            },
+            {
+              "title": "How does Humanity work?",
+              "labels": [
+                "info"
+              ],
+              "content": "Humanity is a stat that is increased almost exclusively by using {Humanity} items dropped by enemies / found as treasure. It is lost and recovered the same way as souls. Humanity points increase all defenses and curse resistance, as well as damage dealt with all Chaos weapons, {Quelaag's Furysword} and {Abyss Greatsword}. The first 10 points of Humanity also increase the chance of enemies dropping items when they die.",
+              "id": "fd924087-cb9d-423f-ad3b-183078eed6f2"
+            },
+            {
+              "title": "What does Reverse Hollowing do?",
+              "labels": [
+                "info"
+              ],
+              "content": "At the cost of 1 Humanity point, \"Reverse Hollowing\" option turns your character from hollow to human form. Human form is required for two things: participating in multiplayer and kindling bonfires. When you die, you lose your human form and it is not restored when you retrieve your Souls and Humanity points. Thus, the Humanity point you spent on becoming human it is permanently lost.",
+              "id": "b56d7ea8-5c3a-430c-9fed-0e7c2207eae6"
+            },
+            {
+              "title": "How does multiplayer work?",
+              "labels": [
+                "info"
+              ],
+              "content": "This is a single-player (PvE, Player vs. Engine) guide, so it will not contain in depth information on multiplayer (PvP, Player vs. Player). At its core, taking part in online multiplayer (being in human form) lets you participate in other people's games and them in yours, either co-operating with (summoning) or fighting against one another other (invasion).",
+              "id": "106f23e6-df19-4006-9e4b-3bfce6bd0bf1"
+            },
+            {
+              "title": "What does Kindle do?",
+              "labels": [
+                "info"
+              ],
+              "content": "At the cost of 1 Humanity point, \"Kindle\" increases the amount of {Estus Flasks} the bonfire restores. You have to be in human form to perform Kindle. At this point, any bonfire that restores 10 Estus Flasks is already kindled (this limit can be raised much later in the game).",
+              "id": "ed7d6dd3-170f-475b-b867-ba95bbf8e46a"
+            }
+          ],
+          "id": "8eb94300-5f74-4bd8-a393-3de9807f5987"
+        }
+      ],
+      "id": "f42075d0-0930-4f73-88d6-ae70a07e4114"
+    },
+    {
+      "labels": [
+        "talk",
+        "checklist"
+      ],
+      "title": "Crestfallen Warrior",
+      "content": "{Crestfallen Warrior} is the man sitting near the bonfire.",
+      "id": "7ca7431d-5286-47db-9c96-6f93419d4de3"
+    },
+    {
+      "labels": [
+        "item",
+        "checklist"
+      ],
+      "title": "Humanity (3)",
+      "id": "78ee8e0f-f3bc-4066-b0b6-662046241bad"
+    },
+    {
+      "labels": [
+        "item",
+        "checklist"
+      ],
+      "title": "Firebomb (6)",
+      "id": "f7f128e9-648a-489a-828b-0ad663a6bc0a"
+    },
+    {
+      "labels": [
+        "talk",
+        "checklist"
+      ],
+      "title": "Petrus of Thorolund",
+      "children": [
+        {
+          "labels": [
+            "item",
+            "checklist"
+          ],
+          "title": "Copper Coin",
+          "id": "09b390fe-ab0b-44aa-a25e-3e5787c21b70"
+        },
+        {
+          "labels": [
+            "info",
+            "covenant"
+          ],
+          "title": "Way of White",
+          "content": "{Way of White} is a beginner-friendly covenant that reduces the chance of getting invaded by players from other covenants.",
+          "id": "4d3dea70-71d2-48b1-ad02-2308ebf9ccfb"
+        },
+        {
+          "labels": [
+            "gesture",
+            "checklist"
+          ],
+          "title": "Shrug",
+          "id": "6ac2becf-09bb-489d-9c34-b47a3ea33296"
+        }
+      ],
+      "id": "67a65b7b-ff99-4516-b5f7-6ac9dba556bd"
+    },
+    {
+      "labels": [
+        "item",
+        "checklist"
+      ],
+      "title": "Soul of a Lost Undead",
+      "id": "8034ed8b-1fa3-4ae0-9475-dd4678bb3963"
+    },
+    {
+      "title": "Secret area",
+      "children": [
+        {
+          "labels": [
+            "item",
+            "checklist"
+          ],
+          "title": "Homeward Bone (6)",
+          "id": "e7bf2c02-07ab-4723-9f82-52ad312fda73"
+        },
+        {
+          "labels": [
+            "item",
+            "checklist"
+          ],
+          "title": "Morning Star",
+          "id": "5baa890e-bb62-4c9d-8c0e-b9c55e09eb65"
+        },
+        {
+          "labels": [
+            "item",
+            "checklist"
+          ],
+          "title": "Talisman",
+          "id": "f82f3a70-6a74-44b9-897a-5e7cdc935c65"
+        },
+        {
+          "labels": [
+            "item",
+            "checklist"
+          ],
+          "title": "Cracked Red Eye Orb (4)",
+          "id": "1a32e768-06a7-45e9-b9fd-9405187f2c6a"
+        },
+        {
+          "labels": [
+            "item",
+            "checklist"
+          ],
+          "title": "Lloyd's Talisman (4)",
+          "id": "23541c17-22be-40cc-a84b-0179e9d86a59"
+        }
+      ],
+      "id": "5d662684-a5db-47d8-ab20-5f65caf779fe"
+    },
+    {
+      "labels": [
+        "info"
+      ],
+      "title": "What do Lloyd's Talismans do?",
+      "content": "In addition to what its description says, a {Lloyd's Talisman} can also be thrown at {Mimic} enemies to put them (back) to sleep and get their loot without having to fight and kill them.",
+      "id": "a59ac227-966d-4201-82a9-880d63fe01d9"
+    }
+  ],
+  "id": "c8e2ea78-9211-4edf-90d4-d4863953bf20"
 }

@@ -16,8 +16,7 @@ angular.module "dsc", [
 	"angucomplete-alt"
 
 	"ui.grid"
-	"ui.grid.edit"
-	"ui.grid.cellNav"
+	"ui.grid.autoResize"
 
 	"dsc-guide"
 	"dsc-items"

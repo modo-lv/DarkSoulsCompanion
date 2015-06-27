@@ -42,40 +42,40 @@ _.task "cleanup", ->
 $.preprocessGuideData = (cb) !->
 	# Generate IDs for items that don't have them
 	generateIds = (item) ->
+		if item['title']? and not item['id']?
+			item['id'] = uuid.v4!
+
 		if item['children']?
 			for item in item['children'] by -1
 				generateIds item
-		if (not item['title']?) or item['id']?
-			return
-		item['id'] = uuid.v4!
 
 
-	glob "#{_.src.dir }/content/**/*.json", (error, files) !->
-		if error?
-			return cb error
-		for file in files by -1
-			data = require _.reqPath file
-			if data.constructor == Array
-				for item, index in data by -1
-					generateIds item
-			else if typeof data == "object"
-				generateIds data
-			fs.writeFileSync file, JSON.stringify(data, null, "\t")
+	files = glob.sync "#{_.src.dir }/content/**/*.json"
 
-		return cb!
+	for file in files by -1
+		data = require _.reqPath file
+		if data.constructor == Array
+			for item, index in data by -1
+				generateIds item
+		else if typeof data == "object"
+			generateIds data
+		fs.writeFileSync file, JSON.stringify(data, null, "  ")
+
 
 	# Process includes
 	include = (item) !->
+		if item['$include']?
+			console.log "Including #{item['$include'] }..."
+			item = require _.reqPath "#{_.contentDir }/#{item['$include'] }"
 		if item['children']?
-			for child in item['children']
-				include child
-		else
-			if item['$include']?
-				item <<< require _.reqPath "#{_.contentDir }/#{item['$include'] }"
+			for child, index in item['children']
+				item['children'][index] = include child
+
+		return item
 
 	data = require _.reqPath _.contentSourceFile
 
-	for item in data by -1
-		include item
+	for item, index in data
+		data[index] = include item
 
 	fs.writeFileSync _.contentCompiledFile, JSON.stringify(data)

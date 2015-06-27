@@ -47,7 +47,7 @@
     <button ng-click="addItem()" ng-disabled="!selectedItem">Add to inventory</button>
 
     <!-- Grid -->
-    <div ui-grid="gridOptions"></div>
+    <div ui-grid-auto-resize ui-grid="gridOptions"></div>
 
     <!-- Grid action buttons -->
     <script type="text/ng-template" id="GridRowHeader.html">
@@ -88,7 +88,9 @@
             ng-options="itemType as 'Show '+itemType for itemType in itemTypes">
     </select>
     <button ng-click="exportAsJson()">Export as JSON</button>
-    <div ui-grid-edit ui-grid-cellNav ui-grid="gridOptions"></div>
+    <button ng-click="exportAsCsv()">Export as CSV</button>
+
+    <div ui-grid-auto-resize ui-grid="gridOptions"></div>
 </div>
 
 </div>
