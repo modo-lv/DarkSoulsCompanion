@@ -1,14 +1,25 @@
 module?.exports = ($scope, uiGridConstants) !->
 	$scope.gridOptions = {}
+	
+	percentFieldMinWidth = 50
 
 	$scope.columnConfigs = {
 		\weapons : [
 			{
-				field : 'name'
-				minWidth : 250
+				field : 'weaponCategory',
+				displayName : 'Type',
+				minWidth : 100
 				sort : {
 					direction : uiGridConstants.ASC
 					priority : 0
+				}
+			},
+			{
+				field : 'name'
+				minWidth : 225
+				sort : {
+					direction : uiGridConstants.ASC
+					priority : 1
 				}
 			}
 			{
@@ -50,21 +61,25 @@ module?.exports = ($scope, uiGridConstants) !->
 			{
 				field : \scaleStr
 				displayName : \SS
+				minWidth : percentFieldMinWidth
 				cellFilter : 'percentage'
 			}
 			{
 				field : \scaleDex
 				displayName : \SD
+				minWidth : percentFieldMinWidth
 				cellFilter : 'percentage'
 			}
 			{
 				field : \scaleInt
 				displayName : \SI
+				minWidth : percentFieldMinWidth
 				cellFilter : 'percentage'
 			}
 			{
 				field : \scaleFaith
 				displayName : \SF
+				minWidth : percentFieldMinWidth
 				cellFilter : 'percentage'
 			}
 			{
@@ -101,11 +116,13 @@ module?.exports = ($scope, uiGridConstants) !->
 			}
 			{
 				field : \divineMod
+				minWidth : percentFieldMinWidth
 				displayName : \Div
 				cellFilter : 'percentage'
 			}
 			{
 				field : \occultMod
+				minWidth : percentFieldMinWidth
 				displayName : \Occ
 				cellFilter : 'percentage'
 			}
