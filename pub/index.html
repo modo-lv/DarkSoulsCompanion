@@ -31,11 +31,20 @@
 <div jqx-tabs>
 
     <ul>
+        <li>Character</li>
         <li>Inventory</li>
         <li>Guide</li>
         <li>Items</li>
     </ul>
 
+    <div id="Pc" ng-controller="PcController">
+    <table>
+        <tr ng-repeat="stat in model.stats | toStatArray">
+            <td>{{stat.displayName}}:</td>
+            <td><input type="number" min=8 max="99" ng-model="stat.base" ng-blur="saveStats()" /></td>
+        </tr>
+    </table>
+</div>
     <div id="Inventory" ng-controller="InventoryController">
     <angucomplete-alt
             id="AddToInventory"

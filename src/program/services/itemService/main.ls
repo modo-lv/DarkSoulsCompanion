@@ -15,15 +15,15 @@ angular.module "dsc.services"
 		itemTypes : [\items \materials \armors \keys \rings]
 	}
 
-		..models = require './itemService/models'
+		..models = require './models'
 
 		..loadItems = (force = false) !->
 			return unless force or self.[]allItems.length < 1
 
-			!-> require "./itemService/content/*.json", mode : 'expand'
+			!-> require "./content/*.json", mode : 'expand'
 
 			for itemType in self.itemTypes
-				for itemData in require "./itemService/content/#{itemType }.json"
+				for itemData in require "./content/#{itemType }.json"
 					self.createItem itemData
 						.. |> self.items.[][itemType].push
 						.. |> self.[]allItems.push

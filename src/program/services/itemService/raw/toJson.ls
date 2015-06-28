@@ -120,7 +120,9 @@ setTexts = (item) !->
 
 
 applyWeaponUpgrade = (weapon, baseUpgradeId, iteration) !->
-	upgrade = raw.upgrades[baseUpgradeId + iteration]
+	weapon.upgradeId = baseUpgradeId + iteration
+
+	upgrade = raw.upgrades[weapon.upgradeId]
 	if not upgrade? then return false
 
 	weapon
@@ -154,7 +156,7 @@ applyWeaponUpgrade = (weapon, baseUpgradeId, iteration) !->
 
 	# Costs
 	materialSet = raw.materialSets[+upgrade.\MaterialSetId]
-	console.log materialSet
+	#console.log materialSet
 	weapon
 		..upgradeMaterialId = +materialSet.\MaterialId01
 		..upgradeMaterialAmount = +materialSet.\ItemNum01
@@ -253,13 +255,18 @@ processWeapons = !->
 			| effectMap.\heal => weapon
 				..healPerHit = -1 * effect.\ChangeHpPoint
 
-		if (not weapon.name?) or weapon.name.indexOf(\Dagger) < 0 then continue
+		#if (not weapon.name?) or weapon.name.indexOf(\Dagger) < 0 then continue
+
+		applyWeaponUpgrade weapon, +rawWeapon.\ReinforceTypeId , 0
+		weapons.push weapon
 
 		# Generate actual versions
+		/*
 		for a from 0 to 15
 			newWeapon = {} <<< weapon
 			if applyWeaponUpgrade newWeapon, +rawWeapon.\ReinforceTypeId, a
 				weapons.push newWeapon
+		*/
 
 
 
