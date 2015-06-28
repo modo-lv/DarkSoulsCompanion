@@ -221,6 +221,84 @@
         }
       ],
       "id": "bdf5468f-5271-4cc5-8125-befd9617000e"
+    },
+    {
+      "title": "Church",
+      "children": [
+        {
+          "title": "Humanity",
+          "labels": [
+            "item"
+          ],
+          "id": "e1f893de-9ab7-4e57-8e7a-2d1bd08b8ddf"
+        },
+        {
+          "labels": [
+            "talk"
+          ],
+          "title": "Knight Lautrec of Carim",
+          "id": "578041ec-44ee-439c-8942-62f859c6bc76"
+        },
+        {
+          "labels": [
+            "item"
+          ],
+          "title": "Large Soul of a Nameless Soldier",
+          "id": "9e5da84f-ca46-47da-a9dd-0c063f2264db"
+        },
+        {
+          "labels": [
+            "info"
+          ],
+          "title": "Fog gate",
+          "content": "{Gargoyle} boss fight.",
+          "children": [
+            {
+              "labels": [
+                "item",
+                "tail"
+              ],
+              "title": "Gargoyle Tail Axe",
+              "content": "Cut off the first Gargoyle's tail.",
+              "id": "cd9fb16d-1b13-45ab-b860-aab0bf012646"
+            },
+            {
+              "title": "Gargoyle items",
+              "labels": [
+                "item",
+                "farm",
+                "drop"
+              ],
+              "content": "Gargoyles have a chance to drop {Gargoyle's Halberd}, {Gargoyle Shield} and {Gargoyle Helm}. There are only four {Gargoyle}s in the game and they don't respawn, so farming this boss fight is the only way to ensure you get them. You can farm by killing one of the {Gargoyle}s and then returning to the bonfire (by dying or using {Homeward} items/spells).",
+              "id": "6829a795-9efc-4f15-a994-59385163db0e"
+            }
+          ],
+          "id": "2da0545c-f616-4153-8125-2f4a9de4f83b"
+        }
+      ],
+      "id": "e7f528a6-96d9-4b35-bc29-cfa25a244f28"
+    },
+    {
+      "title": "Talk",
+      "labels": [
+        "talk"
+      ],
+      "children": [
+        {
+          "title": "Crestfallen Warrior (Firelink Shrine)",
+          "id": "36c4a2e6-7325-4481-9a7a-52ef8a182e90"
+        },
+        {
+          "title": "Andre of Astora (Undead Parish)",
+          "id": "ec25d6d2-b1a9-4d51-bd3e-c6017e85a4ac"
+        }
+      ],
+      "id": "0896568b-aa91-41ba-9cb3-3ae8e7a2d647"
+    },
+    {
+      "title": "Belltower",
+      "children": [],
+      "id": "38b0d399-5ef3-45e6-b514-088ec6f13c49"
     }
   ],
   "id": "6e53ebbe-7d80-4ca3-9532-776358bdbede"
