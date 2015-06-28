@@ -2,6 +2,114 @@ module?.exports = ($scope, uiGridConstants) !->
 	$scope.gridOptions = {}
 
 	$scope.columnConfigs = {
+		\weapons : [
+			{
+				field : 'name'
+				minWidth : 250
+				sort : {
+					direction : uiGridConstants.ASC
+					priority : 0
+				}
+			}
+			{
+				field : \reqStr
+				displayName : \RS
+			}
+			{
+				field : \reqDex
+				displayName : \RD
+			}
+			{
+				field : \reqInt
+				displayName : \RI
+			}
+			{
+				field : \reqFaith
+				displayName : \RF
+			}
+			{
+				field : \dmgPhys
+				displayName : \AP
+			}
+			{
+				field : \dmgMagic
+				displayName : \AM
+			}
+			{
+				field : \dmgFire
+				displayName : \AF
+			}
+			{
+				field : \dmgLight
+				displayName : \AL
+			}
+			{
+				field : \dmgStam
+				displayName : \AS
+			}
+			{
+				field : \scaleStr
+				displayName : \SS
+				cellFilter : 'percentage'
+			}
+			{
+				field : \scaleDex
+				displayName : \SD
+				cellFilter : 'percentage'
+			}
+			{
+				field : \scaleInt
+				displayName : \SI
+				cellFilter : 'percentage'
+			}
+			{
+				field : \scaleFaith
+				displayName : \SF
+				cellFilter : 'percentage'
+			}
+			{
+				field : \defPhys
+				displayName : \DP
+			}
+			{
+				field : \defMagic
+				displayName : \DM
+			}
+			{
+				field : \defFire
+				displayName : \DF
+			}
+			{
+				field : \defLight
+				displayName : \DL
+			}
+			{
+				field : \defPoison
+				displayName : \DP
+			}
+			{
+				field : \defBleed
+				displayName : \DB
+			}
+			{
+				field : \defCurse
+				displayName : \DC
+			}
+			{
+				field : \stability
+				displayName : \St
+			}
+			{
+				field : \divineMod
+				displayName : \Div
+				cellFilter : 'percentage'
+			}
+			{
+				field : \occultMod
+				displayName : \Occ
+				cellFilter : 'percentage'
+			}
+		]
 		\armors : [
 			{
 				field : 'armorSet'

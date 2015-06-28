@@ -136,17 +136,22 @@ applyWeaponUpgrade = (weapon, baseUpgradeId, iteration) !->
 			[\dmgLight \ThunderAtkRate]
 			[\dmgStam \StaminaAtkRate]
 
-			[\scaleStr \CorrectStrengthRate]
-			[\scaleDex \CorrectAgilityRate]
-			[\scaleInt \CorrectMagicRate]
-			[\scaleFaith \CorrectFaithRate]
-
 			[\defPoison \PoisonGuardResistRate]
 			[\defBleed \BloodGuardResistRate]
 			[\defCurse \CurseGuardResistRate]
 			[\stability \StaminaGuardDefRate]
 		]
 			weapon[mapping.0] = weapon[mapping.0] * upgrade[mapping.1] |> Math.floor
+
+		for mapping in [
+			[\scaleStr \CorrectStrengthRate]
+			[\scaleDex \CorrectAgilityRate]
+			[\scaleInt \CorrectMagicRate]
+			[\scaleFaith \CorrectFaithRate]
+		]
+			#console.log "Before: #{weapon[mapping.0] }"
+			weapon[mapping.0] = weapon[mapping.0] * upgrade[mapping.1]
+			#console.log "After: #{weapon[mapping.0] }"
 
 	weapon
 		..defPhys *= +upgrade.\PhysicsGuardCutRate
@@ -176,6 +181,12 @@ processWeapons = !->
 			..id = +rawWeapon.\Id
 
 			.. |> setTexts
+
+		# Weapons without names cannot be recognized and so are useless
+		if not weapon.name? then continue
+
+		weapon
+			..itemType = \weapon
 			..durability = +rawWeapon.\DurabilityMax
 			..weight = +rawWeapon.\Weight
 			..framptValue = +rawWeapon.\SellValue
@@ -199,22 +210,16 @@ processWeapons = !->
 			..reqInt = +rawWeapon.\ProperMagic
 			..reqFaith = +rawWeapon.\ProperFaith
 
-			# Stagger resistance?
-			#..stability = rawWeapon.\GuardBaseRepel
-
-			# Stagger attack?
-			# ..stagger = rawWeapon.\AttackBaseRepel
-
 			..dmgPhys = +rawWeapon.\AttackBasePhysics
 			..dmgMagic = +rawWeapon.\AttackBaseMagic
 			..dmgFire = +rawWeapon.\AttackBaseFire
 			..dmgLight = +rawWeapon.\AttackBaseThunder
 			..dmgStam = +rawWeapon.\AttackBaseStamina
 
-			..scaleStr = +rawWeapon.\CorrectStrength
-			..scaleDex = +rawWeapon.\CorrectAgility
-			..scaleInt = +rawWeapon.\CorrectMagic
-			..scaleFaith = +rawWeapon.\CorrectFaith
+			..scaleStr = +rawWeapon.\CorrectStrength / 100
+			..scaleDex = +rawWeapon.\CorrectAgility / 100
+			..scaleInt = +rawWeapon.\CorrectMagic / 100
+			..scaleFaith = +rawWeapon.\CorrectFaith / 100
 
 			..defPhys = +rawWeapon.\PhysGuardCutRate
 			..defMagic = +rawWeapon.\MagGuardCutRate
@@ -227,8 +232,8 @@ processWeapons = !->
 
 			..stability = +rawWeapon.\StaminaGuardDef
 
-			..divineMod = +rawWeapon.\AntSaintDamageRate * 100 |> Math.floor
-			..occultMod = +rawWeapon.\AntWeakA_DamageRate * 100 |> Math.floor
+			..divineMod = +rawWeapon.\AntSaintDamageRate
+			..occultMod = +rawWeapon.\AntWeakA_DamageRate
 
 			..upgradeSouls = +rawWeapon.\BasicPrice
 			..upgradeMaterialId = 0

@@ -4,6 +4,7 @@ angular.module "dsc.services"
 		\KEY : \key
 		\ARMOR : \armor
 		\RING : \ring
+		\WEAPON : \weapon
 	}
 	.service "itemService", -> self = {
 		# Items in separate arrays, grouped by type
@@ -12,7 +13,7 @@ angular.module "dsc.services"
 		# All items in a single array
 		allItems : []
 
-		itemTypes : [\items \materials \armors \keys \rings]
+		itemTypes : [\items \keys \materials \weapons \armors \rings]
 	}
 
 		..models = require './models'
@@ -31,8 +32,9 @@ angular.module "dsc.services"
 
 		..createItem = (itemData) ->
 			(switch itemData.itemType
-			| 'armor' => new self.models.Armor!
-			| otherwise => new self.models.Item!
+			| 'armor' => new self.models.Armor
+			| 'weapon' => new self.models.Weapon
+			| otherwise => new self.models.Item
 			) <<< itemData
 
 

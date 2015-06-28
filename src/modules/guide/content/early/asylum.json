@@ -1,0 +1,120 @@
+{
+  "title": "Northern Undead Asylum",
+  "children": [
+    {
+      "title": "Before fog gate",
+      "id": "360c3087-8cdc-4eb8-8f3c-1fb1d0a819e9",
+      "children": [
+        {
+          "title": "Dungeon Cell Key",
+          "labels": [
+            "item",
+            "checklist",
+            "unmissable"
+          ],
+          "id": "bb22d01a-7e80-4212-85a7-9c2cc8b33c30"
+        },
+        {
+          "title": "Estus Flask",
+          "labels": [
+            "item",
+            "checklist",
+            "unmissable"
+          ],
+          "id": "2943dcc5-9709-4301-9204-ce1e8b1f7ace"
+        },
+        {
+          "title": "Undead Asylum F2 East Key",
+          "labels": [
+            "item",
+            "checklist",
+            "unmissable"
+          ],
+          "id": "7611f825-8aec-4b4d-b3ae-715b99c27d12"
+        },
+        {
+          "title": "Weapon (depending on class)",
+          "labels": [
+            "item",
+            "checklist"
+          ],
+          "flags": [
+            "abstract"
+          ],
+          "id": "62fb279e-d8c2-44cb-a6f8-5cbdbfafac7c"
+        },
+        {
+          "title": "Shield (depending on class)",
+          "labels": [
+            "item",
+            "checklist"
+          ],
+          "flags": [
+            "abstract"
+          ],
+          "id": "7c85eeb9-548d-4b82-8082-227379f02d32"
+        },
+        {
+          "title": "Catalyst if Sorcerer / Pyromancy flame if Pyromancer",
+          "labels": [
+            "item",
+            "checklist"
+          ],
+          "flags": [
+            "abstract"
+          ],
+          "id": "f5266859-8df3-40f5-8e4a-4db2e117972e"
+        }
+      ]
+    },
+    {
+      "title": "Fog gate",
+      "labels": [
+        "info"
+      ],
+      "content": "Boss fight with {Asylum Demon}",
+      "id": "bef0478d-d015-447a-9e7a-48439c026898"
+    },
+    {
+      "title": "After fog gate",
+      "children": [
+        {
+          "labels": [
+            "warning"
+          ],
+          "title": "Leaving the area",
+          "content": "After exiting the main building, you will leave Northern Undead Asylum as soon as you reach the end / peak of the outside pathway. Make sure you are done with the level before approaching it.",
+          "id": "1b8e4c7d-b8df-4bb3-a192-2a7d3c32da44"
+        },
+        {
+          "title": "Big Pilgrim's Key",
+          "labels": [
+            "item",
+            "unmissable",
+            "checklist"
+          ],
+          "id": "0582832c-7faf-4f5c-afb4-f88b86d4e1ea"
+        },
+        {
+          "title": "Humanity",
+          "labels": [
+            "item",
+            "unmissable",
+            "checklist"
+          ],
+          "id": "64ef5197-5dd6-420e-afc3-832d33f7b397"
+        },
+        {
+          "title": "Soul of a Lost Undead",
+          "labels": [
+            "item",
+            "checklist"
+          ],
+          "id": "b42aa0d7-dfcd-4928-8df8-685bf6b5d085"
+        }
+      ],
+      "id": "d60a8add-82f2-434b-ae9d-a807eafac893"
+    }
+  ],
+  "id": "555fdb72-1749-4982-b620-5fcf61bf8310"
+}

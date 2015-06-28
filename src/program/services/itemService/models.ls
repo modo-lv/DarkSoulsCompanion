@@ -4,6 +4,7 @@ module?.exports = {
 		->
 			@itemType = ''
 			@name = ''
+			@framptValue = 0
 
 		fullName :~ -> @name
 
@@ -16,16 +17,72 @@ module?.exports = {
 			# How far the equipment has been upgraded (+1, +2, etc.)
 			@level = 0
 
+			@durability = 0
+
 
 		fullName :~ -> @name + if @level > 0 then " #{@levelText }" else ""
 
 
 		levelText :~ -> if @level > 0 then "+#{@level }" else ""
 
+	\Weapon : class Weapon extends Equipment
+		->
+			@weaponCategory = ''
+			@canBlock = false
+			@canParry = false
+			@castsMagic = false
+			@castsPyromancy = false
+			@castsMiracles = false
+			@canDamageGhosts = false
+			@iconId = 0
+			@hasRegularDamage = false
+			@hasStrikeDamage = false
+			@hasSlashDamage = false
+			@hasThrustDamage = false
+			@isEnchantable = false
+			@reqStr = 0
+			@reqDex = 0
+			@reqInt = 0
+			@reqFaith = 0
 
+			@dmgPhys = 0
+			@dmgMagic = 0
+			@dmgFire = 0
+			@dmgLight = 0
+			@dmgStam = 0
+
+			@scaleStr = 0
+			@scaleDex = 0
+			@scaleInt = 0
+			@scaleFaith = 0
+
+			@defPhys = 0
+			@defMagic = 0
+			@defFire = 0
+			@defLight = 0
+
+			@defPoison = 0
+			@defBleed = 0
+			@defCurse = 0
+
+			@stability = 0
+
+			@divineMod = 0
+			@occultMod = 0
+
+			@upgradeSouls = 0
+			@upgradeMaterialId = 0
+			@upgradeMaterialAmount = 0
+
+			# Ascention path
+			@path = ''
+
+			# Range for bows & crossbows
+			@shotRange = 0
 
 	\Armor : class Armor extends Equipment
 		->
+			@itemType = 'armor'
 			# head, chest, legs or hands
 			@armorType = 'head'
 

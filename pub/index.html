@@ -31,12 +31,47 @@
 <div jqx-tabs>
 
     <ul>
+        <li>Items</li>
+        <li>Guide</li>
         <li>Character</li>
         <li>Inventory</li>
-        <li>Guide</li>
-        <li>Items</li>
     </ul>
 
+    <div id="Items" ng-controller="ItemsController">
+    <select ng-change="selectedItemTypeChanged()" ng-model="selectedItemType"
+            ng-options="itemType as 'Show '+itemType for itemType in itemTypes">
+    </select>
+    <button ng-click="exportAsJson()">Export as JSON</button>
+    <button ng-click="exportAsCsv()">Export as CSV</button>
+
+    <div ui-grid-auto-resize ui-grid="gridOptions"></div>
+</div>
+    <script type="text/ng-template" id="GuideEntry">
+    <div class="header" ng-if="entry.title">
+        <button class="check-mark" ng-click="entryDone($event, entry)">✓</button>
+        <div class="title">{{entry.title}}</div>
+        <span class="label" ng-repeat="label in entry.labels">{{label}}</span>
+    </div>
+    <div class="content">
+        <div ng-if="entry.content" ng-bind-html="entry.content"></div>
+
+        <ul ng-if="entry.children" ng-init="depth = depth + 1" ng-class="depth == 1 ? 'root' : ''">
+            <li ng-repeat="entry in entry.children"
+                ng-include="'GuideEntry'"
+                ng-class="getClassesFor(entry)"
+                data-id="{{entry.id}}"
+                data-labels="{{entry.labels}}"
+                ng-hide="entry.done"
+                jqx-expander
+                jqx-settings="getExpanderSettingsFor(entry)">
+            </li>
+        </ul>
+
+    </div>
+</script>
+
+<div id="Guide" ng-controller="GuideController" ng-include="'GuideEntry'">
+</div>
     <div id="Pc" ng-controller="PcController">
     <table>
         <tr ng-repeat="stat in model.stats | toStatArray">
@@ -65,41 +100,6 @@
     </script>
 
 
-</div>
-    <script type="text/ng-template" id="GuideEntry">
-    <div class="header" ng-if="entry.title">
-        <button class="check-mark" ng-click="entryDone($event, entry)">✓</button>
-        <div class="title">{{entry.title}}</div>
-        <span class="label" ng-repeat="label in entry.labels">{{label}}</span>
-    </div>
-    <div class="content">
-        <div ng-if="entry.content" ng-bind-html="entry.content"></div>
-
-        <ul ng-if="entry.children" ng-init="depth = depth + 1" ng-class="depth == 1 ? 'root' : ''">
-            <li ng-repeat="entry in entry.children"
-                ng-include="'GuideEntry'"
-                ng-class="getClassesFor(entry)"
-                data-id="{{entry.id}}"
-                data-labels="{{entry.labels}}"
-                ng-hide="entry.done"
-                jqx-expander
-                jqx-settings="getExpanderSettingsFor(entry)">
-            </li>
-        </ul>
-
-    </div>
-</script>
-
-<div id="Guide" ng-controller="GuideController" ng-include="'GuideEntry'">
-</div>
-    <div id="Items" ng-controller="ItemsController">
-    <select ng-change="selectedItemTypeChanged()" ng-model="selectedItemType"
-            ng-options="itemType as 'Show '+itemType for itemType in itemTypes">
-    </select>
-    <button ng-click="exportAsJson()">Export as JSON</button>
-    <button ng-click="exportAsCsv()">Export as CSV</button>
-
-    <div ui-grid-auto-resize ui-grid="gridOptions"></div>
 </div>
 
 </div>

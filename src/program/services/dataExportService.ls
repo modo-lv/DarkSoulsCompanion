@@ -12,7 +12,11 @@ angular.module "dsc.services"
 					row = []
 					for key, value of item
 						if typeof value == "string" then
-							value = "\"#{value.replace '"', '""' }\""
+							value = value
+								.replace '"', '""'
+								.replace /(\r\n|\n|\r)/g, '\\n'
+							value = "\"#value\""
+
 						row.push value
 
 					row = row |> join ','

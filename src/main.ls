@@ -25,5 +25,5 @@ angular.module "dsc", [
 	"dsc-items"
 	"dsc-inventory"
 ]
-
-
+	.filter 'percentage', ($filter) -> (input, decimals = 0) ->
+		$filter('number')(input * 100, decimals) + '%'

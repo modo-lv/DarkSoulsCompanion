@@ -1,0 +1,227 @@
+{
+  "title": "Undead Parish",
+  "children": [
+    {
+      "title": "Before first fog gate",
+      "children": [
+        {
+          "title": "Humanity farming",
+          "labels": [
+            "info"
+          ],
+          "content": "The rats at the bottom of the ladder drop {Humanity}, and the distance from the bonfire is trivial, so it's a good spot to spend some time getting your Humanity up to at least 10.",
+          "id": "2bd18341-bc45-4645-9ad0-1a0a0022411d"
+        },
+        {
+          "title": "Black Knight",
+          "children": [
+            {
+              "title": "Titanite Shard",
+              "labels": [
+                "item",
+                "checklist",
+                "drop"
+              ],
+              "id": "10c3ecae-7366-4ccc-b423-01e81fea7668"
+            },
+            {
+              "title": "Strategy",
+              "labels": [
+                "help"
+              ],
+              "content": "The {Black Knight} at the top of the tower has very powerful attacks that will quickly overwhelm you unless you've spend a lot of time leveling up and/or acquiring better equipment. The quickest way to defeat him is to learn to parry his attacks and riposte them. If you're wearing light armor, you can also sneak up on him from behind and start the fight with a back-stab.<br />If parrying isn't working for you, you can do it the tedious way: 1) sneak up & back-stab, 2) immediately sprint down the stairs, if he follows you (can tell by his heavy, loud footsteps), also slide down the ladder at the bottom (make sure you've cleared out the rats first!); and 3) wait until he returns to his post, sneak back up and repeat.",
+              "id": "9fc117a3-6bdb-4c4a-9b9c-75cad9b2193e"
+            }
+          ],
+          "id": "7c45b933-abaa-4426-9557-20f42302c66a"
+        },
+        {
+          "labels": [
+            "item",
+            "checklist"
+          ],
+          "title": "Alluring Skull (4)",
+          "id": "06d2eb78-66af-401b-8fc7-f7345892309a"
+        },
+        {
+          "labels": [
+            "item",
+            "checklist"
+          ],
+          "title": "Mystery Key",
+          "id": "2c17603d-1cb2-42e2-8eda-2e90b6e888a2"
+        },
+        {
+          "labels": [
+            "item",
+            "checklist"
+          ],
+          "title": "Large Soul of a Lost Undead",
+          "id": "2f33f94d-d6d7-47bf-a503-94ca6ec86403"
+        }
+      ],
+      "id": "d7465491-8b03-4189-b9cb-966b20bb3a84"
+    },
+    {
+      "title": "First fog gate",
+      "labels": [
+        "info"
+      ],
+      "content": "No boss fight, just passing through.",
+      "id": "e539a8c8-f6af-42d9-8eac-a4ea8009e8a0"
+    },
+    {
+      "title": "Around the church",
+      "children": [
+        {
+          "labels": [
+            "item",
+            "checklist"
+          ],
+          "title": "Knight Shield",
+          "id": "59f2c49c-fb8e-49c6-a85d-7e78903a10d1"
+        },
+        {
+          "labels": [
+            "item",
+            "checklist"
+          ],
+          "title": "Halberd",
+          "id": "39e2ec9a-943c-4060-9198-5277652bdf0e"
+        },
+        {
+          "labels": [
+            "item",
+            "checklist"
+          ],
+          "title": "Basement Key",
+          "id": "bea2cb75-d4b7-40f7-8101-a7b6dcaf5fcb"
+        },
+        {
+          "labels": [
+            "checklist"
+          ],
+          "title": "Shortcut: Gate back to the Altar of Sunlight bonfire.",
+          "id": "9918a213-d798-4a6f-8fae-b3185e2ae81f"
+        },
+        {
+          "title": "Seigmeyer of Catarina",
+          "labels": [
+            "talk"
+          ],
+          "children": [
+            {
+              "title": "Glitch prevention",
+              "labels": [
+                "warning"
+              ],
+              "content": "If you stop talking to Seigmeyer before he starts repeating himself, there is a chance that the game will glitch and his side-story / side-quest will be lost for the rest of the playthrough. So make sure you talk to him until you've heard everything.",
+              "id": "2189a662-a41a-496b-9f7a-8ac53eca4e3d"
+            },
+            {
+              "title": "Killing Seigmeyer",
+              "labels": [
+                "spoiler"
+              ],
+              "content": "{Seigmeyer of Catarina} appears at several points in the playthrough as part of his side-story, providing opportunities to get special and unique items, which will be permanently lost if he is killed.",
+              "id": "e2f5fe49-c163-40c0-9d04-91bfeb86bc02"
+            }
+          ],
+          "id": "c6c2e7f5-649f-4379-a30d-034205bcf7f9"
+        },
+        {
+          "title": "Undead Parish bonfire",
+          "labels": [
+            "bonfire"
+          ],
+          "id": "271cfb87-e1c6-4233-aa32-bc7d6aa379d6"
+        },
+        {
+          "title": "Andre of Astora",
+          "labels": [
+            "talk"
+          ],
+          "children": [
+            {
+              "title": "Hurrah! gesture",
+              "labels": [
+                "gesture"
+              ],
+              "id": "8d2dc731-134d-4a10-bd66-abe7bf844339"
+            },
+            {
+              "title": "Weapon Smithbox",
+              "labels": [
+                "item"
+              ],
+              "id": "331664fd-1f48-4ed4-bd11-a494b48a7509"
+            },
+            {
+              "title": "Armor Smithbox",
+              "labels": [
+                "item"
+              ],
+              "id": "8dd1f282-8abf-47cb-8fa5-5965f3dd624e"
+            }
+          ],
+          "id": "25dcb698-c562-4c5e-bcce-60f913ddaa37"
+        }
+      ],
+      "id": "5a2d51dc-cd4a-4023-aa17-1e93ec7e511a"
+    },
+    {
+      "title": "Church",
+      "children": [
+        {
+          "title": "Black Knight",
+          "children": [
+            {
+              "labels": [
+                "drop"
+              ],
+              "title": "Titanite Shard",
+              "id": "13502fdc-26ed-4eba-81d1-b29eef1d52b3"
+            }
+          ],
+          "id": "e58f7d66-d044-48a1-bc8a-0b93adb330f1"
+        },
+        {
+          "labels": [
+            "item"
+          ],
+          "title": "Fire Keeper Soul",
+          "id": "578041ec-44ee-439c-8942-62f859c6bc76"
+        },
+        {
+          "title": "Elevator to Firelink Shrine",
+          "labels": [
+            "shortcut"
+          ],
+          "id": "71f46a2c-0e19-426d-a2b0-345e94a01d3c"
+        }
+      ],
+      "id": "6e048939-f02d-4600-b0d9-01cf597d93b6"
+    },
+    {
+      "title": "Firelink Shrine",
+      "children": [
+        {
+          "title": "Crestfallen Warrior",
+          "labels": [
+            "talk"
+          ],
+          "id": "6454b188-ce28-4300-99cc-207145dd5fbd"
+        },
+        {
+          "title": "Reinforce Estus Flasks",
+          "labels": [
+            "estus"
+          ],
+          "id": "8a21c094-e86e-47a0-9310-c0595b868b6e"
+        }
+      ],
+      "id": "bdf5468f-5271-4cc5-8125-befd9617000e"
+    }
+  ],
+  "id": "6e53ebbe-7d80-4ca3-9532-776358bdbede"
+}

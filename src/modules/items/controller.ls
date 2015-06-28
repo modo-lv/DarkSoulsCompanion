@@ -2,7 +2,7 @@ angular.module "dsc-items"
 	.controller "ItemsController", ($scope, dataExportService, itemService, uiGridConstants) !->
 		itemService.loadItems!
 
-		for itemType in [\items \materials \armors \keys \rings]
+		for itemType in [\items \keys \materials \weapons \armors \rings]
 			$scope.[]itemTypes.push itemType
 
 		(require './program/gridOptions') $scope, uiGridConstants
@@ -21,6 +21,6 @@ angular.module "dsc-items"
 				return item
 			dataExportService.exportCsv outputData
 
-		$scope.selectedItemType = \items
+		$scope.selectedItemType = \weapons
 		$scope.selectedItemTypeChanged!
 

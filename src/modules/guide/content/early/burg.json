@@ -178,12 +178,34 @@
           "id": "d5bc8039-9c75-407a-8167-f83441463ffc"
         },
         {
-          "labels": [
-            "item",
-            "checklist"
+          "title": "Black Knight",
+          "children": [
+            {
+              "title": "Titanite Chunk",
+              "labels": [
+                "item",
+                "checklist"
+              ],
+              "id": "168e1546-75b5-4897-a38d-f249b7f9e94c"
+            },
+            {
+              "title": "Hints",
+              "labels": [
+                "help"
+              ],
+              "content": "He is vulnerable to both parry + riposte and backstabs. And if you climb the ladder to the top of the building next to the small tower with the archer, he won't be able to reach you while you're free to shoot/throw things at him and/or wait until he returns to his post for another backstab.",
+              "id": "1324666b-e0af-4537-b937-371e971949c3"
+            },
+            {
+              "labels": [
+                "item",
+                "checklist"
+              ],
+              "title": "Blue Tearstone Ring",
+              "id": "c852675d-7d98-49fe-b709-23ed545c48d6"
+            }
           ],
-          "title": "Blue Tearstone Ring",
-          "id": "406979d4-bb62-4739-92ea-657813594fb1"
+          "id": "c0446172-276c-4658-8772-6afca140c622"
         },
         {
           "labels": [
@@ -217,8 +239,7 @@
       "children": [
         {
           "labels": [
-            "item",
-            "checklist"
+            "item"
           ],
           "title": "Large Soul of a Lost Undead",
           "id": "cef93e49-cf90-4006-9161-bca86900fe14"
