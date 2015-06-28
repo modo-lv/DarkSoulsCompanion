@@ -5,7 +5,7 @@
       {
         "title": "Labels",
         "content": "<ul><li><strong>info</strong>: General information on some aspect of the game.</li><li><strong>warning</strong>: Important warnings about things that can unexpectedly or inadvertently change the current playthrough. Spoiler-free as much as possible.</li></ul>",
-        "id": "f9b57259-16df-4690-ac46-46cb643ab297"
+        "id": "6f728622-33d9-417e-b806-3171bea1c09d"
       },
       {
         "title": "How to use this guide",
@@ -22,34 +22,50 @@
         "title": "Saving and loading",
         "content": "Dark Souls saves the game almost constantly. If you make a mistake, such as accidentally attack an NPC, upgrade the wrong weapon or level up the wrong stats, there is no way to go back. This is by design, but might not always be fair (for example, dying because of a technical glitch rather than gameplay). The only way to work around this is on the PC — either manually create copies of your save file or link it to a cloud storage service like Dropbox that keeps old versions of files and lets you restore them.",
         "id": "bb88d645-a3c0-4ee7-bcff-9680062b7c93"
-      }
-    ],
-    "id": "9147bfd5-8b2f-4a2b-a2d8-334f03fb8d33"
-  },
-  {
-    "labels": [
-      "info"
-    ],
-    "title": "Combat",
-    "children": [
-      {
-        "labels": [
-          "info"
-        ],
-        "title": "Parry and riposte",
-        "content": "The game tells you how to parry and riposte, but it doesn't tell you that they're only possible under the right conditions. The conditions are:<ul><li>Your left hand must wield a weapon or shield (bare fist also works) that can actually parry. Not every shield and weapon can.</li><li>The enemy must be humanoid and of a humanoid size (no more than around 1.5 times your own size).</li><li>You must be standing close to the enemy for the parry to hit his hand, regardless of how long his weapon is.</li><li>The attack itself must be parry-able. Most are, but there are always exceptions.</li></ul> If you successfully parry and then riposte, you are completely immune to all direct attacks during the animation. It is also possible to parry partially: if you're a little bit too early or too late with your parry, or simply parry an attack that is un-parry-able, you will receive reduced damage, will not suffer any physical side-effects (such as stunning or knock-back). Partial parries work on all attacks in the game, even arrows and magic missiles.",
-        "id": "b14bfc6c-efc4-4449-b960-a76df82ad8f1"
       },
       {
         "labels": [
           "info"
         ],
-        "title": "Back-stab",
-        "content": "Similar to parrying, there are several conditions that must be met for a back-stab to be possible:<ul><li>The enemy must be humanoid and of a humanoid size (no more than around 1.5 times your own size).</li><li>You must be standing close to the enemy.</li><li>You must not be holding up your should.</li><li>You and the enemy have to be on even ground. Minor differences don't matter, but if there's too much height difference the back-stab will not happen.</li></ul> Just like with riposte, you are completely immune to all direct attacks during the back-stab animation.",
-        "id": "b14bfc6c-efc4-4449-b960-a76df82ad8f1"
+        "title": "Combat & movement",
+        "children": [
+          {
+            "labels": [
+              "info"
+            ],
+            "title": "Jumping",
+            "content": "You can jump buy holding down the roll/sprint button and, while still sprinting, quickly pressing it again. Your character will do a running jump, followed by a roll. Several places and itmes in game can only be reached by jumping, so it's an important maneuver to learn.",
+            "id": "08b4987a-3f9e-42b2-a5bd-a035b1d773e3"
+          },
+          {
+            "labels": [
+              "info"
+            ],
+            "title": "Parry and riposte",
+            "content": "The game tells you how to parry and riposte, but it doesn't tell you that they're only possible under the right conditions. The conditions are:<ul><li>Your left hand must wield a weapon or shield (bare fist also works) that can actually parry. Not every shield and weapon can.</li><li>The enemy must be humanoid and of a humanoid size (no more than around 1.5 times your own size).</li><li>You must be standing close to the enemy for the parry to hit his hand, regardless of how long his weapon is.</li><li>The attack itself must be parry-able. Most are, but there are always exceptions.</li></ul> If you successfully parry and then riposte, you are completely immune to all direct attacks during the animation. It is also possible to parry partially: if you're a little bit too early or too late with your parry, or simply parry an attack that is un-parry-able, you will receive reduced damage, will not suffer any physical side-effects (such as stunning or knock-back). Partial parries work on all attacks in the game, even arrows and magic missiles.",
+            "id": "b14bfc6c-efc4-4449-b960-a76df82ad8f1"
+          },
+          {
+            "labels": [
+              "info"
+            ],
+            "title": "Back-stab",
+            "content": "Similar to parrying, there are several conditions that must be met for a back-stab to be possible:<ul><li>The enemy must be humanoid and of a humanoid size (no more than around 1.5 times your own size).</li><li>You must be standing close to the enemy.</li><li>You must not be holding up your should.</li><li>You and the enemy have to be on even ground. Minor differences don't matter, but if there's too much height difference the back-stab will not happen.</li></ul> Just like with riposte, you are completely immune to all direct attacks during the back-stab animation.",
+            "id": "b14bfc6c-efc4-4449-b960-a76df82ad8f1"
+          }
+        ],
+        "id": "1e0f997e-9c59-4e9c-8389-ea744749435e"
+      },
+      {
+        "title": "Crystal Lizards",
+        "labels": [
+          "help"
+        ],
+        "content": "Crystal Lizards are tiny little creatures that ",
+        "id": "d59458bc-02fb-4dc5-8667-d03dce7ddc52"
       }
     ],
-    "id": "1e0f997e-9c59-4e9c-8389-ea744749435e"
+    "id": "9147bfd5-8b2f-4a2b-a2d8-334f03fb8d33"
   },
   {
     "title": "Character Creation (gifts)",
@@ -215,6 +231,9 @@
       },
       {
         "$include": "early/firelink.json"
+      },
+      {
+        "$include": "early/undeadBurg.json"
       }
     ],
     "id": "50cc6868-305b-4c8f-b1d9-38cb492742b0"

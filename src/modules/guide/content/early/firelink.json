@@ -12,7 +12,7 @@
               "labels": [
                 "warning"
               ],
-              "content": "NPCs can be attacked and killed, which also means you can attack them by accident. An NPC you have attacked will remain hostile <strong>for the rest of the playthrough</strong> and you will miss out on everything he might have to offer (side quests, item purchases, exposition, etc.).",
+              "content": "All NPCs can be attacked and killed, which also means you can attack them by accident. An NPC you have attacked will remain permanently hostile until you get to the point in the game where it's possible to undo NPC hostility. And there are a few exceptions even to that.",
               "id": "2164cebf-1cbd-4b15-b788-9626fc87f73e"
             },
             {
@@ -76,7 +76,17 @@
       ],
       "title": "Crestfallen Warrior",
       "content": "{Crestfallen Warrior} is the man sitting near the bonfire.",
-      "id": "7ca7431d-5286-47db-9c96-6f93419d4de3"
+      "children": [
+        {
+          "labels": [
+            "spoiler"
+          ],
+          "title": "Killing Crestfallen Warrior",
+          "content": "Killing the {Crestfallen Warrior} means you will miss out on exposition and gamplay hints.",
+          "id": "2793c8b2-2aa2-423d-bc76-ab53169ad231"
+        }
+      ],
+      "id": "ed0235e7-0e09-4a81-a598-01748856915f"
     },
     {
       "labels": [
@@ -125,9 +135,17 @@
           ],
           "title": "Shrug",
           "id": "6ac2becf-09bb-489d-9c34-b47a3ea33296"
+        },
+        {
+          "labels": [
+            "spoiler"
+          ],
+          "title": "Killing Petrus of Thorolund",
+          "content": "Killing {Petrus of Thorolund} will abort his side-story. If done before the arrival of his companions, they will become permanently hostile (their hostility cannot be canceled by any means).",
+          "id": "1cef7c9a-8e57-4317-a050-f640840ed6dd"
         }
       ],
-      "id": "67a65b7b-ff99-4516-b5f7-6ac9dba556bd"
+      "id": "13ddf08d-f46c-4e66-896c-71dbe7eb6d99"
     },
     {
       "labels": [
@@ -302,6 +320,7 @@
             "checklist"
           ],
           "title": "Soul of a Lost Undead",
+          "id": "089da6cf-0d39-4fef-aa0e-64f629dec55a"
         }
       ],
       "id": "e25a1f11-a287-4b40-b6f4-f155280b2c79"

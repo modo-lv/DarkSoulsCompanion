@@ -15,7 +15,7 @@ angular.module "dsc-guide"
 		(require './program/doneEntries') $scope, storageService
 
 		for id in $scope.userData.doneEntryIds
-			$scope.entryIndex[id].done = true
+			$scope.entryIndex[id]?.done = true
 		$scope.processDoneEntryParents!
 
 

@@ -1,0 +1,309 @@
+{
+  "title": "Undead Burg",
+  "children": [
+    {
+      "title": "Before first fog gate",
+      "children": [
+        {
+          "labels": [
+            "item",
+            "checklist"
+          ],
+          "title": "Large Soul of a Lost Undead",
+          "id": "7455ad82-6a91-499a-ae74-a8ff650dd4a1"
+        },
+        {
+          "labels": [
+            "item",
+            "checklist"
+          ],
+          "title": "Soul of a Lost Undead",
+          "id": "4e5c7d90-5f02-4770-899d-3064077a7e65"
+        },
+        {
+          "labels": [
+            "item",
+            "checklist"
+          ],
+          "title": "Rubbish",
+          "id": "351c1fea-9bc4-447b-bce3-cbf9c37c3715"
+        },
+        {
+          "labels": [
+            "item",
+            "checklist"
+          ],
+          "title": "Humanity",
+          "id": "6c1a96f4-4013-4280-a8f4-740343afc99e"
+        }
+      ],
+      "id": "c2625a95-14d1-48d2-a938-8c6b82dddace"
+    },
+    {
+      "title": "First fog gate",
+      "content": "No boss fight, just passing through.",
+      "id": "427b9043-31e2-40cf-a09b-46bc38545cfa"
+    },
+    {
+      "title": "Before bonfire",
+      "children": [
+        {
+          "labels": [
+            "item",
+            "checklist"
+          ],
+          "title": "Soul of a Lost Undead",
+          "id": "c621c6c5-8f79-4cf7-b45e-8025665c9cfa"
+        },
+        {
+          "labels": [
+            "merchant",
+            "talk",
+            "checklist"
+          ],
+          "title": "Undead Male Merchant",
+          "children": [
+            {
+              "labels": [
+                "spoiler"
+              ],
+              "title": "Killing Undead Male Merchant",
+              "content": "In a game without DLC, he is the only merchant selling {Lloyd's Talismans}. Other that his death has no serious effect on the rest of the game.",
+              "id": "6fbab5a3-9100-4340-a434-c84396d7a138"
+            },
+            {
+              "title": "Orange Guidance Soapstone",
+              "labels": [
+                "buy",
+                "checklist"
+              ],
+              "id": "efd3dc97-3277-49ca-8f7b-1085642c7b13"
+            },
+            {
+              "title": "Residence Key",
+              "labels": [
+                "buy",
+                "checklist"
+              ],
+              "id": "4425179e-01e5-4c56-ae92-f0684c70046b"
+            },
+            {
+              "title": "Short Bow",
+              "labels": [
+                "buy",
+                "checklist"
+              ],
+              "id": "fc627dcf-62b8-4b51-88f8-d5fa4aa38734"
+            },
+            {
+              "title": "Arrows (30+)",
+              "labels": [
+                "buy",
+                "checklist"
+              ],
+              "content": "The actual number of arrows needed will depend on the bow you use and your {Dexterity}, but 30 should be enough for any case. Extras are for ",
+              "id": "9bd8b87d-a188-4cca-b914-b9f174a8771e"
+            }
+          ],
+          "id": "475b81a8-7594-4ca3-bae7-7735c8e4d070"
+        },
+        {
+          "labels": [
+            "item",
+            "checklist"
+          ],
+          "title": "Throwing Knife (10)",
+          "id": "a15b16bb-bf94-4540-87a6-ffc3c75cbb0e"
+        },
+        {
+          "labels": [
+            "item",
+            "checklist"
+          ],
+          "title": "Light Crossbow",
+          "id": "d0863eba-99bd-45cf-8d1f-026a09c688f2"
+        },
+        {
+          "labels": [
+            "item",
+            "checklist"
+          ],
+          "title": "Standard Bolt (16)",
+          "id": "43f89eb8-bbee-4705-bea6-018199ca062a"
+        },
+        {
+          "labels": [
+            "item",
+            "checklist"
+          ],
+          "title": "Wooden Shield",
+          "id": "bdfdcaf9-1571-4acb-bfc0-6ffa21beabe5"
+        },
+        {
+          "labels": [
+            "checklist"
+          ],
+          "title": "Bonfire",
+          "id": "06f86a9b-193f-424c-aa7d-27fcd219fc70"
+        }
+      ],
+      "id": "84844129-6300-45ac-9c23-5587f4406e0a"
+    },
+    {
+      "title": "Before second fog gate",
+      "children": [
+        {
+          "labels": [
+            "item",
+            "checklist"
+          ],
+          "title": "Black Firebomb (5)",
+          "id": "b634f89c-0d2b-477c-9116-bb6942b5860f"
+        },
+        {
+          "labels": [
+            "item",
+            "checklist"
+          ],
+          "title": "Soul of a Lost Undead",
+          "id": "0c9ba31b-8d7f-48f4-8bf8-cc2cb64e5bd1"
+        },
+        {
+          "labels": [
+            "item",
+            "checklist"
+          ],
+          "title": "Gold Pine Resin (3)",
+          "content": "Access requires {Residence Key} or {Master Key}.",
+          "id": "d5bc8039-9c75-407a-8167-f83441463ffc"
+        },
+        {
+          "labels": [
+            "item",
+            "checklist"
+          ],
+          "title": "Blue Tearstone Ring",
+          "id": "406979d4-bb62-4739-92ea-657813594fb1"
+        },
+        {
+          "labels": [
+            "checklist",
+            "help"
+          ],
+          "title": "Crystal Lizard",
+          "content": "It's located in the barrels across the room from the fog gate. Unlike most {Crystal Lizard}s, this one won't reappear by reloading game, if you fail to kill it, you'll need to go back to the bonfire to reset the barrels.",
+          "id": "f03d88ee-c071-4159-b0ca-f3b85a62e891"
+        }
+      ],
+      "id": "e0464e83-b63c-4686-a16e-92a94812e1e3"
+    },
+    {
+      "title": "Second fog gate",
+      "content": "{Taurus Demon} boss fight.",
+      "children": [
+        {
+          "labels": [
+            "help"
+          ],
+          "title": "Drop attack",
+          "content": "You can use the tower for a drop attack, if you can get to it quickly enough as soon as the boss appears.",
+          "id": "09eadc2a-f214-4f64-873b-f26cf04bae81"
+        }
+      ],
+      "id": "3f724a95-124c-441c-9493-0458dd0c927d"
+    },
+    {
+      "title": "Before bridge",
+      "children": [
+        {
+          "labels": [
+            "item",
+            "checklist"
+          ],
+          "title": "Large Soul of a Lost Undead",
+          "id": "cef93e49-cf90-4006-9161-bca86900fe14"
+        },
+        {
+          "labels": [
+            "talk",
+            "checklist"
+          ],
+          "title": "Solaire",
+          "children": [
+            {
+              "labels": [
+                "item",
+                "checklist"
+              ],
+              "title": "White Sign Soapstone",
+              "id": "07cbe5f8-fe92-4e08-b59c-34e528691647"
+            }
+          ],
+          "id": "06496e37-5587-418e-8e7b-c50f15a580c4"
+        }
+      ],
+      "id": "dcdd1644-6eef-4c04-8491-c8c7f45bfa2b"
+    },
+    {
+      "title": "Bridge",
+      "children": [
+        {
+          "labels": [
+            "help"
+          ],
+          "title": "Crossing the bridge",
+          "content": "One thing that can help in reaching the stairs to safety (on the right side in the middle of the bridge) is to use a {Heater Shield} (purchasable from the {Undead Male Merchant}), since it has 70% fire damage reduction.",
+          "id": "85434110-02d7-4742-a875-5f5c7155756b"
+        },
+        {
+          "labels": [
+            "checklist"
+          ],
+          "title": "Shortcut back to Undead Burg bonfire",
+          "id": "c2469318-c891-475b-b272-d1c37e97a842"
+        },
+        {
+          "labels": [
+            "item",
+            "hidden"
+          ],
+          "title": "Drake Sword",
+          "content": "Use a bow to snipe at the hanging drake's tail from the underside of the bride.",
+          "id": "af40d1f6-8280-4c96-8ff9-6de9642e27d7"
+        },
+        {
+          "labels": [
+            "checklist"
+          ],
+          "title": "Bonfire (Altar of Sunlight)",
+          "id": "c86eb8af-643c-43dc-8243-01d863f2f75c"
+        },
+        {
+          "labels": [
+            "checklist"
+          ],
+          "title": "Shortcut (gate) between the bridge (Undead Burg) and Undead Parish",
+          "id": "b135d69f-421f-4c2e-9c10-5dcb5e8725e6"
+        },
+        {
+          "labels": [
+            "item",
+            "checklist"
+          ],
+          "title": "Soul of a Nameless Soldier",
+          "id": "f4aa0c20-54c9-4d94-a333-acbbad69adf9"
+        },
+        {
+          "labels": [
+            "item",
+            "checklist"
+          ],
+          "title": "Claymore",
+          "id": "1167ebf2-375f-4053-b337-2bf121be8e65"
+        }
+      ],
+      "id": "41c0b26e-c389-4f7f-ae9d-3c7fd4bf5afd"
+    }
+  ],
+  "id": "7c9ca475-016b-411d-afcb-be8b23373cad"
+}
