@@ -2,7 +2,8 @@ module?.exports = {
 
 	\Item : class Item
 		->
-			@itemType = ''
+			@id = 0
+			@itemType = 'item'
 			@name = ''
 			@framptValue = 0
 
@@ -27,58 +28,58 @@ module?.exports = {
 
 	\Weapon : class Weapon extends Equipment
 		->
-			@weaponCategory = ''
-			@canBlock = false
-			@canParry = false
-			@castsMagic = false
-			@castsPyromancy = false
-			@castsMiracles = false
-			@canDamageGhosts = false
+			@itemType = 'weapon'
+			@wepCat = ''
+			@canB = false
+			@canP = false
+			@isMag = false
+			@isPyr = false
+			@isMir = false
+			@isGhost = false
 			@iconId = 0
-			@hasRegularDamage = false
-			@hasStrikeDamage = false
-			@hasSlashDamage = false
-			@hasThrustDamage = false
-			@isEnchantable = false
-			@reqStr = 0
-			@reqDex = 0
-			@reqInt = 0
-			@reqFaith = 0
+			@isDmgReg = false
+			@isDmgStr = false
+			@isDmgSl = false
+			@isDmgThr = false
+			@isAug = false
 
-			@dmgPhys = 0
-			@dmgMagic = 0
-			@dmgFire = 0
-			@dmgLight = 0
-			@dmgStam = 0
+			@reqS = 0
+			@reqD = 0
+			@reqI = 0
+			@reqF = 0
 
-			@scaleStr = 0
-			@scaleDex = 0
-			@scaleInt = 0
-			@scaleFaith = 0
+			@dmgP = 0
+			@dmgM = 0
+			@dmgF = 0
+			@dmgL = 0
+			@dmgS = 0
 
-			@defPhys = 0
-			@defMagic = 0
-			@defFire = 0
-			@defLight = 0
+			@scS = 0
+			@scD = 0
+			@scI = 0
+			@scF = 0
 
-			@defPoison = 0
-			@defBleed = 0
-			@defCurse = 0
+			@defP = 0
+			@defM = 0
+			@defF = 0
+			@defL = 0
+			@defT = 0
+			@defB = 0
+			@defC = 0
+			@defS = 0
 
-			@stability = 0
+			@divMod = 0
+			@occMod = 0
 
-			@divineMod = 0
-			@occultMod = 0
-
-			@upgradeSouls = 0
-			@upgradeMaterialId = 0
-			@upgradeMaterialAmount = 0
+			@upCost = 0
+			@upMatId = 0
+			@upMatCost = 0
 
 			# Ascention path
 			@path = ''
 
 			# Range for bows & crossbows
-			@shotRange = 0
+			@range = 0
 
 	\Armor : class Armor extends Equipment
 		->

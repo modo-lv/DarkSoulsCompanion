@@ -5,35 +5,55 @@
       "title": "Before first fog gate",
       "children": [
         {
-          "title": "Humanity farming",
+          "title": "Warrior of Sunlight",
           "labels": [
-            "info"
+            "covenant"
           ],
-          "content": "The rats at the bottom of the ladder drop {Humanity}, and the distance from the bonfire is trivial, so it's a good spot to spend some time getting your Humanity up to at least 10.",
-          "id": "2bd18341-bc45-4645-9ad0-1a0a0022411d"
-        },
-        {
-          "title": "Black Knight",
+          "content": "In order to join this covenant, you must have 25 {Faith}. This requirement is reduced by 5 for every co-op victorious fight against a boss that you have been summoned to. Joining changes your summoning sign from white to gold and ensures that all participants receive a {Sunlight Medal} when defeating a boss together.",
           "children": [
             {
-              "title": "Titanite Shard",
               "labels": [
-                "item",
-                "checklist",
-                "drop"
+                "item"
               ],
-              "id": "10c3ecae-7366-4ccc-b423-01e81fea7668"
+              "title": "Lightning Spear",
+              "id": "47c76d27-5c09-4337-a607-012dde53f663"
             },
             {
-              "title": "Strategy",
               "labels": [
-                "help"
+                "gesture"
               ],
-              "content": "The {Black Knight} at the top of the tower has very powerful attacks that will quickly overwhelm you unless you've spend a lot of time leveling up and/or acquiring better equipment. The quickest way to defeat him is to learn to parry his attacks and riposte them. If you're wearing light armor, you can also sneak up on him from behind and start the fight with a back-stab.<br />If parrying isn't working for you, you can do it the tedious way: 1) sneak up & back-stab, 2) immediately sprint down the stairs, if he follows you (can tell by his heavy, loud footsteps), also slide down the ladder at the bottom (make sure you've cleared out the rats first!); and 3) wait until he returns to his post, sneak back up and repeat.",
-              "id": "9fc117a3-6bdb-4c4a-9b9c-75cad9b2193e"
+              "title": "Praise the Sun",
+              "id": "9a6f1065-b2c3-46cb-b6a2-333c4aa5242d"
+            },
+            {
+              "labels": [
+                "item",
+                "trade"
+              ],
+              "title": "Great Lightning Spear",
+              "content": "Acquired by sacrificing 10 {Sunlight Medal}s.",
+              "id": "5cca0bfd-d602-4405-adfb-a26fcea5f03b"
+            },
+            {
+              "labels": [
+                "item",
+                "ng+",
+                "trade"
+              ],
+              "title": "Sunlight Spear",
+              "content": "Acquired by sacrificing {Soul of Gwyn, Lord of Cinder}.",
+              "id": "036fb194-8e9c-468f-9d54-eb66f576f953"
             }
           ],
-          "id": "7c45b933-abaa-4426-9557-20f42302c66a"
+          "id": "ac105a32-3ffe-4a31-bec1-847bd9b1e176"
+        },
+        {
+          "title": "Titanite Shard (Black Knight)",
+          "labels": [
+            "item",
+            "drop"
+          ],
+          "id": "6f80e2bf-3537-4ea4-b0bd-0e19d4b71e8e"
         },
         {
           "labels": [
@@ -99,9 +119,9 @@
         },
         {
           "labels": [
-            "checklist"
+            "shortcut"
           ],
-          "title": "Shortcut: Gate back to the Altar of Sunlight bonfire.",
+          "title": "Gate back to the Altar of Sunlight bonfire.",
           "id": "9918a213-d798-4a6f-8fae-b3185e2ae81f"
         },
         {

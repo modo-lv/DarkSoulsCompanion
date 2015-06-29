@@ -15,6 +15,15 @@
           "id": "bb22d01a-7e80-4212-85a7-9c2cc8b33c30"
         },
         {
+          "title": "Demon's Great Hammer (Asylum Demon)",
+          "labels": [
+            "item",
+            "ng+",
+            "drop"
+          ],
+          "id": "204ba24f-9cdb-4a38-9cfd-4e669d264475"
+        },
+        {
           "title": "Estus Flask",
           "labels": [
             "item",
@@ -73,7 +82,7 @@
         "info"
       ],
       "content": "Boss fight with {Asylum Demon}",
-      "id": "bef0478d-d015-447a-9e7a-48439c026898"
+      "id": "e72c697d-2a85-4ad7-8e57-11b25c147c6b"
     },
     {
       "title": "After fog gate",

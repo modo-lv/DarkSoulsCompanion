@@ -1,127 +1,128 @@
 module?.exports = ($scope, uiGridConstants) !->
 	$scope.gridOptions = {}
 	
-	percentFieldMinWidth = 50
+	percentFieldMinWidth = 45
 
 	$scope.columnConfigs = {
 		\weapons : [
 			{
 				field : 'weaponCategory',
 				displayName : 'Type',
-				minWidth : 100
+				minWidth : 70
 				sort : {
 					direction : uiGridConstants.ASC
 					priority : 0
-				}
+				},
 			},
 			{
 				field : 'name'
-				minWidth : 225
+				minWidth : 210
 				sort : {
 					direction : uiGridConstants.ASC
 					priority : 1
 				}
 			}
 			{
-				field : \reqStr
+				field : \reqS
 				displayName : \RS
+				type : \number
 			}
 			{
-				field : \reqDex
+				field : \reqD
 				displayName : \RD
 			}
 			{
-				field : \reqInt
+				field : \reqI
 				displayName : \RI
 			}
 			{
-				field : \reqFaith
+				field : \reqF
 				displayName : \RF
 			}
 			{
-				field : \dmgPhys
+				field : \dmgP
 				displayName : \AP
 			}
 			{
-				field : \dmgMagic
+				field : \dmgM
 				displayName : \AM
 			}
 			{
-				field : \dmgFire
+				field : \dmgF
 				displayName : \AF
 			}
 			{
-				field : \dmgLight
+				field : \dmgL
 				displayName : \AL
 			}
 			{
-				field : \dmgStam
+				field : \dmgS
 				displayName : \AS
 			}
 			{
-				field : \scaleStr
+				field : \scS
 				displayName : \SS
 				minWidth : percentFieldMinWidth
 				cellFilter : 'percentage'
 			}
 			{
-				field : \scaleDex
+				field : \scD
 				displayName : \SD
 				minWidth : percentFieldMinWidth
 				cellFilter : 'percentage'
 			}
 			{
-				field : \scaleInt
+				field : \scI
 				displayName : \SI
 				minWidth : percentFieldMinWidth
 				cellFilter : 'percentage'
 			}
 			{
-				field : \scaleFaith
+				field : \scF
 				displayName : \SF
 				minWidth : percentFieldMinWidth
 				cellFilter : 'percentage'
 			}
 			{
-				field : \defPhys
+				field : \defP
 				displayName : \DP
 			}
 			{
-				field : \defMagic
+				field : \defM
 				displayName : \DM
 			}
 			{
-				field : \defFire
+				field : \defF
 				displayName : \DF
 			}
 			{
-				field : \defLight
+				field : \defL
 				displayName : \DL
 			}
 			{
-				field : \defPoison
-				displayName : \DP
+				field : \defT
+				displayName : \DT
 			}
 			{
-				field : \defBleed
+				field : \defB
 				displayName : \DB
 			}
 			{
-				field : \defCurse
+				field : \defC
 				displayName : \DC
 			}
 			{
-				field : \stability
+				field : \defS
 				displayName : \St
 			}
 			{
-				field : \divineMod
+				field : \divMod
 				minWidth : percentFieldMinWidth
 				displayName : \Div
 				cellFilter : 'percentage'
 			}
 			{
-				field : \occultMod
+				field : \occMod
 				minWidth : percentFieldMinWidth
 				displayName : \Occ
 				cellFilter : 'percentage'

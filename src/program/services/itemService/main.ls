@@ -1,11 +1,4 @@
 angular.module "dsc.services"
-	.constant "ITEM_TYPE", {
-		\ITEM : \item
-		\KEY : \key
-		\ARMOR : \armor
-		\RING : \ring
-		\WEAPON : \weapon
-	}
 	.service "itemService", -> self = {
 		# Items in separate arrays, grouped by type
 		items : {}
@@ -13,7 +6,7 @@ angular.module "dsc.services"
 		# All items in a single array
 		allItems : []
 
-		itemTypes : [\items \keys \materials \weapons \armors \rings]
+		itemTypes : [\items \weapons \armors \rings]
 	}
 
 		..models = require './models'
@@ -41,3 +34,17 @@ angular.module "dsc.services"
 		..getItemByFullName = (itemName) ->
 			self.allItems |> find (.fullName == itemName) ?
 				throw new Error "There is no item with the name '#{itemName }' in the database."
+
+
+		..getUpgradedWeapon = (weapon) !->
+			upgrades = require './content/upgrades.json'
+			upgrade = upgrades[weapon.upgradeId + 1]
+
+			if not upgrade? then return null
+
+			upWeapon = new self.models.Weapon <<< weapon
+				..id++
+				..upgradeId = upgrade.id
+				..
+
+

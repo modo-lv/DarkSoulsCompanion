@@ -9,7 +9,6 @@ raw = {}
 	..upgrades = {}
 
 	..weapons = []
-
 	..items = {}
 
 
@@ -43,7 +42,7 @@ parseTexts = (data) !->
 
 
 console.log "Loading names..."
-nameFiles = [ \weapon_name \weapon_name_dlc ]
+nameFiles = [ \item_name \item_name_dlc \weapon_name \weapon_name_dlc ]
 
 a = 0
 for file in nameFiles
@@ -101,6 +100,7 @@ loadItems = !->
 		if err? then throw err
 		for row in data
 			raw.{}items[row.\Id] = row
+
 		loadMaterialSets!
 
 
@@ -111,7 +111,7 @@ loadMaterialSets = !->
 		if err? then throw err
 		for row in data
 			raw.{}materialSets[row.\Id] = row
-		processWeapons!
+		rawDataLoaded!
 
 
 setTexts = (item) !->
@@ -130,43 +130,105 @@ applyWeaponUpgrade = (weapon, baseUpgradeId, iteration) !->
 		.. |> setTexts
 
 		for mapping in [
-			[\dmgPhys \PhysicsAtkRate]
-			[\dmgMagic \MagicAtkRate]
-			[\dmgFire \FireAtkRate]
-			[\dmgLight \ThunderAtkRate]
-			[\dmgStam \StaminaAtkRate]
+			[\dmgP \PhysicsAtkRate]
+			[\dmgM \MagicAtkRate]
+			[\dmgF \FireAtkRate]
+			[\dmgL \ThunderAtkRate]
+			[\dmgS \StaminaAtkRate]
 
-			[\defPoison \PoisonGuardResistRate]
-			[\defBleed \BloodGuardResistRate]
-			[\defCurse \CurseGuardResistRate]
-			[\stability \StaminaGuardDefRate]
+			[\defT \PoisonGuardResistRate]
+			[\defB \BloodGuardResistRate]
+			[\defC \CurseGuardResistRate]
+			[\defS \StaminaGuardDefRate]
 		]
 			weapon[mapping.0] = weapon[mapping.0] * upgrade[mapping.1] |> Math.floor
 
 		for mapping in [
-			[\scaleStr \CorrectStrengthRate]
-			[\scaleDex \CorrectAgilityRate]
-			[\scaleInt \CorrectMagicRate]
-			[\scaleFaith \CorrectFaithRate]
+			[\scS \CorrectStrengthRate]
+			[\scD \CorrectAgilityRate]
+			[\scI \CorrectMagicRate]
+			[\scF \CorrectFaithRate]
 		]
 			#console.log "Before: #{weapon[mapping.0] }"
 			weapon[mapping.0] = weapon[mapping.0] * upgrade[mapping.1]
 			#console.log "After: #{weapon[mapping.0] }"
 
 	weapon
-		..defPhys *= +upgrade.\PhysicsGuardCutRate
-		..defMagic *= +upgrade.\MagicGuardCutRate
-		..defFire *= +upgrade.\FireGuardCutRate
-		..defLight *= +upgrade.\ThunderGuardCutRate
+		..defP *= +upgrade.\PhysicsGuardCutRate
+		..defM *= +upgrade.\MagicGuardCutRate
+		..defF *= +upgrade.\FireGuardCutRate
+		..defL *= +upgrade.\ThunderGuardCutRate
 
 	# Costs
 	materialSet = raw.materialSets[+upgrade.\MaterialSetId]
 	#console.log materialSet
 	weapon
-		..upgradeMaterialId = +materialSet.\MaterialId01
-		..upgradeMaterialAmount = +materialSet.\ItemNum01
+		..upMatId = +materialSet.\MaterialId01
+		..upMatCost = +materialSet.\ItemNum01
 
 	return true
+
+
+rawDataLoaded = !->
+	#processItems!
+	processWeapons!
+	processUpgrades!
+
+
+processUpgrades = !->
+	console.log "Processing upgrades..."
+
+	upgrades = []
+
+	for key, rawUp of raw.upgrades
+		matSet = raw.materialSets[+rawUp.\MaterialSetId]
+
+		upgrade = { id : +rawUp.\Id }
+			..dmgModP = +rawUp.\PhysicsAtkRate
+			..dmgModM = +rawUp.\MagicAtkRate
+			..dmgModF = +rawUp.\FireAtkRate
+			..dmgModL = +rawUp.\ThunderAtkRate
+			..dmgModS = +rawUp.\StaminaAtkRate
+
+			..scModP = +rawUp.\CorrectStrengthRate
+			..scModD = +rawUp.\CorrectAgilityRate
+			..scModI = +rawUp.\CorrectMagicRate
+			..scModF = +rawUp.\CorrectFaithRate
+
+			..defModP = +rawUp.\PhysicsGuardCutRate
+			..defModM = +rawUp.\MagicGuardCutRate
+			..defModF = +rawUp.\FireGuardCutRate
+			..defModL = +rawUp.\ThunderGuardCutRate
+
+			..defModT = +rawUp.\PhysicsGuardResistRate
+			..defModB = +rawUp.\PhysicsGuardResistRate
+			..defModC = +rawUp.\PhysicsGuardResistRate
+
+			..defModS = +rawUp.\StaminaGuardDefRate
+
+			..matId = matSet.\MaterialId01
+			..matCount = matSet.\ItemNum01
+
+		upgrades.push upgrade
+
+	fs.writeFileSync 'upgrades.json', JSON.stringify upgrades
+
+
+processItems = !->
+	console.log "Processing items..."
+
+	items = []
+
+	for key, rawItem of raw.items
+		item = { id : +rawItem.\Id }
+			.. |> setTexts
+
+		items.push item
+
+	fs.writeFileSync 'items.json', JSON.stringify items
+
+	console.log "Items done."
+
 
 
 processWeapons = !->
@@ -187,61 +249,64 @@ processWeapons = !->
 
 		weapon
 			..itemType = \weapon
-			..durability = +rawWeapon.\DurabilityMax
+			..dur = +rawWeapon.\DurabilityMax
 			..weight = +rawWeapon.\Weight
-			..framptValue = +rawWeapon.\SellValue
+			..sell = +rawWeapon.\SellValue
 			..path = pathMap[+rawWeapon.\BaseChangeCategory]
 
-			..weaponCategory = rawWeapon.\WeaponCategory
-			..canBlock = rawWeapon.\EnableGuard == \True
-			..canParry = rawWeapon.\EnableParry == \True
-			..castsMagic = rawWeapon.\EnableMagic == \True
-			..castsPyromancy = rawWeapon.\EnableSorcery == \True
-			..castsMiracles = rawWeapon.\EnableMiracle == \True
-			..canDamageGhosts = rawWeapon.\IsVersusGhostWep == \True
+			..wepCat = rawWeapon.\WeaponCategory
+			..canB = rawWeapon.\EnableGuard == \True
+			..canP = rawWeapon.\EnableParry == \True
+			..isMag = rawWeapon.\EnableMagic == \True
+			..isPyr = rawWeapon.\EnableSorcery == \True
+			..isMir = rawWeapon.\EnableMiracle == \True
+			..isGhost = rawWeapon.\IsVersusGhostWep == \True
+			..isAug = rawWeapon.\IsEnhance == \True
+
 			..iconId = +rawWeapon.\IconId
-			..hasRegularDamage = rawWeapon.\IsNormalAttackType == \True
-			..hasStrikeDamage = rawWeapon.\IsBlowAttackType == \True
-			..hasSlashDamage = rawWeapon.\IsSlashAttackType == \True
-			..hasThrustDamage = rawWeapon.\IsThrustAttackType == \True
-			..isEnchantable = rawWeapon.\IsEnhance == \True
-			..reqStr = +rawWeapon.\ProperStrength
-			..reqDex = +rawWeapon.\ProperAgility
-			..reqInt = +rawWeapon.\ProperMagic
-			..reqFaith = +rawWeapon.\ProperFaith
 
-			..dmgPhys = +rawWeapon.\AttackBasePhysics
-			..dmgMagic = +rawWeapon.\AttackBaseMagic
-			..dmgFire = +rawWeapon.\AttackBaseFire
-			..dmgLight = +rawWeapon.\AttackBaseThunder
-			..dmgStam = +rawWeapon.\AttackBaseStamina
+			..isDmgReg = rawWeapon.\IsNormalAttackType == \True
+			..isDmgStr = rawWeapon.\IsBlowAttackType == \True
+			..isDmgSl = rawWeapon.\IsSlashAttackType == \True
+			..isDmgThr = rawWeapon.\IsThrustAttackType == \True
 
-			..scaleStr = +rawWeapon.\CorrectStrength / 100
-			..scaleDex = +rawWeapon.\CorrectAgility / 100
-			..scaleInt = +rawWeapon.\CorrectMagic / 100
-			..scaleFaith = +rawWeapon.\CorrectFaith / 100
+			..reqS = +rawWeapon.\ProperStrength
+			..reqD = +rawWeapon.\ProperAgility
+			..reqI = +rawWeapon.\ProperMagic
+			..reqF = +rawWeapon.\ProperFaith
 
-			..defPhys = +rawWeapon.\PhysGuardCutRate
-			..defMagic = +rawWeapon.\MagGuardCutRate
-			..defFire = +rawWeapon.\FireGuardCutRate
-			..defLight = +rawWeapon.\ThunGuardCutRate
+			..dmgP = +rawWeapon.\AttackBasePhysics
+			..dmgM = +rawWeapon.\AttackBaseMagic
+			..dmgF = +rawWeapon.\AttackBaseFire
+			..dmgL = +rawWeapon.\AttackBaseThunder
+			..dmgS = +rawWeapon.\AttackBaseStamina
 
-			..defPoison = +rawWeapon.\PoisonGuardResist
-			..defBleed = +rawWeapon.\BloodGuardResist
-			..defCurse = +rawWeapon.\CurseGuardResist
+			..scS = +rawWeapon.\CorrectStrength / 100
+			..scD = +rawWeapon.\CorrectAgility / 100
+			..scI = +rawWeapon.\CorrectMagic / 100
+			..scF = +rawWeapon.\CorrectFaith / 100
 
-			..stability = +rawWeapon.\StaminaGuardDef
+			..defP = +rawWeapon.\PhysGuardCutRate
+			..defM = +rawWeapon.\MagGuardCutRate
+			..defF = +rawWeapon.\FireGuardCutRate
+			..defL = +rawWeapon.\ThunGuardCutRate
 
-			..divineMod = +rawWeapon.\AntSaintDamageRate
-			..occultMod = +rawWeapon.\AntWeakA_DamageRate
+			..defT = +rawWeapon.\PoisonGuardResist
+			..defB = +rawWeapon.\BloodGuardResist
+			..defC = +rawWeapon.\CurseGuardResist
 
-			..upgradeSouls = +rawWeapon.\BasicPrice
-			..upgradeMaterialId = 0
-			..upgradeMaterialAmount = 0
+			..defS = +rawWeapon.\StaminaGuardDef
+
+			..divMod = +rawWeapon.\AntSaintDamageRate
+			..occMod = +rawWeapon.\AntWeakA_DamageRate
+
+			..upCost = +rawWeapon.\BasicPrice
+			..upMatId = 0
+			..upMatCost = 0
 
 			..path = pathMap[+rawWeapon.\BaseChangeCategory]
 
-			..shotRange = +rawWeapon.\BowDistRate
+			..range = +rawWeapon.\BowDistRate
 
 		# Bleed & poison
 		for effectField in [\SpEffectBehaviorId0 \SpEffectBehaviorId1 \SpEffectBehaviorId2 ]
@@ -251,30 +316,18 @@ processWeapons = !->
 
 			switch +effect.\StateInfo
 			| effectMap.\bleed => weapon
-				..bleedBuildup = +effect.\RegistBlood
-				..bleedDamage = +effect.\ChangeHpRate
+				..buildB = +effect.\RegistBlood
+				..dmgB = +effect.\ChangeHpRate
 			| effectMap.\toxic => fallthrough
 			| effectMap.\poison => weapon
-				..poisonBuildup = +effect.\PoizonAttackPower
-				..poisonDps = +effect.\ChangeHpPoint
+				..buildP = +effect.\PoizonAttackPower
+				..dmgP = +effect.\ChangeHpPoint
 			| effectMap.\heal => weapon
-				..healPerHit = -1 * effect.\ChangeHpPoint
+				..healHit = -1 * effect.\ChangeHpPoint
 
 		#if (not weapon.name?) or weapon.name.indexOf(\Dagger) < 0 then continue
 
 		applyWeaponUpgrade weapon, +rawWeapon.\ReinforceTypeId , 0
 		weapons.push weapon
-
-		# Generate actual versions
-		/*
-		for a from 0 to 15
-			newWeapon = {} <<< weapon
-			if applyWeaponUpgrade newWeapon, +rawWeapon.\ReinforceTypeId, a
-				weapons.push newWeapon
-		*/
-
-
-
-
 
 	fs.writeFileSync 'weapons.json', JSON.stringify weapons
