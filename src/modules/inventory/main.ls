@@ -1,3 +1,3 @@
 angular.module "dsc-inventory", []
 
-require "./controller"
+require "./inventoryController"

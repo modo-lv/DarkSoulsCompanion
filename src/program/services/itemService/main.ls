@@ -11,6 +11,12 @@ angular.module "dsc.services"
 
 		..models = require './models'
 
+
+		..getById = (id) !->
+			self.loadItems!
+			return self.allItems |> find (.id == id)
+
+
 		..loadItems = (force = false) !->
 			return unless force or self.[]allItems.length < 1
 
@@ -18,12 +24,12 @@ angular.module "dsc.services"
 
 			for itemType in self.itemTypes
 				for itemData in require "./content/#{itemType }.json"
-					self.createItem itemData
-						.. |> self.items.[][itemType].push
+					self.createItemFrom itemData
+						.. |> self.{}items.[][itemType].push
 						.. |> self.[]allItems.push
 
 
-		..createItem = (itemData) ->
+		..createItemFrom = (itemData) ->
 			(switch itemData.itemType
 			| 'armor' => new self.models.Armor
 			| 'weapon' => new self.models.Weapon

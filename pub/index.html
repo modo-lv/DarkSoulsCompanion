@@ -31,54 +31,16 @@
 <div jqx-tabs>
 
     <ul>
-        <li>Items</li>
-        <li>Guide</li>
-        <li>Character</li>
+        <li>Weapon Calculator</li>
         <li>Inventory</li>
+        <li>Stats</li>
     </ul>
 
-    <div id="Items" ng-controller="ItemsController">
-    <select ng-change="selectedItemTypeChanged()" ng-model="selectedItemType"
-            ng-options="itemType as 'Show '+itemType for itemType in itemTypes">
-    </select>
-    <button ng-click="exportAsJson()">Export as JSON</button>
-    <button ng-click="exportAsCsv()">Export as CSV</button>
+    <div id="weaponCalc" ng-controller="weaponCalcController">
+    <button ng-click="calculate()">Calculate</button>
 
+    <!-- Results -->
     <div ui-grid-auto-resize ui-grid="gridOptions"></div>
-</div>
-    <script type="text/ng-template" id="GuideEntry">
-    <div class="header" ng-if="entry.title">
-        <button class="check-mark" ng-click="entryDone($event, entry)">✓</button>
-        <div class="title">{{entry.title}}</div>
-        <span class="label" ng-repeat="label in entry.labels">{{label}}</span>
-    </div>
-    <div class="content">
-        <div ng-if="entry.content" ng-bind-html="entry.content"></div>
-
-        <ul ng-if="entry.children" ng-init="depth = depth + 1" ng-class="depth == 1 ? 'root' : ''">
-            <li ng-repeat="entry in entry.children"
-                ng-include="'GuideEntry'"
-                ng-class="getClassesFor(entry)"
-                data-id="{{entry.id}}"
-                data-labels="{{entry.labels}}"
-                ng-hide="entry.done"
-                jqx-expander
-                jqx-settings="getExpanderSettingsFor(entry)">
-            </li>
-        </ul>
-
-    </div>
-</script>
-
-<div id="Guide" ng-controller="GuideController" ng-include="'GuideEntry'">
-</div>
-    <div id="Pc" ng-controller="PcController">
-    <table>
-        <tr ng-repeat="stat in model.stats | toStatArray">
-            <td>{{stat.displayName}}:</td>
-            <td><input type="number" min=8 max="99" ng-model="stat.base" ng-blur="saveStats()" /></td>
-        </tr>
-    </table>
 </div>
     <div id="Inventory" ng-controller="InventoryController">
     <angucomplete-alt
@@ -95,11 +57,18 @@
 
     <!-- Grid action buttons -->
     <script type="text/ng-template" id="GridRowHeader.html">
-        <button ng-click="grid.appScope.addItem(row.entity.item.fullName)">+</button>
-        <button ng-click="grid.appScope.removeItem(row.entity.item.fullName)">–</button>
+        <button ng-click="grid.appScope.addItem(row.entity.item)">+</button>
+        <button ng-click="grid.appScope.removeItem(row.entity.item)">–</button>
     </script>
 
-
+</div>
+    <div id="Pc" ng-controller="PcController">
+    <table>
+        <tr ng-repeat="stat in model.stats | toStatArray">
+            <td>{{stat.displayName}}:</td>
+            <td><input type="number" min=8 max="99" ng-model="stat.base" ng-blur="saveStats()" /></td>
+        </tr>
+    </table>
 </div>
 
 </div>

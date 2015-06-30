@@ -5,33 +5,33 @@ angular.module "dsc.services"
 
 		..models = {
 			\InventoryItem : class InventoryItem
-				(itemName, @amount = 1) ->
-					@item = itemService.getItemByFullName itemName
+				(@item, @amount = 1) ->
 		}
 
 
-		..getInventoryItemByFullName = (itemName) ->
-			self.items |> find (.item.fullName == itemName) ?
-				throw new Error "Inventory does not contain [#{itemName }]."
+		..getById = (id) ->	self.items |> find (.item.id == id)
 
 
-		..addToInventory = (itemName, amount = 1) !->
-			existing = self.getInventoryItemByFullName itemName
+		..getByItem = (item) -> self.items |> find (.item == item)
+
+
+		..addToInventory = (item, amount = 1) !->
+			existing = self.getByItem item
 			if existing
 				existing.amount += amount
 			else
-				self.items.push new self.models.InventoryItem itemName, amount
+				self.items.push new self.models.InventoryItem item, amount
 
 			self.saveInventory!
 
 
-		..removeFromInventory = (itemName, amount = 1) !->
-			item = self.getInventoryItemByFullName itemName
+		..removeFromInventory = (item, amount = 1) !->
+			entry = self.getByItem item
 
-			item.amount -= if amount == true then item.amount else amount
+			entry.amount -= if amount == true then entry.amount else amount
 
-			if item.amount < 1
-				self.items.splice self.items.indexOf(item), 1
+			if entry.amount < 1
+				self.items.splice (self.items.indexOf entry), 1
 
 			self.saveInventory!
 
@@ -41,22 +41,23 @@ angular.module "dsc.services"
 
 
 		..loadInventory = (force) !->
-			return unless force or self.items.length < 1
+			return unless force or self.items |> empty
 
 			inventoryData = (storageService.load 'inventory') ? []
 
-			..clearInventory
+			..clearInventory!
 
-			for item in inventoryData
-				self.addToInventory item.name, item.amount
+			for entry in inventoryData
+				item = itemService.getById entry.id
+				self.addToInventory item, entry.amount
 
 
 		..saveInventory = !->
 			inventoryData = []
-			for inventoryItem in self.items
+			for entry in self.items
 				inventoryData.push {
-					name : inventoryItem.item.fullName
-					amount : inventoryItem.amount
+					id : entry.item.id
+					amount : entry.amount
 				}
 
 			storageService.save "inventory", inventoryData

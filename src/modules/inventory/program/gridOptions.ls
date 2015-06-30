@@ -1,7 +1,7 @@
 module?.exports = {
 	columnDefs : [
 		{
-			field : 'item.fullName'
+			field : 'item.name'
 			displayName : 'Item'
 		}
 		{
@@ -9,6 +9,7 @@ module?.exports = {
 			width : 50
 		}
 	]
+
 	onRegisterApi : (gridApi) !->
 		gridApi.core.addRowHeaderColumn {
 			name : 'rowHeaderCol'

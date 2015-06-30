@@ -20,8 +20,8 @@ angular.module "dsc-inventory"
 			..data = $scope.inventory
 
 		# Event handlers
-		$scope.addItem = (itemName = $scope.selectedItem.title) !->
-			inventoryService.addToInventory itemName
+		$scope.addItem = (item = $scope.selectedItem.originalObject) !->
+			inventoryService.addToInventory item
 
 		$scope.removeItem = inventoryService.removeFromInventory
 		$scope.removeAllOf = (itemName) !-> inventoryService.removeFromInventory itemName, true

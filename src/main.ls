@@ -11,6 +11,7 @@ require './modules/guide/main'
 require './modules/items/main'
 require './modules/inventory/main'
 require './modules/pc/main'
+require './modules/weaponCalc/weaponCalc'
 
 angular.module "dsc", [
 	"LocalStorageModule"
@@ -24,6 +25,7 @@ angular.module "dsc", [
 	"dsc-guide"
 	"dsc-items"
 	"dsc-inventory"
+	\dsc-weapon-calc
 ]
 	.filter 'percentage', ($filter) -> (input, decimals = 0) ->
 		$filter('number')(input * 100, decimals) + '%'
