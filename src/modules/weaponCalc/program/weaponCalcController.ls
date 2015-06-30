@@ -22,9 +22,37 @@ $scope.calculate = !->
 	int = pcService.statValueOf \intelligence
 	fai = pcService.statValueOf \faith
 
-	for entry in inventoryService.items |> filter ( .item.itemType == \weapon )
-		weapon = entry.item
+	availableWeapons = inventoryService.items |> filter (.item.itemType == 'weapon') |> map (.item)
 
+	getAvailableMaterials = ->
+		inventoryService.items
+			|> filter (.item.itemType == 'item')
+			|> map -> {id : it.item.id, amount : it.amount}
+
+	# Find available upgrades
+	upgraded = []
+	for weapon in availableWeapons
+		availableMaterials = getAvailableMaterials!
+		iteration = 0
+		nextUp = weapon
+		do
+			if ++iteration > 15
+				break
+			canUpgrade = itemService.canUpgradeWithMaterials weapon, availableMaterials, iteration
+			#console.log "Can upgrade #{weapon.name }: #{canUpgrade }"
+			if canUpgrade
+				temp = itemService.getUpgradedWeapon weapon, iteration
+			if canUpgrade and canUpgrade = nextUp?
+				#console.log "Addding upgraded weapon", temp
+				itemService.payForUpgradeFor weapon, availableMaterials, iteration
+				nextUp = temp
+				upgraded.push nextUp
+		while canUpgrade
+		#break
+
+	availableWeapons ++= upgraded
+
+	for weapon in availableWeapons
 		if weapon.reqS > str || weapon.reqD > dex || weapon.reqI > int || weapon.reqF > fai
 			continue
 

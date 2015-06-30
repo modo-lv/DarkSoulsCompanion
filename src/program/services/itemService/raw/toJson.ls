@@ -160,19 +160,12 @@ applyWeaponUpgrade = (weapon, baseUpgradeId, iteration) !->
 		..defL *= +upgrade.\ThunderGuardCutRate
 
 	# Costs
-	materialSet = raw.materialSets[+upgrade.\MaterialSetId]
 	#console.log materialSet
 	weapon
-		..upMatId = +materialSet.\MaterialId01
-		..upMatCost = +materialSet.\ItemNum01
+		..upMatId = +upgrade.\MatId
+		..upMatCost = +upgrade.\MatCost
 
 	return true
-
-
-rawDataLoaded = !->
-	#processItems!
-	processWeapons!
-	processUpgrades!
 
 
 processUpgrades = !->
@@ -181,7 +174,8 @@ processUpgrades = !->
 	upgrades = []
 
 	for key, rawUp of raw.upgrades
-		matSet = raw.materialSets[+rawUp.\MaterialSetId]
+		matSet = raw.materialSets[+rawUp.\Id] ? raw.materialSets[+rawUp.\MaterialSetId]
+
 
 		upgrade = { id : +rawUp.\Id }
 			..dmgModP = +rawUp.\PhysicsAtkRate
@@ -206,8 +200,8 @@ processUpgrades = !->
 
 			..defModS = +rawUp.\StaminaGuardDefRate
 
-			..matId = matSet.\MaterialId01
-			..matCount = matSet.\ItemNum01
+			..matId = +matSet.\MaterialId01
+			..matCost = +matSet.\ItemNum01
 
 		upgrades.push upgrade
 
@@ -331,3 +325,10 @@ processWeapons = !->
 		weapons.push weapon
 
 	fs.writeFileSync 'weapons.json', JSON.stringify weapons
+
+
+
+rawDataLoaded = !->
+	#processItems!
+	processWeapons!
+	processUpgrades!
