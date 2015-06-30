@@ -122,4 +122,9 @@ module?.exports = (uiGridConstants) ->
 			displayName : \Occ
 			cellFilter : 'percentage'
 		}
+		{
+			field : 'weapon.weight'
+			displayName : \Wt
+			type : \number
+		}
 	]

@@ -1,5 +1,8 @@
 angular.module "dsc.services"
-	.service "itemService", -> self = {
+	.constant "ItemIds", {
+		\LargeEmber : 800
+	}
+	.service "itemService", ['ItemIds', ($itemIds) -> self = {
 		# Items in separate arrays, grouped by type
 		items : {}
 
@@ -105,11 +108,17 @@ angular.module "dsc.services"
 
 		..canUpgradeWithMaterials = (weapon, materials, iteration) !->
 			upgrade = self.getUpgradeFor weapon, iteration
-			if weapon.name.substring(0, 7) == \Halberd
-				console.log weapon, materials, iteration, upgrade
+			#if weapon.name.substring(0, 7) == \Halberd
+			#	console.log weapon, materials, iteration, upgrade
 			if not upgrade?
 				console.log "Failed to get next upgrade for weapon ", weapon
 				return false
+
+			# +6 weapons need Large Ember
+			#console.log iteration, materials, $itemIds
+			if iteration > 5 and not (materials |> any (.id == $itemIds.\LargeEmber ))
+				return false
+
 			if upgrade.matId < 0 or upgrade.matCost < 0
 				return true
 
@@ -126,3 +135,5 @@ angular.module "dsc.services"
 				return
 
 			(materials |> find (.id == upgrade.matId)).amount -= upgrade.matCost
+
+	]

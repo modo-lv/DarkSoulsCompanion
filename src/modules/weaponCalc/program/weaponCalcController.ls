@@ -9,7 +9,7 @@ $scope.gridOptions = (require './gridOptions') uiGridConstants
 
 
 
-$scope.calculate = !->
+$scope.calculate = (type = 'offence') !->
 	results = []
 
 	scS = getStatScalingFactor \strength
@@ -59,7 +59,9 @@ $scope.calculate = !->
 		dmgP = weapon.dmgP * (1 + ((weapon.scS * scS) + (weapon.scD * scD)))
 		dmgM = weapon.dmgM * (1 + ((weapon.scI * scI) + (weapon.scF * scF)))
 
-		score = dmgP
+		defP = weapon.defP + ((weapon.defM + weapon.defF + weapon.defL) * 0.2) + weapon.defS
+
+		score = if type == 'defence' then defP else dmgP
 
 		result = {}
 			..weapon = weapon
