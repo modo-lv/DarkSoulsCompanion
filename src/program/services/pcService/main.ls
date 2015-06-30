@@ -2,11 +2,16 @@ storageService <-! angular.module "dsc.services" .service 'pcService'
 ###
 
 svc = {}
+	..data = {}
+
 	..PcModel = (require './models/PcModel')
 	..PcStatModel = (require './models/PcStatModel')
 
 
-svc.forEachStat = (model, func) !~>
+svc.statValueOf = (name) -> svc.data.stats[name].total
+
+
+svc.forEachStat = (model = svc.data, func) !~>
 	for statName in svc.PcModel.Stats
 		stat = model.{}stats[statName]
 		model.{}stats[statName] = (func stat, statName) ? stat
@@ -22,10 +27,12 @@ svc.loadPcData = !->
 
 	model.validate!
 
+	svc.data = model
+
 	return model
 
 
-svc.savePcData = (model) !->
+svc.savePcData = (model = svc.data) !->
 	model.validate!
 
 	data = {} <<< model
@@ -33,7 +40,7 @@ svc.savePcData = (model) !->
 		if key != \stats
 			delete data[key]
 
-	console.log data
 	storageService.save 'PcData', data
+
 
 return svc

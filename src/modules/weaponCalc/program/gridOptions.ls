@@ -5,7 +5,7 @@ module?.exports = (uiGridConstants) ->
 	columnDefs : [
 		{
 			field : 'score'
-			minWidth : 30
+			minWidth : 50
 			cellFilter : 'number:2'
 			sort : {
 				direction : uiGridConstants.DESC
