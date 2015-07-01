@@ -12,21 +12,23 @@ module?.exports = cfg = {}
 	..src = {}
 		..dir = "#{cfg.baseDir }/src"
 		..libs = "#{cfg.src.dir }/#{cfg.common.libDir }/**"
-		..staticFiles = "#{cfg.src.dir }/**/*.html"
+		..staticFiles = "#{cfg.src.dir }/**/*.{html,json}"
+		..staticModuleFiles = "#{cfg.src.dir }/modules/**/*.{html,json}"
 		..staticRequireFiles = "#{cfg.src.dir }/**/*.json"
 		..view = "#{cfg.src.dir }/index.html"
 		..viewFiles = "#{cfg.src.dir}/**/*.html"
-		..main = "#{cfg.src.dir }/main.ls"
+		..main = "#{cfg.src.dir }/app.ls"
 		..scriptFiles = "#{cfg.src.dir }/**/*.ls"
 
 	# destination (published) files, folder and other config
 	..dst = {}
 		..dir = "#{cfg.baseDir }/pub"
 
-		..mainFile = "main.js"
+		..mainFile = "app.js"
 		..tempDir = "#{cfg.dst.dir }/_temp_"
 		..mainTempFile = "#{cfg.dst.tempDir }/#{cfg.dst.mainFile }"
 		..libs = "#{cfg.dst.dir }/#{cfg.common.libDir }"
+		..moduleDir = "#{cfg.dst.dir }/modules"
 		..cleanup = ["#{cfg.dst.dir}/modules"]
 
 	..modules = {}

@@ -10,9 +10,20 @@ $entryBorder: 0.5em
 	ul.root
 		padding: 0
 
+	.entry.with-content,
+	.entry.with-children
+		> .header > .title
+			cursor: pointer
+
 	.entry
 		display: block
 		margin: 0.5em 0
+
+		.buttons
+			display: inline-block
+
+			button
+				border-radius: 10px
 
 		.header
 			border-radius: $entryBorder
@@ -20,10 +31,6 @@ $entryBorder: 0.5em
 			.title
 				display: inline-block
 				min-width: 30em
-
-		.jqx-expander-header-expanded
-			border-radius: $entryBorder $entryBorder 0 0
-
 
 		.content
 			border-radius: 0 0 $entryBorder $entryBorder

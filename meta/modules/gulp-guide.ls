@@ -8,14 +8,14 @@ del = require "del"
 include = require "gulp-file-include"
 uuid = require "node-uuid"
 
+global? <<< require 'prelude-ls'
+
 
 #
 # CONFIGURATION
 #
 _ = cfg.configureModule "guide"
 _.contentDir = "#{_.src.dir}/content"
-_.contentSourceFile = "#{_.contentDir }/guide.json"
-_.contentCompiledFile = "#{_.src.dir }/content.json"
 
 $ = {}
 
@@ -41,13 +41,16 @@ _.task "cleanup", ->
 
 $.preprocessGuideData = (cb) !->
 	# Generate IDs for items that don't have them
-	generateIds = (item) ->
+	processEntries = (item) ->
 		if item['title']? and not item['id']?
 			item['id'] = uuid.v4!
 
+		if item.labels?
+			item.labels = sort item.labels
+
 		if item['children']?
 			for item in item['children'] by -1
-				generateIds item
+				processEntries item
 
 
 	files = glob.sync "#{_.src.dir }/content/**/*.json"
@@ -56,26 +59,7 @@ $.preprocessGuideData = (cb) !->
 		data = require _.reqPath file
 		if data.constructor == Array
 			for item, index in data by -1
-				generateIds item
+				processEntries item
 		else if typeof data == "object"
-			generateIds data
+			processEntries data
 		fs.writeFileSync file, JSON.stringify(data, null, "  ")
-
-
-	# Process includes
-	include = (item) !->
-		if item['$include']?
-			console.log "Including #{item['$include'] }..."
-			item = require _.reqPath "#{_.contentDir }/#{item['$include'] }"
-		if item['children']?
-			for child, index in item['children']
-				item['children'][index] = include child
-
-		return item
-
-	data = require _.reqPath _.contentSourceFile
-
-	for item, index in data
-		data[index] = include item
-
-	fs.writeFileSync _.contentCompiledFile, JSON.stringify(data)

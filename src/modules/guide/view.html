@@ -1,26 +1,43 @@
+<div id="Guide">
+
+    <a ng-repeat="section in sections" href="#/guide/{{section.id}}">{{section.name}}</a>
+
+    <div ng-include="'GuideEntry'"></div>
+</div>
+
 <script type="text/ng-template" id="GuideEntry">
     <div class="header" ng-if="entry.title">
-        <button class="check-mark" ng-click="entryDone($event, entry)">✓</button>
-        <div class="title">{{entry.title}}</div>
+
+        <span class="buttons">
+            <button class="check-mark"
+                    ng-click="entryDone($event, entry)">
+                ✓
+            </button>
+            <button class="done-and-add"
+                    ng-click="entryDoneAndAdd(entry)"
+                    title="Mark as done and add item to inventory"
+                    ng-disabled="!canAddToInventory(entry)">
+                ✓+
+            </button>
+        </span>
+
+        <div class="title" ng-click="entryClicked($event, entry)">
+            {{entry.title}} {{entry.meta.arrow}}
+        </div>
         <span class="label" ng-repeat="label in entry.labels">{{label}}</span>
     </div>
-    <div class="content">
+    <div class="content" ng-hide="entry.meta.isCollapsed">
         <div ng-if="entry.content" ng-bind-html="entry.content"></div>
 
         <ul ng-if="entry.children" ng-init="depth = depth + 1" ng-class="depth == 1 ? 'root' : ''">
             <li ng-repeat="entry in entry.children"
                 ng-include="'GuideEntry'"
-                ng-class="getClassesFor(entry)"
+                ng-class="entry.meta.additionalClasses"
+                class="entry"
                 data-id="{{entry.id}}"
-                data-labels="{{entry.labels}}"
-                ng-hide="entry.done"
-                jqx-expander
-                jqx-settings="getExpanderSettingsFor(entry)">
+                data-labels="{{entry.labels}}">
             </li>
         </ul>
 
     </div>
 </script>
-
-<div id="Guide" ng-controller="GuideController" ng-include="'GuideEntry'">
-</div>

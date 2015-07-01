@@ -1,3 +1,6 @@
+body, table, textarea {
+  font-family: 'Segoe WP', 'segoe ui', arial, sans-serif; }
+
 .ui-grid {
   font-family: 'Helvetica', 'Arial', sans-serif; }
 
@@ -13,16 +16,22 @@
 #Guide ul.root {
   padding: 0; }
 
+#Guide .entry.with-content > .header > .title,
+#Guide .entry.with-children > .header > .title {
+  cursor: pointer; }
+
 #Guide .entry {
   display: block;
   margin: 0.5em 0; }
+  #Guide .entry .buttons {
+    display: inline-block; }
+    #Guide .entry .buttons button {
+      border-radius: 10px; }
   #Guide .entry .header {
     border-radius: 0.5em; }
     #Guide .entry .header .title {
       display: inline-block;
       min-width: 30em; }
-  #Guide .entry .jqx-expander-header-expanded {
-    border-radius: 0.5em 0.5em 0 0; }
   #Guide .entry .content {
     border-radius: 0 0 0.5em 0.5em; }
     #Guide .entry .content > div {
@@ -43,11 +52,3 @@
   vertical-align: baseline;
   border-radius: .5em;
   background: #AAA; }
-
-.ui-grid {
-  width: 99.87%;
-  height: 600px; }
-
-#Inventory .ui-grid {
-  width: 45%;
-  min-width: 400px; }

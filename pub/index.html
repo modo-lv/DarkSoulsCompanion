@@ -3,16 +3,13 @@
 <head>
     <meta charset="UTF-8">
 
+    <!-- Angular core modules -->
     <script src="libs/angular/angular.min.js"></script>
+    <script src="libs/angular/angular-resource.min.js"></script>
+    <script src="libs/angular/angular-route.min.js"></script>
+
+    <!-- Angular third-party components -->
     <script src="libs/angular/angular-local-storage.min.js"></script>
-
-    <script src="libs/jquery/jquery-2.1.4.min.js"></script>
-
-    <link rel="stylesheet" href="libs/jqwidgets/styles/jqx.base.css"/>
-    <script src="libs/jqwidgets/jqxangular.js"></script>
-    <script src="libs/jqwidgets/jqxcore.js"></script>
-    <script src="libs/jqwidgets/jqxexpander.js"></script>
-    <script src="libs/jqwidgets/jqxtabs.js"></script>
 
     <link rel="stylesheet" href="libs/ui-grid/ui-grid-unstable.min.css"/>
     <script src="libs/ui-grid/ui-grid-unstable.min.js"></script>
@@ -20,60 +17,25 @@
     <script src="libs/angucomplete-alt/angucomplete-alt.min.js"></script>
     <link rel="stylesheet" href="libs/angucomplete-alt/angucomplete-alt.css"/>
 
+<!--
+    <script src="libs/jquery/jquery-2.1.4.min.js"></script>
+
+    <link rel="stylesheet" href="libs/jqwidgets/styles/jqx.base.css"/>
+    <script src="libs/jqwidgets/jqxangular.js"></script>
+    <script src="libs/jqwidgets/jqxcore.js"></script>
+    <script src="libs/jqwidgets/jqxexpander.js"></script>
+    <script src="libs/jqwidgets/jqxtabs.js"></script>
+-->
+
 
     <link rel="stylesheet" href="style.css"/>
-    <script src="main.js"></script>
+    <script src="app.js"></script>
 
     <title></title>
 </head>
 <body>
 
-<div jqx-tabs>
-
-    <ul>
-        <li>Weapon Calculator</li>
-        <li>Inventory</li>
-        <li>Stats</li>
-    </ul>
-
-    <div id="weaponCalc" ng-controller="weaponCalcController">
-    <button ng-click="calculate('offence')">Offence</button>
-    <br />
-    <button ng-click="calculate('defence')">Defence</button>
-
-    <!-- Results -->
-    <div ui-grid-auto-resize ui-grid="gridOptions"></div>
-</div>
-    <div id="Inventory" ng-controller="InventoryController">
-    <angucomplete-alt
-            id="AddToInventory"
-            local-data="allItems"
-            selected-object="selectedItem"
-            title-field="fullName"
-            search-fields="name"></angucomplete-alt>
-
-    <button ng-click="addItem()" ng-disabled="!selectedItem">Add to inventory</button>
-
-    <!-- Grid -->
-    <div ui-grid-auto-resize ui-grid="gridOptions"></div>
-
-    <!-- Grid action buttons -->
-    <script type="text/ng-template" id="GridRowHeader.html">
-        <button ng-click="grid.appScope.addItem(row.entity.item)">+</button>
-        <button ng-click="grid.appScope.removeItem(row.entity.item)">–</button>
-    </script>
-
-</div>
-    <div id="Pc" ng-controller="PcController">
-    <table>
-        <tr ng-repeat="stat in model.stats | toStatArray">
-            <td>{{stat.displayName}}:</td>
-            <td><input type="number" min=8 max="99" ng-model="stat.base" ng-blur="saveStats()" /></td>
-        </tr>
-    </table>
-</div>
-
-</div>
+<div ng-view></div>
 
 </body>
 </html>

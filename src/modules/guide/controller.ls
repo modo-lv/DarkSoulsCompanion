@@ -1,50 +1,50 @@
-angular.module "dsc-guide"
-	.controller "GuideController", ($sce, $scope, storageService) !->
-		$scope.entry =
-			children : require './content.json'
+$sce, $scope, $routeParams, $resource <-! angular .module "dsc" .controller "GuideController"
 
-		# Create ID-entry index
-		$scope.entryIndex = {}
+getArrowFor = (entry) !->
+	if not entry.{}meta.isExpandable then return ''
 
-		do addToIndex = (entry = $scope.entry) !->
-			if entry.id?
-				$scope.entryIndex[entry.id] = entry
-			if entry.children? then for child in entry.children
-				addToIndex child
+	return if entry.{}meta.isCollapsed then '(..)' else ''
 
-		(require './program/doneEntries') $scope, storageService
+prepareGuideContent = (entry) !->
+	if entry.content?
+		entry.content = $sce.trustAsHtml entry.content
 
-		for id in $scope.userData.doneEntryIds
-			$scope.entryIndex[id]?.done = true
-		$scope.processDoneEntryParents!
+	entry.{}meta
+		..isCollapsed = entry.content?
+		..isExpandable = entry.children? or entry.content?
+		..arrow = getArrowFor entry
 
+	for check in [\content \children]
+		entry.{}meta.[]additionalClasses.push (if entry[check]? then "with-#{check}" else "without-#{check}")
 
-		trustGuideContent = (entry) !->
-			if entry.content?
-				entry.content = $sce.trustAsHtml entry.content
+	if entry.children?
+		for child in entry.children
+			prepareGuideContent child
 
-			if entry.children?
-				for child in entry.children
-					trustGuideContent child
+$scope.sections = [
+	{ id : \intro , name : "Intro" }
+	{ id : \asylum , name : "Northern Undead Asylum" }
+]
 
-		trustGuideContent $scope.entry
+$scope.section = $routeParams.\section
 
-		$scope.getClassesFor = (item) !->
-			classes = ["entry"]
-
-			for a in ["content", "children"]
-				classes.push (if item[a]? then "with-#a" else "without-#a")
-
-			return classes
-
-		$scope.depth = 0
+data = $resource "/modules/guide/content/#{$scope.section}.json" .query !->
+	$scope.entry = { children : data }
+	prepareGuideContent $scope.entry
 
 
-		$scope.getExpanderSettingsFor = (item) -> item.settings ?= {
-			expanded : item.children?
-			toggleMode : if item.content? or item.children? then \click else \none
-		}
+$scope.canAddToInventory = (entry) !->
+	can = (entry.[]labels |> any (== 'item'))
+
+	can = can and not (entry.[]flags |> any (== 'abstract'))
+
+	return can
 
 
-
-
+$scope.entryClicked = ($event, entry) !->
+	$event.stopPropagation!
+	if not entry.{}meta.isExpandable
+		return
+	entry.{}meta
+		..isCollapsed = not entry.{}meta.isCollapsed
+		..arrow = getArrowFor entry

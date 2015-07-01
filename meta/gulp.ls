@@ -39,8 +39,10 @@ gulp.task "copy-libs", ->
 
 gulp.task "compile-html", ->
 	gulp.src cfg.src.view
-		.pipe include { prefix: '@@' }
+		#.pipe include { prefix: '@@' }
 		.pipe gulp.dest cfg.dst.dir
+	gulp.src cfg.src.staticModuleFiles
+		.pipe gulp.dest cfg.dst.moduleDir
 
 
 gulp.task "compile-stylesheets", ->
@@ -66,7 +68,7 @@ gulp.task "compile-scripts", ->
 
 # Combine .js scripts into one file.
 gulp.task "compile-and-browserify", ["copy-static-files", "compile-scripts"], ->
-	browserify cfg.dst.mainTempFile, debug: true
+	browserify cfg.dst.mainTempFile, debug: false
 		.transform "require-globify"
 		.bundle! .on "error", (e) -> throw new Error(e)
 		.pipe vinyl_stream(cfg.dst.mainFile)
