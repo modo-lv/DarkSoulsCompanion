@@ -2,7 +2,8 @@ body, table, textarea {
   font-family: 'Segoe WP', 'segoe ui', arial, sans-serif; }
 
 .ui-grid {
-  font-family: 'Helvetica', 'Arial', sans-serif; }
+  font-family: 'Helvetica', 'Arial', sans-serif;
+  font-size: small; }
 
 .ui-grid-menu-button {
   height: 24px; }
@@ -52,3 +53,7 @@ body, table, textarea {
   vertical-align: baseline;
   border-radius: .5em;
   background: #AAA; }
+
+.ui-grid {
+  width: 99.87%;
+  height: 600px; }

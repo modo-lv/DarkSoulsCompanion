@@ -1,0 +1,372 @@
+[
+  {
+    "title": "First arrival",
+    "children": [
+      {
+        "title": "Information",
+        "children": [
+          {
+            "title": "Careful around NPCs!",
+            "labels": [
+              "warning"
+            ],
+            "content": "All NPCs can be attacked and killed, which also means you can attack them by accident. An NPC you have attacked will remain permanently hostile until you get to the point in the game where it's possible to undo NPC hostility. And there are a few exceptions even to that.",
+            "id": "2164cebf-1cbd-4b15-b788-9626fc87f73e"
+          },
+          {
+            "title": "Talking to NPCs",
+            "labels": [
+              "info"
+            ],
+            "content": "NPCs don't always say everything immediately. Keep talking to them until they start repeating themselves if you don't want to miss anything. And whenever you defeat a boss, open a new area or do something similarly permanent, it's a good idea to check back with NPCs and talk to them again as they might have gained new dialog, moved to another area or otherwise changed.",
+            "id": "cb8ce492-f120-42fd-8562-66a7e23062fe"
+          },
+          {
+            "title": "Leveling up: Resistance",
+            "labels": [
+              "warning"
+            ],
+            "content": "Avoid spending souls on increasing Resistance. While physical, fire and poison resistance sounds good, very few enemies apart from bosses actually use either fire or poison, and such attacks are best avoided anyway. In cases where evasion is a problem, there's usually a suit of armor to compensate. Armor also has a much more effect on your physical defense than resistance ever could, and every other stat is more valuable.",
+            "id": "99707e6a-46c5-438f-ba89-445d1258c35a"
+          },
+          {
+            "title": "How does Humanity work?",
+            "labels": [
+              "info"
+            ],
+            "content": "Humanity is a stat that is increased almost exclusively by using {Humanity} items dropped by enemies / found as treasure. It is lost and recovered the same way as souls. Humanity points increase all defenses and curse resistance, as well as damage dealt with all Chaos weapons, {Quelaag's Furysword} and {Abyss Greatsword}. The first 10 points of Humanity also increase the chance of enemies dropping items when they die.",
+            "id": "fd924087-cb9d-423f-ad3b-183078eed6f2"
+          },
+          {
+            "title": "What does Reverse Hollowing do?",
+            "labels": [
+              "info"
+            ],
+            "content": "At the cost of 1 Humanity point, \"Reverse Hollowing\" option turns your character from hollow to human form. Human form is required for two things: participating in multiplayer and kindling bonfires. When you die, you lose your human form and it is not restored when you retrieve your Souls and Humanity points. Thus, the Humanity point you spent on becoming human it is permanently lost.",
+            "id": "b56d7ea8-5c3a-430c-9fed-0e7c2207eae6"
+          },
+          {
+            "title": "How does multiplayer work?",
+            "labels": [
+              "info"
+            ],
+            "content": "This is a single-player (PvE, Player vs. Engine) guide, so it will not contain in depth information on multiplayer (PvP, Player vs. Player). At its core, taking part in online multiplayer (being in human form) lets you participate in other people's games and them in yours, either co-operating with (summoning) or fighting against one another other (invasion).",
+            "id": "106f23e6-df19-4006-9e4b-3bfce6bd0bf1"
+          },
+          {
+            "title": "What does Kindle do?",
+            "labels": [
+              "info"
+            ],
+            "content": "At the cost of 1 Humanity point, \"Kindle\" increases the amount of {Estus Flasks} the bonfire restores. You have to be in human form to perform Kindle. At this point, any bonfire that restores 10 Estus Flasks is already kindled (this limit can be raised much later in the game).",
+            "id": "ed7d6dd3-170f-475b-b867-ba95bbf8e46a"
+          }
+        ],
+        "id": "8eb94300-5f74-4bd8-a393-3de9807f5987"
+      }
+    ],
+    "id": "f42075d0-0930-4f73-88d6-ae70a07e4114"
+  },
+  {
+    "labels": [
+      "checklist",
+      "talk"
+    ],
+    "title": "Crestfallen Warrior",
+    "content": "{Crestfallen Warrior} is the man sitting near the bonfire.",
+    "children": [
+      {
+        "labels": [
+          "spoiler"
+        ],
+        "title": "Killing Crestfallen Warrior",
+        "content": "Killing the {Crestfallen Warrior} means you will miss out on exposition and gamplay hints.",
+        "id": "2793c8b2-2aa2-423d-bc76-ab53169ad231"
+      }
+    ],
+    "id": "ed0235e7-0e09-4a81-a598-01748856915f"
+  },
+  {
+    "labels": [
+      "checklist",
+      "item"
+    ],
+    "title": "Humanity (3)",
+    "id": "78ee8e0f-f3bc-4066-b0b6-662046241bad"
+  },
+  {
+    "labels": [
+      "checklist",
+      "item"
+    ],
+    "title": "Firebomb (6)",
+    "id": "f7f128e9-648a-489a-828b-0ad663a6bc0a"
+  },
+  {
+    "labels": [
+      "checklist",
+      "talk"
+    ],
+    "title": "Petrus of Thorolund",
+    "children": [
+      {
+        "labels": [
+          "item"
+        ],
+        "title": "Copper Coin",
+        "id": "09b390fe-ab0b-44aa-a25e-3e5787c21b70"
+      },
+      {
+        "labels": [
+          "covenant"
+        ],
+        "title": "Way of White",
+        "content": "{Way of White} is a beginner-friendly covenant that reduces the chance of getting invaded by players from other covenants.",
+        "id": "4d3dea70-71d2-48b1-ad02-2308ebf9ccfb"
+      },
+      {
+        "labels": [
+          "checklist",
+          "gesture"
+        ],
+        "title": "Shrug",
+        "id": "6ac2becf-09bb-489d-9c34-b47a3ea33296"
+      },
+      {
+        "labels": [
+          "buy",
+          "miracle"
+        ],
+        "title": "Heal",
+        "id": "2ad3f33a-b371-4cc1-89c9-eb7454f921b0"
+      },
+      {
+        "labels": [
+          "buy",
+          "miracle"
+        ],
+        "title": "Great Heal Excerpt",
+        "id": "4834c760-6720-4618-bd57-5255cc5ec918"
+      },
+      {
+        "labels": [
+          "buy",
+          "miracle"
+        ],
+        "title": "Seek Guidance",
+        "id": "8d075126-10ba-460f-9254-c56417530fd6"
+      },
+      {
+        "labels": [
+          "buy",
+          "miracle"
+        ],
+        "title": "Force",
+        "id": "5b49d923-dd95-44d6-86f1-c215ff8f4048"
+      },
+      {
+        "labels": [
+          "buy",
+          "miracle"
+        ],
+        "title": "Homeward",
+        "id": "5d93caa8-843d-4c2a-85ce-4c84008db640"
+      },
+      {
+        "labels": [
+          "buy",
+          "item"
+        ],
+        "title": "Thorolund Talisman",
+        "id": "fd4b0c5e-f585-4734-9aec-40867adcdcac"
+      },
+      {
+        "labels": [
+          "spoiler"
+        ],
+        "title": "Killing Petrus of Thorolund",
+        "content": "Killing {Petrus of Thorolund} will abort his side-story. If done before the arrival of his companions, they will be permanently hostile (cannot be undone by any means).",
+        "id": "1cef7c9a-8e57-4317-a050-f640840ed6dd"
+      }
+    ],
+    "id": "de2062c0-bf9e-4245-a19e-2672d513d9dd"
+  },
+  {
+    "labels": [
+      "checklist",
+      "item"
+    ],
+    "title": "Soul of a Lost Undead",
+    "id": "8034ed8b-1fa3-4ae0-9475-dd4678bb3963"
+  },
+  {
+    "title": "Secret area",
+    "children": [
+      {
+        "labels": [
+          "exploration"
+        ],
+        "title": "Location",
+        "content": "The secret area can be reached by going up the stairs across the room from {Petrus of Thorolund} and then dropping down in either of the square, black pits (it's actually one pit).",
+        "id": "fd3e2320-8f38-4325-afc6-99942ed96ec7"
+      },
+      {
+        "labels": [
+          "checklist",
+          "item"
+        ],
+        "title": "Homeward Bone (6)",
+        "id": "e7bf2c02-07ab-4723-9f82-52ad312fda73"
+      },
+      {
+        "labels": [
+          "checklist",
+          "item"
+        ],
+        "title": "Morning Star",
+        "id": "5baa890e-bb62-4c9d-8c0e-b9c55e09eb65"
+      },
+      {
+        "labels": [
+          "checklist",
+          "item"
+        ],
+        "title": "Talisman",
+        "id": "f82f3a70-6a74-44b9-897a-5e7cdc935c65"
+      },
+      {
+        "labels": [
+          "checklist",
+          "item"
+        ],
+        "title": "Cracked Red Eye Orb (4)",
+        "id": "1a32e768-06a7-45e9-b9fd-9405187f2c6a"
+      },
+      {
+        "labels": [
+          "checklist",
+          "item"
+        ],
+        "title": "Lloyd's Talisman (4)",
+        "id": "23541c17-22be-40cc-a84b-0179e9d86a59"
+      }
+    ],
+    "id": "5d662684-a5db-47d8-ab20-5f65caf779fe"
+  },
+  {
+    "title": "Graveyard",
+    "children": [
+      {
+        "labels": [
+          "help"
+        ],
+        "title": "Fighting skeletons",
+        "content": "Skeletons can be tough opponents for new character, but they also make for great training opportunities and there are ways to make them go down a bit easier.<ul><li>There's a secret area within the Firelink Shrine area that contains a {Morning Star}. Hammer weapons are very useful against skeletons because they easily make them temporarily crumble into a pile of bones, from which it takes a few seconds to reassemble.</li><li>Try to only engage one skeleton at a time — practice luring and isolating enemies.</li><li>Practice backstabbing or maybe even parry-and-riposte. This is even more effective with the {Morning Star}.</li><li>Practice kicking — maneuver the skeleton on the very edge of the cliff and kick him off.</li></ul>",
+        "id": "0e7bd83a-9f6c-4a46-a142-c2864f2131f1"
+      },
+      {
+        "labels": [
+          "checklist",
+          "item"
+        ],
+        "title": "Large Soul of a Lost Undead",
+        "id": "060f85b6-0a0b-4530-942f-d93deec9a1ab"
+      },
+      {
+        "labels": [
+          "checklist",
+          "item"
+        ],
+        "title": "Large Soul of a Lost Undead",
+        "id": "b9e59ed7-78a3-4097-8e0d-fee7b5e59683"
+      },
+      {
+        "labels": [
+          "checklist",
+          "item"
+        ],
+        "title": "Caduceus Round Shield",
+        "id": "8cdea746-5490-4338-beef-36e698a02e44"
+      },
+      {
+        "labels": [
+          "checklist",
+          "item"
+        ],
+        "title": "Zweihander",
+        "id": "21b62e72-7b98-473f-b021-cd40b4f2567a"
+      },
+      {
+        "labels": [
+          "checklist",
+          "item"
+        ],
+        "title": "Binoculars",
+        "id": "2139e882-f350-49fb-a503-885e9796b3cf"
+      },
+      {
+        "labels": [
+          "checklist",
+          "item"
+        ],
+        "title": "Winged Spear",
+        "id": "54f0ea90-7136-4713-ab6b-0f4f1992fd22"
+      }
+    ],
+    "id": "48566aa9-c5fb-48da-b844-d42a3e234743"
+  },
+  {
+    "labels": [
+      "checklist",
+      "item"
+    ],
+    "title": "Soul of a Lost Undead",
+    "id": "de5560e2-ac51-4aa5-bc6f-58c86edc7b7f"
+  },
+  {
+    "labels": [
+      "checklist",
+      "item"
+    ],
+    "title": "Soul of a Lost Undead",
+    "id": "a76ad83c-92e7-4403-8b57-2b64246653e2"
+  },
+  {
+    "title": "Bridge",
+    "children": [
+      {
+        "title": "Soul of a Lost Undead",
+        "labels": [
+          "checklist",
+          "item"
+        ],
+        "id": "d1d2c414-3b34-4665-9f13-70bb2e65b531"
+      },
+      {
+        "title": "Ring of Sacrifice",
+        "labels": [
+          "checklist",
+          "item"
+        ],
+        "id": "fa836330-5122-44d1-aced-d15ae74eb29a"
+      },
+      {
+        "labels": [
+          "checklist",
+          "item"
+        ],
+        "title": "Soul of a Lost Undead",
+        "id": "739da235-764a-4b62-b743-3f2e90ab3e1a"
+      },
+      {
+        "labels": [
+          "checklist",
+          "item"
+        ],
+        "title": "Soul of a Lost Undead",
+        "id": "089da6cf-0d39-4fef-aa0e-64f629dec55a"
+      }
+    ],
+    "id": "e25a1f11-a287-4b40-b6f4-f155280b2c79"
+  }
+]

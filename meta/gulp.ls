@@ -1,3 +1,5 @@
+global? <<< require "prelude-ls"
+
 #
 # MODULES
 #

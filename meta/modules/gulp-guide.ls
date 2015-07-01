@@ -8,9 +8,6 @@ del = require "del"
 include = require "gulp-file-include"
 uuid = require "node-uuid"
 
-global? <<< require 'prelude-ls'
-
-
 #
 # CONFIGURATION
 #

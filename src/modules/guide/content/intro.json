@@ -1,0 +1,120 @@
+[
+  {
+    "title": "About this guide",
+    "children": [
+      {
+        "title": "Labels",
+        "content": "<ul><li><strong>info</strong>: General information on some aspect of the game.</li><li><strong>warning</strong>: Important warnings about things that can unexpectedly or inadvertently change the current playthrough. Spoiler-free as much as possible.</li></ul>",
+        "id": "6f728622-33d9-417e-b806-3171bea1c09d"
+      },
+      {
+        "title": "How to use this guide",
+        "content": "Instead of how most guides are used — you read what you can/should do next and then do it, I recommend doing it the other way around. Do as much as you can yourself, explore, fight, look for chests. Whenever you come across an item, an NPC or something else of note, mark it in the guide (\"Got it!\" button). Only when you've explored all of a given area and found everything you can, check back with the guide to see if you're still missing anything.",
+        "id": "dd95d669-eadf-459d-83cb-97610aa70c07"
+      }
+    ],
+    "id": "4a1e82b9-f399-4166-81e5-babd00231796"
+  },
+  {
+    "title": "General game information",
+    "children": [
+      {
+        "title": "Concepts and keywords",
+        "children": [
+          {
+            "title": "New Game Plus (NG+)",
+            "labels": [
+              "info"
+            ],
+            "content": "When you finish the game, it is automatically started again from the beginning. You get to keep most of your items, but enemies get more powerful. If you keep replaying the game with the same character, each next iteration increases enemies' power further, up to and including the seventh NG+ (NG+7 or NG+++++++). The power increase stops after that.",
+            "id": "ce93259b-cbf6-4d34-a3bc-5fe1129a8fcc"
+          }
+        ],
+        "id": "d825c33f-3930-4372-baec-8ab67dd34090"
+      },
+      {
+        "title": "Saving and loading",
+        "content": "Dark Souls saves the game almost constantly. If you make a mistake, such as accidentally attack and kill an NPC, upgrade the wrong weapon or level up the wrong stats, there is no way to go back. This is by design, but might not always be fair (for example, dying because of a technical glitch rather than gameplay). The only way to work around this is to either manually create copies of your save file or link it to a cloud storage service like Dropbox that keeps old versions of files and lets you restore them.",
+        "id": "bb88d645-a3c0-4ee7-bcff-9680062b7c93"
+      },
+      {
+        "title": "Combat & movement",
+        "children": [
+          {
+            "labels": [
+              "info"
+            ],
+            "title": "Jumping",
+            "content": "You can jump by quickly releasing and pressing again the roll/sprint button while already sprinting. Several places and items in game can only be reached by jumping, so it's an important move to learn.",
+            "id": "08b4987a-3f9e-42b2-a5bd-a035b1d773e3"
+          },
+          {
+            "labels": [
+              "info"
+            ],
+            "title": "Free aiming (sniping)",
+            "content": "If you press the shield button (L1/LB on the controller) with the left hand empty and a bow in your right, you will enter a first-person view with targeting crosshairs. This lets you aim very precisely. <strong>Only works with bows, not crossbows or magic!</strong>",
+            "id": "cfe16794-8686-4afa-970c-9ae7924b30bd"
+          },
+          {
+            "labels": [
+              "info"
+            ],
+            "title": "Parry and riposte",
+            "content": "The game tells you how to parry and riposte, but it doesn't tell you that they're only possible under the right conditions. The conditions are:<ul><li>Your left hand must wield a weapon or shield (bare fist also works) that can actually parry. Not every shield and weapon can.</li><li>The enemy must be humanoid and of a humanoid size (no more than around 1.5 times your own size).</li><li>You must be standing close to the enemy for the parry to hit his hand, regardless of how long his weapon is.</li><li>The attack itself must be parry-able. Most are, but there are always exceptions.</li><li>For a riposte, you and the enemy have to be on even ground. Minor differences don't matter, but if there's too much height difference the riposte will not happen.</li></ul> If you successfully parry, the enemy will be staggered for a second (time will slow down) and will take much more damage from any attack. If you also riposte (light attack while enemy is staggered) you are completely immune to all direct attacks during the animation. It is also possible to parry partially: if you're a little bit too early or too late with your parry, or simply parry an attack that is un-parry-able, you will receive reduced damage, will not suffer any physical side-effects (such as stunning or knock-back). Partial parries work on all attacks in the game, even arrows and magic missiles, but does not let you riposte.",
+            "id": "b14bfc6c-efc4-4449-b960-a76df82ad8f1"
+          },
+          {
+            "labels": [
+              "info"
+            ],
+            "title": "Backstab",
+            "content": "Similar to parrying, there are several conditions that must be met for a backstab to be possible:<ul><li>The enemy must be humanoid and of a humanoid size (no more than around 1.5 times your own size).</li><li>You must be standing close to the enemy.</li><li>You must not be holding up your shield.</li><li>You and the enemy have to be on even ground. Minor differences don't matter, but if there's too much height difference the backstab will not happen.</li></ul> Just like with riposte, you are completely immune to all direct attacks during the back-stab animation.",
+            "id": "b14bfc6c-efc4-4449-b960-a76df82ad8f1"
+          }
+        ],
+        "id": "1e0f997e-9c59-4e9c-8389-ea744749435e"
+      }
+    ],
+    "id": "9147bfd5-8b2f-4a2b-a2d8-334f03fb8d33"
+  },
+  {
+    "title": "Character Creation (gifts)",
+    "children": [
+      {
+        "title": "Tiny Being's Ring is a lie!",
+        "labels": [
+          "warning"
+        ],
+        "content": "{Tiny Being's Ring} gift description says it regenerates lost health over time. <strong>That is not true!</strong> It actually gives a small bonus to how much health you have.",
+        "id": "210c4379-bcf8-4f92-b3cb-de66fae2f2b4"
+      },
+      {
+        "title": "Usefulness of other gifts",
+        "labels": [
+          "info"
+        ],
+        "content": "{Master Key} unlocks several shortcuts between the starting area and some later ones, giving earlier access to higher level items and enemies (and the option of skipping some early game parts).<br />{Black Firebomb}s: Powerful offensive item, can make several early bosses easier.<br />{Twin Humanities}: Consumable item, gives 2 Humanity points. See humanity explanation further in the guide.<br />{Binoculars}: Does what it says, but not very useful in the Undead Asylum (you're mostly indoors) and another can be found very soon after leaving the Asylum.<br />{Pendant}: virtually useless, game creator himself has described it as a \"prank\".<br />{Old Witch's Ring}: Provides a small amount of extra dialog text later, near mid-game.",
+        "id": "fe25810c-71d9-429e-87d4-aeaa47b01b1a"
+      },
+      {
+        "title": "Consumable gift amounts",
+        "labels": [
+          "info"
+        ],
+        "content": "<ul><li>Goddess's Blessing: ×3</li>, <li>Black Firebomb: ×10</li>, <li>Twin Humanities: ×1</li></ul>. All others are permanent (non-consumable) items.",
+        "id": "962b60ca-90c0-4380-a613-608db6db4b55"
+      },
+      {
+        "title": "Bombs for demon's hammer",
+        "labels": [
+          "spoiler",
+          "trade"
+        ],
+        "content": "The first boss you meet in {Northern Undead Asylum} is not supposed to be defeated until you get your weapon (or in NG+). You can, however, do it relatively easily if you pick {Black Firebomb}s as your starting gift and use them. If (and only if) you kill him before getting your weapon, he will drop a {Demon's Great Hammer}. The weapon is mostly useless though, as it requires 46 strength to wield and you can get another one way before you can level up that far.",
+        "id": "639b2cf7-05d1-4ee9-b4e2-48ebbcb1475f"
+      }
+    ],
+    "id": "e2a7ab4f-db11-40cd-87e1-26ae717ad1bf"
+  }
+]

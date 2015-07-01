@@ -1,0 +1,17 @@
+Tags
+    item : pick up
+    drop : guaranteed drop
+    trade : trade an item for something else
+    buy : can only be gotten by buying
+
+    miracle, pyromancy, sorcery : as is
+
+
+Sacrificing item
+    target
+    label : trade
+
+Using item
+    : target [item]
+
+
