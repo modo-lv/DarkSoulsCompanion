@@ -1,6 +1,6 @@
 [
   {
-    "title": "Upper level",
+    "title": "Upper level [Key to Depths]",
     "children": [
       {
         "labels": [
@@ -147,11 +147,14 @@
         ],
         "title": "Domnhall of Zena",
         "id": "a8b9a09c-60e2-46eb-9a42-e1cd5d3c0bab",
-        "children" : [
+        "children": [
           {
-            "title" : "Joy",
-            "labels" : ["gesture"],
-            "content" : "Only available for cleric and knight classes, as all others have this gesture by default."
+            "title": "Joy",
+            "labels": [
+              "gesture"
+            ],
+            "content": "Only available for cleric and knight classes, as all others have this gesture by default.",
+            "id": "e9ae1827-53dc-4579-b570-eb348686d25b"
           }
         ]
       },
@@ -196,47 +199,68 @@
     "id": "996d73a3-7c53-4efa-af3b-301ddf19ffa4"
   },
   {
-    "title" : "Talk",
-    "labels" : ["talk"],
-    "children" : [
+    "title": "Talk",
+    "labels": [
+      "talk"
+    ],
+    "children": [
       {
-        "title" : "Female Undead Merchant (Undead Burg waterway)"
+        "title": "Female Undead Merchant (Undead Burg waterway)",
+        "id": "87b9017a-0958-4fa1-9994-83502a1ac503"
       }
-    ]
+    ],
+    "id": "098dfaa0-9909-4387-904f-052a3a8d8a74"
   },
   {
-    "title" : "Firelink Shrine",
-    "children" : [
+    "title": "Firelink Shrine",
+    "children": [
       {
-        "labels": ["talk"],
+        "labels": [
+          "talk"
+        ],
         "title": "Griggs of Vinheim",
-        "children" : [
+        "children": [
           {
-            "title" : "Buying everything",
-            "labels" : ["spoiler"],
-            "content" : "If you buy all the spells he offers, Griggs will leave and will be not be available for the rest of the playthrough. His spells can also be bought from Big Hat Logan."
+            "title": "Buying everything",
+            "labels": [
+              "spoiler"
+            ],
+            "content": "If you buy all the spells he offers, Griggs will leave and will be not be available for the rest of the playthrough. His spells can also be bought from Big Hat Logan.",
+            "id": "238a14fe-bca6-42dc-8871-6930563a5bb4"
           }
-        ]
-      },
-      {
-        "labels" : ["talk"],
-        "title" : "Petrus of Thorolund"
-      },
-      {
-        "labels": ["talk", "shop"],
-        "title": "Laurentius of the Great Swamp"
+        ],
+        "id": "21cde952-4539-4331-84c1-117df28a5528"
       },
       {
         "labels": [
           "talk"
         ],
-        "title": "Crestfallen Warrior"
+        "title": "Petrus of Thorolund",
+        "id": "2868cc40-9171-4532-ba5f-26cbdaee6591"
       },
       {
-        "labels": ["item"],
-        "title": "Lautrec of Carim"
+        "labels": [
+          "shop",
+          "talk"
+        ],
+        "title": "Laurentius of the Great Swamp",
+        "id": "2b85b186-4d34-4625-b40e-d4d65565a63c"
+      },
+      {
+        "labels": [
+          "talk"
+        ],
+        "title": "Crestfallen Warrior",
+        "id": "fb07a50e-2479-406f-84f4-c52539b4c911"
+      },
+      {
+        "labels": [
+          "item"
+        ],
+        "title": "Lautrec of Carim",
+        "id": "e84bae2a-7aeb-42b0-9b5f-28fba8055e73"
       }
-
-    ]
+    ],
+    "id": "d971217e-96d6-4936-bea3-14ccfa81c8ee"
   }
 ]

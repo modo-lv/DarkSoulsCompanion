@@ -2,6 +2,9 @@ $q, $scope, itemService, inventoryService, pcService, uiGridConstants <-! angula
 
 $scope.results = []
 
+$scope.statBonus = 0
+$scope.ignoreCrystal = true
+
 
 # Grid
 $scope.gridOptions = (require './controller/gridOptions') uiGridConstants
@@ -14,10 +17,10 @@ _addResult = (type, weapon) !->
 	scI = pcService.statScalingFactorOf \intelligence
 	scF = pcService.statScalingFactorOf \faith
 
-	str = pcService.statValueOf \strength
-	dex = pcService.statValueOf \dexterity
-	int = pcService.statValueOf \intelligence
-	fai = pcService.statValueOf \faith
+	str = $scope.statBonus + pcService.statValueOf \strength
+	dex = $scope.statBonus + pcService.statValueOf \dexterity
+	int = $scope.statBonus + pcService.statValueOf \intelligence
+	fai = $scope.statBonus + pcService.statValueOf \faith
 
 	if weapon.reqS > str || weapon.reqD > dex || weapon.reqI > int || weapon.reqF > fai
 		#console.log "#{weapon.name} needs higher stats"
@@ -45,7 +48,9 @@ $scope.calculate = (type = 'offence') !->
 	inventory = inventoryService.loadUserInventory!
 
 	$q.all [weapons.$promise, items.$promise] .then ->
-		availableWeapons = (inventory |> map (item) -> weapons |> find (.id == item.id)) |> reject -> not it?
+		availableWeapons = (inventory |> map (item) -> weapons |> find (.id == item.id)) |> reject ->
+			#console.log it?.path
+			not it? or ($scope.ignoreCrystal and (it.name |> take 4) == \Crys)
 
 		# Find available upgrades
 		data = {}

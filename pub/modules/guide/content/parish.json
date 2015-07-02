@@ -432,7 +432,8 @@
     ],
     "children": [
       {
-        "title" : "Male Undead Merchant"
+        "title": "Male Undead Merchant",
+        "id": "746ef24c-4cfe-474d-ba4b-cb487d2496f7"
       },
       {
         "title": "Crestfallen Warrior (Firelink Shrine)",

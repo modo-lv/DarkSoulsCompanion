@@ -2,6 +2,9 @@
     <button ng-click="calculate('offence')">Offence</button>
     <br />
     <button ng-click="calculate('defence')">Defence</button>
+    <br />
+    Assume stats +<input type="number" ng-model="statBonus" />
+    <input type="checkbox" ng-model="ignoreCrystal" id="wCalcIgnoreCrystal" /><label for="wCalcIgnoreCrystal">Ignore crystal weapons</label>
 
     <!-- Results -->
     <div ui-grid-auto-resize ui-grid="gridOptions"></div>

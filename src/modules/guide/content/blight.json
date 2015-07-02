@@ -1,0 +1,160 @@
+[
+  {
+    "title": "Entrance and first section of upper levels [Blighttown Key]",
+    "children": [
+      {
+        "labels": [
+          "item"
+        ],
+        "title": "Soul of a Proud Knight",
+        "id": "f4111bbd-fece-423a-8ed0-bc95c1c47af0"
+      },
+      {
+        "labels": [
+          "item"
+        ],
+        "title": "Large Soul of a Nameless Soldier",
+        "id": "e6b76286-3fe3-4b46-930c-33e37c58024f"
+      },
+      {
+        "labels": [
+          "bonfire"
+        ],
+        "title": "Upper level bonfire",
+        "id": "ac0c0bc6-c54a-423f-b381-9a41d82618a3"
+      },
+      {
+        "labels": [
+          "item"
+        ],
+        "title": "Iaito",
+        "id": "1c8aecce-1e97-4ce5-b629-5d43659c2391"
+      },
+      {
+        "labels": [
+          "item"
+        ],
+        "title": "Blooming Purple Moss Clump (3)",
+        "id": "0e697a21-eb7b-46c9-a63e-8bc9fd57fa22"
+      },
+      {
+        "labels": [
+          "item"
+        ],
+        "title": "Humanity",
+        "id": "eda7eb10-e460-45ca-be5c-ac6916ec84f6"
+      },
+      {
+        "labels": [
+          "item"
+        ],
+        "title": "Shadow Set",
+        "id": "caf56b13-86ac-4533-9cad-af814e56a3ba"
+      },
+      {
+        "labels": [
+          "item"
+        ],
+        "title": "Soul of a Proud Knight",
+        "id": "9f3a1792-fae9-40d3-9bb8-bb1b8f6bb099"
+      },
+      {
+        "labels": [
+          "item"
+        ],
+        "title": "Soul of a Proud Knight",
+        "id": "cee70284-5223-48d8-a51f-c6225ac48553"
+      }
+    ],
+    "id": "2ef1c5be-85e6-41f2-99e4-e17cca54d1fb"
+  },
+  {
+    "title": "Second section of the upper levels",
+    "children": [
+      {
+        "labels": [
+          "item"
+        ],
+        "title": "Soul of a Proud Knight",
+        "id": "dcdef1a1-1748-413e-a6ff-6867402ff017"
+      },
+      {
+        "labels": [
+          "item"
+        ],
+        "title": "Eagle Shield",
+        "id": "48931487-b408-42c1-a924-4b4a7a387a29"
+      },
+      {
+        "labels": [
+          "item"
+        ],
+        "title": "Large Soul of a Nameless Soldier",
+        "id": "658a6d8d-c1a1-4e14-ba36-bda20939341a"
+      },
+      {
+        "labels": [
+          "pyromancy"
+        ],
+        "title": "Pyromancy: Power Within",
+        "id": "4594e290-4902-4e98-9553-a39267196bef"
+      },
+      {
+        "labels": [
+          "item"
+        ],
+        "title": "Whip",
+        "id": "0240292f-a8b5-4750-8326-fdb2b4ad3a13"
+      },
+      {
+        "labels": [
+          "item"
+        ],
+        "title": "Wanderer Set, Falchion",
+        "id": "974d2a93-50cb-4c94-948f-14466496ff42"
+      }
+    ],
+    "id": "af994a2f-6fa6-40a3-b80a-5f32db0e7f9c"
+  },
+  {
+    "title": "Around the lake",
+    "children": [
+      {
+        "labels": [
+          "item"
+        ],
+        "title": "Large Soul of a Proud Knight",
+        "id": "a61078e3-2b8c-44ac-87b7-b011f050dcb3"
+      },
+      {
+        "labels": [
+          "item"
+        ],
+        "title": "Large Soul of a Proud Knight",
+        "id": "e03ef55d-34f6-46bb-8b5e-382a259c93bb"
+      },
+      {
+        "labels": [
+          "bonfire"
+        ],
+        "title": "Blighttown lower levels bonfire",
+        "id": "0a8b9fd2-34f8-4e28-825b-2836954e5ca8"
+      },
+      {
+        "labels": [
+          "item"
+        ],
+        "title": "Dragon Scale",
+        "id": "f8b32ded-26bd-4265-9b5a-733cc68fe5e8"
+      },
+      {
+        "labels": [
+          "item"
+        ],
+        "title": "Large Soul of a Proud Knight",
+        "id": "6dcc0a22-8573-45be-9ea4-020938c0ea2c"
+      }
+    ],
+    "id": "8acc5317-7cd0-4df5-bdb6-6d7ba084a043"
+  }
+]

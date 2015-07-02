@@ -10,6 +10,7 @@ $scope.sections = [
 	{ id : \parish , name : "Undead Parish" }
 	{ id : \low , name : "Lower Undead Burg" }
 	{ id : \depths , name : "The Depths" }
+	{ id : \blight , name : "Blighttown" }
 ]
 
 $scope.section = $routeParams.\section

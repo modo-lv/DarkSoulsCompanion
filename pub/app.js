@@ -1446,6 +1446,9 @@ function curry$(f, bound){
       }, {
         id: 'depths',
         name: "The Depths"
+      }, {
+        id: 'blight',
+        name: "Blighttown"
       }
     ];
     $scope.section = $routeParams['section'];
@@ -1639,13 +1642,16 @@ function curry$(f, bound){
       return svc.getById(item.id);
     };
     svc.addToInventory = function(item, amount){
-      var existing;
+      var existing, x$;
       amount == null && (amount = 1);
       existing = svc.getByItem(item);
       if (existing) {
         existing.amount += amount;
       } else {
-        (svc.items || (svc.items = [])).push(new svc.models.InventoryItem(item.id, item.name, amount));
+        x$ = new svc.models.InventoryItem(amount);
+        x$.id = item.id;
+        (svc.items || (svc.items = [])).push(
+        x$);
       }
       svc.saveInventory();
     };
@@ -2470,6 +2476,8 @@ arguments[4][12][0].apply(exports,arguments)
   angular.module("dsc").controller("WeaponCalcController", function($q, $scope, itemService, inventoryService, pcService, uiGridConstants){
     var x$, _addResult;
     $scope.results = [];
+    $scope.statBonus = 0;
+    $scope.ignoreCrystal = true;
     x$ = $scope.gridOptions = require('./controller/gridOptions')(uiGridConstants);
     x$.data = $scope.results;
     _addResult = function(type, weapon){
@@ -2478,10 +2486,10 @@ arguments[4][12][0].apply(exports,arguments)
       scD = pcService.statScalingFactorOf('dexterity');
       scI = pcService.statScalingFactorOf('intelligence');
       scF = pcService.statScalingFactorOf('faith');
-      str = pcService.statValueOf('strength');
-      dex = pcService.statValueOf('dexterity');
-      int = pcService.statValueOf('intelligence');
-      fai = pcService.statValueOf('faith');
+      str = $scope.statBonus + pcService.statValueOf('strength');
+      dex = $scope.statBonus + pcService.statValueOf('dexterity');
+      int = $scope.statBonus + pcService.statValueOf('intelligence');
+      fai = $scope.statBonus + pcService.statValueOf('faith');
       if (weapon.reqS > str || weapon.reqD > dex || weapon.reqI > int || weapon.reqF > fai) {
         return;
       }
@@ -2504,7 +2512,8 @@ arguments[4][12][0].apply(exports,arguments)
       $q.all([weapons.$promise, items.$promise]).then(function(){
         var availableWeapons, data, i$, len$, weapon, lresult$, materials, promise, j$, iteration, results$ = [];
         availableWeapons = reject(function(it){
-          return it == null;
+          return it == null || ($scope.ignoreCrystal && take(4)(
+          it.name) === 'Crys');
         })(
         map(function(item){
           return find(function(it){

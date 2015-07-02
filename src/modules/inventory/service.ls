@@ -24,7 +24,9 @@ svc.addToInventory = (item, amount = 1) !->
 	if existing
 		existing.amount += amount
 	else
-		svc.[]items.push new svc.models.InventoryItem item.id, item.name, amount
+		new svc.models.InventoryItem amount
+			..id = item.id
+			.. |> svc.[]items.push
 
 	svc.saveInventory!
 
