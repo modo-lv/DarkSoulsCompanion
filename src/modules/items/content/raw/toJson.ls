@@ -12,6 +12,16 @@ raw = {}
 	..items = {}
 
 
+$index = []
+
+
+$addToIndex = (item) !->
+	entry = {}
+	for field in [\id \name \itemType]
+		entry[field] = item[field]
+
+	$index.push entry
+
 
 pathMap =
 	0 : null # Normal
@@ -119,55 +129,6 @@ setTexts = (item) !->
 	item.desc = raw.descs[item.id]
 
 
-applyWeaponUpgrade = (weapon, baseUpgradeId, iteration) !->
-	weapon.upgradeId = baseUpgradeId + iteration
-
-	upgrade = raw.upgrades[weapon.upgradeId]
-	if not upgrade? then return false
-
-	weapon
-		..id += iteration
-		.. |> setTexts
-
-		for mapping in [
-			[\dmgP \PhysicsAtkRate]
-			[\dmgM \MagicAtkRate]
-			[\dmgF \FireAtkRate]
-			[\dmgL \ThunderAtkRate]
-			[\dmgS \StaminaAtkRate]
-
-			[\defT \PoisonGuardResistRate]
-			[\defB \BloodGuardResistRate]
-			[\defC \CurseGuardResistRate]
-			[\defS \StaminaGuardDefRate]
-		]
-			weapon[mapping.0] = weapon[mapping.0] * upgrade[mapping.1] |> Math.floor
-
-		for mapping in [
-			[\scS \CorrectStrengthRate]
-			[\scD \CorrectAgilityRate]
-			[\scI \CorrectMagicRate]
-			[\scF \CorrectFaithRate]
-		]
-			#console.log "Before: #{weapon[mapping.0] }"
-			weapon[mapping.0] = weapon[mapping.0] * upgrade[mapping.1]
-			#console.log "After: #{weapon[mapping.0] }"
-
-	weapon
-		..defP *= +upgrade.\PhysicsGuardCutRate
-		..defM *= +upgrade.\MagicGuardCutRate
-		..defF *= +upgrade.\FireGuardCutRate
-		..defL *= +upgrade.\ThunderGuardCutRate
-
-	# Costs
-	#console.log materialSet
-	weapon
-		..upMatId = +upgrade.\MatId
-		..upMatCost = +upgrade.\MatCost
-
-	return true
-
-
 processUpgrades = (folder = '.') !->
 	console.log "Processing upgrades..."
 
@@ -176,9 +137,8 @@ processUpgrades = (folder = '.') !->
 	for key, rawUp of raw.upgrades
 		matSet = raw.materialSets[+rawUp.\Id] ? raw.materialSets[+rawUp.\MaterialSetId]
 
-
 		upgrade = { id : +rawUp.\Id }
-			..dmgModP = +rawUp.\PhysicsAtkRate
+			..dmgModN = +rawUp.\PhysicsAtkRate
 			..dmgModM = +rawUp.\MagicAtkRate
 			..dmgModF = +rawUp.\FireAtkRate
 			..dmgModL = +rawUp.\ThunderAtkRate
@@ -189,7 +149,7 @@ processUpgrades = (folder = '.') !->
 			..scModI = +rawUp.\CorrectMagicRate
 			..scModF = +rawUp.\CorrectFaithRate
 
-			..defModP = +rawUp.\PhysicsGuardCutRate
+			..defModN = +rawUp.\PhysicsGuardCutRate
 			..defModM = +rawUp.\MagicGuardCutRate
 			..defModF = +rawUp.\FireGuardCutRate
 			..defModL = +rawUp.\ThunderGuardCutRate
@@ -217,12 +177,15 @@ processItems = (folder = '.') !->
 		item = { id : +rawItem.\Id }
 			.. |> setTexts
 			..sell = +rawItem.\SellValue
+			..itemType = \item
 
 		if not item.name? or item.name.length < 1
 			#console.log "[#{item.name}]"
 			continue
 
 		items.push item
+
+		item |> $addToIndex
 
 	fs.writeFileSync "#{folder}/items.json", JSON.stringify items
 
@@ -274,21 +237,23 @@ processWeapons = (folder = '.')!->
 			..reqI = +rawWeapon.\ProperMagic
 			..reqF = +rawWeapon.\ProperFaith
 
-			..dmgP = +rawWeapon.\AttackBasePhysics
+			..dmgN = +rawWeapon.\AttackBasePhysics
 			..dmgM = +rawWeapon.\AttackBaseMagic
 			..dmgF = +rawWeapon.\AttackBaseFire
 			..dmgL = +rawWeapon.\AttackBaseThunder
 			..dmgS = +rawWeapon.\AttackBaseStamina
+			..dmgP = +rawWeapon.\AttackBaseRepel
 
 			..scS = +rawWeapon.\CorrectStrength / 100
 			..scD = +rawWeapon.\CorrectAgility / 100
 			..scI = +rawWeapon.\CorrectMagic / 100
 			..scF = +rawWeapon.\CorrectFaith / 100
 
-			..defP = +rawWeapon.\PhysGuardCutRate
+			..defN = +rawWeapon.\PhysGuardCutRate
 			..defM = +rawWeapon.\MagGuardCutRate
 			..defF = +rawWeapon.\FireGuardCutRate
 			..defL = +rawWeapon.\ThunGuardCutRate
+			..defP = +rawWeapon.\GuardBaseRepel
 
 			..defT = +rawWeapon.\PoisonGuardResist
 			..defB = +rawWeapon.\BloodGuardResist
@@ -300,12 +265,12 @@ processWeapons = (folder = '.')!->
 			..occMod = +rawWeapon.\AntWeakA_DamageRate
 
 			..upCost = +rawWeapon.\BasicPrice
-			..upMatId = 0
-			..upMatCost = 0
 
 			..path = pathMap[+rawWeapon.\BaseChangeCategory]
 
 			..range = +rawWeapon.\BowDistRate
+
+			..upgradeId = +rawWeapon.\ReinforceTypeId
 
 		# Bleed & poison
 		for effectField in [\SpEffectBehaviorId0 \SpEffectBehaviorId1 \SpEffectBehaviorId2 ]
@@ -319,15 +284,16 @@ processWeapons = (folder = '.')!->
 				..dmgB = +effect.\ChangeHpRate
 			| effectMap.\toxic => fallthrough
 			| effectMap.\poison => weapon
-				..buildP = +effect.\PoizonAttackPower
-				..dmgP = +effect.\ChangeHpPoint
+				..buildT = +effect.\PoizonAttackPower
+				..dmgT = +effect.\ChangeHpPoint
 			| effectMap.\heal => weapon
 				..healHit = -1 * effect.\ChangeHpPoint
 
 		#if (not weapon.name?) or weapon.name.indexOf(\Dagger) < 0 then continue
 
-		applyWeaponUpgrade weapon, +rawWeapon.\ReinforceTypeId , 0
 		weapons.push weapon
+
+		weapon |> $addToIndex
 
 	fs.writeFileSync "#{folder}/weapons.json", JSON.stringify weapons
 
@@ -336,5 +302,6 @@ processWeapons = (folder = '.')!->
 rawDataLoaded = !->
 	folder = ".."
 	processItems folder
-	#processWeapons folder
+	processWeapons folder
 	processUpgrades folder
+	fs.writeFileSync "#{folder}/index.json", JSON.stringify $index

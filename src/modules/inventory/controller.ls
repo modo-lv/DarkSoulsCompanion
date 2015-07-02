@@ -1,17 +1,18 @@
 $scope, uiGridConstants, itemService, storageService, inventoryService <-! angular.module "dsc" .controller "InventoryController"
 
-# Initialize
-itemService.loadItems!
-inventoryService.loadInventory!
+### SETUP
 
-# Models
-$scope.allItems = itemService.loadIdNameIndex!
 $scope.selectedItem = null
-$scope.inventory = inventoryService.items
+$scope.inventory = []
 
-# Grid
-$scope.gridOptions = (require './controller/gridOptions')
-	..data = $scope.inventory
+$scope.gridOptions = require './controller/gridOptions'
+
+
+### LOAD DATA
+
+($scope.allItems = itemService.loadItemIndex!).$promise.then !->
+	#console.log 'Loading inventory...'
+	$scope.gridOptions.data = $scope.inventory = inventoryService.loadUserInventory!
 
 # Event handlers
 $scope.addItem = (item = $scope.selectedItem.originalObject) !->

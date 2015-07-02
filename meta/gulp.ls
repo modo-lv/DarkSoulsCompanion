@@ -23,7 +23,7 @@ global.cfg = require "./gulp-config"
 #
 requireDir "./modules"
 
-gulp.task "build-modules", ["guide/build"]
+gulp.task "build-modules", ["guide/build", "items/build"]
 
 
 #

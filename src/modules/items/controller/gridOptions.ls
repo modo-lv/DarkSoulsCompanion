@@ -40,7 +40,7 @@ module?.exports = ($scope, uiGridConstants) !->
 				displayName : \RF
 			}
 			{
-				field : \dmgP
+				field : \dmgN
 				displayName : \AP
 			}
 			{
@@ -84,7 +84,7 @@ module?.exports = ($scope, uiGridConstants) !->
 				cellFilter : 'percentage'
 			}
 			{
-				field : \defP
+				field : \defN
 				displayName : \DP
 			}
 			{

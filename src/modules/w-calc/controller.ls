@@ -8,96 +8,71 @@ $scope.gridOptions = (require './controller/gridOptions') uiGridConstants
 	..data = $scope.results
 
 
-
-$scope.calculate = (type = 'offence') !->
-	results = []
-
-	scS = getStatScalingFactor \strength
-	scD = getStatScalingFactor \dexterity
-	scI = getStatScalingFactor \intelligence
-	scF = getStatScalingFactor \faith
+_addResult = (type, weapon) !->
+	scS = pcService.statScalingFactorOf \strength
+	scD = pcService.statScalingFactorOf \dexterity
+	scI = pcService.statScalingFactorOf \intelligence
+	scF = pcService.statScalingFactorOf \faith
 
 	str = pcService.statValueOf \strength
 	dex = pcService.statValueOf \dexterity
 	int = pcService.statValueOf \intelligence
 	fai = pcService.statValueOf \faith
 
-	items = itemService.loadItems!
-	weapons = itemService.loadItems \weapons
-	inventory = inventoryService.loadInventory!
+	if weapon.reqS > str || weapon.reqD > dex || weapon.reqI > int || weapon.reqF > fai
+		#console.log "#{weapon.name} needs higher stats"
+		return
 
-	loadItems = $q.all [weapons.$promise, items.$promise]
+	dmgN = weapon.dmgN * (1 + ((weapon.scS * scS) + (weapon.scD * scD)))
+	dmgM = weapon.dmgM * (1 + ((weapon.scI * scI) + (weapon.scF * scF)))
 
-	loadItems.then ->
-		availableWeapons = inventory |> map (item) -> weapons |> find (.id == item.id)
+	defN = weapon.defN + ((weapon.defM + weapon.defF + weapon.defL) * 0.2) + weapon.defS
+
+	score = if type == 'defence' then defN else dmgN
+
+	result = {}
+		..weapon = weapon
+		..score = score
+
+	$scope.gridOptions.data.push result
+
+
+$scope.calculate = (type = 'offence') !->
+	$scope.gridOptions.data = []
+
+	items = itemService.loadItemData \items
+	weapons = itemService.loadItemData \weapons
+	inventory = inventoryService.loadUserInventory!
+
+	$q.all [weapons.$promise, items.$promise] .then ->
+		availableWeapons = (inventory |> map (item) -> weapons |> find (.id == item.id)) |> reject -> not it?
 
 		# Find available upgrades
-		upgraded = []
+		data = {}
+
 		for weapon in availableWeapons
 			materials = inventory |> map -> {} <<< it
-			iteration = 0
-			nextUp = weapon
-			do
-				if ++iteration > 15
-					break
-				canUpgrade = itemService.canUpgradeWithMaterials weapon, materials, iteration
-				#console.log "Can upgrade #{weapon.name }: #{canUpgrade }"
-				if canUpgrade
-					temp = itemService.getUpgradedWeapon weapon, iteration
-				if canUpgrade and canUpgrade = nextUp?
-					#console.log "Addding upgraded weapon", temp
-					itemService.payForUpgradeFor weapon, materials, iteration
-					nextUp = temp
-					upgraded.push nextUp
-			while canUpgrade
-			#break
+			promise = $q (resolve, reject) !-> resolve!
+			for iteration from 0 to 15
+				((weapon, materials, iteration) !->
+					promise := promise
+					.then !->
+						#console.log "Then1"
+						return itemService.canUpgradeWithMaterials weapon, materials, iteration
+					.then (canUpgrade) !->
+						#console.log "Then2", canUpgrade
+						if canUpgrade
+							return $q.all [
+								itemService.getUpgradedVersionOf weapon, iteration
+								itemService.payForUpgradeFor weapon, materials, iteration
+							]
+						else
+							materials.length = 0
+							return null
+					.then (result) !->
+						upWeapon = result?.0
+						#console.log "then4", weapon
+						if upWeapon?
+							_addResult type, upWeapon
 
-		availableWeapons ++= upgraded
-
-		for weapon in availableWeapons
-			if weapon.reqS > str || weapon.reqD > dex || weapon.reqI > int || weapon.reqF > fai
-				continue
-
-			dmgP = weapon.dmgP * (1 + ((weapon.scS * scS) + (weapon.scD * scD)))
-			dmgM = weapon.dmgM * (1 + ((weapon.scI * scI) + (weapon.scF * scF)))
-
-			defP = weapon.defP + ((weapon.defM + weapon.defF + weapon.defL) * 0.2) + weapon.defS
-
-			score = if type == 'defence' then defP else dmgP
-
-			result = {}
-				..weapon = weapon
-				..score = score
-
-			results.push result
-
-		$scope.gridOptions.data = results
-
-
-
-getStatScalingFactor = (name) !->
-	pcService.loadUserData!
-	statValue = pcService.statValueOf name
-
-	thresholds = switch name
-		when \strength then fallthrough
-		when \dexterity then [[10, 0.5] [10, 3.5] [20, 2.25]]
-		when \intelligence then fallthrough
-		when \faith then [[10, 0.5] [20, 2.25] [20, 1.5]]
-		default ...
-
-
-	result = 0
-	for threshold in thresholds
-		if statValue >= threshold.0
-			result += threshold.0 * threshold.1
-		else
-			result += statValue * threshold.1
-		statValue -= threshold.0
-		if statValue < 1
-			break
-
-	result /= 100
-
-	#console.log "#{name} scaling factor: #{result }"
-	return result
+				) weapon, materials, iteration

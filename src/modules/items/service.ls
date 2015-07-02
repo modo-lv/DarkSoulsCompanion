@@ -10,48 +10,64 @@ svc = {
 	# Items in separate arrays, grouped by type
 	items : {}
 
-	# All items in a single array
-	allItems : []
-
-	# Upgrade paths
-	upgrades : {}
-
 	itemTypes : [\items \weapons \armors]
+
+	itemIndex : []
+
+	_promises : {}
 }
 
-	..models = require './models'
+	..models = require './service/models'
 
 
-svc.loadIdNameIndex = ->
-	return $resource '/modules/items/content/idNameIndex.json' .query!
+/**
+ * Load the item index.
+ * @returns An array that will be asynchronously populated when the results are in.
+ */
+svc.loadItemIndex = (force = false) !->
+	if force or svc.itemIndex |> empty
+		svc.itemIndex = $resource '/modules/items/content/index.json' .query!
+
+	return svc.itemIndex
+
+
+svc.getFromIndexById = (id) -> svc.itemIndex |> find (.id == id)
+
+
+/**
+ * Given a 'lite' item from the index, return the full data.
+ * Items must be loaded.
+ */
+svc.getItemByIndex = (indexEntry) -> svc.items[indexEntry.itemType][indexEntry.id]
+
+
+/**
+ * Load item data from JSON file and construct models
+ */
+svc.loadItemData = (itemType = \items, force = false) !->
+	def = $q.defer!
+
+	def.resolve svc.items[itemType] unless force or (svc.{}items.[][itemType] |> empty)
+
+	# If we are already loading
+	if svc.{}items.[][itemType].$promise?
+		return svc.items[itemType]
+
+	svc.items[itemType].$promise = def.promise
+
+	result = $resource "/modules/items/content/#{itemType}.json" .query !->
+		svc.items[itemType].length = 0
+
+		for itemData in result
+			svc.createItemFrom itemData
+				.. |> svc.items[itemType].push
+
+		def.resolve svc.items[itemType]
+
+	return svc.items[itemType]
 
 
 svc
-	..getById = (id) !->
-		svc.loadItems!
-		return svc.allItems |> find (.id == id)
-
-
-	..loadItems = (itemType = \items, force = false) !->
-		unless force or svc.[]allItems |> empty
-			return
-
-		result = $resource "/modules/items/content/#{itemType}.json" .query!
-
-		items = []
-		defer = $q.defer!
-		items.$promise = defer.promise
-
-		result.$promise.then !->
-			for itemData in result
-				svc.createItemFrom itemData
-					.. |> items.push
-
-			defer.resolve!
-
-		return items
-
-
 	..createItemFrom = (itemData) ->
 		(switch itemData.itemType
 		| 'armor' => new svc.models.Armor
@@ -60,74 +76,69 @@ svc
 		) <<< itemData
 
 
-	..getItemByFullName = (itemName) ->
-		svc.allItems |> find (.fullName == itemName) ?
-			throw new Error "There is no item with the name '#{itemName }' in the database."
+	..getUpgradeFor = (weapon, iteration) !->
+		def = $q.defer!
+
+		svc.loadItemData \upgrades .$promise.then (upgradeData) !->
+			def.resolve (upgradeData |> find (.id == weapon.upgradeId + iteration))
+
+		return def.promise
 
 
-	..loadUpgrades = (force) !->
-		unless force or svc.upgrades |> Obj.empty
-			return
+	..getUpgradedVersionOf = (weapon, iteration) !->
+		def = $q.defer!
 
-		upgrades = require './content/upgrades.json'
-		for upgrade in upgrades
-			svc.upgrades[upgrade.id] = upgrade
+		(svc.getUpgradeFor weapon, iteration).then (upgrade) !->
+			if not upgrade? then return def.resolve null
 
+			#console.log "Weapon is", weapon, ", upgrade is ", upgrade
 
-	..getUpgradeFor = (weapon, iteration) ->
-		svc.loadUpgrades!
-		svc.upgrades[weapon.upgradeId + iteration]
+			upWeapon = new svc.models.Weapon! <<< weapon
+				..id += iteration
+				..upgradeId = upgrade.id
+				..name += " +#{iteration }" if iteration > 0
 
+			for mapping in [
+				[\dmgN \dmgModN]
+				[\dmgM \dmgModM]
+				[\dmgF \dmgModF]
+				[\dmgL \dmgModL]
+				[\dmgS \dmgModS]
 
-	..getUpgradedWeapon = (weapon, iteration) !->
-		svc.loadUpgrades!
+				[\defT \defModT]
+				[\defB \defModB]
+				[\defC \defModC]
+				[\defS \defModS]
+			]
+				upWeapon[mapping.0] = upWeapon[mapping.0] * upgrade[mapping.1] |> Math.floor
 
-		upgrade = svc.getUpgradeFor weapon, iteration
+			for mapping in [
+				[\scP \scModP]
+				[\scD \scModD]
+				[\scI \scModI]
+				[\scF \scModF]
+			]
+				upWeapon[mapping.0] = upWeapon[mapping.0] * upgrade[mapping.1]
 
-		if not upgrade? then return null
+			upWeapon
+				..defN *= +upgrade.\defModN
+				..defM *= +upgrade.\defModM
+				..defF *= +upgrade.\defModF
+				..defL *= +upgrade.\defModL
 
-		upWeapon = new svc.models.Weapon <<< weapon
-			..id++
-			..upgradeId = upgrade.id
-			..name += " +#{iteration }"
+			#console.log "Result is", upWeapon
 
-		for mapping in [
-			[\dmgP \dmgModP]
-			[\dmgM \dmgModM]
-			[\dmgF \dmgModF]
-			[\dmgL \dmgModL]
-			[\dmgS \dmgModS]
+			def.resolve upWeapon
 
-			[\defT \defModT]
-			[\defB \defModB]
-			[\defC \defModC]
-			[\defS \defModS]
-		]
-			upWeapon[mapping.0] = upWeapon[mapping.0] * upgrade[mapping.1] |> Math.floor
-
-		for mapping in [
-			[\scP \scModP]
-			[\scD \scModD]
-			[\scI \scModI]
-			[\scF \scModF]
-		]
-			upWeapon[mapping.0] = upWeapon[mapping.0] * upgrade[mapping.1]
-
-		upWeapon
-			..defP *= +upgrade.\defModP
-			..defM *= +upgrade.\defModM
-			..defF *= +upgrade.\defModF
-			..defL *= +upgrade.\defModL
-
-		return upWeapon
+		return def.promise
 
 
-	..canUpgradeWithMaterials = (weapon, materials, iteration) !->
-		upgrade = svc.getUpgradeFor weapon, iteration
+svc.canUpgradeWithMaterials = (weapon, materials, iteration) ->
+	svc.getUpgradeFor weapon, iteration .then (upgrade) !->
 		#if weapon.name.substring(0, 7) == \Halberd
 		#	console.log weapon, materials, iteration, upgrade
 		if not upgrade?
-			console.log "Failed to get next upgrade for weapon ", weapon
+			#console.log "Failed to get next upgrade for weapon ", weapon, "and iteration ", iteration
 			return false
 
 		# +6 weapons need Large Ember
@@ -146,11 +157,27 @@ svc
 		return false
 
 
-	..payForUpgradeFor = (weapon, materials, iteration) !->
-		upgrade = svc.getUpgradeFor weapon, iteration
+svc.payForUpgradeFor = (weapon, materials, iteration) ->
+	svc.getUpgradeFor weapon, iteration .then (upgrade) !->
 		if not upgrade? or upgrade.matId < 0 or upgrade.matCost < 0
-			return
+			return true
 
 		(materials |> find (.id == upgrade.matId))?.amount -= upgrade.matCost
+		return true
+
+
+
+/**
+ * Modify a weapon with the properties of a given upgrade iteration
+ */
+svc.applyUpgradeTo = (weapon, iteration) !->
+	def = $q.defer!
+
+	(svc.getUpgradedVersionOf weapon, iteration).then (upgraded) !->
+		weapon <<< upgraded
+		def.resolve!
+
+	return def.promise
+
 
 return svc

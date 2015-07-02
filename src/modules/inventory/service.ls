@@ -1,4 +1,4 @@
-itemService, storageService <-! angular.module "dsc" .service "inventoryService"
+$q, itemService, storageService <-! angular.module "dsc" .service "inventoryService"
 
 svc = {}
 
@@ -6,7 +6,10 @@ svc.items = []
 
 svc.models = {
 	\InventoryItem : class InventoryItem
-		(@id, @name, @amount = 1) ->
+		(@amount = 1) ->
+			@id = 0
+			@name = ''
+			@itemType = ''
 }
 
 
@@ -41,17 +44,28 @@ svc.clearInventory = !->
 	svc.[]items.length = 0
 
 
-svc.loadInventory = (force) !->
+svc.loadUserInventory = (force) !->
 	return svc.items unless force or svc.[]items |> empty
 
-	inventoryData = (storageService.load 'inventory') ? []
+	index = itemService.loadItemIndex!
 
-	svc.clearInventory!
+	defer = $q.defer!
+	svc.items = []
+		..$promise = defer.promise
 
-	for entry in inventoryData
-		svc.[]items.push (new svc.models.InventoryItem <<< entry)
+	index.$promise.then !->
+		inventoryData = (storageService.load 'inventory') ? []
 
-	return svc.[]items
+		svc.clearInventory!
+
+		for entry in inventoryData
+			new svc.models.InventoryItem entry.amount
+				.. <<< itemService.getFromIndexById entry.id
+				.. |> svc.items.push
+
+		defer.resolve!
+
+	return svc.items
 
 
 svc.saveInventory = !->
@@ -59,7 +73,6 @@ svc.saveInventory = !->
 	for entry in svc.[]items
 		inventoryData.push {
 			id : entry.id
-			name : entry.name
 			amount : entry.amount
 		}
 

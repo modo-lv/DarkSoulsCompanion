@@ -96,33 +96,61 @@
     "id": "bf8e14fd-bd75-4eb4-8beb-7efeedd91e92"
   },
   {
-    "title": "Talk (Firelink Shrine)",
-    "labels": [
-      "talk"
-    ],
+    "title": "Firelink Shrine",
     "children": [
       {
         "title": "Griggs of Vinheim",
+        "labels": [
+          "talk"
+        ],
         "id": "2c7ece40-6ee4-43d2-8ad8-347a35d742f4"
       },
       {
         "title": "Crestfallen Warrior",
+        "labels": [
+          "talk"
+        ],
         "id": "8486d5c9-e4fa-4094-a573-464cf4b1ca79"
       },
       {
         "title": "Knight Lautrec of Carim",
+        "children": [
+          {
+            "labels": [
+              "talk"
+            ],
+            "title": "Talk",
+            "id": "caa2412a-9f6c-4d20-8b59-a5b6c9f2b700"
+          },
+          {
+            "labels": [
+              "item"
+            ],
+            "title": "Sunlight Medal",
+            "id": "042a1c0f-2c0b-409a-806c-b60e0da10a38"
+          }
+        ],
         "id": "56be6503-dc00-474f-9b85-b9cf0ffd2a1a"
       },
       {
         "title": "Petrus of Thorolund",
+        "labels": [
+          "talk"
+        ],
         "id": "3ae24b60-0ad2-4a60-b745-43e18bfe560a"
       },
       {
         "title": "Vince of Thorolund",
+        "labels": [
+          "talk"
+        ],
         "id": "45a486fb-da77-40b0-9425-c192d0b86053"
       },
       {
         "title": "Reah of Thorolund",
+        "labels": [
+          "talk"
+        ],
         "id": "cfbd32e6-fa4b-4831-9c34-875ad87ee9cb"
       }
     ],

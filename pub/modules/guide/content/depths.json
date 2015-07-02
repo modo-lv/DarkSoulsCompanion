@@ -1,0 +1,242 @@
+[
+  {
+    "title": "Upper level",
+    "children": [
+      {
+        "labels": [
+          "item"
+        ],
+        "title": "Large Soul of a Nameless Soldier",
+        "id": "b2154d22-4052-4e99-bdc8-5e9aaab96eba"
+      },
+      {
+        "labels": [
+          "item"
+        ],
+        "title": "Large Ember",
+        "id": "72294edb-8038-42bb-a143-675728874fe3"
+      }
+    ],
+    "id": "9887a8ca-bf6d-4698-94bf-472ddc2b6e03"
+  },
+  {
+    "title": "Upper sewers",
+    "children": [
+      {
+        "labels": [
+          "item"
+        ],
+        "title": "Spider Shield",
+        "id": "9237788c-8465-43c1-bd02-edba898ecac4"
+      },
+      {
+        "labels": [
+          "item"
+        ],
+        "title": "Soul of a Nameless Soldier",
+        "id": "cfb4ccda-4f06-4fa9-a66c-f04c65d925e6"
+      },
+      {
+        "labels": [
+          "item"
+        ],
+        "title": "Sewer Chamber Key",
+        "id": "fd7dbcdc-8161-45f7-bbd4-0060f3c108a5"
+      },
+      {
+        "labels": [
+          "item"
+        ],
+        "title": "Soul of a Nameless Soldier",
+        "id": "a91e6a48-c9d3-4a16-bcfe-1b2093b269ad"
+      },
+      {
+        "labels": [
+          "item"
+        ],
+        "title": "Large Titanite Shard",
+        "id": "85565305-548f-4143-823a-bd20ec558ae5"
+      },
+      {
+        "labels": [
+          "info"
+        ],
+        "title": "Fog gate",
+        "content": "Just passing through.",
+        "id": "0260dbc7-b3ed-477b-9364-10d961768ed1"
+      },
+      {
+        "labels": [
+          "item"
+        ],
+        "title": "Soul of a Nameless Soldier",
+        "id": "9a520991-37f8-4d79-a7ed-5da103c1fd10"
+      },
+      {
+        "labels": [
+          "item"
+        ],
+        "title": "Greataxe",
+        "id": "811abb04-9e8d-48d7-8104-c9ed0cd33c14"
+      },
+      {
+        "labels": [
+          "bonfire"
+        ],
+        "title": "The Depths bonfire [Sewer Chamber Key]",
+        "id": "621c36d9-25f3-4379-af9a-a3d66f36c3aa"
+      }
+    ],
+    "id": "38759ecc-94e0-439c-939e-80793a5316b5"
+  },
+  {
+    "title": "Lower sewers",
+    "children": [
+      {
+        "labels": [
+          "item"
+        ],
+        "title": "Large Soul of a Nameless Soldier",
+        "id": "792065df-66d4-4ad6-a790-73e2cf875bee"
+      },
+      {
+        "labels": [
+          "item"
+        ],
+        "title": "Humanity",
+        "id": "d5c84480-6f94-42b0-91c2-556174cb82a5"
+      },
+      {
+        "labels": [
+          "item"
+        ],
+        "title": "Ring of the Evil Eye",
+        "id": "dca3bd74-8754-4ac4-8ef7-c6682cb3ced3"
+      },
+      {
+        "labels": [
+          "item"
+        ],
+        "title": "Soul of a Nameless Soldier",
+        "id": "af163983-81ef-47b3-b4d8-4d61eea81c6b"
+      },
+      {
+        "labels": [
+          "invasion"
+        ],
+        "title": "Knight Kirk",
+        "id": "a95829b4-41f9-47d4-acfd-12dc2658fd9b"
+      },
+      {
+        "labels": [
+          "shortcut"
+        ],
+        "title": "Door back to bonfire",
+        "id": "6f61c0e6-a19e-4ed5-bfd6-248d12f82fb2"
+      },
+      {
+        "labels": [
+          "item"
+        ],
+        "title": "Heavy Crossbow, Heavy Bolt (11)",
+        "id": "6f379215-944e-43da-b999-267674632f8b"
+      },
+      {
+        "labels": [
+          "shop"
+        ],
+        "title": "Domnhall of Zena",
+        "id": "a8b9a09c-60e2-46eb-9a42-e1cd5d3c0bab",
+        "children" : [
+          {
+            "title" : "Joy",
+            "labels" : ["gesture"],
+            "content" : "Only available for cleric and knight classes, as all others have this gesture by default."
+          }
+        ]
+      },
+      {
+        "labels": [
+          "info"
+        ],
+        "title": "Fog gate",
+        "content": "Boss battle with {Gaping Dragon}.",
+        "id": "4934ae2a-d4b3-4682-b21f-1ce5336b1fb8"
+      },
+      {
+        "labels": [
+          "item"
+        ],
+        "title": "Warrior Set",
+        "id": "93213855-fda6-49e7-b5e0-bb476f586e4b"
+      }
+    ],
+    "id": "5e290bf8-310f-402f-afe2-f9121858ae4c"
+  },
+  {
+    "title": "Upper sewers",
+    "children": [
+      {
+        "labels": [
+          "talk",
+          "warning"
+        ],
+        "title": "Laurentius of the Great Swamp",
+        "content": "Using your weapons to hit the barrel will probably hit him and make him hostile.",
+        "id": "b242b475-37a6-44aa-ae42-55a8a1629c8a"
+      },
+      {
+        "labels": [
+          "item"
+        ],
+        "title": "Soul of a Nameless Soldier",
+        "id": "222ec245-8a1a-436a-a09c-16c4984c0884"
+      }
+    ],
+    "id": "996d73a3-7c53-4efa-af3b-301ddf19ffa4"
+  },
+  {
+    "title" : "Talk",
+    "labels" : ["talk"],
+    "children" : [
+      {
+        "title" : "Female Undead Merchant (Undead Burg waterway)"
+      }
+    ]
+  },
+  {
+    "title" : "Firelink Shrine",
+    "children" : [
+      {
+        "labels": ["talk"],
+        "title": "Griggs of Vinheim",
+        "children" : [
+          {
+            "title" : "Buying everything",
+            "labels" : ["spoiler"],
+            "content" : "If you buy all the spells he offers, Griggs will leave and will be not be available for the rest of the playthrough. His spells can also be bought from Big Hat Logan."
+          }
+        ]
+      },
+      {
+        "labels" : ["talk"],
+        "title" : "Petrus of Thorolund"
+      },
+      {
+        "labels": ["talk", "shop"],
+        "title": "Laurentius of the Great Swamp"
+      },
+      {
+        "labels": [
+          "talk"
+        ],
+        "title": "Crestfallen Warrior"
+      },
+      {
+        "labels": ["item"],
+        "title": "Lautrec of Carim"
+      }
+
+    ]
+  }
+]

@@ -17,8 +17,13 @@ $scope.selectedItemTypeChanged = !->
 		$scope.gridOptions.columnDefs = []
 		return
 
+	itemService.loadItemData $scope.selectedItemType .$promise.then (itemData) !->
+		if $scope.selectedItemType == \weapons
+			for weapon in itemData
+				itemService.applyUpgradeTo weapon, 0
+		$scope.gridOptions.data = itemData
+
 	$scope.gridOptions.columnDefs = $scope.columnConfigs[$scope.selectedItemType]
-	$scope.gridOptions.data = itemService.loadItems $scope.selectedItemType
 
 $scope.exportAsJson = !->
 	dataExportService.exportJson ($scope.gridOptions.data |> map -> delete it.$$hashKey; return it)

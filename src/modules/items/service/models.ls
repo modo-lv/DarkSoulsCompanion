@@ -25,11 +25,13 @@ module?.exports = {
 
 
 		levelText :~ -> if @level > 0 then "+#{@level }" else ""
-
+		
+		
 	\Weapon : class Weapon extends Equipment
 		->
 			@itemType = 'weapon'
 			@wepCat = ''
+
 			@canB = false
 			@canP = false
 			@isMag = false
@@ -48,38 +50,49 @@ module?.exports = {
 			@reqI = 0
 			@reqF = 0
 
-			@dmgP = 0
+			@dmgN = 0
 			@dmgM = 0
 			@dmgF = 0
 			@dmgL = 0
 			@dmgS = 0
+
+			# Poise damage (stagger)
+			@dmgP = 0
 
 			@scS = 0
 			@scD = 0
 			@scI = 0
 			@scF = 0
 
-			@defP = 0
+			# Physical defense
+			@defN = 0
 			@defM = 0
 			@defF = 0
 			@defL = 0
 			@defT = 0
 			@defB = 0
 			@defC = 0
+
+			# Stamina defense
 			@defS = 0
+
+			# Poise
+			@defP = 0
 
 			@divMod = 0
 			@occMod = 0
 
 			@upCost = 0
-			@upMatId = 0
-			@upMatCost = 0
 
 			# Ascention path
 			@path = ''
 
 			# Range for bows & crossbows
 			@range = 0
+
+			# Available upgrades
+			@upgrades = []
+			
 
 	\Armor : class Armor extends Equipment
 		->
