@@ -91,7 +91,7 @@ loadUpgrades = !->
 
 loadArmorUpgrades = !->
 	console.log "Loading armor upgrade data..."
-	content = fs.readFileSync \upgrades_armor.csv , { \encoding : \utf8 }
+	content = fs.readFileSync \armor_upgrades.csv , { \encoding : \utf8 }
 	csvParse content, { \columns : true }, (err, data) !->
 		if err? then throw err
 		for row in data
@@ -194,6 +194,21 @@ processUpgrades = (folder = '.') !->
 		upgrades.push upgrade
 
 	fs.writeFileSync "#{folder}/upgrades.json", JSON.stringify upgrades
+
+
+processMaterialSets = (folder = '.') !->
+	console.log "Processing material sets..."
+
+	matSets = []
+
+	for key, data of raw.materialSets
+		matSet = { id : +data.\Id }
+			..matId = +data.\MaterialId01
+			..matCost = +data.\ItemNum01
+
+		matSets.push matSet
+
+	fs.writeFileSync "#{folder}/material-sets.json", JSON.stringify matSets
 
 
 processItems = (folder = '.') !->
@@ -367,7 +382,8 @@ processArmor = (folder) !->
 			..defB = +armorData.\ResistBlood
 			..defC = +armorData.\ResistCurse
 
-			..upgradeId = if +armorData.\MaterialSetId > 0 then +armorData.\ShopLv else -1
+			..matSetId = +armorData.\MaterialSetId
+			..upgradeId = if ..matSetId > 0 then +armorData.\ShopLv else -1
 
 		# Bleed & poison
 		for effectField in [\ResidentSpEffectId \ResidentSpEffectId2 \ResidentSpEffectId3 ]
@@ -395,11 +411,6 @@ processArmorUpgrades = (folder = '.') !->
 	upgrades = []
 
 	for key, rawUp of raw.armorUpgrades
-		matSet = raw.materialSets[+rawUp.\Id] ? raw.materialSets[+rawUp.\MaterialSetId]
-		#console.log rawUp
-		#console.log rawUp.\MaterialSetId
-		#console.log raw.materialSets[+rawUp.\MaterialSetId]
-
 		upgrade = { id : +rawUp.\Id }
 			..defModN = +rawUp.\PhysicsDefRate
 			..defModSl = +rawUp.\SlashDefRate
@@ -413,8 +424,11 @@ processArmorUpgrades = (folder = '.') !->
 			..defModB = +rawUp.\ResistBloodRate
 			..defModC = +rawUp.\ResistCurseRate
 
-			..matId = +matSet.\MaterialId01
-			..matCost = +matSet.\ItemNum01
+			# For upgrades, MaterialSetId is added to the
+			# existing MaterialSetId on the armor and the result
+			# is the actual material set ID containing requirements
+			# for the upgrade
+			..matSetId = +rawUp.\MaterialSetId
 
 		upgrades.push upgrade
 
@@ -423,6 +437,7 @@ processArmorUpgrades = (folder = '.') !->
 
 rawDataLoaded = !->
 	folder = ".."
+	processMaterialSets folder
 	processItems folder
 	processWeapons folder
 	processUpgrades folder

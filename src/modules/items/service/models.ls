@@ -12,15 +12,38 @@ module?.exports = {
 		uid :~ -> @itemType + @id
 
 
+	\Upgrade : class Upgrade extends Item
+		->
+			super!
+			@itemType = 'upgrade'
+
+		id :~
+			-> @_id
+			(val) -> @_id = val; console.log "Setting ID on upgrade ", this, "to value", val
+
 
 	\Equipment : class Equipment extends Item
 		->
+			super!
+
 			@weight = 0.0
 
 			# How far the equipment has been upgraded (+1, +2, etc.)
 			@level = 0
 
 			@durability = 0
+
+			@upgradeId = -1
+
+			# Physical defense
+			@defN = 0
+			@defM = 0
+			@defF = 0
+			@defL = 0
+			@defT = 0
+			@defB = 0
+			@defC = 0
+
 
 
 		fullName :~ -> @name + if @level > 0 then " #{@levelText }" else ""
@@ -31,6 +54,8 @@ module?.exports = {
 		
 	\Weapon : class Weapon extends Equipment
 		->
+			super!
+
 			@itemType = 'weapon'
 			@wepCat = ''
 
@@ -66,14 +91,6 @@ module?.exports = {
 			@scI = 0
 			@scF = 0
 
-			# Physical defense
-			@defN = 0
-			@defM = 0
-			@defF = 0
-			@defL = 0
-			@defT = 0
-			@defB = 0
-			@defC = 0
 
 			# Stamina defense
 			@defS = 0
@@ -98,6 +115,7 @@ module?.exports = {
 
 	\Armor : class Armor extends Equipment
 		->
+			super!
 			@itemType = ''
 			# head, chest, legs or hands
 			@armorType = ''
@@ -105,26 +123,13 @@ module?.exports = {
 			# What set the armor belongs to
 			@armorSet = ''
 
-			@durability = 0
-			@weight = 0
 			@sell = 0
 
 			@iconId = 0
 
-			@defN = 0
 			@defSl = 0
 			@defSt = 0
 			@defTh = 0
-			@defM = 0
-			@defF = 0
-			@defL = 0
-			@defP = 0
-
-			@defT = 0
-			@defB = 0
-			@defC = 0
-
-			@upgradeId = 0
 
 			@stRec = 0
 

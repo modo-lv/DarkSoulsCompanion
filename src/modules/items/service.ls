@@ -67,31 +67,39 @@ svc.loadItemData = (itemType = \items, force = false) !->
 	result = $resource "/modules/items/content/#{itemType}.json" .query !->
 		svc.items[itemType].length = 0
 
-		for itemData in result
-			svc.createItemFrom itemData
-				.. |> svc.items[itemType].push
+		if itemType == \material-sets
+			svc.items[itemType] = result
+		else
+			for itemData in result
+				svc.createItemFrom itemData
+					.. |> svc.items[itemType].push
 
 		def.resolve svc.items[itemType]
 
 	return svc.items[itemType]
 
 
-svc
-	..createItemFrom = (itemData) ->
-		(switch itemData.itemType
-		| 'armor' => new svc.models.Armor
-		| 'weapon' => new svc.models.Weapon
-		| otherwise => new svc.models.Item
-		) <<< itemData
+svc.createItemFrom = (itemData) ->
+	(switch itemData.itemType
+	| 'armor' => new svc.models.Armor
+	| 'weapon' => new svc.models.Weapon
+	| 'upgrade' => new svc.models.Upgrade
+	| otherwise => new svc.models.Item
+	) <<< itemData
 
 
 svc.getUpgradeFor = (item, iteration) !->
 	def = $q.defer!
 
+	if item.upgradeId < 0
+		def.resolve!
+		return def.promise
+
 	data = (if item.itemType == \armor then \armor-upgrades else \upgrades )
 
 	svc.loadItemData data .$promise.then (upgradeData) !->
-		def.resolve (upgradeData |> find (.id == item.upgradeId + iteration))
+		upgrade = (upgradeData |> find (.id == item.upgradeId + iteration))
+		def.resolve upgrade
 
 	return def.promise
 
@@ -169,27 +177,44 @@ svc.getUpgradedVersionOf = (item, iteration) !->
 	return def.promise
 
 
+svc.getMaterialsForUpgrade = (item, upgrade) !->
+	def = $q.defer!
+
+	svc.loadItemData \material-sets .$promise.then (materialSets) !->
+		matSet = materialSets |> find (.id == item.matSetId + upgrade.matSetId)
+
+		def.resolve {} <<< matSet <<< upgrade
+
+	return def.promise
+
+
 svc.canUpgradeWithMaterials = (item, materials, iteration) ->
-	svc.getUpgradeFor item, iteration .then (upgrade) !->
+	var upgrade
+
+	svc.getUpgradeFor item, iteration
+	.then !->
+		if not it? then return null
+		upgrade := it
+		return svc.getMaterialsForUpgrade item, upgrade
+	.then (upgrade) !->
 		#if item.name.substring(0, 7) == \Halberd
 		#	console.log item, materials, iteration, upgrade
 		if not upgrade?
 			#console.log "Failed to get next upgrade for item ", item, "and iteration ", iteration
 			return false
 
+		#console.log "Upgrade needs ", upgrade.matId, "x", upgrade.matCost, "you have", (materials |> find (.id == upgrade.matId))
+
 		# +6 items need Large Ember
 		#console.log iteration, materials, $ItemIds
 		if item.itemType == \weapon and iteration > 5 and not (materials |> any (.id == $ItemIds.\LargeEmber ))
 			return false
 
-		if upgrade.matId < 0 or upgrade.matCost < 0 or upgrade.matId == $ItemIds.\TitaniteShard
+		if upgrade.matId < 0 or upgrade.matCost < 0 #or upgrade.matId == $ItemIds.\TitaniteShard
 			return true
 
-		for material in materials
-			if material.id == upgrade.matId and material.amount >= upgrade.matCost
-				return true
 
-		return false
+		return materials |> any -> it.id == upgrade.matId and it.amount >= upgrade.matCost
 
 
 svc.payForUpgradeFor = (item, materials, iteration) ->

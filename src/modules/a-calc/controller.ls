@@ -3,25 +3,50 @@ $q, $scope, itemService, inventoryService, pcService, uiGridConstants <-! angula
 $scope.results = []
 
 $scope.maxLoad = 0
-$scope.reservedWeight = 0
+$scope.reservedWeight = 50
 $scope.availableLoad = 0
 
 
 ### INIT
 
 $scope.maxLoad = 40 + pcService.statValueOf \endurance
+$scope.typeNames = {
+	0 : \head
+	1 : \chest
+	2 : \hands
+	3 : \legs
+}
 
+$scope.partNames = [\head \chest \hands \legs]
 
 
 # Grid
 $scope.gridOptions = (require './controller/gridOptions') uiGridConstants
 	..data = $scope.results
 
+_calcScoresFor = (set) !->
+	result = {
+		score : 0
+		weight : 0
+		def : 0
+	}
+	for item, key in set
+		def = (item.defN + item.defSt + item.defSl + item.defTh) / 4
 
-_calcScoreFor = (armorPart) !->
-	score = [armorPart.defN, armorPart.defSt, armorPart.defSl, armorPart.defTh ] |> average
+		score = def
 
-	return score
+		result[$scope.typeNames[key]] = {
+			score : score
+			item : item
+			name : item.name
+		}
+
+		result.def += def
+		result.score += score
+		result.weight += item.weight
+
+	return result
+
 
 _addAvailableUpgradesTo = (armors, inventory) !->
 	def = $q.defer!
@@ -29,8 +54,13 @@ _addAvailableUpgradesTo = (armors, inventory) !->
 	promise = $q (resolve, reject) !-> resolve!
 	fullArmorList = []
 	for armor in armors
+
+		if armor.id < 0 or armor.upgradeId < 0 then
+			fullArmorList.push armor
+			continue
+
 		materials = inventory |> map -> {} <<< it
-		for iteration from 0 to 10
+		for iteration from 1 to 10
 			((armor, materials, iteration) !->
 				promise := promise
 				.then !->
@@ -60,7 +90,7 @@ _addAvailableUpgradesTo = (armors, inventory) !->
 
 $scope.calculate = (type = 'offence') !->
 	$scope.freeWeight = $scope.maxLoad - $scope.reservedWeight
-	$scope.gridOptions.data = []
+	results = []
 
 	inventory = inventoryService.loadUserInventory!
 	inventory.$promise
@@ -71,43 +101,53 @@ $scope.calculate = (type = 'offence') !->
 			|> map (inv) -> armors |> find ( .id == inv.id )
 			|> reject ( .weight > $scope.freeWeight )
 
-		return _addAvailableUpgradesTo availableArmors, inventory
-	.then (availableArmors) !->
-		for part in [\head \chest \hands \legs]
+
+		# First pass — find the best of the upgradeables
+		staticArmors = availableArmors |> filter (.upgradeId < 0)
+		dynamicArmors = availableArmors |> reject (.upgradeId < 0)
+
+		for part, key in $scope.partNames
 			new itemService.models.Armor
 				..name = "(nothing)"
+				..id = -(key + 1)
 				..armorType = part
-				.. |> availableArmors.push
-				
+				.. |> dynamicArmors.push
+
+		for head in dynamicArmors |> filter ( .armorType == \head )
+			for chest in dynamicArmors |> filter ( .armorType == \chest )
+				for hands in dynamicArmors |> filter ( .armorType == \hands )
+					for legs in dynamicArmors |> filter ( .armorType == \legs )
+						set = [head, chest, hands, legs]
+						wSum = set |> map (.weight) |> sum
+						#console.log wSum, $scope.freeWeight
+						if wSum <= $scope.freeWeight
+							results.push _calcScoresFor set
+
+		bestResults = results |> sortBy (.score) |> reverse |> take 5
+
+		bestArmors = {}
+		for result in bestResults
+			for part in $scope.partNames
+				item = result[part].item
+				bestArmors[item.id] = item
+
+		fitArmors = staticArmors ++ (bestArmors |> values)
+
+		return _addAvailableUpgradesTo (fitArmors |> Obj.values), inventory
+
+	.then (availableArmors) !->
 		# Generate all possible combinations
 		results = []
+
+		#console.log availableArmors
 		for head in availableArmors |> filter ( .armorType == \head )
 			for chest in availableArmors |> filter ( .armorType == \chest )
 				for hands in availableArmors |> filter ( .armorType == \hands )
 					for legs in availableArmors |> filter ( .armorType == \legs )
-						wSum = [head, chest, hands, legs] |> Obj.map (.weight) |> Obj.values |> sum
+						set = [head, chest, hands, legs]
+						wSum = set |> Obj.map (.weight) |> Obj.values |> sum
 						if wSum <= $scope.freeWeight
+							results.push _calcScoresFor set
 
-							result = {
-								\head : {
-									\name : head.name
-									\score : _calcScoreFor head
-								}
-								\chest : {
-									\name : chest.name
-									\score : _calcScoreFor chest
-								}
-								\hands : {
-									\name : hands.name
-									\score : _calcScoreFor hands
-								}
-								\legs : {
-									\name : legs.name
-									\score : _calcScoreFor legs
-								}
-							}
-								..score = result |> Obj.map (.score) |> Obj.values |> sum
-								..weight = wSum
-								.. |> results.push
-
-		$scope.gridOptions.data = results
+		$scope.results = results
+		$scope.gridOptions.data = $scope.results

@@ -8,6 +8,7 @@ module?.exports = (uiGridConstants) ->
 			cellFilter : 'number:2'
 			sort : {
 				direction : uiGridConstants.DESC
+				priority : 0
 			}
 			type : \number
 		}
@@ -16,6 +17,10 @@ module?.exports = (uiGridConstants) ->
 			width : 50
 			cellFilter : 'number:2'
 			type : \number
+			sort : {
+				direction : uiGridConstants.ASC
+				priority : 1
+			}
 		}
 
 		{

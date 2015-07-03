@@ -1426,19 +1426,43 @@ function curry$(f, bound){
 },{}],11:[function(require,module,exports){
 (function(){
   angular.module("dsc").controller("ArmorCalcController", function($q, $scope, itemService, inventoryService, pcService, uiGridConstants){
-    var x$, _calcScoreFor, _addAvailableUpgradesTo;
+    var x$, _calcScoresFor, _addAvailableUpgradesTo;
     $scope.results = [];
     $scope.maxLoad = 0;
-    $scope.reservedWeight = 0;
+    $scope.reservedWeight = 50;
     $scope.availableLoad = 0;
     $scope.maxLoad = 40 + pcService.statValueOf('endurance');
+    $scope.typeNames = {
+      0: 'head',
+      1: 'chest',
+      2: 'hands',
+      3: 'legs'
+    };
+    $scope.partNames = ['head', 'chest', 'hands', 'legs'];
     x$ = $scope.gridOptions = require('./controller/gridOptions')(uiGridConstants);
     x$.data = $scope.results;
-    _calcScoreFor = function(armorPart){
-      var score;
-      score = average(
-      [armorPart.defN, armorPart.defSt, armorPart.defSl, armorPart.defTh]);
-      return score;
+    _calcScoresFor = function(set){
+      var result, i$, len$, key, item, def, score;
+      result = {
+        score: 0,
+        weight: 0,
+        def: 0
+      };
+      for (i$ = 0, len$ = set.length; i$ < len$; ++i$) {
+        key = i$;
+        item = set[i$];
+        def = (item.defN + item.defSt + item.defSl + item.defTh) / 4;
+        score = def;
+        result[$scope.typeNames[key]] = {
+          score: score,
+          item: item,
+          name: item.name
+        };
+        result.def += def;
+        result.score += score;
+        result.weight += item.weight;
+      }
+      return result;
     };
     _addAvailableUpgradesTo = function(armors, inventory){
       var def, promise, fullArmorList, i$, len$, armor, materials, j$, iteration;
@@ -1449,9 +1473,13 @@ function curry$(f, bound){
       fullArmorList = [];
       for (i$ = 0, len$ = armors.length; i$ < len$; ++i$) {
         armor = armors[i$];
+        if (armor.id < 0 || armor.upgradeId < 0) {
+          fullArmorList.push(armor);
+          continue;
+        }
         materials = map(fn$)(
         inventory);
-        for (j$ = 0; j$ <= 10; ++j$) {
+        for (j$ = 1; j$ <= 10; ++j$) {
           iteration = j$;
           fn1$(armor, materials, iteration);
         }
@@ -1483,15 +1511,15 @@ function curry$(f, bound){
       }
     };
     $scope.calculate = function(type){
-      var inventory;
+      var results, inventory;
       type == null && (type = 'offence');
       $scope.freeWeight = $scope.maxLoad - $scope.reservedWeight;
-      $scope.gridOptions.data = [];
+      results = [];
       inventory = inventoryService.loadUserInventory();
       inventory.$promise.then(function(){
         return itemService.loadItemData('armors').$promise;
       }).then(function(armors){
-        var availableArmors;
+        var availableArmors, staticArmors, dynamicArmors, i$, ref$, len$, key, part, x$, head, j$, ref1$, len1$, chest, k$, ref2$, len2$, hands, l$, ref3$, len3$, legs, set, wSum, bestResults, bestArmors, result, item, fitArmors;
         availableArmors = reject(function(it){
           return it.weight > $scope.freeWeight;
         })(
@@ -1505,66 +1533,66 @@ function curry$(f, bound){
           return it.itemType === 'armor';
         })(
         inventory)));
-        return _addAvailableUpgradesTo(availableArmors, inventory);
-      }).then(function(availableArmors){
-        var i$, ref$, len$, part, x$, results, head, j$, ref1$, len1$, chest, k$, ref2$, len2$, hands, l$, ref3$, len3$, legs, wSum, y$, result;
-        for (i$ = 0, len$ = (ref$ = ['head', 'chest', 'hands', 'legs']).length; i$ < len$; ++i$) {
+        staticArmors = filter(function(it){
+          return it.upgradeId < 0;
+        })(
+        availableArmors);
+        dynamicArmors = reject(function(it){
+          return it.upgradeId < 0;
+        })(
+        availableArmors);
+        for (i$ = 0, len$ = (ref$ = $scope.partNames).length; i$ < len$; ++i$) {
+          key = i$;
           part = ref$[i$];
           x$ = new itemService.models.Armor;
           x$.name = "(nothing)";
+          x$.id = -(key + 1);
           x$.armorType = part;
-          availableArmors.push(
+          dynamicArmors.push(
           x$);
         }
-        results = [];
         for (i$ = 0, len$ = (ref$ = filter(fn$)(
-        availableArmors)).length; i$ < len$; ++i$) {
+        dynamicArmors)).length; i$ < len$; ++i$) {
           head = ref$[i$];
           for (j$ = 0, len1$ = (ref1$ = filter(fn1$)(
-          availableArmors)).length; j$ < len1$; ++j$) {
+          dynamicArmors)).length; j$ < len1$; ++j$) {
             chest = ref1$[j$];
             for (k$ = 0, len2$ = (ref2$ = filter(fn2$)(
-            availableArmors)).length; k$ < len2$; ++k$) {
+            dynamicArmors)).length; k$ < len2$; ++k$) {
               hands = ref2$[k$];
               for (l$ = 0, len3$ = (ref3$ = filter(fn3$)(
-              availableArmors)).length; l$ < len3$; ++l$) {
+              dynamicArmors)).length; l$ < len3$; ++l$) {
                 legs = ref3$[l$];
+                set = [head, chest, hands, legs];
                 wSum = sum(
-                Obj.values(
-                Obj.map(fn4$)(
-                [head, chest, hands, legs])));
+                map(fn4$)(
+                set));
                 if (wSum <= $scope.freeWeight) {
-                  y$ = result = {
-                    'head': {
-                      'name': head.name,
-                      'score': _calcScoreFor(head)
-                    },
-                    'chest': {
-                      'name': chest.name,
-                      'score': _calcScoreFor(chest)
-                    },
-                    'hands': {
-                      'name': hands.name,
-                      'score': _calcScoreFor(hands)
-                    },
-                    'legs': {
-                      'name': legs.name,
-                      'score': _calcScoreFor(legs)
-                    }
-                  };
-                  y$.score = sum(
-                  Obj.values(
-                  Obj.map(fn5$)(
-                  result)));
-                  y$.weight = wSum;
-                  results.push(
-                  y$);
+                  results.push(_calcScoresFor(set));
                 }
               }
             }
           }
         }
-        $scope.gridOptions.data = results;
+        bestResults = take(5)(
+        reverse(
+        sortBy(function(it){
+          return it.score;
+        })(
+        results)));
+        bestArmors = {};
+        for (i$ = 0, len$ = bestResults.length; i$ < len$; ++i$) {
+          result = bestResults[i$];
+          for (j$ = 0, len1$ = (ref$ = $scope.partNames).length; j$ < len1$; ++j$) {
+            part = ref$[j$];
+            item = result[part].item;
+            bestArmors[item.id] = item;
+          }
+        }
+        fitArmors = staticArmors.concat(values(
+        bestArmors));
+        return _addAvailableUpgradesTo(Obj.values(
+        fitArmors), inventory);
         function fn$(it){
           return it.armorType === 'head';
         }
@@ -1580,8 +1608,49 @@ function curry$(f, bound){
         function fn4$(it){
           return it.weight;
         }
-        function fn5$(it){
-          return it.score;
+      }).then(function(availableArmors){
+        var results, i$, ref$, len$, head, j$, ref1$, len1$, chest, k$, ref2$, len2$, hands, l$, ref3$, len3$, legs, set, wSum;
+        results = [];
+        for (i$ = 0, len$ = (ref$ = filter(fn$)(
+        availableArmors)).length; i$ < len$; ++i$) {
+          head = ref$[i$];
+          for (j$ = 0, len1$ = (ref1$ = filter(fn1$)(
+          availableArmors)).length; j$ < len1$; ++j$) {
+            chest = ref1$[j$];
+            for (k$ = 0, len2$ = (ref2$ = filter(fn2$)(
+            availableArmors)).length; k$ < len2$; ++k$) {
+              hands = ref2$[k$];
+              for (l$ = 0, len3$ = (ref3$ = filter(fn3$)(
+              availableArmors)).length; l$ < len3$; ++l$) {
+                legs = ref3$[l$];
+                set = [head, chest, hands, legs];
+                wSum = sum(
+                Obj.values(
+                Obj.map(fn4$)(
+                set)));
+                if (wSum <= $scope.freeWeight) {
+                  results.push(_calcScoresFor(set));
+                }
+              }
+            }
+          }
+        }
+        $scope.results = results;
+        $scope.gridOptions.data = $scope.results;
+        function fn$(it){
+          return it.armorType === 'head';
+        }
+        function fn1$(it){
+          return it.armorType === 'chest';
+        }
+        function fn2$(it){
+          return it.armorType === 'hands';
+        }
+        function fn3$(it){
+          return it.armorType === 'legs';
+        }
+        function fn4$(it){
+          return it.weight;
         }
       });
     };
@@ -1606,14 +1675,19 @@ function curry$(f, bound){
             width: 75,
             cellFilter: 'number:2',
             sort: {
-              direction: uiGridConstants.DESC
+              direction: uiGridConstants.DESC,
+              priority: 0
             },
             type: 'number'
           }, {
             field: 'weight',
             width: 50,
             cellFilter: 'number:2',
-            type: 'number'
+            type: 'number',
+            sort: {
+              direction: uiGridConstants.ASC,
+              priority: 1
+            }
           }, {
             field: 'head.name'
           }, {
@@ -2269,7 +2343,7 @@ arguments[4][15][0].apply(exports,arguments)
     'TitaniteShard': 1000
   });
   angular.module("dsc").service("itemService", function($resource, $ItemIds, $q){
-    var x$, svc, y$;
+    var x$, svc;
     x$ = svc = {
       items: {},
       itemTypes: ['items', 'weapons', 'armors'],
@@ -2336,24 +2410,29 @@ arguments[4][15][0].apply(exports,arguments)
       result = $resource("/modules/items/content/" + itemType + ".json").query(function(){
         var i$, ref$, len$, itemData, x$;
         svc.items[itemType].length = 0;
-        for (i$ = 0, len$ = (ref$ = result).length; i$ < len$; ++i$) {
-          itemData = ref$[i$];
-          x$ = svc.createItemFrom(itemData);
-          svc.items[itemType].push(
-          x$);
+        if (itemType === 'material-sets') {
+          svc.items[itemType] = result;
+        } else {
+          for (i$ = 0, len$ = (ref$ = result).length; i$ < len$; ++i$) {
+            itemData = ref$[i$];
+            x$ = svc.createItemFrom(itemData);
+            svc.items[itemType].push(
+            x$);
+          }
         }
         def.resolve(svc.items[itemType]);
       });
       return svc.items[itemType];
     };
-    y$ = svc;
-    y$.createItemFrom = function(itemData){
+    svc.createItemFrom = function(itemData){
       return import$((function(){
         switch (itemData.itemType) {
         case 'armor':
           return new svc.models.Armor;
         case 'weapon':
           return new svc.models.Weapon;
+        case 'upgrade':
+          return new svc.models.Upgrade;
         default:
           return new svc.models.Item;
         }
@@ -2362,12 +2441,18 @@ arguments[4][15][0].apply(exports,arguments)
     svc.getUpgradeFor = function(item, iteration){
       var def, data;
       def = $q.defer();
+      if (item.upgradeId < 0) {
+        def.resolve();
+        return def.promise;
+      }
       data = item.itemType === 'armor' ? 'armor-upgrades' : 'upgrades';
       svc.loadItemData(data).$promise.then(function(upgradeData){
-        def.resolve(find(function(it){
+        var upgrade;
+        upgrade = find(function(it){
           return it.id === item.upgradeId + iteration;
         })(
-        upgradeData));
+        upgradeData);
+        def.resolve(upgrade);
       });
       return def.promise;
     };
@@ -2418,9 +2503,28 @@ arguments[4][15][0].apply(exports,arguments)
       });
       return def.promise;
     };
+    svc.getMaterialsForUpgrade = function(item, upgrade){
+      var def;
+      def = $q.defer();
+      svc.loadItemData('material-sets').$promise.then(function(materialSets){
+        var matSet;
+        matSet = find(function(it){
+          return it.id === item.matSetId + upgrade.matSetId;
+        })(
+        materialSets);
+        def.resolve(import$(import$({}, matSet), upgrade));
+      });
+      return def.promise;
+    };
     svc.canUpgradeWithMaterials = function(item, materials, iteration){
-      return svc.getUpgradeFor(item, iteration).then(function(upgrade){
-        var i$, ref$, len$, material;
+      var upgrade;
+      return svc.getUpgradeFor(item, iteration).then(function(it){
+        if (it == null) {
+          return null;
+        }
+        upgrade = it;
+        return svc.getMaterialsForUpgrade(item, upgrade);
+      }).then(function(upgrade){
         if (upgrade == null) {
           return false;
         }
@@ -2430,16 +2534,13 @@ arguments[4][15][0].apply(exports,arguments)
         materials)) {
           return false;
         }
-        if (upgrade.matId < 0 || upgrade.matCost < 0 || upgrade.matId === $ItemIds['TitaniteShard']) {
+        if (upgrade.matId < 0 || upgrade.matCost < 0) {
           return true;
         }
-        for (i$ = 0, len$ = (ref$ = materials).length; i$ < len$; ++i$) {
-          material = ref$[i$];
-          if (material.id === upgrade.matId && material.amount >= upgrade.matCost) {
-            return true;
-          }
-        }
-        return false;
+        return any(function(it){
+          return it.id === upgrade.matId && it.amount >= upgrade.matCost;
+        })(
+        materials);
       });
     };
     svc.payForUpgradeFor = function(item, materials, iteration){
@@ -2480,7 +2581,7 @@ arguments[4][15][0].apply(exports,arguments)
 
 },{"./service/models":25}],25:[function(require,module,exports){
 (function(){
-  var Item, Equipment, Weapon, Armor;
+  var Item, Upgrade, Equipment, Weapon, Armor;
   if (typeof module != 'undefined' && module !== null) {
     module.exports = {
       'Item': Item = (function(){
@@ -2508,12 +2609,40 @@ arguments[4][15][0].apply(exports,arguments)
         });
         return Item;
       }()),
+      'Upgrade': Upgrade = (function(superclass){
+        var prototype = extend$((import$(Upgrade, superclass).displayName = 'Upgrade', Upgrade), superclass).prototype, constructor = Upgrade;
+        function Upgrade(){
+          Upgrade.superclass.call(this);
+          this.itemType = 'upgrade';
+        }
+        Object.defineProperty(prototype, 'id', {
+          get: function(){
+            return this._id;
+          },
+          set: function(val){
+            this._id = val;
+            console.log("Setting ID on upgrade ", this, "to value", val);
+          },
+          configurable: true,
+          enumerable: true
+        });
+        return Upgrade;
+      }(Item)),
       'Equipment': Equipment = (function(superclass){
         var prototype = extend$((import$(Equipment, superclass).displayName = 'Equipment', Equipment), superclass).prototype, constructor = Equipment;
         function Equipment(){
+          Equipment.superclass.call(this);
           this.weight = 0.0;
           this.level = 0;
           this.durability = 0;
+          this.upgradeId = -1;
+          this.defN = 0;
+          this.defM = 0;
+          this.defF = 0;
+          this.defL = 0;
+          this.defT = 0;
+          this.defB = 0;
+          this.defC = 0;
         }
         Object.defineProperty(prototype, 'fullName', {
           get: function(){
@@ -2538,6 +2667,7 @@ arguments[4][15][0].apply(exports,arguments)
       'Weapon': Weapon = (function(superclass){
         var prototype = extend$((import$(Weapon, superclass).displayName = 'Weapon', Weapon), superclass).prototype, constructor = Weapon;
         function Weapon(){
+          Weapon.superclass.call(this);
           this.itemType = 'weapon';
           this.wepCat = '';
           this.canB = false;
@@ -2566,13 +2696,6 @@ arguments[4][15][0].apply(exports,arguments)
           this.scD = 0;
           this.scI = 0;
           this.scF = 0;
-          this.defN = 0;
-          this.defM = 0;
-          this.defF = 0;
-          this.defL = 0;
-          this.defT = 0;
-          this.defB = 0;
-          this.defC = 0;
           this.defS = 0;
           this.defP = 0;
           this.divMod = 0;
@@ -2587,25 +2710,15 @@ arguments[4][15][0].apply(exports,arguments)
       'Armor': Armor = (function(superclass){
         var prototype = extend$((import$(Armor, superclass).displayName = 'Armor', Armor), superclass).prototype, constructor = Armor;
         function Armor(){
+          Armor.superclass.call(this);
           this.itemType = '';
           this.armorType = '';
           this.armorSet = '';
-          this.durability = 0;
-          this.weight = 0;
           this.sell = 0;
           this.iconId = 0;
-          this.defN = 0;
           this.defSl = 0;
           this.defSt = 0;
           this.defTh = 0;
-          this.defM = 0;
-          this.defF = 0;
-          this.defL = 0;
-          this.defP = 0;
-          this.defT = 0;
-          this.defB = 0;
-          this.defC = 0;
-          this.upgradeId = 0;
           this.stRec = 0;
         }
         Object.defineProperty(prototype, 'sortType', {

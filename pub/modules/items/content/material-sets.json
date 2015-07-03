@@ -1,0 +1,1382 @@
+[
+  {
+    "id": 0,
+    "matId": -1,
+    "matCost": -1
+  },
+  {
+    "id": 1,
+    "matId": 1000,
+    "matCost": 1
+  },
+  {
+    "id": 2,
+    "matId": 1000,
+    "matCost": 1
+  },
+  {
+    "id": 3,
+    "matId": 1000,
+    "matCost": 2
+  },
+  {
+    "id": 4,
+    "matId": 1000,
+    "matCost": 2
+  },
+  {
+    "id": 5,
+    "matId": 1000,
+    "matCost": 3
+  },
+  {
+    "id": 6,
+    "matId": 1010,
+    "matCost": 1
+  },
+  {
+    "id": 7,
+    "matId": 1010,
+    "matCost": 1
+  },
+  {
+    "id": 8,
+    "matId": 1010,
+    "matCost": 2
+  },
+  {
+    "id": 9,
+    "matId": 1010,
+    "matCost": 2
+  },
+  {
+    "id": 10,
+    "matId": 1010,
+    "matCost": 3
+  },
+  {
+    "id": 11,
+    "matId": 1030,
+    "matCost": 1
+  },
+  {
+    "id": 12,
+    "matId": 1030,
+    "matCost": 1
+  },
+  {
+    "id": 13,
+    "matId": 1030,
+    "matCost": 2
+  },
+  {
+    "id": 14,
+    "matId": 1030,
+    "matCost": 3
+  },
+  {
+    "id": 15,
+    "matId": 1070,
+    "matCost": 1
+  },
+  {
+    "id": 100,
+    "matId": 1030,
+    "matCost": 1
+  },
+  {
+    "id": 101,
+    "matId": 1030,
+    "matCost": 1
+  },
+  {
+    "id": 102,
+    "matId": 1030,
+    "matCost": 1
+  },
+  {
+    "id": 103,
+    "matId": 1030,
+    "matCost": 2
+  },
+  {
+    "id": 104,
+    "matId": 1030,
+    "matCost": 3
+  },
+  {
+    "id": 105,
+    "matId": 1070,
+    "matCost": 1
+  },
+  {
+    "id": 200,
+    "matId": 1030,
+    "matCost": 1
+  },
+  {
+    "id": 201,
+    "matId": 1030,
+    "matCost": 1
+  },
+  {
+    "id": 202,
+    "matId": 1030,
+    "matCost": 1
+  },
+  {
+    "id": 203,
+    "matId": 1030,
+    "matCost": 2
+  },
+  {
+    "id": 204,
+    "matId": 1030,
+    "matCost": 3
+  },
+  {
+    "id": 205,
+    "matId": 1070,
+    "matCost": 1
+  },
+  {
+    "id": 300,
+    "matId": 1010,
+    "matCost": 1
+  },
+  {
+    "id": 301,
+    "matId": 1010,
+    "matCost": 1
+  },
+  {
+    "id": 302,
+    "matId": 1010,
+    "matCost": 1
+  },
+  {
+    "id": 303,
+    "matId": 1010,
+    "matCost": 2
+  },
+  {
+    "id": 304,
+    "matId": 1010,
+    "matCost": 2
+  },
+  {
+    "id": 305,
+    "matId": 1010,
+    "matCost": 3
+  },
+  {
+    "id": 400,
+    "matId": 1020,
+    "matCost": 1
+  },
+  {
+    "id": 401,
+    "matId": 1020,
+    "matCost": 1
+  },
+  {
+    "id": 402,
+    "matId": 1020,
+    "matCost": 1
+  },
+  {
+    "id": 403,
+    "matId": 1020,
+    "matCost": 2
+  },
+  {
+    "id": 404,
+    "matId": 1020,
+    "matCost": 2
+  },
+  {
+    "id": 405,
+    "matId": 1020,
+    "matCost": 3
+  },
+  {
+    "id": 406,
+    "matId": 1040,
+    "matCost": 1
+  },
+  {
+    "id": 407,
+    "matId": 1040,
+    "matCost": 1
+  },
+  {
+    "id": 408,
+    "matId": 1040,
+    "matCost": 2
+  },
+  {
+    "id": 409,
+    "matId": 1040,
+    "matCost": 3
+  },
+  {
+    "id": 410,
+    "matId": 1080,
+    "matCost": 1
+  },
+  {
+    "id": 500,
+    "matId": 1040,
+    "matCost": 1
+  },
+  {
+    "id": 501,
+    "matId": 1040,
+    "matCost": 1
+  },
+  {
+    "id": 502,
+    "matId": 1040,
+    "matCost": 1
+  },
+  {
+    "id": 503,
+    "matId": 1040,
+    "matCost": 2
+  },
+  {
+    "id": 504,
+    "matId": 1040,
+    "matCost": 3
+  },
+  {
+    "id": 505,
+    "matId": 1080,
+    "matCost": 1
+  },
+  {
+    "id": 600,
+    "matId": 1020,
+    "matCost": 1
+  },
+  {
+    "id": 601,
+    "matId": 1020,
+    "matCost": 1
+  },
+  {
+    "id": 602,
+    "matId": 1020,
+    "matCost": 1
+  },
+  {
+    "id": 603,
+    "matId": 1020,
+    "matCost": 2
+  },
+  {
+    "id": 604,
+    "matId": 1020,
+    "matCost": 2
+  },
+  {
+    "id": 605,
+    "matId": 1020,
+    "matCost": 3
+  },
+  {
+    "id": 606,
+    "matId": 1050,
+    "matCost": 1
+  },
+  {
+    "id": 607,
+    "matId": 1050,
+    "matCost": 1
+  },
+  {
+    "id": 608,
+    "matId": 1050,
+    "matCost": 2
+  },
+  {
+    "id": 609,
+    "matId": 1050,
+    "matCost": 3
+  },
+  {
+    "id": 610,
+    "matId": 1090,
+    "matCost": 1
+  },
+  {
+    "id": 700,
+    "matId": 1050,
+    "matCost": 1
+  },
+  {
+    "id": 701,
+    "matId": 1050,
+    "matCost": 1
+  },
+  {
+    "id": 702,
+    "matId": 1050,
+    "matCost": 1
+  },
+  {
+    "id": 703,
+    "matId": 1050,
+    "matCost": 2
+  },
+  {
+    "id": 704,
+    "matId": 1050,
+    "matCost": 3
+  },
+  {
+    "id": 705,
+    "matId": 1090,
+    "matCost": 1
+  },
+  {
+    "id": 800,
+    "matId": 1020,
+    "matCost": 1
+  },
+  {
+    "id": 801,
+    "matId": 1020,
+    "matCost": 1
+  },
+  {
+    "id": 802,
+    "matId": 1020,
+    "matCost": 1
+  },
+  {
+    "id": 803,
+    "matId": 1020,
+    "matCost": 2
+  },
+  {
+    "id": 804,
+    "matId": 1020,
+    "matCost": 2
+  },
+  {
+    "id": 805,
+    "matId": 1020,
+    "matCost": 3
+  },
+  {
+    "id": 806,
+    "matId": 1060,
+    "matCost": 1
+  },
+  {
+    "id": 807,
+    "matId": 1060,
+    "matCost": 1
+  },
+  {
+    "id": 808,
+    "matId": 1060,
+    "matCost": 2
+  },
+  {
+    "id": 809,
+    "matId": 1060,
+    "matCost": 3
+  },
+  {
+    "id": 810,
+    "matId": 1100,
+    "matCost": 1
+  },
+  {
+    "id": 900,
+    "matId": 1060,
+    "matCost": 1
+  },
+  {
+    "id": 901,
+    "matId": 1060,
+    "matCost": 1
+  },
+  {
+    "id": 902,
+    "matId": 1060,
+    "matCost": 1
+  },
+  {
+    "id": 903,
+    "matId": 1060,
+    "matCost": 2
+  },
+  {
+    "id": 904,
+    "matId": 1060,
+    "matCost": 3
+  },
+  {
+    "id": 905,
+    "matId": 1100,
+    "matCost": 1
+  },
+  {
+    "id": 1000,
+    "matId": -1,
+    "matCost": -1
+  },
+  {
+    "id": 1100,
+    "matId": -1,
+    "matCost": -1
+  },
+  {
+    "id": 1101,
+    "matId": 1110,
+    "matCost": 1
+  },
+  {
+    "id": 1102,
+    "matId": 1110,
+    "matCost": 1
+  },
+  {
+    "id": 1103,
+    "matId": 1110,
+    "matCost": 2
+  },
+  {
+    "id": 1104,
+    "matId": 1110,
+    "matCost": 2
+  },
+  {
+    "id": 1105,
+    "matId": 1110,
+    "matCost": 4
+  },
+  {
+    "id": 1200,
+    "matId": -1,
+    "matCost": -1
+  },
+  {
+    "id": 1201,
+    "matId": 1130,
+    "matCost": 1
+  },
+  {
+    "id": 1202,
+    "matId": 1130,
+    "matCost": 1
+  },
+  {
+    "id": 1203,
+    "matId": 1130,
+    "matCost": 2
+  },
+  {
+    "id": 1204,
+    "matId": 1130,
+    "matCost": 2
+  },
+  {
+    "id": 1205,
+    "matId": 1130,
+    "matCost": 4
+  },
+  {
+    "id": 1300,
+    "matId": 701,
+    "matCost": 1
+  },
+  {
+    "id": 1301,
+    "matId": 1120,
+    "matCost": 1
+  },
+  {
+    "id": 1302,
+    "matId": 1120,
+    "matCost": 1
+  },
+  {
+    "id": 1303,
+    "matId": 1120,
+    "matCost": 2
+  },
+  {
+    "id": 1304,
+    "matId": 1120,
+    "matCost": 2
+  },
+  {
+    "id": 1305,
+    "matId": 1120,
+    "matCost": 4
+  },
+  {
+    "id": 1400,
+    "matId": 702,
+    "matCost": 1
+  },
+  {
+    "id": 1401,
+    "matId": 1120,
+    "matCost": 1
+  },
+  {
+    "id": 1402,
+    "matId": 1120,
+    "matCost": 1
+  },
+  {
+    "id": 1403,
+    "matId": 1120,
+    "matCost": 2
+  },
+  {
+    "id": 1404,
+    "matId": 1120,
+    "matCost": 2
+  },
+  {
+    "id": 1405,
+    "matId": 1120,
+    "matCost": 4
+  },
+  {
+    "id": 1500,
+    "matId": 700,
+    "matCost": 1
+  },
+  {
+    "id": 1501,
+    "matId": 1120,
+    "matCost": 1
+  },
+  {
+    "id": 1502,
+    "matId": 1120,
+    "matCost": 1
+  },
+  {
+    "id": 1503,
+    "matId": 1120,
+    "matCost": 2
+  },
+  {
+    "id": 1504,
+    "matId": 1120,
+    "matCost": 2
+  },
+  {
+    "id": 1505,
+    "matId": 1120,
+    "matCost": 4
+  },
+  {
+    "id": 1600,
+    "matId": 704,
+    "matCost": 1
+  },
+  {
+    "id": 1601,
+    "matId": 1120,
+    "matCost": 1
+  },
+  {
+    "id": 1602,
+    "matId": 1120,
+    "matCost": 1
+  },
+  {
+    "id": 1603,
+    "matId": 1120,
+    "matCost": 2
+  },
+  {
+    "id": 1604,
+    "matId": 1120,
+    "matCost": 2
+  },
+  {
+    "id": 1605,
+    "matId": 1120,
+    "matCost": 4
+  },
+  {
+    "id": 1700,
+    "matId": 705,
+    "matCost": 1
+  },
+  {
+    "id": 1701,
+    "matId": 1120,
+    "matCost": 1
+  },
+  {
+    "id": 1702,
+    "matId": 1120,
+    "matCost": 1
+  },
+  {
+    "id": 1703,
+    "matId": 1120,
+    "matCost": 2
+  },
+  {
+    "id": 1704,
+    "matId": 1120,
+    "matCost": 2
+  },
+  {
+    "id": 1705,
+    "matId": 1120,
+    "matCost": 4
+  },
+  {
+    "id": 1800,
+    "matId": 703,
+    "matCost": 1
+  },
+  {
+    "id": 1801,
+    "matId": 1120,
+    "matCost": 1
+  },
+  {
+    "id": 1802,
+    "matId": 1120,
+    "matCost": 1
+  },
+  {
+    "id": 1803,
+    "matId": 1120,
+    "matCost": 2
+  },
+  {
+    "id": 1804,
+    "matId": 1120,
+    "matCost": 2
+  },
+  {
+    "id": 1805,
+    "matId": 1120,
+    "matCost": 4
+  },
+  {
+    "id": 1900,
+    "matId": 706,
+    "matCost": 1
+  },
+  {
+    "id": 1901,
+    "matId": 1120,
+    "matCost": 1
+  },
+  {
+    "id": 1902,
+    "matId": 1120,
+    "matCost": 1
+  },
+  {
+    "id": 1903,
+    "matId": 1120,
+    "matCost": 2
+  },
+  {
+    "id": 1904,
+    "matId": 1120,
+    "matCost": 2
+  },
+  {
+    "id": 1905,
+    "matId": 1120,
+    "matCost": 4
+  },
+  {
+    "id": 2000,
+    "matId": 707,
+    "matCost": 1
+  },
+  {
+    "id": 2001,
+    "matId": 1120,
+    "matCost": 1
+  },
+  {
+    "id": 2002,
+    "matId": 1120,
+    "matCost": 1
+  },
+  {
+    "id": 2003,
+    "matId": 1120,
+    "matCost": 2
+  },
+  {
+    "id": 2004,
+    "matId": 1120,
+    "matCost": 2
+  },
+  {
+    "id": 2005,
+    "matId": 1120,
+    "matCost": 4
+  },
+  {
+    "id": 2100,
+    "matId": 708,
+    "matCost": 1
+  },
+  {
+    "id": 2101,
+    "matId": 1120,
+    "matCost": 1
+  },
+  {
+    "id": 2102,
+    "matId": 1120,
+    "matCost": 1
+  },
+  {
+    "id": 2103,
+    "matId": 1120,
+    "matCost": 2
+  },
+  {
+    "id": 2104,
+    "matId": 1120,
+    "matCost": 2
+  },
+  {
+    "id": 2105,
+    "matId": 1120,
+    "matCost": 4
+  },
+  {
+    "id": 2200,
+    "matId": 703,
+    "matCost": 1
+  },
+  {
+    "id": 2201,
+    "matId": 1110,
+    "matCost": 1
+  },
+  {
+    "id": 2202,
+    "matId": 1110,
+    "matCost": 1
+  },
+  {
+    "id": 2203,
+    "matId": 1110,
+    "matCost": 2
+  },
+  {
+    "id": 2204,
+    "matId": 1110,
+    "matCost": 2
+  },
+  {
+    "id": 2205,
+    "matId": 1110,
+    "matCost": 4
+  },
+  {
+    "id": 2300,
+    "matId": -1,
+    "matCost": -1
+  },
+  {
+    "id": 2301,
+    "matId": 1120,
+    "matCost": 1
+  },
+  {
+    "id": 2302,
+    "matId": 1120,
+    "matCost": 1
+  },
+  {
+    "id": 2303,
+    "matId": 1120,
+    "matCost": 2
+  },
+  {
+    "id": 2304,
+    "matId": 1120,
+    "matCost": 2
+  },
+  {
+    "id": 2305,
+    "matId": 1120,
+    "matCost": 4
+  },
+  {
+    "id": 2400,
+    "matId": 710,
+    "matCost": 1
+  },
+  {
+    "id": 2401,
+    "matId": 1120,
+    "matCost": 1
+  },
+  {
+    "id": 2402,
+    "matId": 1120,
+    "matCost": 1
+  },
+  {
+    "id": 2403,
+    "matId": 1120,
+    "matCost": 2
+  },
+  {
+    "id": 2404,
+    "matId": 1120,
+    "matCost": 2
+  },
+  {
+    "id": 2405,
+    "matId": 1120,
+    "matCost": 4
+  },
+  {
+    "id": 2500,
+    "matId": 711,
+    "matCost": 1
+  },
+  {
+    "id": 2501,
+    "matId": 1120,
+    "matCost": 1
+  },
+  {
+    "id": 2502,
+    "matId": 1120,
+    "matCost": 1
+  },
+  {
+    "id": 2503,
+    "matId": 1120,
+    "matCost": 2
+  },
+  {
+    "id": 2504,
+    "matId": 1120,
+    "matCost": 2
+  },
+  {
+    "id": 2505,
+    "matId": 1120,
+    "matCost": 4
+  },
+  {
+    "id": 3000,
+    "matId": 3000,
+    "matCost": 1
+  },
+  {
+    "id": 3010,
+    "matId": 3010,
+    "matCost": 1
+  },
+  {
+    "id": 3020,
+    "matId": 3020,
+    "matCost": 1
+  },
+  {
+    "id": 3030,
+    "matId": 3030,
+    "matCost": 1
+  },
+  {
+    "id": 3040,
+    "matId": 3040,
+    "matCost": 1
+  },
+  {
+    "id": 3050,
+    "matId": 3050,
+    "matCost": 1
+  },
+  {
+    "id": 3060,
+    "matId": 3060,
+    "matCost": 1
+  },
+  {
+    "id": 3070,
+    "matId": 3070,
+    "matCost": 1
+  },
+  {
+    "id": 3100,
+    "matId": 3100,
+    "matCost": 1
+  },
+  {
+    "id": 3110,
+    "matId": 3110,
+    "matCost": 1
+  },
+  {
+    "id": 3120,
+    "matId": 3120,
+    "matCost": 1
+  },
+  {
+    "id": 3300,
+    "matId": 3300,
+    "matCost": 1
+  },
+  {
+    "id": 3310,
+    "matId": 3310,
+    "matCost": 1
+  },
+  {
+    "id": 3400,
+    "matId": 3400,
+    "matCost": 1
+  },
+  {
+    "id": 3410,
+    "matId": 3410,
+    "matCost": 1
+  },
+  {
+    "id": 3500,
+    "matId": 3500,
+    "matCost": 1
+  },
+  {
+    "id": 3510,
+    "matId": 3510,
+    "matCost": 1
+  },
+  {
+    "id": 3520,
+    "matId": 3520,
+    "matCost": 1
+  },
+  {
+    "id": 3530,
+    "matId": 3530,
+    "matCost": 1
+  },
+  {
+    "id": 3540,
+    "matId": 3540,
+    "matCost": 1
+  },
+  {
+    "id": 3550,
+    "matId": 3550,
+    "matCost": 1
+  },
+  {
+    "id": 3600,
+    "matId": 3600,
+    "matCost": 1
+  },
+  {
+    "id": 3610,
+    "matId": 3610,
+    "matCost": 1
+  },
+  {
+    "id": 3700,
+    "matId": 3700,
+    "matCost": 1
+  },
+  {
+    "id": 3710,
+    "matId": 3710,
+    "matCost": 1
+  },
+  {
+    "id": 3720,
+    "matId": 3720,
+    "matCost": 1
+  },
+  {
+    "id": 3730,
+    "matId": 3730,
+    "matCost": 1
+  },
+  {
+    "id": 3740,
+    "matId": 3740,
+    "matCost": 1
+  },
+  {
+    "id": 4000,
+    "matId": 4000,
+    "matCost": 1
+  },
+  {
+    "id": 4010,
+    "matId": 4010,
+    "matCost": 1
+  },
+  {
+    "id": 4020,
+    "matId": 4020,
+    "matCost": 1
+  },
+  {
+    "id": 4030,
+    "matId": 4030,
+    "matCost": 1
+  },
+  {
+    "id": 4040,
+    "matId": 4040,
+    "matCost": 1
+  },
+  {
+    "id": 4050,
+    "matId": 4050,
+    "matCost": 1
+  },
+  {
+    "id": 4060,
+    "matId": 4060,
+    "matCost": 1
+  },
+  {
+    "id": 4100,
+    "matId": 4100,
+    "matCost": 1
+  },
+  {
+    "id": 4110,
+    "matId": 4110,
+    "matCost": 1
+  },
+  {
+    "id": 4200,
+    "matId": 4200,
+    "matCost": 1
+  },
+  {
+    "id": 4210,
+    "matId": 4210,
+    "matCost": 1
+  },
+  {
+    "id": 4220,
+    "matId": 4220,
+    "matCost": 1
+  },
+  {
+    "id": 4300,
+    "matId": 4300,
+    "matCost": 1
+  },
+  {
+    "id": 4310,
+    "matId": 4310,
+    "matCost": 1
+  },
+  {
+    "id": 4360,
+    "matId": 4360,
+    "matCost": 1
+  },
+  {
+    "id": 4400,
+    "matId": 4400,
+    "matCost": 1
+  },
+  {
+    "id": 4500,
+    "matId": 4500,
+    "matCost": 1
+  },
+  {
+    "id": 4510,
+    "matId": 4510,
+    "matCost": 1
+  },
+  {
+    "id": 4520,
+    "matId": 4520,
+    "matCost": 1
+  },
+  {
+    "id": 4530,
+    "matId": 4530,
+    "matCost": 1
+  },
+  {
+    "id": 5000,
+    "matId": 5000,
+    "matCost": 1
+  },
+  {
+    "id": 5010,
+    "matId": 5010,
+    "matCost": 1
+  },
+  {
+    "id": 5020,
+    "matId": 5020,
+    "matCost": 1
+  },
+  {
+    "id": 5030,
+    "matId": 5030,
+    "matCost": 1
+  },
+  {
+    "id": 5040,
+    "matId": 5040,
+    "matCost": 1
+  },
+  {
+    "id": 5050,
+    "matId": 5050,
+    "matCost": 1
+  },
+  {
+    "id": 5100,
+    "matId": 5100,
+    "matCost": 1
+  },
+  {
+    "id": 5110,
+    "matId": 5110,
+    "matCost": 1
+  },
+  {
+    "id": 5200,
+    "matId": 5200,
+    "matCost": 1
+  },
+  {
+    "id": 5210,
+    "matId": 5210,
+    "matCost": 1
+  },
+  {
+    "id": 5300,
+    "matId": 5300,
+    "matCost": 1
+  },
+  {
+    "id": 5310,
+    "matId": 5310,
+    "matCost": 1
+  },
+  {
+    "id": 5320,
+    "matId": 5320,
+    "matCost": 1
+  },
+  {
+    "id": 5400,
+    "matId": 5400,
+    "matCost": 1
+  },
+  {
+    "id": 5500,
+    "matId": 5500,
+    "matCost": 1
+  },
+  {
+    "id": 5510,
+    "matId": 5510,
+    "matCost": 1
+  },
+  {
+    "id": 5520,
+    "matId": 5520,
+    "matCost": 1
+  },
+  {
+    "id": 5600,
+    "matId": 5600,
+    "matCost": 1
+  },
+  {
+    "id": 5610,
+    "matId": 5610,
+    "matCost": 1
+  },
+  {
+    "id": 5700,
+    "matId": 5700,
+    "matCost": 1
+  },
+  {
+    "id": 5800,
+    "matId": 5800,
+    "matCost": 1
+  },
+  {
+    "id": 5810,
+    "matId": 5810,
+    "matCost": 1
+  },
+  {
+    "id": 5900,
+    "matId": 5900,
+    "matCost": 1
+  },
+  {
+    "id": 5910,
+    "matId": 5910,
+    "matCost": 1
+  },
+  {
+    "id": 7000,
+    "matId": -1,
+    "matCost": -1
+  },
+  {
+    "id": 7001,
+    "matId": 1000,
+    "matCost": 1
+  },
+  {
+    "id": 7002,
+    "matId": 1000,
+    "matCost": 1
+  },
+  {
+    "id": 7003,
+    "matId": 1000,
+    "matCost": 2
+  },
+  {
+    "id": 7004,
+    "matId": 1010,
+    "matCost": 1
+  },
+  {
+    "id": 7005,
+    "matId": 1010,
+    "matCost": 1
+  },
+  {
+    "id": 7006,
+    "matId": 1010,
+    "matCost": 2
+  },
+  {
+    "id": 7007,
+    "matId": 1030,
+    "matCost": 1
+  },
+  {
+    "id": 7008,
+    "matId": 1030,
+    "matCost": 1
+  },
+  {
+    "id": 7009,
+    "matId": 1030,
+    "matCost": 2
+  },
+  {
+    "id": 7010,
+    "matId": 1070,
+    "matCost": 1
+  },
+  {
+    "id": 7100,
+    "matId": -1,
+    "matCost": -1
+  },
+  {
+    "id": 7101,
+    "matId": 1130,
+    "matCost": 1
+  },
+  {
+    "id": 7102,
+    "matId": 1130,
+    "matCost": 1
+  },
+  {
+    "id": 7103,
+    "matId": 1130,
+    "matCost": 2
+  },
+  {
+    "id": 7104,
+    "matId": 1130,
+    "matCost": 2
+  },
+  {
+    "id": 7105,
+    "matId": 1130,
+    "matCost": 4
+  },
+  {
+    "id": 7200,
+    "matId": -1,
+    "matCost": -1
+  },
+  {
+    "id": 7201,
+    "matId": 1000,
+    "matCost": 1
+  },
+  {
+    "id": 7202,
+    "matId": 1000,
+    "matCost": 2
+  },
+  {
+    "id": 7203,
+    "matId": 1000,
+    "matCost": 3
+  },
+  {
+    "id": 7204,
+    "matId": 1010,
+    "matCost": 1
+  },
+  {
+    "id": 7205,
+    "matId": 1010,
+    "matCost": 2
+  },
+  {
+    "id": 7206,
+    "matId": 1010,
+    "matCost": 3
+  },
+  {
+    "id": 7207,
+    "matId": 1030,
+    "matCost": 1
+  },
+  {
+    "id": 7208,
+    "matId": 1030,
+    "matCost": 2
+  },
+  {
+    "id": 7209,
+    "matId": 1030,
+    "matCost": 3
+  },
+  {
+    "id": 7210,
+    "matId": 1070,
+    "matCost": 1
+  }
+]
