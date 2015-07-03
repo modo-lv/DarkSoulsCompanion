@@ -76,42 +76,69 @@ svc
 		) <<< itemData
 
 
-	..getUpgradeFor = (weapon, iteration) !->
-		def = $q.defer!
+svc.getUpgradeFor = (item, iteration) !->
+	def = $q.defer!
 
-		svc.loadItemData \upgrades .$promise.then (upgradeData) !->
-			def.resolve (upgradeData |> find (.id == weapon.upgradeId + iteration))
+	data = (if item.itemType == \armor then \armor-upgrades else \upgrades )
 
-		return def.promise
+	svc.loadItemData data .$promise.then (upgradeData) !->
+		def.resolve (upgradeData |> find (.id == item.upgradeId + iteration))
+
+	return def.promise
 
 
-	..getUpgradedVersionOf = (weapon, iteration) !->
-		def = $q.defer!
+svc.getUpgradedVersionOf = (item, iteration) !->
+	def = $q.defer!
 
-		(svc.getUpgradeFor weapon, iteration).then (upgrade) !->
-			if not upgrade? then return def.resolve null
+	(svc.getUpgradeFor item, iteration).then (upgrade) !->
+		if not upgrade? then return def.resolve null
 
-			#console.log "Weapon is", weapon, ", upgrade is ", upgrade
-
-			upWeapon = new svc.models.Weapon! <<< weapon
+			
+		if item.itemType == \armor
+			upArmor = new svc.models.Armor! <<< item
 				..id += iteration
 				..upgradeId = upgrade.id
 				..name += " +#{iteration }" if iteration > 0
+			
+			for mapping in [
+				[\defN \defModN]
+				[\defSl \defModSl]
+				[\defSt \defModSt]
+				[\defTh \defModTh]
+				[\defM \defModM]
+				[\defF \defModF]
+				[\defL \defModL]
 
+				[\defT \defModT]
+				[\defB \defModB]
+				[\defC \defModC]
+			]
+				upArmor[mapping.0] = upArmor[mapping.0] * upgrade[mapping.1] |> Math.floor
+
+			def.resolve upArmor
+		else
+			
+			#console.log "Weapon is", weapon, ", upgrade is ", upgrade
+	
+			upWeapon = new svc.models.Weapon! <<< item
+				..id += iteration
+				..upgradeId = upgrade.id
+				..name += " +#{iteration }" if iteration > 0
+	
 			for mapping in [
 				[\dmgN \dmgModN]
 				[\dmgM \dmgModM]
 				[\dmgF \dmgModF]
 				[\dmgL \dmgModL]
 				[\dmgS \dmgModS]
-
+	
 				[\defT \defModT]
 				[\defB \defModB]
 				[\defC \defModC]
 				[\defS \defModS]
 			]
 				upWeapon[mapping.0] = upWeapon[mapping.0] * upgrade[mapping.1] |> Math.floor
-
+	
 			for mapping in [
 				[\scP \scModP]
 				[\scD \scModD]
@@ -119,32 +146,31 @@ svc
 				[\scF \scModF]
 			]
 				upWeapon[mapping.0] = upWeapon[mapping.0] * upgrade[mapping.1]
-
+	
 			upWeapon
 				..defN *= +upgrade.\defModN
 				..defM *= +upgrade.\defModM
 				..defF *= +upgrade.\defModF
 				..defL *= +upgrade.\defModL
-
+	
 			#console.log "Result is", upWeapon
-
+	
 			def.resolve upWeapon
 
-		return def.promise
+	return def.promise
 
 
-svc.canUpgradeWithMaterials = (weapon, materials, iteration) ->
-	svc.getUpgradeFor weapon, iteration .then (upgrade) !->
-		#if weapon.name.substring(0, 7) == \Halberd
-		#	console.log weapon, materials, iteration, upgrade
+svc.canUpgradeWithMaterials = (item, materials, iteration) ->
+	svc.getUpgradeFor item, iteration .then (upgrade) !->
+		#if item.name.substring(0, 7) == \Halberd
+		#	console.log item, materials, iteration, upgrade
 		if not upgrade?
-			#console.log "Failed to get next upgrade for weapon ", weapon, "and iteration ", iteration
+			#console.log "Failed to get next upgrade for item ", item, "and iteration ", iteration
 			return false
 
-		# +6 weapons need Large Ember
+		# +6 items need Large Ember
 		#console.log iteration, materials, $ItemIds
-
-		if iteration > 5 and not (materials |> any (.id == $ItemIds.\LargeEmber ))
+		if item.itemType == \weapon and iteration > 5 and not (materials |> any (.id == $ItemIds.\LargeEmber ))
 			return false
 
 		if upgrade.matId < 0 or upgrade.matCost < 0 or upgrade.matId == $ItemIds.\TitaniteShard
@@ -157,8 +183,8 @@ svc.canUpgradeWithMaterials = (weapon, materials, iteration) ->
 		return false
 
 
-svc.payForUpgradeFor = (weapon, materials, iteration) ->
-	svc.getUpgradeFor weapon, iteration .then (upgrade) !->
+svc.payForUpgradeFor = (item, materials, iteration) ->
+	svc.getUpgradeFor item, iteration .then (upgrade) !->
 		if not upgrade? or upgrade.matId < 0 or upgrade.matCost < 0
 			return true
 

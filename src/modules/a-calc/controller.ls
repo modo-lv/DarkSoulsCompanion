@@ -23,10 +23,37 @@ _calcScoreFor = (armorPart) !->
 
 	return score
 
-_addAvailableUpgradesTo = (armors) !->
+_addAvailableUpgradesTo = (armors, inventory) !->
 	def = $q.defer!
 
-	def.resolve armors
+	promise = $q (resolve, reject) !-> resolve!
+	fullArmorList = []
+	for armor in armors
+		materials = inventory |> map -> {} <<< it
+		for iteration from 0 to 10
+			((armor, materials, iteration) !->
+				promise := promise
+				.then !->
+					#console.log "Then1"
+					return itemService.canUpgradeWithMaterials armor, materials, iteration
+				.then (canUpgrade) !->
+					#console.log "Then2", canUpgrade
+					if canUpgrade
+						return $q.all [
+							itemService.getUpgradedVersionOf armor, iteration
+							itemService.payForUpgradeFor armor, materials, iteration
+						]
+					else
+						materials.length = 0
+						return null
+				.then (result) !->
+					upArmor = result?.0
+					#console.log "then4", armor
+					if upArmor?
+						fullArmorList.push upArmor
+			) armor, materials, iteration
+
+	promise.then -> def.resolve fullArmorList
 
 	return def.promise
 
@@ -44,9 +71,8 @@ $scope.calculate = (type = 'offence') !->
 			|> map (inv) -> armors |> find ( .id == inv.id )
 			|> reject ( .weight > $scope.freeWeight )
 
-		return _addAvailableUpgradesTo availableArmors
+		return _addAvailableUpgradesTo availableArmors, inventory
 	.then (availableArmors) !->
-
 		for part in [\head \chest \hands \legs]
 			new itemService.models.Armor
 				..name = "(nothing)"

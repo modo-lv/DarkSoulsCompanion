@@ -1440,11 +1440,47 @@ function curry$(f, bound){
       [armorPart.defN, armorPart.defSt, armorPart.defSl, armorPart.defTh]);
       return score;
     };
-    _addAvailableUpgradesTo = function(armors){
-      var def;
+    _addAvailableUpgradesTo = function(armors, inventory){
+      var def, promise, fullArmorList, i$, len$, armor, materials, j$, iteration;
       def = $q.defer();
-      def.resolve(armors);
+      promise = $q(function(resolve, reject){
+        resolve();
+      });
+      fullArmorList = [];
+      for (i$ = 0, len$ = armors.length; i$ < len$; ++i$) {
+        armor = armors[i$];
+        materials = map(fn$)(
+        inventory);
+        for (j$ = 0; j$ <= 10; ++j$) {
+          iteration = j$;
+          fn1$(armor, materials, iteration);
+        }
+      }
+      promise.then(function(){
+        return def.resolve(fullArmorList);
+      });
       return def.promise;
+      function fn$(it){
+        return import$({}, it);
+      }
+      function fn1$(armor, materials, iteration){
+        promise = promise.then(function(){
+          return itemService.canUpgradeWithMaterials(armor, materials, iteration);
+        }).then(function(canUpgrade){
+          if (canUpgrade) {
+            return $q.all([itemService.getUpgradedVersionOf(armor, iteration), itemService.payForUpgradeFor(armor, materials, iteration)]);
+          } else {
+            materials.length = 0;
+            return null;
+          }
+        }).then(function(result){
+          var upArmor;
+          upArmor = result != null ? result[0] : void 8;
+          if (upArmor != null) {
+            fullArmorList.push(upArmor);
+          }
+        });
+      }
     };
     $scope.calculate = function(type){
       var inventory;
@@ -1469,7 +1505,7 @@ function curry$(f, bound){
           return it.itemType === 'armor';
         })(
         inventory)));
-        return _addAvailableUpgradesTo(availableArmors);
+        return _addAvailableUpgradesTo(availableArmors, inventory);
       }).then(function(availableArmors){
         var i$, ref$, len$, part, x$, results, head, j$, ref1$, len1$, chest, k$, ref2$, len2$, hands, l$, ref3$, len3$, legs, wSum, y$, result;
         for (i$ = 0, len$ = (ref$ = ['head', 'chest', 'hands', 'legs']).length; i$ < len$; ++i$) {
@@ -1550,6 +1586,11 @@ function curry$(f, bound){
       });
     };
   });
+  function import$(obj, src){
+    var own = {}.hasOwnProperty;
+    for (var key in src) if (own.call(src, key)) obj[key] = src[key];
+    return obj;
+  }
 }).call(this);
 
 },{"./controller/gridOptions":12}],12:[function(require,module,exports){
@@ -2283,56 +2324,72 @@ arguments[4][15][0].apply(exports,arguments)
         }
       }()), itemData);
     };
-    y$.getUpgradeFor = function(weapon, iteration){
-      var def;
+    svc.getUpgradeFor = function(item, iteration){
+      var def, data;
       def = $q.defer();
-      svc.loadItemData('upgrades').$promise.then(function(upgradeData){
+      data = item.itemType === 'armor' ? 'armor-upgrades' : 'upgrades';
+      svc.loadItemData(data).$promise.then(function(upgradeData){
         def.resolve(find(function(it){
-          return it.id === weapon.upgradeId + iteration;
+          return it.id === item.upgradeId + iteration;
         })(
         upgradeData));
       });
       return def.promise;
     };
-    y$.getUpgradedVersionOf = function(weapon, iteration){
+    svc.getUpgradedVersionOf = function(item, iteration){
       var def;
       def = $q.defer();
-      svc.getUpgradeFor(weapon, iteration).then(function(upgrade){
-        var x$, upWeapon, i$, ref$, len$, mapping, y$;
+      svc.getUpgradeFor(item, iteration).then(function(upgrade){
+        var x$, upArmor, i$, ref$, len$, mapping, y$, upWeapon, z$;
         if (upgrade == null) {
           return def.resolve(null);
         }
-        x$ = upWeapon = import$(new svc.models.Weapon(), weapon);
-        x$.id += iteration;
-        x$.upgradeId = upgrade.id;
-        if (iteration > 0) {
-          x$.name += " +" + iteration;
+        if (item.itemType === 'armor') {
+          x$ = upArmor = import$(new svc.models.Armor(), item);
+          x$.id += iteration;
+          x$.upgradeId = upgrade.id;
+          if (iteration > 0) {
+            x$.name += " +" + iteration;
+          }
+          for (i$ = 0, len$ = (ref$ = [['defN', 'defModN'], ['defSl', 'defModSl'], ['defSt', 'defModSt'], ['defTh', 'defModTh'], ['defM', 'defModM'], ['defF', 'defModF'], ['defL', 'defModL'], ['defT', 'defModT'], ['defB', 'defModB'], ['defC', 'defModC']]).length; i$ < len$; ++i$) {
+            mapping = ref$[i$];
+            upArmor[mapping[0]] = Math.floor(
+            upArmor[mapping[0]] * upgrade[mapping[1]]);
+          }
+          def.resolve(upArmor);
+        } else {
+          y$ = upWeapon = import$(new svc.models.Weapon(), item);
+          y$.id += iteration;
+          y$.upgradeId = upgrade.id;
+          if (iteration > 0) {
+            y$.name += " +" + iteration;
+          }
+          for (i$ = 0, len$ = (ref$ = [['dmgN', 'dmgModN'], ['dmgM', 'dmgModM'], ['dmgF', 'dmgModF'], ['dmgL', 'dmgModL'], ['dmgS', 'dmgModS'], ['defT', 'defModT'], ['defB', 'defModB'], ['defC', 'defModC'], ['defS', 'defModS']]).length; i$ < len$; ++i$) {
+            mapping = ref$[i$];
+            upWeapon[mapping[0]] = Math.floor(
+            upWeapon[mapping[0]] * upgrade[mapping[1]]);
+          }
+          for (i$ = 0, len$ = (ref$ = [['scP', 'scModP'], ['scD', 'scModD'], ['scI', 'scModI'], ['scF', 'scModF']]).length; i$ < len$; ++i$) {
+            mapping = ref$[i$];
+            upWeapon[mapping[0]] = upWeapon[mapping[0]] * upgrade[mapping[1]];
+          }
+          z$ = upWeapon;
+          z$.defN *= +upgrade['defModN'];
+          z$.defM *= +upgrade['defModM'];
+          z$.defF *= +upgrade['defModF'];
+          z$.defL *= +upgrade['defModL'];
+          def.resolve(upWeapon);
         }
-        for (i$ = 0, len$ = (ref$ = [['dmgN', 'dmgModN'], ['dmgM', 'dmgModM'], ['dmgF', 'dmgModF'], ['dmgL', 'dmgModL'], ['dmgS', 'dmgModS'], ['defT', 'defModT'], ['defB', 'defModB'], ['defC', 'defModC'], ['defS', 'defModS']]).length; i$ < len$; ++i$) {
-          mapping = ref$[i$];
-          upWeapon[mapping[0]] = Math.floor(
-          upWeapon[mapping[0]] * upgrade[mapping[1]]);
-        }
-        for (i$ = 0, len$ = (ref$ = [['scP', 'scModP'], ['scD', 'scModD'], ['scI', 'scModI'], ['scF', 'scModF']]).length; i$ < len$; ++i$) {
-          mapping = ref$[i$];
-          upWeapon[mapping[0]] = upWeapon[mapping[0]] * upgrade[mapping[1]];
-        }
-        y$ = upWeapon;
-        y$.defN *= +upgrade['defModN'];
-        y$.defM *= +upgrade['defModM'];
-        y$.defF *= +upgrade['defModF'];
-        y$.defL *= +upgrade['defModL'];
-        def.resolve(upWeapon);
       });
       return def.promise;
     };
-    svc.canUpgradeWithMaterials = function(weapon, materials, iteration){
-      return svc.getUpgradeFor(weapon, iteration).then(function(upgrade){
+    svc.canUpgradeWithMaterials = function(item, materials, iteration){
+      return svc.getUpgradeFor(item, iteration).then(function(upgrade){
         var i$, ref$, len$, material;
         if (upgrade == null) {
           return false;
         }
-        if (iteration > 5 && !any(function(it){
+        if (item.itemType === 'weapon' && iteration > 5 && !any(function(it){
           return it.id === $ItemIds['LargeEmber'];
         })(
         materials)) {
@@ -2350,8 +2407,8 @@ arguments[4][15][0].apply(exports,arguments)
         return false;
       });
     };
-    svc.payForUpgradeFor = function(weapon, materials, iteration){
-      return svc.getUpgradeFor(weapon, iteration).then(function(upgrade){
+    svc.payForUpgradeFor = function(item, materials, iteration){
+      return svc.getUpgradeFor(item, iteration).then(function(upgrade){
         var ref$;
         if (upgrade == null || upgrade.matId < 0 || upgrade.matCost < 0) {
           return true;
