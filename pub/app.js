@@ -1569,12 +1569,15 @@ function curry$(f, bound){
   angular.module("dsc").controller("InventoryController", function($scope, uiGridConstants, itemService, storageService, inventoryService){
     $scope.selectedItem = null;
     $scope.inventory = [];
-    $scope.gridOptions = require('./controller/gridOptions');
+    $scope.itemTypes = ['weapon', 'armor', 'item'];
+    $scope.gridOptions = require('./controller/gridOptions')(uiGridConstants);
     ($scope.allItems = itemService.loadItemIndex()).$promise.then(function(){
       $scope.gridOptions.data = $scope.inventory = inventoryService.loadUserInventory();
     });
+    $scope.addNewItem = function(selection){
+      $scope.addItem(selection.originalObject);
+    };
     $scope.addItem = function(item){
-      item == null && (item = $scope.selectedItem.originalObject);
       inventoryService.addToInventory(item);
     };
     $scope.removeItem = inventoryService.removeFromInventory;
@@ -1584,24 +1587,47 @@ function curry$(f, bound){
 },{"./controller/gridOptions":15}],15:[function(require,module,exports){
 (function(){
   if (typeof module != 'undefined' && module !== null) {
-    module.exports = {
-      columnDefs: [
-        {
-          field: 'name',
-          displayName: 'Item'
-        }, {
-          field: 'amount',
-          width: 50
+    module.exports = function(uiGridConstants){
+      return {
+        enableFiltering: true,
+        columnDefs: [
+          {
+            field: 'name',
+            sort: {
+              direction: uiGridConstants.ASC
+            }
+          }, {
+            field: 'itemType',
+            displayName: 'Type',
+            filter: {
+              type: uiGridConstants.filter.SELECT,
+              selectOptions: [
+                {
+                  value: 'weapon',
+                  label: "Weapons"
+                }, {
+                  value: 'armor',
+                  label: "Armor"
+                }, {
+                  value: 'item',
+                  label: "Items"
+                }
+              ]
+            }
+          }, {
+            field: 'amount',
+            width: 50
+          }
+        ],
+        onRegisterApi: function(gridApi){
+          gridApi.core.addRowHeaderColumn({
+            name: 'rowHeaderCol',
+            displayName: '',
+            width: 75,
+            cellTemplate: 'GridRowHeader.html'
+          });
         }
-      ],
-      onRegisterApi: function(gridApi){
-        gridApi.core.addRowHeaderColumn({
-          name: 'rowHeaderCol',
-          displayName: '',
-          width: 75,
-          cellTemplate: 'GridRowHeader.html'
-        });
-      }
+      };
     };
   }
 }).call(this);

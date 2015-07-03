@@ -11,6 +11,7 @@ livescript = require "gulp-livescript"
 sass = require "gulp-sass"
 requireDir = require "require-dir"
 vinyl_stream = require "vinyl-source-stream"
+jade = require "gulp-jade"
 
 #
 # CONFIG
@@ -39,7 +40,14 @@ gulp.task "copy-libs", ->
 		.pipe gulp.dest cfg.dst.libs
 
 
-gulp.task "compile-html", ->
+
+gulp.task "compile-jade", ->
+	gulp.src cfg.src.jadeFiles
+		.pipe jade!
+		.pipe gulp.dest cfg.dst.dir
+
+
+gulp.task "compile-html", ["compile-jade"] ->
 	gulp.src cfg.src.view
 		#.pipe include { prefix: '@@' }
 		.pipe gulp.dest cfg.dst.dir
@@ -49,7 +57,7 @@ gulp.task "compile-html", ->
 
 gulp.task "compile-stylesheets", ->
 	gulp.src cfg.src.dir + "/style.sass"
-		.pipe sass indentedSyntax: true
+		.pipe sass outputStyle: \compressed
 		.pipe gulp.dest(cfg.dst.dir)
 
 

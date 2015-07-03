@@ -1,0 +1,19 @@
+#Inventory
+	angucomplete-alt#AddToInventory(
+		local-data="allItems"
+		selected-object="addNewItem"
+		title-field="name"
+		search-fields="name"
+		clear-selected=true
+		placeholder="Add to inventory..."
+		minlength=1
+	)
+
+
+	// Grid
+	div(ui-grid-auto-resize ui-grid="gridOptions")
+
+	// Grid action buttons
+	script(id="GridRowHeader.html" type="text/ng-template")
+		button(ng-click="grid.appScope.addItem(row.entity)") +
+		button(ng-click="grid.appScope.addItem(row.entity)") −

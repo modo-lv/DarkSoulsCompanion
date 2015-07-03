@@ -19,6 +19,7 @@ module?.exports = cfg = {}
 		..viewFiles = "#{cfg.src.dir}/**/*.html"
 		..main = "#{cfg.src.dir }/app.ls"
 		..scriptFiles = "#{cfg.src.dir }/**/*.ls"
+		..jadeFiles = "#{cfg.src.dir }/**/*.jade"
 
 	# destination (published) files, folder and other config
 	..dst = {}

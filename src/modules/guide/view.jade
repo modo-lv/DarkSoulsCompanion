@@ -1,0 +1,44 @@
+#Guide
+	a(
+		ng-repeat="section in sections"
+		href="#/guide/{{section.id}}"
+	) {{section.name}}
+
+	div(ng-include="'GuideEntry'")
+
+
+script#GuideEntry(type="text/ng-template")
+	.header(ng-if="entry.title")
+
+		.buttons
+			button.check-mark(
+				ng-click="entryDone(entry)"
+				title="Mark as done"
+			) ✓
+			button.dane-and-add(
+				ng-click="entryDoneAndAdd(entry)"
+				title="Mark as done and add item to inventory"
+				ng-disable="!canAddToInventory(entry)"
+			) ✓+
+
+		.title(ng-click="entryClicked($event, entry)")
+			| {{entry.title}} {{entry.meta.arrow}}
+		span.label(ng-repeat="label in entry.labels")
+			| {{label}}
+
+	.content(ng-hide="entry.meta.isCollapsed")
+		div(ng-if="entry.content" ng-bind-html="entry.content")
+
+		ul(
+			ng-if="entry.children"
+			ng-init="depth = depth + 1"
+			ng-class="depth == 1 ? 'root' : ''"
+		)
+			li.entry(
+				ng-repeat="entry in entry.children"
+				ng-include="'GuideEntry'"
+				ng-class="entry.meta.additionalClasses"
+				ng-if="!entry.meta.isDone"
+				data-id="{{entry.id}}"
+				data-labels="{{entry.labels}}"
+			)

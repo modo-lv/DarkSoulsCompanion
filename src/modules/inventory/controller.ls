@@ -5,7 +5,9 @@ $scope, uiGridConstants, itemService, storageService, inventoryService <-! angul
 $scope.selectedItem = null
 $scope.inventory = []
 
-$scope.gridOptions = require './controller/gridOptions'
+$scope.itemTypes = [ \weapon \armor \item ]
+
+$scope.gridOptions = (require './controller/gridOptions') uiGridConstants
 
 
 ### LOAD DATA
@@ -15,7 +17,10 @@ $scope.gridOptions = require './controller/gridOptions'
 	$scope.gridOptions.data = $scope.inventory = inventoryService.loadUserInventory!
 
 # Event handlers
-$scope.addItem = (item = $scope.selectedItem.originalObject) !->
+$scope.addNewItem = (selection) !->
+	$scope.addItem selection.originalObject
+
+$scope.addItem = (item) !->
 	inventoryService.addToInventory item
 
 $scope.removeItem = inventoryService.removeFromInventory
