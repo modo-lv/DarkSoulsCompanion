@@ -1804,11 +1804,13 @@ function curry$(f, bound){
   angular.module("dsc").controller("InventoryController", function($scope, uiGridConstants, itemService, storageService, inventoryService){
     $scope.selectedItem = null;
     $scope.inventory = [];
+    $scope.armorSets = [];
     $scope.itemTypes = ['weapon', 'armor', 'item'];
     $scope.gridOptions = require('./controller/gridOptions')(uiGridConstants);
     ($scope.allItems = itemService.loadItemIndex()).$promise.then(function(){
       $scope.gridOptions.data = $scope.inventory = inventoryService.loadUserInventory();
     });
+    $scope.armorSets = itemService.loadArmorSetIndex();
     $scope.addNewItem = function(selection){
       $scope.addItem(selection.originalObject);
     };
@@ -1816,6 +1818,21 @@ function curry$(f, bound){
       inventoryService.addToInventory(item);
     };
     $scope.removeItem = inventoryService.removeFromInventory;
+    $scope.addArmorSet = function(selection){
+      var armorSet;
+      armorSet = selection.originalObject;
+      itemService.loadItemData('armors').$promise.then(function(armors){
+        var i$, ref$, len$, id;
+        for (i$ = 0, len$ = (ref$ = armorSet.armors).length; i$ < len$; ++i$) {
+          id = ref$[i$];
+          $scope.addItem(find(fn$)(
+          armors));
+        }
+        function fn$(it){
+          return it.id === id;
+        }
+      });
+    };
   });
 }).call(this);
 
@@ -1886,7 +1903,7 @@ function curry$(f, bound){
         var prototype = InventoryItem.prototype, constructor = InventoryItem;
         function InventoryItem(amount){
           this.amount = amount != null ? amount : 1;
-          this.id = 0;
+          this.uid = 0;
           this.name = '';
           this.itemType = '';
         }
@@ -1911,6 +1928,9 @@ function curry$(f, bound){
       } else {
         x$ = new svc.models.InventoryItem(amount);
         x$.id = item.id;
+        x$.uid = item.uid;
+        x$.name = item.name;
+        x$.itemType = item.itemType;
         (svc.items || (svc.items = [])).push(
         x$);
       }
@@ -1948,7 +1968,7 @@ function curry$(f, bound){
         for (i$ = 0, len$ = inventoryData.length; i$ < len$; ++i$) {
           entry = inventoryData[i$];
           x$ = new svc.models.InventoryItem(entry.amount);
-          import$(x$, itemService.getFromIndexById(entry.id));
+          import$(x$, itemService.getFromIndexByUid(entry.uid));
           svc.items.push(
           x$);
         }
@@ -1962,7 +1982,7 @@ function curry$(f, bound){
       for (i$ = 0, len$ = (ref$ = svc.items || (svc.items = [])).length; i$ < len$; ++i$) {
         entry = ref$[i$];
         inventoryData.push({
-          id: entry.id,
+          uid: entry.uid,
           amount: entry.amount
         });
       }
@@ -2254,6 +2274,7 @@ arguments[4][15][0].apply(exports,arguments)
       items: {},
       itemTypes: ['items', 'weapons', 'armors'],
       itemIndex: [],
+      armorSetIndex: [],
       _promises: {}
     };
     x$.models = require('./service/models');
@@ -2269,9 +2290,23 @@ arguments[4][15][0].apply(exports,arguments)
       }
       return svc.itemIndex;
     };
+    svc.loadArmorSetIndex = function(force){
+      force == null && (force = false);
+      if (empty(
+      force || svc.armorSetIndex)) {
+        svc.armorSetIndex = $resource('/modules/items/content/armor-set-index.json').query();
+      }
+      return svc.armorSetIndex;
+    };
     svc.getFromIndexById = function(id){
       return find(function(it){
         return it.id === id;
+      })(
+      svc.itemIndex);
+    };
+    svc.getFromIndexByUid = function(uid){
+      return find(function(it){
+        return it.uid === uid;
       })(
       svc.itemIndex);
     };

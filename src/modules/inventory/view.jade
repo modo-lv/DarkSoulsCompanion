@@ -5,7 +5,17 @@
 		title-field="name"
 		search-fields="name"
 		clear-selected=true
-		placeholder="Add to inventory..."
+		placeholder="Add item..."
+		minlength=1
+	)
+
+	angucomplete-alt#AddArmorSet(
+		local-data="armorSets"
+		selected-object="addArmorSet"
+		title-field="name"
+		search-fields="name"
+		clear-selected="true"
+		placeholder="Add armor set..."
 		minlength=1
 	)
 
@@ -16,4 +26,4 @@
 	// Grid action buttons
 	script(id="GridRowHeader.html" type="text/ng-template")
 		button(ng-click="grid.appScope.addItem(row.entity)") +
-		button(ng-click="grid.appScope.addItem(row.entity)") −
+		button(ng-click="grid.appScope.removeItem(row.entity)") −

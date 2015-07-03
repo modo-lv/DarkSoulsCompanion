@@ -7,7 +7,7 @@ svc.items = []
 svc.models = {
 	\InventoryItem : class InventoryItem
 		(@amount = 1) ->
-			@id = 0
+			@uid = 0
 			@name = ''
 			@itemType = ''
 }
@@ -26,6 +26,9 @@ svc.addToInventory = (item, amount = 1) !->
 	else
 		new svc.models.InventoryItem amount
 			..id = item.id
+			..uid = item.uid
+			..name = item.name
+			..itemType = item.itemType
 			.. |> svc.[]items.push
 
 	svc.saveInventory!
@@ -62,7 +65,7 @@ svc.loadUserInventory = (force) !->
 
 		for entry in inventoryData
 			new svc.models.InventoryItem entry.amount
-				.. <<< itemService.getFromIndexById entry.id
+				.. <<< itemService.getFromIndexByUid entry.uid
 				.. |> svc.items.push
 
 		defer.resolve!
@@ -74,7 +77,7 @@ svc.saveInventory = !->
 	inventoryData = []
 	for entry in svc.[]items
 		inventoryData.push {
-			id : entry.id
+			uid : entry.uid
 			amount : entry.amount
 		}
 

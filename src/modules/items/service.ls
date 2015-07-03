@@ -14,6 +14,8 @@ svc = {
 
 	itemIndex : []
 
+	armorSetIndex : []
+
 	_promises : {}
 }
 
@@ -30,8 +32,15 @@ svc.loadItemIndex = (force = false) !->
 
 	return svc.itemIndex
 
+svc.loadArmorSetIndex = (force = false) !->
+	if force or svc.armorSetIndex |> empty
+		svc.armorSetIndex = $resource '/modules/items/content/armor-set-index.json' .query!
+	return svc.armorSetIndex
+
 
 svc.getFromIndexById = (id) -> svc.itemIndex |> find (.id == id)
+
+svc.getFromIndexByUid = (uid) -> svc.itemIndex |> find (.uid == uid)
 
 
 /**

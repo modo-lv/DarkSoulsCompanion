@@ -12,13 +12,26 @@ raw = {}
 
 
 $index = []
+$armorSetIndex = []
+
+
+$addToSetIndex = (armor) !->
+	if armor.armorSet == '' or not armor.armorSet? then return
+
+	entry = $armorSetIndex |> find (.name == armor.armorSet)
+	if not entry?
+		entry ?= {name : armor.armorSet}
+		$armorSetIndex.push entry
+
+	entry.[]armors.push armor.id
 
 
 $addToIndex = (item) !->
-	entry = {}
+	uid = item.itemType + item.id
+	entry = ($index |> find (.uid == uid)) ? {}
 	for field in [\id \name \itemType]
 		entry[field] = item[field]
-	entry.\uid = "#{item.itemType}#{item.id}"
+	entry.\uid = uid
 
 	$index.push entry
 
@@ -44,24 +57,28 @@ effectMap =
 	\heal : 199
 
 
-parseTexts = (data) !->
+parseTexts = (data, type) !->
 	target = {}
 	for row in data
-		target[+row.\Id] = row.\Value
+		target[type + row.\Id] = row.\Value
 	return target
 
 
 console.log "Loading names..."
-nameFiles = [ \item \weapon \armor \ring ] |> map -> "#{it}_name"
+itemTypes = [ \item \armor \weapon \ring ]
 
 a = 0
-for file in nameFiles ++ (nameFiles |> map -> "#{it}_dlc")
-	content = fs.readFileSync "#{file }.csv", { \encoding : \utf8 }
-	csvParse content, { \columns : true } (err, data) !->
-		if err? then throw err
-		raw.{}names <<< parseTexts data
-		if ++a == nameFiles.length - 1
-			loadUpgrades!
+total = itemTypes.length * 2
+for type in itemTypes
+	for file in ["#{type}_names", "#{type}_names_dlc"]
+		content = fs.readFileSync "#{file }.csv", { \encoding : \utf8 }
+		((type) !->
+			csvParse content, { \columns : true } (err, data) !->
+				if err? then throw err
+				raw.{}names <<< parseTexts data, type
+				if ++a == total
+					loadUpgrades!
+		) type
 
 loadUpgrades = !->
 	console.log "Loading reinforcement data..."
@@ -133,7 +150,8 @@ loadMaterialSets = !->
 
 
 setTexts = (item) !->
-	item.name = raw.names[item.id]
+	uid = item.itemType + item.id
+	item.name = raw.names[uid]
 
 
 processUpgrades = (folder = '.') !->
@@ -185,9 +203,9 @@ processItems = (folder = '.') !->
 
 	for key, rawItem of raw.items
 		item = { id : +rawItem.\Id }
+			..itemType = \item
 			.. |> setTexts
 			..sell = +rawItem.\SellValue
-			..itemType = \item
 
 		if not item.name? or item.name.length < 1
 			#console.log "[#{item.name}]"
@@ -213,14 +231,13 @@ processWeapons = (folder = '.')!->
 
 		weapon = {}
 			..id = +rawWeapon.\Id
-
+			..itemType = \weapon
 			.. |> setTexts
 
 		# Weapons without names cannot be recognized and so are useless
 		if not weapon.name? then continue
 
 		weapon
-			..itemType = \weapon
 			..dur = +rawWeapon.\DurabilityMax
 			..weight = +rawWeapon.\Weight
 			..sell = +rawWeapon.\SellValue
@@ -315,13 +332,13 @@ processArmor = (folder) !->
 	for armorData in raw.armors
 		armor = {}
 			..id = +armorData.\Id
+			..itemType = \armor
 			.. |> setTexts
 
 		# armors without names cannot be recognized and so are useless
 		if not armor.name? then continue
 
 		armor
-			..itemType = \armor
 			..dur = +armorData.\DurabilityMax
 			..weight = +armorData.\Weight
 			..sell = +armorData.\SellValue
@@ -364,7 +381,10 @@ processArmor = (folder) !->
 
 		armors.push armor
 
-		armor |> $addToIndex
+		armor
+			.. |> $addToIndex
+			.. |> $addToSetIndex
+
 
 	fs.writeFileSync "#{folder}/armors.json", JSON.stringify armors
 
@@ -410,3 +430,5 @@ rawDataLoaded = !->
 	processArmorUpgrades folder
 
 	fs.writeFileSync "#{folder}/index.json", JSON.stringify $index
+
+	fs.writeFileSync "#{folder}/armor-set-index.json", JSON.stringify $armorSetIndex
