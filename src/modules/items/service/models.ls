@@ -9,6 +9,8 @@ module?.exports = {
 
 		fullName :~ -> @name
 
+		uid :~ -> @itemType + @id
+
 
 
 	\Equipment : class Equipment extends Item

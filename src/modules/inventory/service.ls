@@ -13,10 +13,10 @@ svc.models = {
 }
 
 
-svc.getById = (id) -> svc.[]items |> find (.id == id)
+svc.getById = (uid) -> svc.[]items |> find (.uid == uid)
 
 
-svc.getByItem = (item) -> svc.getById item.id
+svc.getByItem = (item) -> svc.getById item.uid
 
 
 svc.addToInventory = (item, amount = 1) !->

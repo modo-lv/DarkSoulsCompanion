@@ -1327,9 +1327,9 @@ function curry$(f, bound){
   });
   require('./app/routes');
   (function(){
-    require('./modules/guide/main.js');require('./modules/inventory/main.js');require('./modules/items/main.js');require('./modules/pc/main.js');require('./modules/w-calc/main.js');
+    require('./modules/a-calc/main.js');require('./modules/guide/main.js');require('./modules/inventory/main.js');require('./modules/items/main.js');require('./modules/pc/main.js');require('./modules/w-calc/main.js');
   });
-  for (i$ = 0, len$ = (ref$ = ['guide', 'items', 'inventory', 'pc', 'w-calc']).length; i$ < len$; ++i$) {
+  for (i$ = 0, len$ = (ref$ = ['guide', 'items', 'inventory', 'pc', 'w-calc', 'a-calc']).length; i$ < len$; ++i$) {
     module = ref$[i$];
     require("./modules/" + module + "/main.js");
   }
@@ -1341,7 +1341,7 @@ function curry$(f, bound){
 }).call(this);
 
 }).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
-},{"./app/routes":8,"./common/services/dataExportService":9,"./common/services/storageService":10,"./modules/guide/main.js":12,"./modules/inventory/main.js":16,"./modules/items/main.js":20,"./modules/pc/main.js":25,"./modules/w-calc/main.js":31,"prelude-ls":6}],8:[function(require,module,exports){
+},{"./app/routes":8,"./common/services/dataExportService":9,"./common/services/storageService":10,"./modules/a-calc/main.js":13,"./modules/guide/main.js":15,"./modules/inventory/main.js":19,"./modules/items/main.js":23,"./modules/pc/main.js":28,"./modules/w-calc/main.js":34,"prelude-ls":6}],8:[function(require,module,exports){
 (function(){
   angular.module("dsc").config(function($routeProvider){
     $routeProvider.when('/guide/:section', {
@@ -1359,6 +1359,9 @@ function curry$(f, bound){
     }).when('/w-calc', {
       templateUrl: 'modules/w-calc/view.html',
       controller: 'WeaponCalcController'
+    }).when('/a-calc', {
+      templateUrl: 'modules/a-calc/view.html',
+      controller: 'ArmorCalcController'
     }).otherwise({
       redirectTo: '/guide/intro'
     });
@@ -1421,6 +1424,197 @@ function curry$(f, bound){
 }).call(this);
 
 },{}],11:[function(require,module,exports){
+(function(){
+  angular.module("dsc").controller("ArmorCalcController", function($q, $scope, itemService, inventoryService, pcService, uiGridConstants){
+    var x$, _calcScoreFor, _addAvailableUpgradesTo;
+    $scope.results = [];
+    $scope.maxLoad = 0;
+    $scope.reservedWeight = 0;
+    $scope.availableLoad = 0;
+    $scope.maxLoad = 40 + pcService.statValueOf('endurance');
+    x$ = $scope.gridOptions = require('./controller/gridOptions')(uiGridConstants);
+    x$.data = $scope.results;
+    _calcScoreFor = function(armorPart){
+      var score;
+      score = average(
+      [armorPart.defN, armorPart.defSt, armorPart.defSl, armorPart.defTh]);
+      return score;
+    };
+    _addAvailableUpgradesTo = function(armors){
+      var def;
+      def = $q.defer();
+      def.resolve(armors);
+      return def.promise;
+    };
+    $scope.calculate = function(type){
+      var inventory;
+      type == null && (type = 'offence');
+      $scope.freeWeight = $scope.maxLoad - $scope.reservedWeight;
+      $scope.gridOptions.data = [];
+      inventory = inventoryService.loadUserInventory();
+      inventory.$promise.then(function(){
+        return itemService.loadItemData('armors').$promise;
+      }).then(function(armors){
+        var availableArmors;
+        availableArmors = reject(function(it){
+          return it.weight > $scope.freeWeight;
+        })(
+        map(function(inv){
+          return find(function(it){
+            return it.id === inv.id;
+          })(
+          armors);
+        })(
+        filter(function(it){
+          return it.itemType === 'armor';
+        })(
+        inventory)));
+        return _addAvailableUpgradesTo(availableArmors);
+      }).then(function(availableArmors){
+        var i$, ref$, len$, part, x$, results, head, j$, ref1$, len1$, chest, k$, ref2$, len2$, hands, l$, ref3$, len3$, legs, wSum, y$, result;
+        for (i$ = 0, len$ = (ref$ = ['head', 'chest', 'hands', 'legs']).length; i$ < len$; ++i$) {
+          part = ref$[i$];
+          x$ = new itemService.models.Armor;
+          x$.name = "(nothing)";
+          x$.armorType = part;
+          availableArmors.push(
+          x$);
+        }
+        results = [];
+        for (i$ = 0, len$ = (ref$ = filter(fn$)(
+        availableArmors)).length; i$ < len$; ++i$) {
+          head = ref$[i$];
+          for (j$ = 0, len1$ = (ref1$ = filter(fn1$)(
+          availableArmors)).length; j$ < len1$; ++j$) {
+            chest = ref1$[j$];
+            for (k$ = 0, len2$ = (ref2$ = filter(fn2$)(
+            availableArmors)).length; k$ < len2$; ++k$) {
+              hands = ref2$[k$];
+              for (l$ = 0, len3$ = (ref3$ = filter(fn3$)(
+              availableArmors)).length; l$ < len3$; ++l$) {
+                legs = ref3$[l$];
+                wSum = sum(
+                Obj.values(
+                Obj.map(fn4$)(
+                [head, chest, hands, legs])));
+                if (wSum <= $scope.freeWeight) {
+                  y$ = result = {
+                    'head': {
+                      'name': head.name,
+                      'score': _calcScoreFor(head)
+                    },
+                    'chest': {
+                      'name': chest.name,
+                      'score': _calcScoreFor(chest)
+                    },
+                    'hands': {
+                      'name': hands.name,
+                      'score': _calcScoreFor(hands)
+                    },
+                    'legs': {
+                      'name': legs.name,
+                      'score': _calcScoreFor(legs)
+                    }
+                  };
+                  y$.score = sum(
+                  Obj.values(
+                  Obj.map(fn5$)(
+                  result)));
+                  y$.weight = wSum;
+                  results.push(
+                  y$);
+                }
+              }
+            }
+          }
+        }
+        $scope.gridOptions.data = results;
+        function fn$(it){
+          return it.armorType === 'head';
+        }
+        function fn1$(it){
+          return it.armorType === 'chest';
+        }
+        function fn2$(it){
+          return it.armorType === 'hands';
+        }
+        function fn3$(it){
+          return it.armorType === 'legs';
+        }
+        function fn4$(it){
+          return it.weight;
+        }
+        function fn5$(it){
+          return it.score;
+        }
+      });
+    };
+  });
+}).call(this);
+
+},{"./controller/gridOptions":12}],12:[function(require,module,exports){
+(function(){
+  if (typeof module != 'undefined' && module !== null) {
+    module.exports = function(uiGridConstants){
+      var percentFieldMinWidth;
+      percentFieldMinWidth = 45;
+      return {
+        columnDefs: [
+          {
+            field: 'score',
+            width: 75,
+            cellFilter: 'number:2',
+            sort: {
+              direction: uiGridConstants.DESC
+            },
+            type: 'number'
+          }, {
+            field: 'weight',
+            width: 50,
+            cellFilter: 'number:2',
+            type: 'number'
+          }, {
+            field: 'head.name'
+          }, {
+            field: 'head.score',
+            type: 'number',
+            width: 50,
+            cellFilter: 'number:2'
+          }, {
+            field: 'chest.name'
+          }, {
+            field: 'chest.score',
+            type: 'number',
+            width: 50,
+            cellFilter: 'number:2'
+          }, {
+            field: 'hands.name'
+          }, {
+            field: 'hands.score',
+            type: 'number',
+            width: 50,
+            cellFilter: 'number:2'
+          }, {
+            field: 'legs.name'
+          }, {
+            field: 'legs.score',
+            type: 'number',
+            width: 50,
+            cellFilter: 'number:2'
+          }
+        ]
+      };
+    };
+  }
+}).call(this);
+
+},{}],13:[function(require,module,exports){
+(function(){
+  angular.module("dsc");
+  require('./controller');
+}).call(this);
+
+},{"./controller":11}],14:[function(require,module,exports){
 (function(){
   angular.module("dsc").controller("GuideController", function($sce, $scope, $routeParams, $resource, guideService, storageService){
     var _getArrowFor, _prepareGuideContent, _saveUserData, _loadUserData, data;
@@ -1546,13 +1740,13 @@ function curry$(f, bound){
   });
 }).call(this);
 
-},{}],12:[function(require,module,exports){
+},{}],15:[function(require,module,exports){
 (function(){
   require('./controller');
   require('./service');
 }).call(this);
 
-},{"./controller":11,"./service":13}],13:[function(require,module,exports){
+},{"./controller":14,"./service":16}],16:[function(require,module,exports){
 (function(){
   angular.module("dsc").service("guideService", function($resource){
     var svc;
@@ -1564,7 +1758,7 @@ function curry$(f, bound){
   });
 }).call(this);
 
-},{}],14:[function(require,module,exports){
+},{}],17:[function(require,module,exports){
 (function(){
   angular.module("dsc").controller("InventoryController", function($scope, uiGridConstants, itemService, storageService, inventoryService){
     $scope.selectedItem = null;
@@ -1584,7 +1778,7 @@ function curry$(f, bound){
   });
 }).call(this);
 
-},{"./controller/gridOptions":15}],15:[function(require,module,exports){
+},{"./controller/gridOptions":18}],18:[function(require,module,exports){
 (function(){
   if (typeof module != 'undefined' && module !== null) {
     module.exports = function(uiGridConstants){
@@ -1632,14 +1826,14 @@ function curry$(f, bound){
   }
 }).call(this);
 
-},{}],16:[function(require,module,exports){
+},{}],19:[function(require,module,exports){
 (function(){
   angular.module("dsc");
   require("./controller");
   require("./service");
 }).call(this);
 
-},{"./controller":14,"./service":17}],17:[function(require,module,exports){
+},{"./controller":17,"./service":20}],20:[function(require,module,exports){
 (function(){
   angular.module("dsc").service("inventoryService", function($q, itemService, storageService){
     var svc, InventoryItem;
@@ -1658,14 +1852,14 @@ function curry$(f, bound){
         return InventoryItem;
       }())
     };
-    svc.getById = function(id){
+    svc.getById = function(uid){
       return find(function(it){
-        return it.id === id;
+        return it.uid === uid;
       })(
       svc.items || (svc.items = []));
     };
     svc.getByItem = function(item){
-      return svc.getById(item.id);
+      return svc.getById(item.uid);
     };
     svc.addToInventory = function(item, amount){
       var existing, x$;
@@ -1742,7 +1936,7 @@ function curry$(f, bound){
   }
 }).call(this);
 
-},{}],18:[function(require,module,exports){
+},{}],21:[function(require,module,exports){
 (function(){
   angular.module("dsc").controller("ItemsController", function($scope, dataExportService, itemService, uiGridConstants){
     var i$, ref$, len$, itemType;
@@ -1797,7 +1991,7 @@ function curry$(f, bound){
   }
 }).call(this);
 
-},{"./controller/gridOptions":19}],19:[function(require,module,exports){
+},{"./controller/gridOptions":22}],22:[function(require,module,exports){
 (function(){
   if (typeof module != 'undefined' && module !== null) {
     module.exports = function($scope, uiGridConstants){
@@ -2005,9 +2199,9 @@ function curry$(f, bound){
   }
 }).call(this);
 
-},{}],20:[function(require,module,exports){
-arguments[4][12][0].apply(exports,arguments)
-},{"./controller":18,"./service":21,"dup":12}],21:[function(require,module,exports){
+},{}],23:[function(require,module,exports){
+arguments[4][15][0].apply(exports,arguments)
+},{"./controller":21,"./service":24,"dup":15}],24:[function(require,module,exports){
 (function(){
   angular.module("dsc").constant("$ItemIds", {
     'LargeEmber': 800,
@@ -2192,7 +2386,7 @@ arguments[4][12][0].apply(exports,arguments)
   }
 }).call(this);
 
-},{"./service/models":22}],22:[function(require,module,exports){
+},{"./service/models":25}],25:[function(require,module,exports){
 (function(){
   var Item, Equipment, Weapon, Armor;
   if (typeof module != 'undefined' && module !== null) {
@@ -2209,6 +2403,13 @@ arguments[4][12][0].apply(exports,arguments)
         Object.defineProperty(prototype, 'fullName', {
           get: function(){
             return this.name;
+          },
+          configurable: true,
+          enumerable: true
+        });
+        Object.defineProperty(prototype, 'uid', {
+          get: function(){
+            return this.itemType + this.id;
           },
           configurable: true,
           enumerable: true
@@ -2348,7 +2549,7 @@ arguments[4][12][0].apply(exports,arguments)
   }
 }).call(this);
 
-},{}],23:[function(require,module,exports){
+},{}],26:[function(require,module,exports){
 (function(){
   angular.module("dsc").controller("PcController", function($scope, pcService){
     $scope.model = pcService.loadUserData();
@@ -2358,7 +2559,7 @@ arguments[4][12][0].apply(exports,arguments)
   });
 }).call(this);
 
-},{}],24:[function(require,module,exports){
+},{}],27:[function(require,module,exports){
 (function(){
   angular.module("dsc").filter("toStatArray", function(pcService){
     var output;
@@ -2375,7 +2576,7 @@ arguments[4][12][0].apply(exports,arguments)
   });
 }).call(this);
 
-},{}],25:[function(require,module,exports){
+},{}],28:[function(require,module,exports){
 (function(){
   angular.module("dsc");
   require("./service");
@@ -2383,7 +2584,7 @@ arguments[4][12][0].apply(exports,arguments)
   require("./controller/filters");
 }).call(this);
 
-},{"./controller":23,"./controller/filters":24,"./service":28}],26:[function(require,module,exports){
+},{"./controller":26,"./controller/filters":27,"./service":31}],29:[function(require,module,exports){
 (function(){
   var PcModel;
   if (typeof module != 'undefined' && module !== null) {
@@ -2415,7 +2616,7 @@ arguments[4][12][0].apply(exports,arguments)
   }
 }).call(this);
 
-},{"./PcStatModel":27}],27:[function(require,module,exports){
+},{"./PcStatModel":30}],30:[function(require,module,exports){
 (function(){
   var PcStatModel;
   if (typeof module != 'undefined' && module !== null) {
@@ -2446,7 +2647,7 @@ arguments[4][12][0].apply(exports,arguments)
   }
 }).call(this);
 
-},{}],28:[function(require,module,exports){
+},{}],31:[function(require,module,exports){
 (function(){
   angular.module("dsc").service('pcService', function(storageService){
     var x$, svc, this$ = this;
@@ -2539,7 +2740,7 @@ arguments[4][12][0].apply(exports,arguments)
   }
 }).call(this);
 
-},{"./models/PcModel":26,"./models/PcStatModel":27}],29:[function(require,module,exports){
+},{"./models/PcModel":29,"./models/PcStatModel":30}],32:[function(require,module,exports){
 (function(){
   angular.module("dsc").controller("WeaponCalcController", function($q, $scope, itemService, inventoryService, pcService, uiGridConstants){
     var x$, _addResult;
@@ -2638,7 +2839,7 @@ arguments[4][12][0].apply(exports,arguments)
   }
 }).call(this);
 
-},{"./controller/gridOptions":30}],30:[function(require,module,exports){
+},{"./controller/gridOptions":33}],33:[function(require,module,exports){
 (function(){
   if (typeof module != 'undefined' && module !== null) {
     module.exports = function(uiGridConstants){
@@ -2773,10 +2974,6 @@ arguments[4][12][0].apply(exports,arguments)
   }
 }).call(this);
 
-},{}],31:[function(require,module,exports){
-(function(){
-  angular.module("dsc");
-  require('./controller');
-}).call(this);
-
-},{"./controller":29}]},{},[7]);
+},{}],34:[function(require,module,exports){
+arguments[4][13][0].apply(exports,arguments)
+},{"./controller":32,"dup":13}]},{},[7]);

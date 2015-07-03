@@ -18,6 +18,7 @@ $addToIndex = (item) !->
 	entry = {}
 	for field in [\id \name \itemType]
 		entry[field] = item[field]
+	entry.\uid = "#{item.itemType}#{item.id}"
 
 	$index.push entry
 
@@ -328,7 +329,7 @@ processArmor = (folder) !->
 
 			..armorType = switch +armorData.\DefenseMaterialSfx
 				| 5 => \head
-				| 2 => \body
+				| 2 => \chest
 				| 1 => \hands
 				| 6 => \legs
 
@@ -402,9 +403,10 @@ processArmorUpgrades = (folder = '.') !->
 
 rawDataLoaded = !->
 	folder = ".."
-	#processItems folder
-	#processWeapons folder
-	#processUpgrades folder
-	#processArmor folder
+	processItems folder
+	processWeapons folder
+	processUpgrades folder
+	processArmor folder
 	processArmorUpgrades folder
+
 	fs.writeFileSync "#{folder}/index.json", JSON.stringify $index

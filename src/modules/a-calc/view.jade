@@ -1,0 +1,12 @@
+#ArmorCalc
+	label
+		| Available equipment load:
+		input(ng-model="maxLoad" readonly)
+	br
+	label
+		| Reserved weight (weapons):
+		input(ng-model="reservedWeight")
+	br
+	button(ng-click="calculate()") Calculate
+
+	div(ui-grid-auto-resize ui-grid="gridOptions")

@@ -21,6 +21,10 @@ $routeProvider
 		templateUrl : 'modules/w-calc/view.html'
 		controller : 'WeaponCalcController'
 	}
+	.when '/a-calc', {
+		templateUrl : 'modules/a-calc/view.html'
+		controller : 'ArmorCalcController'
+	}
 	.otherwise {
 		redirectTo : '/guide/intro'
 	}

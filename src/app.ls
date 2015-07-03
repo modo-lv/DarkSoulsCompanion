@@ -26,6 +26,6 @@ require './app/routes'
 !-> require "./modules/**/main.js", mode : \expand
 
 
-for module in [\guide \items \inventory \pc \w-calc]
+for module in [\guide \items \inventory \pc \w-calc \a-calc]
 	require "./modules/#{module }/main.js"
 
