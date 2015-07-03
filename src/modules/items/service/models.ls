@@ -96,26 +96,41 @@ module?.exports = {
 
 	\Armor : class Armor extends Equipment
 		->
-			@itemType = 'armor'
+			@itemType = ''
 			# head, chest, legs or hands
-			@armorType = 'head'
+			@armorType = ''
 
 			# What set the armor belongs to
 			@armorSet = ''
 
-			@physical = 0.0
-			@strike = 0.0
-			@slash = 0.0
-			@thrust = 0.0
+			@durability = 0
+			@weight = 0
+			@sell = 0
 
-			@magic = 0.0
-			@fire = 0.0
-			@lightning = 0.0
+			@iconId = 0
 
-			@bleed = 0.0
-			@poison = 0.0
-			@curse = 0.0
+			@defN = 0
+			@defSl = 0
+			@defSt = 0
+			@defTh = 0
+			@defM = 0
+			@defF = 0
+			@defL = 0
+			@defP = 0
 
-			@poise = 0
+			@defT = 0
+			@defB = 0
+			@defC = 0
+
+			@upgradeId = 0
+
+			@stRec = 0
+
+		sortType :~ ->
+			switch @armorType
+			| \head => 1
+			| \chest => 2
+			| \hands => 3
+			| \legs => 4
 
 }

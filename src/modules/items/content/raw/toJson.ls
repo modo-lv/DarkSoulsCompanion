@@ -3,7 +3,6 @@ global <<< require \prelude-ls
 
 raw = {}
 	..names = {}
-	..descs = {}
 	..effects = {}
 	..materialSets = {}
 	..upgrades = {}
@@ -52,28 +51,16 @@ parseTexts = (data) !->
 
 
 console.log "Loading names..."
-nameFiles = [ \item_name \item_name_dlc \weapon_name \weapon_name_dlc ]
+nameFiles = [ \item \weapon \armor \ring ] |> map -> "#{it}_name"
 
 a = 0
-for file in nameFiles
+for file in nameFiles ++ (nameFiles |> map -> "#{it}_dlc")
 	content = fs.readFileSync "#{file }.csv", { \encoding : \utf8 }
 	csvParse content, { \columns : true } (err, data) !->
 		if err? then throw err
 		raw.{}names <<< parseTexts data
 		if ++a == nameFiles.length - 1
-			loadDescs!
-
-loadDescs = !->
-	a = 0
-	console.log "Loading descriptions..."
-	descFiles = [ \weapon_desc \weapon_desc_dlc ]
-	for file in descFiles
-		content = fs.readFileSync "#{file }.csv", { \encoding : \utf8 }
-		csvParse content, { \columns : true }, (err, data) !->
-			if err? then throw err
-			raw.{}descs <<< parseTexts data
-			if ++a == descFiles.length - 1
-				loadUpgrades!
+			loadUpgrades!
 
 loadUpgrades = !->
 	console.log "Loading reinforcement data..."
@@ -82,6 +69,15 @@ loadUpgrades = !->
 		if err? then throw err
 		for row in data
 			raw.{}upgrades[row.\Id] = row
+		loadArmorUpgrades!
+
+loadArmorUpgrades = !->
+	console.log "Loading armor upgrade data..."
+	content = fs.readFileSync \upgrades_armor.csv , { \encoding : \utf8 }
+	csvParse content, { \columns : true }, (err, data) !->
+		if err? then throw err
+		for row in data
+			raw.{}armorUpgrades[row.\Id] = row
 		loadWeapons!
 
 loadWeapons = !->
@@ -91,7 +87,18 @@ loadWeapons = !->
 		if err? then throw err
 		for row in data
 			raw.[]weapons.push row
+		loadArmors!
+
+
+loadArmors = !->
+	console.log "Loading armor data..."
+	content = fs.readFileSync \armors.csv , { \encoding : \utf8 }
+	csvParse content, { \columns : true }, (err, data) !->
+		if err? then throw err
+		for row in data
+			raw.[]armors.push row
 		loadEffects!
+
 
 loadEffects = !->
 	console.log "Loading effect data..."
@@ -126,7 +133,6 @@ loadMaterialSets = !->
 
 setTexts = (item) !->
 	item.name = raw.names[item.id]
-	item.desc = raw.descs[item.id]
 
 
 processUpgrades = (folder = '.') !->
@@ -136,6 +142,9 @@ processUpgrades = (folder = '.') !->
 
 	for key, rawUp of raw.upgrades
 		matSet = raw.materialSets[+rawUp.\Id] ? raw.materialSets[+rawUp.\MaterialSetId]
+		#console.log rawUp
+		#console.log rawUp.\MaterialSetId
+		#console.log raw.materialSets[+rawUp.\MaterialSetId]
 
 		upgrade = { id : +rawUp.\Id }
 			..dmgModN = +rawUp.\PhysicsAtkRate
@@ -298,10 +307,104 @@ processWeapons = (folder = '.')!->
 	fs.writeFileSync "#{folder}/weapons.json", JSON.stringify weapons
 
 
+processArmor = (folder) !->
+	console.log "Processing armors..."
+	armors = []
+
+	for armorData in raw.armors
+		armor = {}
+			..id = +armorData.\Id
+			.. |> setTexts
+
+		# armors without names cannot be recognized and so are useless
+		if not armor.name? then continue
+
+		armor
+			..itemType = \armor
+			..dur = +armorData.\DurabilityMax
+			..weight = +armorData.\Weight
+			..sell = +armorData.\SellValue
+
+
+			..armorType = switch +armorData.\DefenseMaterialSfx
+				| 5 => \head
+				| 2 => \body
+				| 1 => \hands
+				| 6 => \legs
+
+			..armorSet = armorData.\Set
+
+			..iconId = +armorData.\IconIdF
+
+			..defN = +armorData.\DefensePhysics
+			..defSl = +armorData.\DefenseSlash
+			..defSt = +armorData.\DefenseBlow
+			..defTh = +armorData.\DefenseThrust
+			..defM = +armorData.\DefenseMagic
+			..defF = +armorData.\DefenseFire
+			..defL = +armorData.\DefenseThunder
+			..defP = +armorData.\Poise
+
+			..defT = +armorData.\ResistPoison
+			..defB = +armorData.\ResistBlood
+			..defC = +armorData.\ResistCurse
+
+			..upgradeId = if +armorData.\MaterialSetId > 0 then +armorData.\ShopLv else -1
+
+		# Bleed & poison
+		for effectField in [\ResidentSpEffectId \ResidentSpEffectId2 \ResidentSpEffectId3 ]
+			if +armorData[effectField] < 0 then continue
+
+			effect = raw.effects[+armorData[effectField]]
+
+			if +effect.\StaminaRecoverChangeSpeed != 0
+				armor.stRec = +effect.\StaminaRecoverChangeSpeed
+
+
+		armors.push armor
+
+		armor |> $addToIndex
+
+	fs.writeFileSync "#{folder}/armors.json", JSON.stringify armors
+
+
+processArmorUpgrades = (folder = '.') !->
+	console.log "Processing armor upgrades..."
+
+	upgrades = []
+
+	for key, rawUp of raw.armorUpgrades
+		matSet = raw.materialSets[+rawUp.\Id] ? raw.materialSets[+rawUp.\MaterialSetId]
+		#console.log rawUp
+		#console.log rawUp.\MaterialSetId
+		#console.log raw.materialSets[+rawUp.\MaterialSetId]
+
+		upgrade = { id : +rawUp.\Id }
+			..defModN = +rawUp.\PhysicsDefRate
+			..defModSl = +rawUp.\SlashDefRate
+			..defModSt = +rawUp.\BlowDefRate
+			..defModTh = +rawUp.\ThrustDefRate
+			..defModM = +rawUp.\MagicDefRate
+			..defModF = +rawUp.\FireDefRate
+			..defModL = +rawUp.\ThunderDefRate
+
+			..defModT = +rawUp.\ResistPoisonRate
+			..defModB = +rawUp.\ResistBloodRate
+			..defModC = +rawUp.\ResistCurseRate
+
+			..matId = +matSet.\MaterialId01
+			..matCost = +matSet.\ItemNum01
+
+		upgrades.push upgrade
+
+	fs.writeFileSync "#{folder}/armor-upgrades.json", JSON.stringify upgrades
+
 
 rawDataLoaded = !->
 	folder = ".."
-	processItems folder
-	processWeapons folder
-	processUpgrades folder
+	#processItems folder
+	#processWeapons folder
+	#processUpgrades folder
+	#processArmor folder
+	processArmorUpgrades folder
 	fs.writeFileSync "#{folder}/index.json", JSON.stringify $index

@@ -1907,7 +1907,7 @@ function curry$(f, bound){
         ],
         'armors': [
           {
-            field: 'armorSet',
+            name: 'armorSet',
             displayName: 'Set',
             minWidth: 150,
             sort: {
@@ -1915,59 +1915,79 @@ function curry$(f, bound){
               priority: 0
             }
           }, {
-            field: 'armorType',
+            name: 'armorType',
             displayName: 'Type',
             sort: {
               direction: uiGridConstants.ASC,
               priority: 1
+            },
+            sortingAlgorithm: function(a, b){
+              var values;
+              values = {
+                'head': 1,
+                'chest': 2,
+                'hands': 3,
+                'legs': 4
+              };
+              return values[a] > values[b]
+                ? 1
+                : values[a] < values[b] ? -1 : 0;
             }
           }, {
             field: 'name',
             minWidth: 250
           }, {
-            field: 'level',
-            displayName: '+',
+            name: 'defN',
             type: 'number',
-            sort: {
-              direction: uiGridConstants.ASC,
-              priority: 2
-            }
+            displayName: 'DN'
           }, {
-            field: 'physical',
-            type: 'number'
+            name: 'defSl',
+            type: 'number',
+            displayName: 'DSl'
           }, {
-            field: 'strike',
-            type: 'number'
+            name: 'defSt',
+            type: 'number',
+            displayName: 'DSt'
           }, {
-            field: 'slash',
-            type: 'number'
+            name: 'defTh',
+            type: 'number',
+            displayName: 'DTh'
           }, {
-            field: 'thrust',
-            type: 'number'
+            name: 'defM',
+            type: 'number',
+            displayName: 'DM'
           }, {
-            field: 'magic',
-            type: 'number'
+            name: 'defF',
+            type: 'number',
+            displayName: 'DF'
           }, {
-            field: 'fire',
-            type: 'number'
+            name: 'defL',
+            type: 'number',
+            displayName: 'DL'
           }, {
-            field: 'lightning',
-            type: 'number'
+            name: 'defP',
+            type: 'number',
+            displayName: 'DP'
           }, {
-            field: 'poison',
-            type: 'number'
+            name: 'defT',
+            type: 'number',
+            displayName: 'RP'
           }, {
-            field: 'bleed',
-            type: 'number'
+            name: 'defB',
+            type: 'number',
+            displayName: 'RB'
           }, {
-            field: 'curse',
-            type: 'number'
+            name: 'defC',
+            type: 'number',
+            displayName: 'RC'
           }, {
-            field: 'poise',
-            type: 'number'
+            name: 'stRec',
+            type: 'number',
+            displayName: 'Sr'
           }, {
-            field: 'weight',
-            type: 'number'
+            name: 'weight',
+            type: 'number',
+            displayName: 'Wt'
           }
         ]
       };
@@ -2274,21 +2294,43 @@ arguments[4][12][0].apply(exports,arguments)
       'Armor': Armor = (function(superclass){
         var prototype = extend$((import$(Armor, superclass).displayName = 'Armor', Armor), superclass).prototype, constructor = Armor;
         function Armor(){
-          this.itemType = 'armor';
-          this.armorType = 'head';
+          this.itemType = '';
+          this.armorType = '';
           this.armorSet = '';
-          this.physical = 0.0;
-          this.strike = 0.0;
-          this.slash = 0.0;
-          this.thrust = 0.0;
-          this.magic = 0.0;
-          this.fire = 0.0;
-          this.lightning = 0.0;
-          this.bleed = 0.0;
-          this.poison = 0.0;
-          this.curse = 0.0;
-          this.poise = 0;
+          this.durability = 0;
+          this.weight = 0;
+          this.sell = 0;
+          this.iconId = 0;
+          this.defN = 0;
+          this.defSl = 0;
+          this.defSt = 0;
+          this.defTh = 0;
+          this.defM = 0;
+          this.defF = 0;
+          this.defL = 0;
+          this.defP = 0;
+          this.defT = 0;
+          this.defB = 0;
+          this.defC = 0;
+          this.upgradeId = 0;
+          this.stRec = 0;
         }
+        Object.defineProperty(prototype, 'sortType', {
+          get: function(){
+            switch (this.armorType) {
+            case 'head':
+              return 1;
+            case 'chest':
+              return 2;
+            case 'hands':
+              return 3;
+            case 'legs':
+              return 4;
+            }
+          },
+          configurable: true,
+          enumerable: true
+        });
         return Armor;
       }(Equipment))
     };

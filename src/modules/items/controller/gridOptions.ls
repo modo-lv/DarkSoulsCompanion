@@ -130,7 +130,7 @@ module?.exports = ($scope, uiGridConstants) !->
 		]
 		\armors : [
 			{
-				field : 'armorSet'
+				name : 'armorSet'
 				displayName : 'Set'
 				minWidth : 150
 				sort : {
@@ -139,35 +139,39 @@ module?.exports = ($scope, uiGridConstants) !->
 				}
 			}
 			{
-				field : 'armorType', displayName : 'Type'
+				name : 'armorType', displayName : 'Type'
 				sort : {
 					direction : uiGridConstants.ASC
 					priority : 1
 				}
+				sortingAlgorithm : (a, b) !->
+					values = {
+						\head : 1
+						\chest : 2
+						\hands : 3
+						\legs : 4
+					}
+					return if values[a] > values[b] then 1 else if values[a] < values[b] then -1 else 0
+
 			}
 			{ field : 'name', minWidth : 250 }
-			{
-				field : 'level', displayName : '+', type : 'number'
-				sort : {
-					direction : uiGridConstants.ASC
-					priority : 2
-				}
-			}
 
-			{ field : 'physical', type : 'number' }
-			{ field : 'strike', type : 'number' }
-			{ field : 'slash', type : 'number' }
-			{ field : 'thrust', type : 'number' }
-			{ field : 'magic', type : 'number' }
-			{ field : 'fire', type : 'number' }
-			{ field : 'lightning', type : 'number' }
+			{ name : \defN , type : \number , displayName : \DN }
+			{ name : \defSl , type : \number , displayName : \DSl }
+			{ name : \defSt , type : \number , displayName : \DSt }
+			{ name : \defTh , type : \number , displayName : \DTh }
+			{ name : \defM , type : \number , displayName : \DM }
+			{ name : \defF , type : \number , displayName : \DF }
+			{ name : \defL , type : \number , displayName : \DL }
+			{ name : \defP , type : \number , displayName : \DP }
 
-			{ field : 'poison', type : 'number' }
-			{ field : 'bleed', type : 'number' }
-			{ field : 'curse', type : 'number' }
+			{ name : \defT , type : \number , displayName : \RP }
+			{ name : \defB , type : \number , displayName : \RB }
+			{ name : \defC , type : \number , displayName : \RC }
 
-			{ field : 'poise', type : 'number' }
-			{ field : 'weight', type : 'number' }
+			{ name : \stRec , type : \number , displayName : \Sr }
+
+			{ name : \weight , type : \number , displayName : \Wt }
 		]
 	}
 
