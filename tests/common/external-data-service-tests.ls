@@ -9,7 +9,7 @@ beforeEach !->
 	$resource := sinon.stub!.returns {
 		query : sinon.stub!.returns returnValue .callsArgAsync 0
 	}
-	svc := new (testRequire "common/services/external-data-service") $resource
+	svc := new (testRequire "app/services/external-data-service") $resource
 
 
 it "should return promise instead of data when told", !->

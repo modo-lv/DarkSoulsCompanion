@@ -1,4 +1,4 @@
-angular? .module "dsc.common" .service "externalDataSvc" ($resource, $q) ->
+angular? .module "dsc" .service "externalDataSvc" ($resource, $q) ->
 	new ExternalDataService $resource, $q
 
 class ExternalDataService
@@ -10,7 +10,7 @@ class ExternalDataService
 	/**
 	 * Load an external JSON resource and parse it into an array
 	 */
-	loadJson : (url, returnPromise) !~>
+	loadJson : (url, returnPromise = true) !~>
 		# Validate URL
 		if not url? or typeof url != "string" or url.length < 1
 			throw new Error "Invalid URL: [#{url}]"

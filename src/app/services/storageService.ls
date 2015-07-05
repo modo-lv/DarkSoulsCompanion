@@ -1,4 +1,4 @@
-angular.module "dsc.common"
+angular.module "dsc"
 	.config (localStorageServiceProvider) !->
 		localStorageServiceProvider
 			.setPrefix "DSC"
