@@ -1,2 +1,2 @@
-require './controller'
-require './service'
+require './guide-controller'
+require './guide-service'

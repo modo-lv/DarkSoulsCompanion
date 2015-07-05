@@ -1,4 +1,4 @@
-$sce, $scope, $routeParams, $resource, guideService, storageService <-! angular .module "dsc" .controller "GuideController"
+$sce, $scope, $routeParams, $resource, guideService, storageSvc <-! angular .module "dsc" .controller "GuideController"
 
 ### Setup
 
@@ -55,10 +55,10 @@ _saveUserData = !->
 		for field in [\isCollapsed \isDone]
 			$scope.{}userData.{}entryMeta.{}[id].[field] = entry.meta[field]
 
-	storageService.save 'guide:userData', $scope.userData
+	storageSvc.save 'guide:userData', $scope.userData
 
 _loadUserData = !->
-	$scope.userData = (storageService.load 'guide:userData') ? {}
+	$scope.userData = (storageSvc.load 'guide:userData') ? {}
 
 
 

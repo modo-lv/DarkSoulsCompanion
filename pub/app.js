@@ -1341,7 +1341,7 @@ function curry$(f, bound){
 }).call(this);
 
 }).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
-},{"./app/routes":8,"./app/services/data-export-service":9,"./app/services/external-data-service":10,"./app/services/storage-service":11,"./modules/a-calc/main.js":14,"./modules/guide/main.js":16,"./modules/inventory/main.js":21,"./modules/items/main.js":28,"./modules/pc/main.js":32,"./modules/w-calc/main.js":38,"prelude-ls":6}],8:[function(require,module,exports){
+},{"./app/routes":8,"./app/services/data-export-service":9,"./app/services/external-data-service":10,"./app/services/storage-service":11,"./modules/a-calc/main.js":14,"./modules/guide/main.js":17,"./modules/inventory/main.js":21,"./modules/items/main.js":28,"./modules/pc/main.js":32,"./modules/w-calc/main.js":38,"prelude-ls":6}],8:[function(require,module,exports){
 (function(){
   angular.module("dsc").config(function($routeProvider){
     $routeProvider.when('/guide/:section', {
@@ -1780,7 +1780,7 @@ function curry$(f, bound){
 
 },{"./controller":12}],15:[function(require,module,exports){
 (function(){
-  angular.module("dsc").controller("GuideController", function($sce, $scope, $routeParams, $resource, guideService, storageService){
+  angular.module("dsc").controller("GuideController", function($sce, $scope, $routeParams, $resource, guideService, storageSvc){
     var _getArrowFor, _prepareGuideContent, _saveUserData, _loadUserData, data;
     $scope.sections = [
       {
@@ -1858,11 +1858,11 @@ function curry$(f, bound){
           ((ref2$ = (ref3$ = $scope.userData || ($scope.userData = {})).entryMeta || (ref3$.entryMeta = {}))[id] || (ref2$[id] = {}))[field] = entry.meta[field];
         }
       }
-      storageService.save('guide:userData', $scope.userData);
+      storageSvc.save('guide:userData', $scope.userData);
     };
     _loadUserData = function(){
       var ref$;
-      $scope.userData = (ref$ = storageService.load('guide:userData')) != null
+      $scope.userData = (ref$ = storageSvc.load('guide:userData')) != null
         ? ref$
         : {};
     };
@@ -1906,12 +1906,6 @@ function curry$(f, bound){
 
 },{}],16:[function(require,module,exports){
 (function(){
-  require('./controller');
-  require('./service');
-}).call(this);
-
-},{"./controller":15,"./service":17}],17:[function(require,module,exports){
-(function(){
   angular.module("dsc").service("guideService", function($resource){
     var svc;
     svc = {};
@@ -1922,7 +1916,13 @@ function curry$(f, bound){
   });
 }).call(this);
 
-},{}],18:[function(require,module,exports){
+},{}],17:[function(require,module,exports){
+(function(){
+  require('./guide-controller');
+  require('./guide-service');
+}).call(this);
+
+},{"./guide-controller":15,"./guide-service":16}],18:[function(require,module,exports){
 (function(){
   if (typeof module != 'undefined' && module !== null) {
     module.exports = function(uiGridConstants){
