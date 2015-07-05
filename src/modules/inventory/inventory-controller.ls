@@ -18,9 +18,9 @@ $scope.gridOptions = (require './config/inventory-grid-opts') uiGridConstants
 
 ### LOAD DATA
 
-$scope.allItems = itemIndexSvc.getAllEntries!
+$scope.allItems = itemIndexSvc.getAllEntries false
 
-$scope.armorSets = itemIndexSvc.getAllArmorSetEntries!
+$scope.armorSets = itemIndexSvc.loadAllArmorSetEntries false
 
 $scope.gridOptions.data = inventorySvc.inventory
 
@@ -29,14 +29,12 @@ $scope.gridOptions.data = inventorySvc.inventory
 $scope.addNewItem = (selection) !->
 	$scope.addItem selection.originalObject
 
-$scope.addItem = (item) !->
-	inventorySvc.addToInventory item
+$scope.addItem = (item) !-> inventorySvc.add item
 
-$scope.removeItem = inventorySvc.removeFromInventory
+$scope.removeItem = inventorySvc.remove
 
 $scope.addArmorSet = (selection) !->
 	armorSet = selection.originalObject
 
-	itemSvc.loadItemData \armors .$promise .then (armors) !->
-		for id in armorSet.armors
-			$scope.addItem (armors |> find (.id == id))
+	itemIndexSvc.findByArmorSet armorSet
+	.then (armors) !-> armors |> each $scope.addItem

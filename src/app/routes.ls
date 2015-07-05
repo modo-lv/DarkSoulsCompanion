@@ -10,7 +10,7 @@ $routeProvider
 		controller : 'ItemsController'
 	}
 	.when '/inventory', {
-		templateUrl : 'modules/inventory/view.html'
+		templateUrl : 'modules/inventory/inventory-view.html'
 		controller : 'InventoryController'
 	}
 	.when '/stats', {

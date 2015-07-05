@@ -14,13 +14,30 @@ class ItemIndexService
 	 * a parameter and returns true/false if it matches/doesn't.
 	 * @returns Promise that resolves with the found value.
 	 */
-	findEntry : (byFilter) ~>
+	findEntry : (byFilter) !~>
 		if typeof byFilter != \function
 			throw new Error "[byFilter] is not a function."
-		@getAllEntries!.then ~> it |> find byFilter
+		return @getAllEntries!.then ~> it |> find byFilter
 
 
-	getAllArmorSetEntries : (returnPromise = true) !~>
+	findEntries : (byFilter) !~>
+		if typeof byFilter != \function
+			throw new Error "[byFilter] is not a function."
+		return @getAllEntries!.then ~> it |> filter byFilter
+
+
+	findByArmorSet : (setName) !~>
+		if typeof setName == \object
+			setName = setName.name
+		if typeof setName != \string
+			throw new Error "Armor set name must be a string, or an object with string property [name]."
+			
+		return @loadAllArmorSetEntries!.then (sets) !~>
+			armorIds = (sets |> find (.name == setName))?.armors
+			return @findEntries (entry) -> armorIds |> any (== entry.id)
+
+
+	loadAllArmorSetEntries : (returnPromise = true) !~>
 		if not @_armorSetIndex.$promise?
 			@_armorSetIndex = @externalDataSvc.loadJson '/modules/items/content/armor-set-index.json', false
 		return if returnPromise then @_armorSetIndex.$promise else @_armorSetIndex

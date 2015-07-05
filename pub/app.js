@@ -1351,7 +1351,7 @@ function curry$(f, bound){
       templateUrl: 'modules/items/view.html',
       controller: 'ItemsController'
     }).when('/inventory', {
-      templateUrl: 'modules/inventory/view.html',
+      templateUrl: 'modules/inventory/inventory-view.html',
       controller: 'InventoryController'
     }).when('/stats', {
       templateUrl: 'modules/pc/view.html',
@@ -1978,29 +1978,22 @@ function curry$(f, bound){
     $scope.allItems = [];
     $scope.itemTypes = ['weapon', 'armor', 'item'];
     $scope.gridOptions = require('./config/inventory-grid-opts')(uiGridConstants);
-    $scope.allItems = itemIndexSvc.getAllEntries();
-    $scope.armorSets = itemIndexSvc.getAllArmorSetEntries();
+    $scope.allItems = itemIndexSvc.getAllEntries(false);
+    $scope.armorSets = itemIndexSvc.loadAllArmorSetEntries(false);
     $scope.gridOptions.data = inventorySvc.inventory;
     $scope.addNewItem = function(selection){
       $scope.addItem(selection.originalObject);
     };
     $scope.addItem = function(item){
-      inventorySvc.addToInventory(item);
+      inventorySvc.add(item);
     };
-    $scope.removeItem = inventorySvc.removeFromInventory;
+    $scope.removeItem = inventorySvc.remove;
     $scope.addArmorSet = function(selection){
       var armorSet;
       armorSet = selection.originalObject;
-      itemSvc.loadItemData('armors').$promise.then(function(armors){
-        var i$, ref$, len$, id;
-        for (i$ = 0, len$ = (ref$ = armorSet.armors).length; i$ < len$; ++i$) {
-          id = ref$[i$];
-          $scope.addItem(find(fn$)(
-          armors));
-        }
-        function fn$(it){
-          return it.id === id;
-        }
+      itemIndexSvc.findByArmorSet(armorSet).then(function(armors){
+        each($scope.addItem)(
+        armors);
       });
     };
   });
@@ -2395,7 +2388,9 @@ function curry$(f, bound){
     function ItemIndexService(externalDataSvc){
       this.externalDataSvc = externalDataSvc;
       this.getAllEntries = bind$(this, 'getAllEntries', prototype);
-      this.getAllArmorSetEntries = bind$(this, 'getAllArmorSetEntries', prototype);
+      this.loadAllArmorSetEntries = bind$(this, 'loadAllArmorSetEntries', prototype);
+      this.findByArmorSet = bind$(this, 'findByArmorSet', prototype);
+      this.findEntries = bind$(this, 'findEntries', prototype);
       this.findEntry = bind$(this, 'findEntry', prototype);
       this._index = [];
       this._armorSetIndex = [];
@@ -2416,7 +2411,39 @@ function curry$(f, bound){
         it);
       });
     };
-    prototype.getAllArmorSetEntries = function(returnPromise){
+    prototype.findEntries = function(byFilter){
+      var this$ = this;
+      if (typeof byFilter !== 'function') {
+        throw new Error("[byFilter] is not a function.");
+      }
+      return this.getAllEntries().then(function(it){
+        return filter(byFilter)(
+        it);
+      });
+    };
+    prototype.findByArmorSet = function(setName){
+      var this$ = this;
+      if (typeof setName === 'object') {
+        setName = setName.name;
+      }
+      if (typeof setName !== 'string') {
+        throw new Error("Armor set name must be a string, or an object with string property [name].");
+      }
+      return this.loadAllArmorSetEntries().then(function(sets){
+        var armorIds, ref$;
+        armorIds = (ref$ = find(function(it){
+          return it.name === setName;
+        })(
+        sets)) != null ? ref$.armors : void 8;
+        return this$.findEntries(function(entry){
+          return any((function(it){
+            return it === entry.id;
+          }))(
+          armorIds);
+        });
+      });
+    };
+    prototype.loadAllArmorSetEntries = function(returnPromise){
       returnPromise == null && (returnPromise = true);
       if (this._armorSetIndex.$promise == null) {
         this._armorSetIndex = this.externalDataSvc.loadJson('/modules/items/content/armor-set-index.json', false);
