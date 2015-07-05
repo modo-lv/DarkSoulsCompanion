@@ -5,7 +5,7 @@ module?.exports = {
 			# ID of the item. Can overlap between weapon types, e.g. weapons and armor.
 			@id = 0
 
-			# Broad type of the item. Possible values: item, ring, weapon, armor.
+			# Broad category of the item. Possible values: item, ring, weapon, armor.
 			@itemType = \item
 
 			# More specific subtype. Armors and weapons will have their own properties,
@@ -16,7 +16,7 @@ module?.exports = {
 			@name = ''
 
 			# How many souls will be gained by feeding the item to Frampt.
-			@sellFor = 0
+			@sellValue = 0
 
 			# ID of the item graphic. Currently unused in DSC.
 			@iconId = 0
@@ -38,9 +38,6 @@ module?.exports = {
 			# Durability
 			@durability = 0
 
-			# ID of the upgrade *currently applied* to the equipment.
-			@upgradeId = -1
-
 			# Defense values common to weapons and armor.
 			@defPhy = 0
 			@defMag = 0
@@ -50,8 +47,14 @@ module?.exports = {
 			@defBlo = 0
 			@defCur = 0
 
+			# Material set ID (for finding required upgrade materials)
+			@matSetId = 0
+
 			# How many souls it costs to upgrade this equipment
 			@upgradeCost = 0
+
+			# ID of the upgrade *currently applied* to the equipment.
+			@upgradeId = -1
 
 
 	\Weapon : class WeaponModel extends EquipmentModel
@@ -61,10 +64,10 @@ module?.exports = {
 			@itemType = \weapon
 
 			# Broad category for this weapon, e.g. bow, sword, shield, etc.
-			@weaponCategory = ''
+			@weaponType = ''
 
 			# Specific weapon type, e.g. Short Sword, Curved Sword, Medium Shield, etc.
-			@weapontype = ''
+			@weaponSubtype = ''
 
 			# Ascention path - Crystal, Raw etc.
 			@path = ''
@@ -78,13 +81,14 @@ module?.exports = {
 			# Can this weapon attack and damage ghosts even when the player isn't cursed?
 			@damagesGhosts = false
 
+			# Can this weapon be enchanted with magic?
+			@isAugmentable = false
+
+			# Damage types
 			@doesRegularDamage = false
 			@doesStrikeDamage = false
 			@doesSlashDamage = false
 			@doesThrustDamage = false
-
-			# Can this weapon be enchanted with magic?
-			@isAugmentable = false
 
 			# Wielding requirements
 			@reqStr = 0
@@ -97,10 +101,9 @@ module?.exports = {
 			@atkMag = 0
 			@atkFir = 0
 			@atkLit = 0
-			# Poise damage (stagger)
-			@atkPoi = 0
+
 			# Attack stamina cost
-			@atkSta = 0
+			@atkStaCost = 0
 
 			# Parameter bonuses (scaling values)
 			@bonusStr = 0
@@ -108,10 +111,8 @@ module?.exports = {
 			@bonusInt = 0
 			@bonusFai = 0
 
-			# Defense stamina cost
+			# Stability (percentage of stamina kept when defending against attack)
 			@defSta = 0
-			# Poise (stagger defense)
-			@defPoi = 0
 
 			# Divine attack modifier
 			@divine = 0
@@ -121,6 +122,17 @@ module?.exports = {
 
 			# Range for bows & crossbows
 			@range = 0
+
+			# Bleed effect
+			@atkBlo = 0
+			@dmgBlo = 0
+
+			# Poison effect
+			@atkTox = 0
+			@dmgTox = 0
+
+			# HP recovery-on-hit effect
+			@atkHeal = 0
 
 
 	\Armor : class ArmorModel extends EquipmentModel
@@ -139,6 +151,9 @@ module?.exports = {
 			@defSlash = 0
 			@defStrike = 0
 			@defThrust = 0
+
+			# Poise
+			@defPoise = 0
 
 			# Stamina recovery speed modifier
 			@staRegenMod = 0

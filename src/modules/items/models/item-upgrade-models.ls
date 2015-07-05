@@ -1,70 +1,50 @@
 class ItemUpgradeModel
 	(rawUpgrade) ->
+		# Shared defense values
+		@defModPhy = 0.0
+		@defModMag = 0.0
+		@defModFir = 0.0
+		@defModLit = 0.0
+		@defModTox = 0.0
+		@defModBlo = 0.0
+		@defModCur = 0.0
+
+		# Material set id. Added to the item's material set id
+		# to get the actual id of the materials needed for upgrade
+		@matSetId = 0
+
 		@useDataFrom rawUpgrade
 
 	useDataFrom : (rawUpgrade) !~>
 		if not rawUpgrade? then return
-
-		@id = rawUpgrade.id
-
-		for a in [
-			[ \Physical \N ]
-			[ \Magic \M ]
-			[ \Fire \F ]
-			[ \Light \L ]
-			[ \Poison \T ]
-			[ \Bleed \B ]
-			[ \Curse \C ]
-		]
-			@.["defMod#{a.0}"] = rawUpgrade.["defMod#{a.1}"]
-
-		@matSetId = rawUpgrade.matSetId
+		@ <<< rawUpgrade
 
 
 class WeaponUpgradeModel extends ItemUpgradeModel
 	(rawUpgrade) ->
-		@useDataFrom rawUpgrade
-
-	useDataFrom : (rawUpgrade) !~>
-		if not rawUpgrade? then return
-
 		super rawUpgrade
 
-		for a in [
-			[ \Physical \N ]
-			[ \Magic \M ]
-			[ \Fire \F ]
-			[ \Lightning \L ]
-			[ \Stability \S ]
-		]
-			@.["atkMod#{a.0}"] = rawUpgrade.["dmgMod#{a.1}"]
+		# Attack modifiers
+		@atkModPhy = 0.0
+		@atkModMag = 0.0
+		@atkModFir = 0.0
+		@atkModLit = 0.0
 
-		for a in [
-			[ \Str \S ]
-			[ \Dex \D ]
-			[ \Int \I ]
-			[ \Fai \F ]
-		]
-			@.["bonusMod#{a.0}"] = rawUpgrade.["scMod#{a.1}"]
+		# Stat bonus modifiers
+		@bonusModStr = 0.0
+		@bonusModDex = 0.0
+		@bonusModInt = 0.0
+		@bonusModFai = 0.0
 
-		@.[\defModStability] = rawUpgrade.[\scModS]
 
 
 class ArmorUpgradeModel extends ItemUpgradeModel
 	(rawUpgrade) ->
-		@useDataFrom rawUpgrade
-
-	useDataFrom : (rawUpgrade) !~>
-		if not rawUpgrade? then return
-
 		super rawUpgrade
-		for a in [
-			[ \Slash \Sl ]
-			[ \Strike \St ]
-			[ \Thrust \Th ]
-		]
-			@.["defMod#{a.0}"] = rawUpgrade.["defMod#{a.1}"]
 
+		@defModStrike = 0.0
+		@defModThrust = 0.0
+		@defModSlash = 0.0
 
 
 module?.exports = {

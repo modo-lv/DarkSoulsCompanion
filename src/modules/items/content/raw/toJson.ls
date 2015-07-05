@@ -77,8 +77,24 @@ for type in itemTypes
 				if err? then throw err
 				raw.{}names <<< parseTexts data, type
 				if ++a == total
+					loadWeaponTypeNames!
+		) type
+
+loadWeaponTypeNames = !->
+	a = 0
+	total = 2
+	for file in [\weapon-types, \weapon-types-dlc]
+		content = fs.readFileSync "#{file }.csv", { \encoding : \utf8 }
+		((type) !->
+			csvParse content, { \columns : true } (err, data) !->
+				if err? then throw err
+				for row in data
+					raw.{}weaponTypes[row.\Id] = row.\Value
+				if ++a == total
 					loadUpgrades!
 		) type
+
+
 
 loadUpgrades = !->
 	console.log "Loading reinforcement data..."
@@ -149,6 +165,8 @@ loadMaterialSets = !->
 		rawDataLoaded!
 
 
+
+
 setTexts = (item) !->
 	uid = item.itemType + item.id
 	item.name = raw.names[uid]
@@ -166,26 +184,24 @@ processUpgrades = (folder = '.') !->
 		#console.log raw.materialSets[+rawUp.\MaterialSetId]
 
 		upgrade = { id : +rawUp.\Id }
-			..atkModN = +rawUp.\PhysicsAtkRate
-			..atkModM = +rawUp.\MagicAtkRate
-			..atkModF = +rawUp.\FireAtkRate
-			..atkModL = +rawUp.\ThunderAtkRate
-			..atkModS = +rawUp.\StaminaAtkRate
+			..atkModPhy = +rawUp.\PhysicsAtkRate
+			..atkModMag = +rawUp.\MagicAtkRate
+			..atkModFir = +rawUp.\FireAtkRate
+			..atkModLit = +rawUp.\ThunderAtkRate
 
-			..scModS = +rawUp.\CorrectStrengthRate
-			..scModD = +rawUp.\CorrectAgilityRate
-			..scModI = +rawUp.\CorrectMagicRate
-			..scModF = +rawUp.\CorrectFaithRate
+			..bonusModStr = +rawUp.\CorrectStrengthRate
+			..bonusModDex = +rawUp.\CorrectAgilityRate
+			..bonusModInt = +rawUp.\CorrectMagicRate
+			..bonusModFai = +rawUp.\CorrectFaithRate
 
-			..defModN = +rawUp.\PhysicsGuardCutRate
-			..defModM = +rawUp.\MagicGuardCutRate
-			..defModF = +rawUp.\FireGuardCutRate
-			..defModL = +rawUp.\ThunderGuardCutRate
-			..defModS = +rawUp.\StaminaGuardDefRate
+			..defModPhy = +rawUp.\PhysicsGuardCutRate
+			..defModMag = +rawUp.\MagicGuardCutRate
+			..defModFir = +rawUp.\FireGuardCutRate
+			..defModLit = +rawUp.\ThunderGuardCutRate
 
-			..defModT = +rawUp.\PoisonGuardResistRate
-			..defModB = +rawUp.\BloodGuardResistRate
-			..defModC = +rawUp.\CurseGuardResistRate
+			..defModTox = +rawUp.\PoisonGuardResistRate
+			..defModBlo = +rawUp.\BloodGuardResistRate
+			..defModCur = +rawUp.\CurseGuardResistRate
 
 			..matSetId = +rawUp.\MaterialSetId
 
@@ -246,71 +262,70 @@ processWeapons = (folder = '.')!->
 			..id = +rawWeapon.\Id
 			..itemType = \weapon
 			.. |> setTexts
+			..sellValue = +rawWeapon.\SellValue
+			..durability = +rawWeapon.\DurabilityMax
+			..weight = +rawWeapon.\Weight
+			..iconId = +rawWeapon.\IconId
+
+			..defPhy = +rawWeapon.\PhysGuardCutRate
+			..defMag = +rawWeapon.\MagGuardCutRate
+			..defFir = +rawWeapon.\FireGuardCutRate
+			..defLit = +rawWeapon.\ThunGuardCutRate
+
+			..defTox = +rawWeapon.\PoisonGuardResist
+			..defBlo = +rawWeapon.\BloodGuardResist
+			..defCur = +rawWeapon.\CurseGuardResist
+
+			..matSetId = +rawWeapon.\MaterialSetId
+			..upgradeCost = +rawWeapon.\BasicPrice
+			..upgradeId = +rawWeapon.\ReinforceTypeId
+
 
 		# Weapons without names cannot be recognized and so are useless
 		if not weapon.name? then continue
 
 		weapon
-			..dur = +rawWeapon.\DurabilityMax
-			..weight = +rawWeapon.\Weight
-			..sell = +rawWeapon.\SellValue
+			..weaponType = rawWeapon.\WeaponCategory
+			..weaponSubtype = raw.weaponTypes[..id]
 			..path = pathMap[+rawWeapon.\BaseChangeCategory]
 
-			..wepCat = rawWeapon.\WeaponCategory
-			..canB = rawWeapon.\EnableGuard == \True
-			..canP = rawWeapon.\EnableParry == \True
-			..isMag = rawWeapon.\EnableMagic == \True
-			..isPyr = rawWeapon.\EnableSorcery == \True
-			..isMir = rawWeapon.\EnableMiracle == \True
-			..isGhost = rawWeapon.\IsVersusGhostWep == \True
-			..isAug = rawWeapon.\IsEnhance == \True
+			..canBlock = rawWeapon.\EnableGuard .toLowerCase! == \true
+			..canParry = rawWeapon.\EnableParry .toLowerCase! == \true
+			..castsMagic = rawWeapon.\EnableMagic .toLowerCase! == \true
+			..castsPyromancy = rawWeapon.\EnableSorcery .toLowerCase! == \true
+			..castsMiracles = rawWeapon.\EnableMiracle .toLowerCase! == \true
+			..damagesGhosts = rawWeapon.\IsVersusGhostWep .toLowerCase! == \true
+			..isAugmentable = rawWeapon.\IsEnhance .toLowerCase! == \true
 
-			..iconId = +rawWeapon.\IconId
+			..doesRegularDamage = rawWeapon.\IsNormalAttackType .toLowerCase! == \true
+			..doesStrikeDamage = rawWeapon.\IsBlowAttackType .toLowerCase! == \true
+			..doesSlashDamage = rawWeapon.\IsSlashAttackType .toLowerCase! == \true
+			..doesThrustDamage = rawWeapon.\IsThrustAttackType .toLowerCase! == \true
 
-			..isDmgReg = rawWeapon.\IsNormalAttackType == \True
-			..isDmgStr = rawWeapon.\IsBlowAttackType == \True
-			..isDmgSl = rawWeapon.\IsSlashAttackType == \True
-			..isDmgThr = rawWeapon.\IsThrustAttackType == \True
+			..reqStr = +rawWeapon.\ProperStrength
+			..reqDex = +rawWeapon.\ProperAgility
+			..reqInt = +rawWeapon.\ProperMagic
+			..reqFai = +rawWeapon.\ProperFaith
 
-			..reqS = +rawWeapon.\ProperStrength
-			..reqD = +rawWeapon.\ProperAgility
-			..reqI = +rawWeapon.\ProperMagic
-			..reqF = +rawWeapon.\ProperFaith
+			..dmgPhy = +rawWeapon.\AttackBasePhysics
+			..dmgMag = +rawWeapon.\AttackBaseMagic
+			..dmgFir = +rawWeapon.\AttackBaseFire
+			..dmgLit = +rawWeapon.\AttackBaseThunder
 
-			..dmgN = +rawWeapon.\AttackBasePhysics
-			..dmgM = +rawWeapon.\AttackBaseMagic
-			..dmgF = +rawWeapon.\AttackBaseFire
-			..dmgL = +rawWeapon.\AttackBaseThunder
-			..dmgS = +rawWeapon.\AttackBaseStamina
-			..dmgP = +rawWeapon.\AttackBaseRepel
+			..atkStaCost = +rawWeapon.\AttackBaseStamina
 
-			..scS = +rawWeapon.\CorrectStrength / 100
-			..scD = +rawWeapon.\CorrectAgility / 100
-			..scI = +rawWeapon.\CorrectMagic / 100
-			..scF = +rawWeapon.\CorrectFaith / 100
+			..bonusStr = +rawWeapon.\CorrectStrength / 100
+			..bonusDex = +rawWeapon.\CorrectAgility / 100
+			..bonusInt = +rawWeapon.\CorrectMagic / 100
+			..bonusFai = +rawWeapon.\CorrectFaith / 100
 
-			..defN = +rawWeapon.\PhysGuardCutRate
-			..defM = +rawWeapon.\MagGuardCutRate
-			..defF = +rawWeapon.\FireGuardCutRate
-			..defL = +rawWeapon.\ThunGuardCutRate
-			..defP = +rawWeapon.\GuardBaseRepel
+			..defSta = +rawWeapon.\StaminaGuardDef
 
-			..defT = +rawWeapon.\PoisonGuardResist
-			..defB = +rawWeapon.\BloodGuardResist
-			..defC = +rawWeapon.\CurseGuardResist
-
-			..defS = +rawWeapon.\StaminaGuardDef
-
-			..divMod = +rawWeapon.\AntSaintDamageRate
-			..occMod = +rawWeapon.\AntWeakA_DamageRate
-
-			..upCost = +rawWeapon.\BasicPrice
-
-			..path = pathMap[+rawWeapon.\BaseChangeCategory]
+			..divine = +rawWeapon.\AntSaintDamageRate
+			..occult = +rawWeapon.\AntWeakA_DamageRate
 
 			..range = +rawWeapon.\BowDistRate
 
-			..upgradeId = +rawWeapon.\ReinforceTypeId
 
 		# Bleed & poison
 		for effectField in [\SpEffectBehaviorId0 \SpEffectBehaviorId1 \SpEffectBehaviorId2 ]
@@ -320,14 +335,14 @@ processWeapons = (folder = '.')!->
 
 			switch +effect.\StateInfo
 			| effectMap.\bleed => weapon
-				..atkB = +effect.\RegistBlood
-				..dmgB = +effect.\ChangeHpRate
+				..atkBlo = +effect.\RegistBlood
+				..dmgBlo = +effect.\ChangeHpRate
 			| effectMap.\toxic => fallthrough
 			| effectMap.\poison => weapon
-				..atkT = +effect.\PoizonAttackPower
-				..dmgT = +effect.\ChangeHpPoint
+				..atkTox = +effect.\PoizonAttackPower
+				..dmgTox = +effect.\ChangeHpPoint
 			| effectMap.\heal => weapon
-				..atkH = -1 * effect.\ChangeHpPoint
+				..atkHeal = -1 * effect.\ChangeHpPoint
 
 		#if (not weapon.name?) or weapon.name.indexOf(\Dagger) < 0 then continue
 
@@ -347,16 +362,28 @@ processArmor = (folder) !->
 			..id = +armorData.\Id
 			..itemType = \armor
 			.. |> setTexts
+			..durability = +armorData.\DurabilityMax
+			..weight = +armorData.\Weight
+			..sellValue = +armorData.\SellValue
+			..iconId = +armorData.\IconIdF
+
+			..defPhy = +armorData.\DefensePhysics
+			..defMag = +armorData.\DefenseMagic
+			..defFir = +armorData.\DefenseFire
+			..defLit = +armorData.\DefenseThunder
+
+			..defTox = +armorData.\ResistPoison
+			..defBlo = +armorData.\ResistBlood
+			..defCur = +armorData.\ResistCurse
+
+			..matSetId = +armorData.\MaterialSetId
+			..upgradeCost = +armorData.\BasicPrice
+			..upgradeId = if ..matSetId > 0 then +armorData.\ShopLv else -1
 
 		# armors without names cannot be recognized and so are useless
 		if not armor.name? then continue
 
 		armor
-			..dur = +armorData.\DurabilityMax
-			..weight = +armorData.\Weight
-			..sell = +armorData.\SellValue
-
-
 			..armorType = switch +armorData.\DefenseMaterialSfx
 				| 5 => \head
 				| 2 => \chest
@@ -365,32 +392,21 @@ processArmor = (folder) !->
 
 			..armorSet = armorData.\Set
 
-			..iconId = +armorData.\IconIdF
+			..defSlash = +armorData.\DefenseSlash
+			..defStrike = +armorData.\DefenseBlow
+			..defThrust = +armorData.\DefenseThrust
+			..defPoise = +armorData.\Poise
 
-			..defN = +armorData.\DefensePhysics
-			..defSl = +armorData.\DefenseSlash
-			..defSt = +armorData.\DefenseBlow
-			..defTh = +armorData.\DefenseThrust
-			..defM = +armorData.\DefenseMagic
-			..defF = +armorData.\DefenseFire
-			..defL = +armorData.\DefenseThunder
-			..defP = +armorData.\Poise
 
-			..defT = +armorData.\ResistPoison
-			..defB = +armorData.\ResistBlood
-			..defC = +armorData.\ResistCurse
-
-			..matSetId = +armorData.\MaterialSetId
-			..upgradeId = if ..matSetId > 0 then +armorData.\ShopLv else -1
-
-		# Bleed & poison
+		# Stamina recovery mod
+		armor.staRegenMod = 0
 		for effectField in [\ResidentSpEffectId \ResidentSpEffectId2 \ResidentSpEffectId3 ]
 			if +armorData[effectField] < 0 then continue
 
 			effect = raw.effects[+armorData[effectField]]
 
 			if +effect.\StaminaRecoverChangeSpeed != 0
-				armor.stRec = +effect.\StaminaRecoverChangeSpeed
+				armor.staRegenMod = +effect.\StaminaRecoverChangeSpeed
 
 
 		armors.push armor
@@ -410,22 +426,18 @@ processArmorUpgrades = (folder = '.') !->
 
 	for key, rawUp of raw.armorUpgrades
 		upgrade = { id : +rawUp.\Id }
-			..defModN = +rawUp.\PhysicsDefRate
-			..defModSl = +rawUp.\SlashDefRate
-			..defModSt = +rawUp.\BlowDefRate
-			..defModTh = +rawUp.\ThrustDefRate
-			..defModM = +rawUp.\MagicDefRate
-			..defModF = +rawUp.\FireDefRate
-			..defModL = +rawUp.\ThunderDefRate
+			..defModPhy = +rawUp.\PhysicsDefRate
+			..defModMag = +rawUp.\MagicDefRate
+			..defModFir = +rawUp.\FireDefRate
+			..defModLit = +rawUp.\ThunderDefRate
+			..defModTox = +rawUp.\ResistPoisonRate
+			..defModBlo = +rawUp.\ResistBloodRate
+			..defModCur = +rawUp.\ResistCurseRate
 
-			..defModT = +rawUp.\ResistPoisonRate
-			..defModB = +rawUp.\ResistBloodRate
-			..defModC = +rawUp.\ResistCurseRate
+			..defModSlash = +rawUp.\SlashDefRate
+			..defModStrike = +rawUp.\BlowDefRate
+			..defModThrust = +rawUp.\ThrustDefRate
 
-			# For upgrades, MaterialSetId is added to the
-			# existing MaterialSetId on the armor and the result
-			# is the actual material set ID containing requirements
-			# for the upgrade
 			..matSetId = +rawUp.\MaterialSetId
 
 		upgrades.push upgrade
