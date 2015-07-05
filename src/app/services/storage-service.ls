@@ -2,7 +2,7 @@ angular.module "dsc"
 	.config (localStorageServiceProvider) !->
 		localStorageServiceProvider
 			.setPrefix "DSC"
-	.service 'storageService', ['localStorageService', (localStorage) ->
+	.service 'storageSvc', ['localStorageService', (localStorage) ->
 		{
 			save : (key, data) !-> localStorage.set key, data
 			load : (key) -> localStorage.get key

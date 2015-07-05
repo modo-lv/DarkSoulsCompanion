@@ -6,7 +6,7 @@ $scope.itemTypes = []
 for itemType in [\none \items \weapons \armors]
 	$scope.itemTypes.push itemType
 
-(require './controller/gridOptions') $scope, uiGridConstants
+(require './config/items-grid-options') $scope, uiGridConstants
 
 
 ### EVENT HANDLERS

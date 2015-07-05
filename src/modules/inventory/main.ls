@@ -1,4 +1,4 @@
 angular.module "dsc"
 
-require "./controller"
-require "./service"
+require "./inventory-controller"
+require "./inventory-service"

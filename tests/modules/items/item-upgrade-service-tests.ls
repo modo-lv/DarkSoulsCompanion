@@ -4,7 +4,7 @@ var svc, edSvc, itemModels, upModels
 
 beforeEach !->
 	edSvc := new MockExternalDataService
-	svc := new (testRequire "modules/items/services/item-upgrade-service") edSvc
+	svc := new (testRequire "modules/items/item-upgrade-service") edSvc
 	itemModels := testRequire 'modules/items/models/item-models'
 	upModels := testRequire 'modules/items/models/item-upgrade-models'
 
@@ -34,3 +34,14 @@ it "should apply an upgrade correctly", (done) !->
 	upModel = new upModels.Weapon
 
 	done!
+
+
+it "should load upgrade data correctly", (done) !->
+	upData =
+		\id : 100
+
+	edSvc.loadJsonReturnValue = [ upData ]
+
+	expect svc.getAllUpgrades \weapon
+		.to.eventually.have.members [ upData ]
+		.notify done

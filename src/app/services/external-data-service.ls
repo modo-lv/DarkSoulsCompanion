@@ -3,7 +3,7 @@ angular? .module "dsc" .service "externalDataSvc" ($resource, $q) ->
 
 class ExternalDataService
 
-	(@$resource, $q) ->
+	(@$resource, @$q) ->
 		@_cache = {}
 
 
@@ -16,7 +16,7 @@ class ExternalDataService
 			throw new Error "Invalid URL: [#{url}]"
 
 		# Setup return value
-		task = $q.defer!
+		task = @$q.defer!
 
 		# Get the data
 		if @_cache.[][url] |> empty

@@ -28,6 +28,10 @@ module?.exports = {
 		uid :~ -> @itemType + @id
 
 
+		useDataFrom : (itemData) ~>
+			@ <<< itemData
+
+
 	\Equipment : class EquipmentModel extends ItemModel
 		->
 			super!

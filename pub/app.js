@@ -1316,16 +1316,16 @@ function curry$(f, bound){
   if (typeof global != 'undefined' && global) {
     import$(global, require('prelude-ls'));
   }
-  angular.module("dsc.common", ["LocalStorageModule"]);
-  require('./common/services/storageService');
-  require('./common/services/dataExportService');
-  angular.module("dsc", ["ngRoute", "ngResource", "angucomplete-alt", "ui.grid", "ui.grid.autoResize", "dsc.common"]).filter('percentage', function($filter){
+  angular.module("dsc", ["ngRoute", "ngResource", "LocalStorageModule", "angucomplete-alt", "ui.grid", "ui.grid.autoResize"]).filter('percentage', function($filter){
     return function(input, decimals){
       decimals == null && (decimals = 0);
       return $filter('number')(input * 100, decimals) + '%';
     };
   });
   require('./app/routes');
+  require('./app/services/storage-service');
+  require('./app/services/external-data-service');
+  require('./app/services/data-export-service');
   (function(){
     require('./modules/a-calc/main.js');require('./modules/guide/main.js');require('./modules/inventory/main.js');require('./modules/items/main.js');require('./modules/pc/main.js');require('./modules/w-calc/main.js');
   });
@@ -1341,7 +1341,7 @@ function curry$(f, bound){
 }).call(this);
 
 }).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
-},{"./app/routes":8,"./common/services/dataExportService":9,"./common/services/storageService":10,"./modules/a-calc/main.js":13,"./modules/guide/main.js":15,"./modules/inventory/main.js":19,"./modules/items/main.js":23,"./modules/pc/main.js":28,"./modules/w-calc/main.js":34,"prelude-ls":6}],8:[function(require,module,exports){
+},{"./app/routes":8,"./app/services/data-export-service":9,"./app/services/external-data-service":10,"./app/services/storage-service":11,"./modules/a-calc/main.js":14,"./modules/guide/main.js":16,"./modules/inventory/main.js":21,"./modules/items/main.js":28,"./modules/pc/main.js":32,"./modules/w-calc/main.js":38,"prelude-ls":6}],8:[function(require,module,exports){
 (function(){
   angular.module("dsc").config(function($routeProvider){
     $routeProvider.when('/guide/:section', {
@@ -1370,7 +1370,7 @@ function curry$(f, bound){
 
 },{}],9:[function(require,module,exports){
 (function(){
-  angular.module("dsc.common").service('dataExportService', function(){
+  angular.module("dsc").service('dataExportService', function(){
     return {
       exportJson: function(data){
         window.open(encodeURI("data:application/json," + JSON.stringify(data)));
@@ -1407,9 +1407,58 @@ function curry$(f, bound){
 
 },{}],10:[function(require,module,exports){
 (function(){
-  angular.module("dsc.common").config(function(localStorageServiceProvider){
+  var ExternalDataService;
+  if (typeof angular != 'undefined' && angular !== null) {
+    angular.module("dsc").service("externalDataSvc", function($resource, $q){
+      return new ExternalDataService($resource, $q);
+    });
+  }
+  ExternalDataService = (function(){
+    ExternalDataService.displayName = 'ExternalDataService';
+    var prototype = ExternalDataService.prototype, constructor = ExternalDataService;
+    function ExternalDataService($resource, $q){
+      this.$resource = $resource;
+      this.$q = $q;
+      this.loadJson = bind$(this, 'loadJson', prototype);
+      this._cache = {};
+    }
+    /**
+     * Load an external JSON resource and parse it into an array
+     */
+    prototype.loadJson = function(url, returnPromise){
+      var task, ref$, this$ = this;
+      returnPromise == null && (returnPromise = true);
+      if (url == null || typeof url !== "string" || url.length < 1) {
+        throw new Error("Invalid URL: [" + url + "]");
+      }
+      task = this.$q.defer();
+      if (empty(
+      (ref$ = this._cache)[url] || (ref$[url] = []))) {
+        this._cache[url] = this.$resource(url).query(function(){
+          task.resolve(this$._cache[url]);
+        });
+      } else {
+        task.resolve(this._cache[url]);
+      }
+      return returnPromise
+        ? task.promise
+        : this._cache[url];
+    };
+    return ExternalDataService;
+  }());
+  if (typeof module != 'undefined' && module !== null) {
+    module.exports = ExternalDataService;
+  }
+  function bind$(obj, key, target){
+    return function(){ return (target || obj)[key].apply(obj, arguments) };
+  }
+}).call(this);
+
+},{}],11:[function(require,module,exports){
+(function(){
+  angular.module("dsc").config(function(localStorageServiceProvider){
     localStorageServiceProvider.setPrefix("DSC");
-  }).service('storageService', [
+  }).service('storageSvc', [
     'localStorageService', function(localStorage){
       return {
         save: function(key, data){
@@ -1423,7 +1472,7 @@ function curry$(f, bound){
   ]);
 }).call(this);
 
-},{}],11:[function(require,module,exports){
+},{}],12:[function(require,module,exports){
 (function(){
   angular.module("dsc").controller("ArmorCalcController", function($q, $scope, itemService, inventoryService, pcService, uiGridConstants){
     var x$, _calcScoresFor, _addAvailableUpgradesTo;
@@ -1662,7 +1711,7 @@ function curry$(f, bound){
   }
 }).call(this);
 
-},{"./controller/gridOptions":12}],12:[function(require,module,exports){
+},{"./controller/gridOptions":13}],13:[function(require,module,exports){
 (function(){
   if (typeof module != 'undefined' && module !== null) {
     module.exports = function(uiGridConstants){
@@ -1723,13 +1772,13 @@ function curry$(f, bound){
   }
 }).call(this);
 
-},{}],13:[function(require,module,exports){
+},{}],14:[function(require,module,exports){
 (function(){
   angular.module("dsc");
   require('./controller');
 }).call(this);
 
-},{"./controller":11}],14:[function(require,module,exports){
+},{"./controller":12}],15:[function(require,module,exports){
 (function(){
   angular.module("dsc").controller("GuideController", function($sce, $scope, $routeParams, $resource, guideService, storageService){
     var _getArrowFor, _prepareGuideContent, _saveUserData, _loadUserData, data;
@@ -1855,13 +1904,13 @@ function curry$(f, bound){
   });
 }).call(this);
 
-},{}],15:[function(require,module,exports){
+},{}],16:[function(require,module,exports){
 (function(){
   require('./controller');
   require('./service');
 }).call(this);
 
-},{"./controller":14,"./service":16}],16:[function(require,module,exports){
+},{"./controller":15,"./service":17}],17:[function(require,module,exports){
 (function(){
   angular.module("dsc").service("guideService", function($resource){
     var svc;
@@ -1873,44 +1922,7 @@ function curry$(f, bound){
   });
 }).call(this);
 
-},{}],17:[function(require,module,exports){
-(function(){
-  angular.module("dsc").controller("InventoryController", function($scope, uiGridConstants, itemService, storageService, inventoryService){
-    $scope.selectedItem = null;
-    $scope.inventory = [];
-    $scope.armorSets = [];
-    $scope.itemTypes = ['weapon', 'armor', 'item'];
-    $scope.gridOptions = require('./controller/gridOptions')(uiGridConstants);
-    ($scope.allItems = itemService.loadItemIndex()).$promise.then(function(){
-      $scope.gridOptions.data = $scope.inventory = inventoryService.loadUserInventory();
-    });
-    $scope.armorSets = itemService.loadArmorSetIndex();
-    $scope.addNewItem = function(selection){
-      $scope.addItem(selection.originalObject);
-    };
-    $scope.addItem = function(item){
-      inventoryService.addToInventory(item);
-    };
-    $scope.removeItem = inventoryService.removeFromInventory;
-    $scope.addArmorSet = function(selection){
-      var armorSet;
-      armorSet = selection.originalObject;
-      itemService.loadItemData('armors').$promise.then(function(armors){
-        var i$, ref$, len$, id;
-        for (i$ = 0, len$ = (ref$ = armorSet.armors).length; i$ < len$; ++i$) {
-          id = ref$[i$];
-          $scope.addItem(find(fn$)(
-          armors));
-        }
-        function fn$(it){
-          return it.id === id;
-        }
-      });
-    };
-  });
-}).call(this);
-
-},{"./controller/gridOptions":18}],18:[function(require,module,exports){
+},{}],18:[function(require,module,exports){
 (function(){
   if (typeof module != 'undefined' && module !== null) {
     module.exports = function(uiGridConstants){
@@ -1960,173 +1972,208 @@ function curry$(f, bound){
 
 },{}],19:[function(require,module,exports){
 (function(){
-  angular.module("dsc");
-  require("./controller");
-  require("./service");
+  angular.module("dsc").controller("InventoryController", function($scope, uiGridConstants, itemSvc, itemIndexSvc, storageSvc, inventorySvc){
+    $scope.selectedItem = null;
+    $scope.armorSets = [];
+    $scope.allItems = [];
+    $scope.itemTypes = ['weapon', 'armor', 'item'];
+    $scope.gridOptions = require('./config/inventory-grid-opts')(uiGridConstants);
+    $scope.allItems = itemIndexSvc.getAllEntries();
+    $scope.armorSets = itemIndexSvc.getAllArmorSetEntries();
+    $scope.gridOptions.data = inventorySvc.inventory;
+    $scope.addNewItem = function(selection){
+      $scope.addItem(selection.originalObject);
+    };
+    $scope.addItem = function(item){
+      inventorySvc.addToInventory(item);
+    };
+    $scope.removeItem = inventorySvc.removeFromInventory;
+    $scope.addArmorSet = function(selection){
+      var armorSet;
+      armorSet = selection.originalObject;
+      itemSvc.loadItemData('armors').$promise.then(function(armors){
+        var i$, ref$, len$, id;
+        for (i$ = 0, len$ = (ref$ = armorSet.armors).length; i$ < len$; ++i$) {
+          id = ref$[i$];
+          $scope.addItem(find(fn$)(
+          armors));
+        }
+        function fn$(it){
+          return it.id === id;
+        }
+      });
+    };
+  });
 }).call(this);
 
-},{"./controller":17,"./service":20}],20:[function(require,module,exports){
+},{"./config/inventory-grid-opts":18}],20:[function(require,module,exports){
 (function(){
-  angular.module("dsc").service("inventoryService", function($q, itemService, storageService){
-    var svc, InventoryItem;
-    svc = {};
-    svc.items = [];
-    svc.models = {
-      'InventoryItem': InventoryItem = (function(){
-        InventoryItem.displayName = 'InventoryItem';
-        var prototype = InventoryItem.prototype, constructor = InventoryItem;
-        function InventoryItem(amount){
-          this.amount = amount != null ? amount : 1;
-          this.uid = 0;
-          this.name = '';
-          this.itemType = '';
-        }
-        return InventoryItem;
-      }())
+  var InventorySvc;
+  if (typeof angular != 'undefined' && angular !== null) {
+    angular.module("dsc").service("inventorySvc", function(storageSvc, itemIndexSvc){
+      return new InventorySvc(storageSvc, itemIndexSvc);
+    });
+  }
+  InventorySvc = (function(){
+    InventorySvc.displayName = 'InventorySvc';
+    var prototype = InventorySvc.prototype, constructor = InventorySvc;
+    function InventorySvc(storageSvc, itemIndexSvc){
+      this.storageSvc = storageSvc;
+      this.itemIndexSvc = itemIndexSvc;
+      this.clear = bind$(this, 'clear', prototype);
+      this.remove = bind$(this, 'remove', prototype);
+      this.add = bind$(this, 'add', prototype);
+      this.find = bind$(this, 'find', prototype);
+      this.findItemByUid = bind$(this, 'findItemByUid', prototype);
+      this.load = bind$(this, 'load', prototype);
+      this.save = bind$(this, 'save', prototype);
+      this._inventory = [];
+      this._models = require('./models/inventory-models');
+    }
+    Object.defineProperty(prototype, 'inventory', {
+      get: function(){
+        return this.load(false);
+      },
+      configurable: true,
+      enumerable: true
+    });
+    prototype.save = function(){
+      var data, i$, ref$, len$, item;
+      data = [];
+      for (i$ = 0, len$ = (ref$ = this.inventory).length; i$ < len$; ++i$) {
+        item = ref$[i$];
+        data.push({
+          'uid': item.uid,
+          'amount': item.amount
+        });
+      }
+      this.storageSvc.save('inventory', data);
     };
-    svc.getById = function(uid){
+    prototype.load = function(force){
+      var i$, ref$, len$, invItem, this$ = this;
+      force == null && (force = true);
+      if (empty(
+      force || this._inventory)) {
+        this.clear();
+        each(function(item){
+          this$._inventory.push(new this$._models.InventoryItem(item));
+        })(
+        this.storageSvc.load('inventory'));
+        for (i$ = 0, len$ = (ref$ = this._inventory).length; i$ < len$; ++i$) {
+          invItem = ref$[i$];
+          fn$(invItem);
+        }
+      }
+      return this._inventory;
+      function fn$(ii){
+        ii.$promise = this$.itemIndexSvc.findEntry(function(it){
+          return it.uid === ii.uid;
+        }).then(function(item){
+          return ii.useDataFrom(item);
+        });
+      }
+    };
+    prototype.findItemByUid = function(uid){
       return find(function(it){
         return it.uid === uid;
       })(
-      svc.items || (svc.items = []));
+      this.inventory);
     };
-    svc.getByItem = function(item){
-      return svc.getById(item.uid);
+    prototype.find = function(item){
+      return this.findItemByUid(item.uid);
     };
-    svc.addToInventory = function(item, amount){
-      var existing, x$;
-      amount == null && (amount = 1);
-      existing = svc.getByItem(item);
+    prototype.add = function(item, amount){
+      var ref$, existing, x$;
+      amount == null && (amount = (ref$ = item.amount) != null ? ref$ : 1);
+      existing = this.find(item);
       if (existing) {
         existing.amount += amount;
       } else {
-        x$ = new svc.models.InventoryItem(amount);
-        x$.id = item.id;
-        x$.uid = item.uid;
-        x$.name = item.name;
-        x$.itemType = item.itemType;
-        (svc.items || (svc.items = [])).push(
+        x$ = new this._models.InventoryItem;
+        x$.useDataFrom(item);
+        x$.amount = amount;
+        this.inventory.push(
         x$);
       }
-      svc.saveInventory();
+      this.save();
     };
-    svc.removeFromInventory = function(item, amount){
+    prototype.remove = function(item, amount){
       var entry;
       amount == null && (amount = 1);
-      entry = svc.getByItem(item);
-      entry.amount -= amount === true ? entry.amount : amount;
+      entry = this.find(item);
+      if (entry == null) {
+        console.log(item);
+        throw new Error("Failed to remove the above item because couldn't find it in the inventory.");
+      }
+      entry.amount = amount === true
+        ? 0
+        : entry.amount -= amount;
       if (entry.amount < 1) {
-        (svc.items || (svc.items = [])).splice((svc.items || (svc.items = [])).indexOf(entry), 1);
+        this.inventory.splice(this.inventory.indexOf(entry), 1);
       }
-      svc.saveInventory();
+      this.save();
     };
-    svc.clearInventory = function(){
-      (svc.items || (svc.items = [])).length = 0;
+    prototype.clear = function(){
+      this._inventory.length = 0;
     };
-    svc.loadUserInventory = function(force){
-      var index, defer, x$;
-      if (!empty(
-      force || (svc.items || (svc.items = [])))) {
-        return svc.items;
-      }
-      index = itemService.loadItemIndex();
-      defer = $q.defer();
-      x$ = svc.items = [];
-      x$.$promise = defer.promise;
-      index.$promise.then(function(){
-        var inventoryData, ref$, i$, len$, entry, x$;
-        inventoryData = (ref$ = storageService.load('inventory')) != null
-          ? ref$
-          : [];
-        svc.clearInventory();
-        for (i$ = 0, len$ = inventoryData.length; i$ < len$; ++i$) {
-          entry = inventoryData[i$];
-          x$ = new svc.models.InventoryItem(entry.amount);
-          import$(x$, itemService.getFromIndexByUid(entry.uid));
-          svc.items.push(
-          x$);
-        }
-        defer.resolve();
-      });
-      return svc.items;
-    };
-    svc.saveInventory = function(){
-      var inventoryData, i$, ref$, len$, entry;
-      inventoryData = [];
-      for (i$ = 0, len$ = (ref$ = svc.items || (svc.items = [])).length; i$ < len$; ++i$) {
-        entry = ref$[i$];
-        inventoryData.push({
-          uid: entry.uid,
-          amount: entry.amount
-        });
-      }
-      storageService.save("inventory", inventoryData);
-    };
-    return svc;
-  });
-  function import$(obj, src){
-    var own = {}.hasOwnProperty;
-    for (var key in src) if (own.call(src, key)) obj[key] = src[key];
-    return obj;
+    return InventorySvc;
+  }());
+  if (typeof module != 'undefined' && module !== null) {
+    module.exports = InventorySvc;
+  }
+  function bind$(obj, key, target){
+    return function(){ return (target || obj)[key].apply(obj, arguments) };
   }
 }).call(this);
 
-},{}],21:[function(require,module,exports){
+},{"./models/inventory-models":22}],21:[function(require,module,exports){
 (function(){
-  angular.module("dsc").controller("ItemsController", function($scope, dataExportService, itemService, uiGridConstants){
-    var i$, ref$, len$, itemType;
-    $scope.itemTypes = [];
-    for (i$ = 0, len$ = (ref$ = ['none', 'items', 'weapons', 'armors']).length; i$ < len$; ++i$) {
-      itemType = ref$[i$];
-      $scope.itemTypes.push(itemType);
+  angular.module("dsc");
+  require("./inventory-controller");
+  require("./inventory-service");
+}).call(this);
+
+},{"./inventory-controller":19,"./inventory-service":20}],22:[function(require,module,exports){
+(function(){
+  var InventoryItemModel;
+  InventoryItemModel = (function(){
+    InventoryItemModel.displayName = 'InventoryItemModel';
+    var prototype = InventoryItemModel.prototype, constructor = InventoryItemModel;
+    function InventoryItemModel(item){
+      this.useDataFrom = bind$(this, 'useDataFrom', prototype);
+      this.amount = 1;
+      this.name = '';
+      this.itemType = '';
+      this.id = '';
+      this.uid = '';
+      this.useDataFrom(item);
     }
-    require('./controller/gridOptions')($scope, uiGridConstants);
-    $scope.selectedItemTypeChanged = function(){
-      if ($scope.selectedItemType === 'none') {
-        $scope.gridOptions.data = [];
-        $scope.gridOptions.columnDefs = [];
+    prototype.useDataFrom = function(item){
+      var i$, ref$, len$, field;
+      if (item == null) {
         return;
       }
-      itemService.loadItemData($scope.selectedItemType).$promise.then(function(itemData){
-        var i$, len$, weapon;
-        if ($scope.selectedItemType === 'weapons') {
-          for (i$ = 0, len$ = itemData.length; i$ < len$; ++i$) {
-            weapon = itemData[i$];
-            itemService.applyUpgradeTo(weapon, 0);
-          }
+      for (i$ = 0, len$ = (ref$ = ['amount', 'uid', 'name', 'itemType', 'id']).length; i$ < len$; ++i$) {
+        field = ref$[i$];
+        if (item[field] != null) {
+          this[field] = item[field];
         }
-        $scope.gridOptions.data = itemData;
-      });
-      $scope.gridOptions.columnDefs = $scope.columnConfigs[$scope.selectedItemType];
+      }
+      return this;
     };
-    $scope.exportAsJson = function(){
-      dataExportService.exportJson(map(function(it){
-        delete it.$$hashKey;
-        return it;
-      })(
-      $scope.gridOptions.data));
+    return InventoryItemModel;
+  }());
+  if (typeof module != 'undefined' && module !== null) {
+    module.exports = {
+      'InventoryItem': InventoryItemModel
     };
-    $scope.exportAsCsv = function(){
-      var outputData;
-      outputData = map(function(it){
-        var item;
-        item = import$({}, it);
-        delete item.$$hashKey;
-        return item;
-      })(
-      $scope.gridOptions.data);
-      dataExportService.exportCsv(outputData);
-    };
-    $scope.selectedItemType = 'none';
-  });
-  function import$(obj, src){
-    var own = {}.hasOwnProperty;
-    for (var key in src) if (own.call(src, key)) obj[key] = src[key];
-    return obj;
+  }
+  function bind$(obj, key, target){
+    return function(){ return (target || obj)[key].apply(obj, arguments) };
   }
 }).call(this);
 
-},{"./controller/gridOptions":22}],22:[function(require,module,exports){
+},{}],23:[function(require,module,exports){
 (function(){
   if (typeof module != 'undefined' && module !== null) {
     module.exports = function($scope, uiGridConstants){
@@ -2334,243 +2381,269 @@ function curry$(f, bound){
   }
 }).call(this);
 
-},{}],23:[function(require,module,exports){
-arguments[4][15][0].apply(exports,arguments)
-},{"./controller":21,"./service":24,"dup":15}],24:[function(require,module,exports){
+},{}],24:[function(require,module,exports){
 (function(){
-  angular.module("dsc").constant("$ItemIds", {
-    'LargeEmber': 800,
-    'TitaniteShard': 1000
-  });
-  angular.module("dsc").service("itemService", function($resource, $ItemIds, $q){
-    var x$, svc;
-    x$ = svc = {
-      items: {},
-      itemTypes: ['items', 'weapons', 'armors'],
-      itemIndex: [],
-      armorSetIndex: [],
-      _promises: {}
-    };
-    x$.models = require('./service/models');
+  var ItemIndexService;
+  if (typeof angular != 'undefined' && angular !== null) {
+    angular.module("dsc").service("itemIndexSvc", function(externalDataSvc){
+      return new ItemIndexService(externalDataSvc);
+    });
+  }
+  ItemIndexService = (function(){
+    ItemIndexService.displayName = 'ItemIndexService';
+    var prototype = ItemIndexService.prototype, constructor = ItemIndexService;
+    function ItemIndexService(externalDataSvc){
+      this.externalDataSvc = externalDataSvc;
+      this.getAllEntries = bind$(this, 'getAllEntries', prototype);
+      this.getAllArmorSetEntries = bind$(this, 'getAllArmorSetEntries', prototype);
+      this.findEntry = bind$(this, 'findEntry', prototype);
+      this._index = [];
+      this._armorSetIndex = [];
+    }
     /**
-     * Load the item index.
-     * @returns An array that will be asynchronously populated when the results are in.
+     * Finds the first item matching a given filter.
+     * @param byFilter Function filter function that takes item as
+     * a parameter and returns true/false if it matches/doesn't.
+     * @returns Promise that resolves with the found value.
      */
-    svc.loadItemIndex = function(force){
-      force == null && (force = false);
-      if (empty(
-      force || svc.itemIndex)) {
-        svc.itemIndex = $resource('/modules/items/content/index.json').query();
+    prototype.findEntry = function(byFilter){
+      var this$ = this;
+      if (typeof byFilter !== 'function') {
+        throw new Error("[byFilter] is not a function.");
       }
-      return svc.itemIndex;
+      return this.getAllEntries().then(function(it){
+        return find(byFilter)(
+        it);
+      });
     };
-    svc.loadArmorSetIndex = function(force){
-      force == null && (force = false);
-      if (empty(
-      force || svc.armorSetIndex)) {
-        svc.armorSetIndex = $resource('/modules/items/content/armor-set-index.json').query();
+    prototype.getAllArmorSetEntries = function(returnPromise){
+      returnPromise == null && (returnPromise = true);
+      if (this._armorSetIndex.$promise == null) {
+        this._armorSetIndex = this.externalDataSvc.loadJson('/modules/items/content/armor-set-index.json', false);
       }
-      return svc.armorSetIndex;
+      return returnPromise
+        ? this._armorSetIndex.$promise
+        : this._armorSetIndex;
     };
-    svc.getFromIndexById = function(id){
-      return find(function(it){
-        return it.id === id;
+    prototype.getAllEntries = function(returnPromise){
+      returnPromise == null && (returnPromise = true);
+      if (this._index.$promise == null) {
+        this._index = this.externalDataSvc.loadJson('/modules/items/content/index.json', false);
+      }
+      return returnPromise
+        ? this._index.$promise
+        : this._index;
+    };
+    return ItemIndexService;
+  }());
+  if (typeof module != 'undefined' && module !== null) {
+    module.exports = ItemIndexService;
+  }
+  function bind$(obj, key, target){
+    return function(){ return (target || obj)[key].apply(obj, arguments) };
+  }
+}).call(this);
+
+},{}],25:[function(require,module,exports){
+(function(){
+  var ItemService;
+  if (typeof angular != 'undefined' && angular !== null) {
+    angular.module("dsc").service("itemSvc", function(externalDataSvc, itemIndexSvc){
+      return new ItemService(externalDataSvc, itemIndexSvc);
+    });
+  }
+  ItemService = (function(){
+    ItemService.displayName = 'ItemService';
+    var prototype = ItemService.prototype, constructor = ItemService;
+    function ItemService(_externalDataSvc, _itemIndexSvc){
+      this._externalDataSvc = _externalDataSvc;
+      this._itemIndexSvc = _itemIndexSvc;
+      this.getAllItems = bind$(this, 'getAllItems', prototype);
+      this.findAnyItem = bind$(this, 'findAnyItem', prototype);
+      this.findItem = bind$(this, 'findItem', prototype);
+      this._storage = {};
+      this._models = require('./models/item-models');
+    }
+    /**
+     * Return the first item matching a given filter
+     * @param itemType String type of item to find.
+     * @param func Function Filter function
+     * @return Promise that resolves with the found item, or null if nothing found.
+     */
+    prototype.findItem = function(itemType, filterFn){
+      var this$ = this;
+      if (typeof itemType !== 'string') {
+        throw new Error("Item type is invalid or not provided");
+      }
+      return this.getAllItems(itemType).then(function(items){
+        return find(filterFn)(
+        items);
+      });
+    };
+    /**
+     * Finds any item, regardless of type, but can only
+     * check fields that are in the index.
+     */
+    prototype.findAnyItem = function(filterFn){
+      var this$ = this;
+      return this._itemIndexSvc.findItem(filterFn).then(function(item){
+        return this$.findItem(item.itemType, function(it){
+          return it.id === item.id;
+        });
+      });
+    };
+    /**
+     * Load item data of a given item type.
+     * @returns Promise or populated array, depending on returnPromise setting.
+     */
+    prototype.getAllItems = function(itemType, returnPromise){
+      var ref$, this$ = this;
+      returnPromise == null && (returnPromise = true);
+      if (((ref$ = this._storage)[itemType] || (ref$[itemType] = [])).$promise == null) {
+        this._storage[itemType].$promise = this._externalDataSvc.loadJson("/modules/items/content/" + itemType + "s.json").then(function(itemData){
+          var i$, len$, data, ref$;
+          for (i$ = 0, len$ = itemData.length; i$ < len$; ++i$) {
+            data = itemData[i$];
+            ((ref$ = this$._storage)[itemType] || (ref$[itemType] = [])).push(
+            (fn$.call(this$)).useDataFrom(data));
+          }
+          return this$._storage[itemType];
+          function fn$(){
+            switch (data.itemType) {
+            case 'weapon':
+              return new this._models.Weapon;
+            case 'armor':
+              return new this._models.Armor;
+            case 'item':
+              return new this._models.Item;
+            default:
+              throw new Error("[" + data.itemType + "] is not a recognized item type.");
+            }
+          }
+        });
+      }
+      return returnPromise
+        ? this._storage[itemType].$promise
+        : this._storage[itemType];
+    };
+    return ItemService;
+  }());
+  if (typeof module != 'undefined' && module !== null) {
+    module.exports = ItemService;
+  }
+  function bind$(obj, key, target){
+    return function(){ return (target || obj)[key].apply(obj, arguments) };
+  }
+}).call(this);
+
+},{"./models/item-models":29}],26:[function(require,module,exports){
+(function(){
+  var ItemUpgradeService;
+  if (typeof angular != 'undefined' && angular !== null) {
+    angular.module("dsc").service("itemUpgradeSvc", function(externalDataSvc){
+      return new ItemUpgradeService(externalDataSvc);
+    });
+  }
+  ItemUpgradeService = (function(){
+    ItemUpgradeService.displayName = 'ItemUpgradeService';
+    var prototype = ItemUpgradeService.prototype, constructor = ItemUpgradeService;
+    function ItemUpgradeService(externalDataSvc){
+      this.externalDataSvc = externalDataSvc;
+      this.getAllUpgrades = bind$(this, 'getAllUpgrades', prototype);
+      this.findUpgradeFor = bind$(this, 'findUpgradeFor', prototype);
+      this.getBaseItemIdOf = bind$(this, 'getBaseItemIdOf', prototype);
+      this.getBaseItemIdFrom = bind$(this, 'getBaseItemIdFrom', prototype);
+      this._upgrades = {};
+    }
+    prototype.getBaseItemIdFrom = function(id){
+      return id - id % 100;
+    };
+    prototype.getBaseItemIdOf = function(item){
+      return this.getBaseItemIdFrom(item.id);
+    };
+    /**
+     * Get the upgrade model for a given weapon at a given upgrade level
+     * @returns Promise, resolved with the upgrade (or null if nothing found)
+     */
+    prototype.findUpgradeFor = function(item, level){
+      return this.getAllUpgrades(item.itemType).then(function(upgrades){
+        return find(function(it){
+          return it.id === item.upgradeId + level;
+        })(
+        upgrades);
+      });
+    };
+    /**
+     * Load information on all upgrades for a given item type
+     * @returns Promise resolved with the upgrade data
+     */
+    prototype.getAllUpgrades = function(itemType){
+      var ref$;
+      if (itemType !== 'weapon' && itemType !== 'armor') {
+        throw new Error("Only weapons and armor can be upgraded.");
+      }
+      if (((ref$ = this._upgrades)[itemType] || (ref$[itemType] = [])).$promise == null) {
+        this._upgrades[itemType] = this.externalDataSvc.loadJson("/modules/items/content/" + itemType + "-upgrades.json", false);
+      }
+      return this._upgrades[itemType].$promise;
+    };
+    return ItemUpgradeService;
+  }());
+  if (typeof module != 'undefined' && module !== null) {
+    module.exports = ItemUpgradeService;
+  }
+  function bind$(obj, key, target){
+    return function(){ return (target || obj)[key].apply(obj, arguments) };
+  }
+}).call(this);
+
+},{}],27:[function(require,module,exports){
+(function(){
+  angular.module("dsc").controller("ItemsController", function($scope, dataExportService, itemService, uiGridConstants){
+    var i$, ref$, len$, itemType;
+    $scope.itemTypes = [];
+    for (i$ = 0, len$ = (ref$ = ['none', 'items', 'weapons', 'armors']).length; i$ < len$; ++i$) {
+      itemType = ref$[i$];
+      $scope.itemTypes.push(itemType);
+    }
+    require('./config/items-grid-options')($scope, uiGridConstants);
+    $scope.selectedItemTypeChanged = function(){
+      if ($scope.selectedItemType === 'none') {
+        $scope.gridOptions.data = [];
+        $scope.gridOptions.columnDefs = [];
+        return;
+      }
+      itemService.loadItemData($scope.selectedItemType).$promise.then(function(itemData){
+        var i$, len$, weapon;
+        if ($scope.selectedItemType === 'weapons') {
+          for (i$ = 0, len$ = itemData.length; i$ < len$; ++i$) {
+            weapon = itemData[i$];
+            itemService.applyUpgradeTo(weapon, 0);
+          }
+        }
+        $scope.gridOptions.data = itemData;
+      });
+      $scope.gridOptions.columnDefs = $scope.columnConfigs[$scope.selectedItemType];
+    };
+    $scope.exportAsJson = function(){
+      dataExportService.exportJson(map(function(it){
+        delete it.$$hashKey;
+        return it;
       })(
-      svc.itemIndex);
+      $scope.gridOptions.data));
     };
-    svc.getFromIndexByUid = function(uid){
-      return find(function(it){
-        return it.uid === uid;
+    $scope.exportAsCsv = function(){
+      var outputData;
+      outputData = map(function(it){
+        var item;
+        item = import$({}, it);
+        delete item.$$hashKey;
+        return item;
       })(
-      svc.itemIndex);
+      $scope.gridOptions.data);
+      dataExportService.exportCsv(outputData);
     };
-    /**
-     * Given a 'lite' item from the index, return the full data.
-     * Items must be loaded.
-     */
-    svc.getItemByIndex = function(indexEntry){
-      return svc.items[indexEntry.itemType][indexEntry.id];
-    };
-    /**
-     * Load item data from JSON file and construct models
-     */
-    svc.loadItemData = function(itemType, force){
-      var def, ref$, result;
-      itemType == null && (itemType = 'items');
-      force == null && (force = false);
-      def = $q.defer();
-      if (!(force || empty(
-      (ref$ = svc.items || (svc.items = {}))[itemType] || (ref$[itemType] = [])))) {
-        def.resolve(svc.items[itemType]);
-      }
-      if (((ref$ = svc.items || (svc.items = {}))[itemType] || (ref$[itemType] = [])).$promise != null) {
-        return svc.items[itemType];
-      }
-      svc.items[itemType].$promise = def.promise;
-      result = $resource("/modules/items/content/" + itemType + ".json").query(function(){
-        var i$, ref$, len$, itemData, x$;
-        svc.items[itemType].length = 0;
-        if (itemType === 'material-sets') {
-          svc.items[itemType] = result;
-        } else {
-          for (i$ = 0, len$ = (ref$ = result).length; i$ < len$; ++i$) {
-            itemData = ref$[i$];
-            x$ = svc.createItemFrom(itemData);
-            svc.items[itemType].push(
-            x$);
-          }
-        }
-        def.resolve(svc.items[itemType]);
-      });
-      return svc.items[itemType];
-    };
-    svc.createItemFrom = function(itemData){
-      return import$((function(){
-        switch (itemData.itemType) {
-        case 'armor':
-          return new svc.models.Armor;
-        case 'weapon':
-          return new svc.models.Weapon;
-        case 'upgrade':
-          return new svc.models.Upgrade;
-        default:
-          return new svc.models.Item;
-        }
-      }()), itemData);
-    };
-    svc.getUpgradeFor = function(item, iteration){
-      var def, data;
-      def = $q.defer();
-      if (item.upgradeId < 0) {
-        def.resolve();
-        return def.promise;
-      }
-      data = item.itemType === 'armor' ? 'armor-upgrades' : 'upgrades';
-      svc.loadItemData(data).$promise.then(function(upgradeData){
-        var upgrade;
-        upgrade = find(function(it){
-          return it.id === item.upgradeId + iteration;
-        })(
-        upgradeData);
-        def.resolve(upgrade);
-      });
-      return def.promise;
-    };
-    svc.getUpgradedVersionOf = function(item, iteration){
-      var def;
-      def = $q.defer();
-      svc.getUpgradeFor(item, iteration).then(function(upgrade){
-        var x$, upArmor, i$, ref$, len$, mapping, y$, upWeapon, z$;
-        if (upgrade == null) {
-          return def.resolve(null);
-        }
-        if (item.itemType === 'armor') {
-          x$ = upArmor = import$(new svc.models.Armor(), item);
-          x$.id += iteration;
-          x$.upgradeId = upgrade.id;
-          if (iteration > 0) {
-            x$.name += " +" + iteration;
-          }
-          for (i$ = 0, len$ = (ref$ = [['defN', 'defModN'], ['defSl', 'defModSl'], ['defSt', 'defModSt'], ['defTh', 'defModTh'], ['defM', 'defModM'], ['defF', 'defModF'], ['defL', 'defModL'], ['defT', 'defModT'], ['defB', 'defModB'], ['defC', 'defModC']]).length; i$ < len$; ++i$) {
-            mapping = ref$[i$];
-            upArmor[mapping[0]] = Math.floor(
-            upArmor[mapping[0]] * upgrade[mapping[1]]);
-          }
-          def.resolve(upArmor);
-        } else {
-          y$ = upWeapon = import$(new svc.models.Weapon(), item);
-          y$.id += iteration;
-          y$.upgradeId = upgrade.id;
-          if (iteration > 0) {
-            y$.name += " +" + iteration;
-          }
-          for (i$ = 0, len$ = (ref$ = [['dmgN', 'dmgModN'], ['dmgM', 'dmgModM'], ['dmgF', 'dmgModF'], ['dmgL', 'dmgModL'], ['dmgS', 'dmgModS'], ['defT', 'defModT'], ['defB', 'defModB'], ['defC', 'defModC'], ['defS', 'defModS']]).length; i$ < len$; ++i$) {
-            mapping = ref$[i$];
-            upWeapon[mapping[0]] = Math.floor(
-            upWeapon[mapping[0]] * upgrade[mapping[1]]);
-          }
-          for (i$ = 0, len$ = (ref$ = [['scP', 'scModP'], ['scD', 'scModD'], ['scI', 'scModI'], ['scF', 'scModF']]).length; i$ < len$; ++i$) {
-            mapping = ref$[i$];
-            upWeapon[mapping[0]] = upWeapon[mapping[0]] * upgrade[mapping[1]];
-          }
-          z$ = upWeapon;
-          z$.defN *= +upgrade['defModN'];
-          z$.defM *= +upgrade['defModM'];
-          z$.defF *= +upgrade['defModF'];
-          z$.defL *= +upgrade['defModL'];
-          def.resolve(upWeapon);
-        }
-      });
-      return def.promise;
-    };
-    svc.getMaterialsForUpgrade = function(item, upgrade){
-      var def;
-      def = $q.defer();
-      svc.loadItemData('material-sets').$promise.then(function(materialSets){
-        var matSet;
-        matSet = find(function(it){
-          return it.id === item.matSetId + upgrade.matSetId;
-        })(
-        materialSets);
-        def.resolve(import$(import$({}, matSet), upgrade));
-      });
-      return def.promise;
-    };
-    svc.canUpgradeWithMaterials = function(item, materials, iteration){
-      var upgrade;
-      return svc.getUpgradeFor(item, iteration).then(function(it){
-        if (it == null) {
-          return null;
-        }
-        upgrade = it;
-        return svc.getMaterialsForUpgrade(item, upgrade);
-      }).then(function(upgrade){
-        if (upgrade == null) {
-          return false;
-        }
-        if (item.itemType === 'weapon' && iteration > 5 && !any(function(it){
-          return it.id === $ItemIds['LargeEmber'];
-        })(
-        materials)) {
-          return false;
-        }
-        if (upgrade.matId < 0 || upgrade.matCost < 0) {
-          return true;
-        }
-        return any(function(it){
-          return it.id === upgrade.matId && it.amount >= upgrade.matCost;
-        })(
-        materials);
-      });
-    };
-    svc.payForUpgradeFor = function(item, materials, iteration){
-      return svc.getUpgradeFor(item, iteration).then(function(upgrade){
-        var ref$;
-        if (upgrade == null || upgrade.matId < 0 || upgrade.matCost < 0) {
-          return true;
-        }
-        if ((ref$ = find(function(it){
-          return it.id === upgrade.matId;
-        })(
-        materials)) != null) {
-          ref$.amount -= upgrade.matCost;
-        }
-        return true;
-      });
-    };
-    /**
-     * Modify a weapon with the properties of a given upgrade iteration
-     */
-    svc.applyUpgradeTo = function(weapon, iteration){
-      var def;
-      def = $q.defer();
-      svc.getUpgradedVersionOf(weapon, iteration).then(function(upgraded){
-        import$(weapon, upgraded);
-        def.resolve();
-      });
-      return def.promise;
-    };
-    return svc;
+    $scope.selectedItemType = 'none';
   });
   function import$(obj, src){
     var own = {}.hasOwnProperty;
@@ -2579,27 +2652,34 @@ arguments[4][15][0].apply(exports,arguments)
   }
 }).call(this);
 
-},{"./service/models":25}],25:[function(require,module,exports){
+},{"./config/items-grid-options":23}],28:[function(require,module,exports){
 (function(){
-  var Item, Upgrade, Equipment, Weapon, Armor;
+  require('./items-controller');
+  require('./item-service');
+  require('./item-index-service');
+  require('./item-upgrade-service');
+}).call(this);
+
+},{"./item-index-service":24,"./item-service":25,"./item-upgrade-service":26,"./items-controller":27}],29:[function(require,module,exports){
+(function(){
+  var ItemModel, EquipmentModel, WeaponModel, ArmorModel;
   if (typeof module != 'undefined' && module !== null) {
     module.exports = {
-      'Item': Item = (function(){
-        Item.displayName = 'Item';
-        var prototype = Item.prototype, constructor = Item;
-        function Item(){
+      'Item': ItemModel = (function(){
+        ItemModel.displayName = 'ItemModel';
+        var prototype = ItemModel.prototype, constructor = ItemModel;
+        function ItemModel(){
+          this.useDataFrom = bind$(this, 'useDataFrom', prototype);
           this.id = 0;
           this.itemType = 'item';
+          this.itemSubtype = '';
           this.name = '';
-          this.sell = 0;
+          this.sellValue = 0;
+          this.iconId = 0;
         }
-        Object.defineProperty(prototype, 'fullName', {
-          get: function(){
-            return this.name;
-          },
-          configurable: true,
-          enumerable: true
-        });
+        /**
+         * A unique ID that doesn't overlap between item types.
+         */
         Object.defineProperty(prototype, 'uid', {
           get: function(){
             return this.itemType + this.id;
@@ -2607,119 +2687,86 @@ arguments[4][15][0].apply(exports,arguments)
           configurable: true,
           enumerable: true
         });
-        return Item;
+        prototype.useDataFrom = function(itemData){
+          return import$(this, itemData);
+        };
+        return ItemModel;
       }()),
-      'Upgrade': Upgrade = (function(superclass){
-        var prototype = extend$((import$(Upgrade, superclass).displayName = 'Upgrade', Upgrade), superclass).prototype, constructor = Upgrade;
-        function Upgrade(){
-          Upgrade.superclass.call(this);
-          this.itemType = 'upgrade';
-        }
-        Object.defineProperty(prototype, 'id', {
-          get: function(){
-            return this._id;
-          },
-          set: function(val){
-            this._id = val;
-            console.log("Setting ID on upgrade ", this, "to value", val);
-          },
-          configurable: true,
-          enumerable: true
-        });
-        return Upgrade;
-      }(Item)),
-      'Equipment': Equipment = (function(superclass){
-        var prototype = extend$((import$(Equipment, superclass).displayName = 'Equipment', Equipment), superclass).prototype, constructor = Equipment;
-        function Equipment(){
-          Equipment.superclass.call(this);
+      'Equipment': EquipmentModel = (function(superclass){
+        var prototype = extend$((import$(EquipmentModel, superclass).displayName = 'EquipmentModel', EquipmentModel), superclass).prototype, constructor = EquipmentModel;
+        function EquipmentModel(){
+          EquipmentModel.superclass.call(this);
           this.weight = 0.0;
-          this.level = 0;
           this.durability = 0;
+          this.defPhy = 0;
+          this.defMag = 0;
+          this.defFir = 0;
+          this.defLit = 0;
+          this.defTox = 0;
+          this.defBlo = 0;
+          this.defCur = 0;
+          this.matSetId = 0;
+          this.upgradeCost = 0;
           this.upgradeId = -1;
-          this.defN = 0;
-          this.defM = 0;
-          this.defF = 0;
-          this.defL = 0;
-          this.defT = 0;
-          this.defB = 0;
-          this.defC = 0;
         }
-        Object.defineProperty(prototype, 'fullName', {
-          get: function(){
-            return this.name + (this.level > 0 ? " " + this.levelText : "");
-          },
-          configurable: true,
-          enumerable: true
-        });
-        Object.defineProperty(prototype, 'levelText', {
-          get: function(){
-            if (this.level > 0) {
-              return "+" + this.level;
-            } else {
-              return "";
-            }
-          },
-          configurable: true,
-          enumerable: true
-        });
-        return Equipment;
-      }(Item)),
-      'Weapon': Weapon = (function(superclass){
-        var prototype = extend$((import$(Weapon, superclass).displayName = 'Weapon', Weapon), superclass).prototype, constructor = Weapon;
-        function Weapon(){
-          Weapon.superclass.call(this);
+        return EquipmentModel;
+      }(ItemModel)),
+      'Weapon': WeaponModel = (function(superclass){
+        var prototype = extend$((import$(WeaponModel, superclass).displayName = 'WeaponModel', WeaponModel), superclass).prototype, constructor = WeaponModel;
+        function WeaponModel(){
+          WeaponModel.superclass.call(this);
           this.itemType = 'weapon';
-          this.wepCat = '';
-          this.canB = false;
-          this.canP = false;
-          this.isMag = false;
-          this.isPyr = false;
-          this.isMir = false;
-          this.isGhost = false;
-          this.iconId = 0;
-          this.isDmgReg = false;
-          this.isDmgStr = false;
-          this.isDmgSl = false;
-          this.isDmgThr = false;
-          this.isAug = false;
-          this.reqS = 0;
-          this.reqD = 0;
-          this.reqI = 0;
-          this.reqF = 0;
-          this.dmgN = 0;
-          this.dmgM = 0;
-          this.dmgF = 0;
-          this.dmgL = 0;
-          this.dmgS = 0;
-          this.dmgP = 0;
-          this.scS = 0;
-          this.scD = 0;
-          this.scI = 0;
-          this.scF = 0;
-          this.defS = 0;
-          this.defP = 0;
-          this.divMod = 0;
-          this.occMod = 0;
-          this.upCost = 0;
+          this.weaponType = '';
+          this.weaponSubtype = '';
           this.path = '';
+          this.canBlock = false;
+          this.canParry = false;
+          this.castsMagic = false;
+          this.castsPyromancy = false;
+          this.castsMiracles = false;
+          this.damagesGhosts = false;
+          this.isAugmentable = false;
+          this.doesRegularDamage = false;
+          this.doesStrikeDamage = false;
+          this.doesSlashDamage = false;
+          this.doesThrustDamage = false;
+          this.reqStr = 0;
+          this.reqDex = 0;
+          this.reqInt = 0;
+          this.reqFai = 0;
+          this.atkPhy = 0;
+          this.atkMag = 0;
+          this.atkFir = 0;
+          this.atkLit = 0;
+          this.atkStaCost = 0;
+          this.bonusStr = 0;
+          this.bonusDex = 0;
+          this.bonusInt = 0;
+          this.bonusFai = 0;
+          this.defSta = 0;
+          this.divine = 0;
+          this.occult = 0;
           this.range = 0;
-          this.upgrades = [];
+          this.atkBlo = 0;
+          this.dmgBlo = 0;
+          this.atkTox = 0;
+          this.dmgTox = 0;
+          this.atkHeal = 0;
         }
-        return Weapon;
-      }(Equipment)),
-      'Armor': Armor = (function(superclass){
-        var prototype = extend$((import$(Armor, superclass).displayName = 'Armor', Armor), superclass).prototype, constructor = Armor;
-        function Armor(){
-          Armor.superclass.call(this);
-          this.itemType = '';
+        return WeaponModel;
+      }(EquipmentModel)),
+      'Armor': ArmorModel = (function(superclass){
+        var prototype = extend$((import$(ArmorModel, superclass).displayName = 'ArmorModel', ArmorModel), superclass).prototype, constructor = ArmorModel;
+        function ArmorModel(){
+          ArmorModel.superclass.call(this);
+          this.itemType = 'armor';
           this.armorType = '';
           this.armorSet = '';
-          this.sell = 0;
-          this.iconId = 0;
-          this.defSl = 0;
-          this.defSt = 0;
-          this.defTh = 0;
-          this.stRec = 0;
+          this.defSlash = 0;
+          this.defStrike = 0;
+          this.defThrust = 0;
+          this.defPoise = 0;
+          this.staRegenMod = 0;
         }
         Object.defineProperty(prototype, 'sortType', {
           get: function(){
@@ -2737,9 +2784,17 @@ arguments[4][15][0].apply(exports,arguments)
           configurable: true,
           enumerable: true
         });
-        return Armor;
-      }(Equipment))
+        return ArmorModel;
+      }(EquipmentModel))
     };
+  }
+  function bind$(obj, key, target){
+    return function(){ return (target || obj)[key].apply(obj, arguments) };
+  }
+  function import$(obj, src){
+    var own = {}.hasOwnProperty;
+    for (var key in src) if (own.call(src, key)) obj[key] = src[key];
+    return obj;
   }
   function extend$(sub, sup){
     function fun(){} fun.prototype = (sub.superclass = sup).prototype;
@@ -2747,14 +2802,9 @@ arguments[4][15][0].apply(exports,arguments)
     if (typeof sup.extended == 'function') sup.extended(sub);
     return sub;
   }
-  function import$(obj, src){
-    var own = {}.hasOwnProperty;
-    for (var key in src) if (own.call(src, key)) obj[key] = src[key];
-    return obj;
-  }
 }).call(this);
 
-},{}],26:[function(require,module,exports){
+},{}],30:[function(require,module,exports){
 (function(){
   angular.module("dsc").controller("PcController", function($scope, pcService){
     $scope.model = pcService.loadUserData();
@@ -2764,7 +2814,7 @@ arguments[4][15][0].apply(exports,arguments)
   });
 }).call(this);
 
-},{}],27:[function(require,module,exports){
+},{}],31:[function(require,module,exports){
 (function(){
   angular.module("dsc").filter("toStatArray", function(pcService){
     var output;
@@ -2781,7 +2831,7 @@ arguments[4][15][0].apply(exports,arguments)
   });
 }).call(this);
 
-},{}],28:[function(require,module,exports){
+},{}],32:[function(require,module,exports){
 (function(){
   angular.module("dsc");
   require("./service");
@@ -2789,7 +2839,7 @@ arguments[4][15][0].apply(exports,arguments)
   require("./controller/filters");
 }).call(this);
 
-},{"./controller":26,"./controller/filters":27,"./service":31}],29:[function(require,module,exports){
+},{"./controller":30,"./controller/filters":31,"./service":35}],33:[function(require,module,exports){
 (function(){
   var PcModel;
   if (typeof module != 'undefined' && module !== null) {
@@ -2821,7 +2871,7 @@ arguments[4][15][0].apply(exports,arguments)
   }
 }).call(this);
 
-},{"./PcStatModel":30}],30:[function(require,module,exports){
+},{"./PcStatModel":34}],34:[function(require,module,exports){
 (function(){
   var PcStatModel;
   if (typeof module != 'undefined' && module !== null) {
@@ -2852,7 +2902,7 @@ arguments[4][15][0].apply(exports,arguments)
   }
 }).call(this);
 
-},{}],31:[function(require,module,exports){
+},{}],35:[function(require,module,exports){
 (function(){
   angular.module("dsc").service('pcService', function(storageService){
     var x$, svc, this$ = this;
@@ -2945,7 +2995,7 @@ arguments[4][15][0].apply(exports,arguments)
   }
 }).call(this);
 
-},{"./models/PcModel":29,"./models/PcStatModel":30}],32:[function(require,module,exports){
+},{"./models/PcModel":33,"./models/PcStatModel":34}],36:[function(require,module,exports){
 (function(){
   angular.module("dsc").controller("WeaponCalcController", function($q, $scope, itemService, inventoryService, pcService, uiGridConstants){
     var x$, _addResult;
@@ -3044,7 +3094,7 @@ arguments[4][15][0].apply(exports,arguments)
   }
 }).call(this);
 
-},{"./controller/gridOptions":33}],33:[function(require,module,exports){
+},{"./controller/gridOptions":37}],37:[function(require,module,exports){
 (function(){
   if (typeof module != 'undefined' && module !== null) {
     module.exports = function(uiGridConstants){
@@ -3179,6 +3229,6 @@ arguments[4][15][0].apply(exports,arguments)
   }
 }).call(this);
 
-},{}],34:[function(require,module,exports){
-arguments[4][13][0].apply(exports,arguments)
-},{"./controller":32,"dup":13}]},{},[7]);
+},{}],38:[function(require,module,exports){
+arguments[4][14][0].apply(exports,arguments)
+},{"./controller":36,"dup":14}]},{},[7]);
