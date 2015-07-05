@@ -155,7 +155,7 @@ setTexts = (item) !->
 
 
 processUpgrades = (folder = '.') !->
-	console.log "Processing upgrades..."
+	console.log "Processing weapon upgrades..."
 
 	upgrades = []
 
@@ -166,13 +166,13 @@ processUpgrades = (folder = '.') !->
 		#console.log raw.materialSets[+rawUp.\MaterialSetId]
 
 		upgrade = { id : +rawUp.\Id }
-			..dmgModN = +rawUp.\PhysicsAtkRate
-			..dmgModM = +rawUp.\MagicAtkRate
-			..dmgModF = +rawUp.\FireAtkRate
-			..dmgModL = +rawUp.\ThunderAtkRate
-			..dmgModS = +rawUp.\StaminaAtkRate
+			..atkModN = +rawUp.\PhysicsAtkRate
+			..atkModM = +rawUp.\MagicAtkRate
+			..atkModF = +rawUp.\FireAtkRate
+			..atkModL = +rawUp.\ThunderAtkRate
+			..atkModS = +rawUp.\StaminaAtkRate
 
-			..scModP = +rawUp.\CorrectStrengthRate
+			..scModS = +rawUp.\CorrectStrengthRate
 			..scModD = +rawUp.\CorrectAgilityRate
 			..scModI = +rawUp.\CorrectMagicRate
 			..scModF = +rawUp.\CorrectFaithRate
@@ -181,19 +181,17 @@ processUpgrades = (folder = '.') !->
 			..defModM = +rawUp.\MagicGuardCutRate
 			..defModF = +rawUp.\FireGuardCutRate
 			..defModL = +rawUp.\ThunderGuardCutRate
+			..defModS = +rawUp.\StaminaGuardDefRate
 
 			..defModT = +rawUp.\PoisonGuardResistRate
 			..defModB = +rawUp.\BloodGuardResistRate
 			..defModC = +rawUp.\CurseGuardResistRate
 
-			..defModS = +rawUp.\StaminaGuardDefRate
-
-			..matId = +matSet.\MaterialId01
-			..matCost = +matSet.\ItemNum01
+			..matSetId = +rawUp.\MaterialSetId
 
 		upgrades.push upgrade
 
-	fs.writeFileSync "#{folder}/upgrades.json", JSON.stringify upgrades
+	fs.writeFileSync "#{folder}/weapon-upgrades.json", JSON.stringify upgrades
 
 
 processMaterialSets = (folder = '.') !->
@@ -322,14 +320,14 @@ processWeapons = (folder = '.')!->
 
 			switch +effect.\StateInfo
 			| effectMap.\bleed => weapon
-				..buildB = +effect.\RegistBlood
+				..atkB = +effect.\RegistBlood
 				..dmgB = +effect.\ChangeHpRate
 			| effectMap.\toxic => fallthrough
 			| effectMap.\poison => weapon
-				..buildT = +effect.\PoizonAttackPower
+				..atkT = +effect.\PoizonAttackPower
 				..dmgT = +effect.\ChangeHpPoint
 			| effectMap.\heal => weapon
-				..healHit = -1 * effect.\ChangeHpPoint
+				..atkH = -1 * effect.\ChangeHpPoint
 
 		#if (not weapon.name?) or weapon.name.indexOf(\Dagger) < 0 then continue
 

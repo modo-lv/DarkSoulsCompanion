@@ -1,0 +1,155 @@
+module?.exports = {
+
+	\Item : class ItemModel
+		->
+			# ID of the item. Can overlap between weapon types, e.g. weapons and armor.
+			@id = 0
+
+			# Broad type of the item. Possible values: item, ring, weapon, armor.
+			@itemType = \item
+
+			# More specific subtype. Armors and weapons will have their own properties,
+			# but for the rest this differentiates between spells, usables, upgrade materials, keys etc.
+			@itemSubtype = ''
+
+			# Item name.
+			@name = ''
+
+			# How many souls will be gained by feeding the item to Frampt.
+			@sellFor = 0
+
+			# ID of the item graphic. Currently unused in DSC.
+			@iconId = 0
+
+
+		/**
+		 * A unique ID that doesn't overlap between item types.
+		 */
+		uid :~ -> @itemType + @id
+
+
+	\Equipment : class EquipmentModel extends ItemModel
+		->
+			super!
+
+			# Weight when equipped
+			@weight = 0.0
+
+			# Durability
+			@durability = 0
+
+			# ID of the upgrade *currently applied* to the equipment.
+			@upgradeId = -1
+
+			# Defense values common to weapons and armor.
+			@defPhy = 0
+			@defMag = 0
+			@defFir = 0
+			@defLit = 0
+			@defTox = 0
+			@defBlo = 0
+			@defCur = 0
+
+			# How many souls it costs to upgrade this equipment
+			@upgradeCost = 0
+
+
+	\Weapon : class WeaponModel extends EquipmentModel
+		->
+			super!
+
+			@itemType = \weapon
+
+			# Broad category for this weapon, e.g. bow, sword, shield, etc.
+			@weaponCategory = ''
+
+			# Specific weapon type, e.g. Short Sword, Curved Sword, Medium Shield, etc.
+			@weapontype = ''
+
+			# Ascention path - Crystal, Raw etc.
+			@path = ''
+
+			@canBlock = false
+			@canParry = false
+			@castsMagic = false
+			@castsPyromancy = false
+			@castsMiracles = false
+
+			# Can this weapon attack and damage ghosts even when the player isn't cursed?
+			@damagesGhosts = false
+
+			@doesRegularDamage = false
+			@doesStrikeDamage = false
+			@doesSlashDamage = false
+			@doesThrustDamage = false
+
+			# Can this weapon be enchanted with magic?
+			@isAugmentable = false
+
+			# Wielding requirements
+			@reqStr = 0
+			@reqDex = 0
+			@reqInt = 0
+			@reqFai = 0
+
+			# Attack values
+			@atkPhy = 0
+			@atkMag = 0
+			@atkFir = 0
+			@atkLit = 0
+			# Poise damage (stagger)
+			@atkPoi = 0
+			# Attack stamina cost
+			@atkSta = 0
+
+			# Parameter bonuses (scaling values)
+			@bonusStr = 0
+			@bonusDex = 0
+			@bonusInt = 0
+			@bonusFai = 0
+
+			# Defense stamina cost
+			@defSta = 0
+			# Poise (stagger defense)
+			@defPoi = 0
+
+			# Divine attack modifier
+			@divine = 0
+
+			# Occult attack modifier
+			@occult = 0
+
+			# Range for bows & crossbows
+			@range = 0
+
+
+	\Armor : class ArmorModel extends EquipmentModel
+		->
+			super!
+
+			@itemType = \armor
+
+			# head, chest, legs or hands
+			@armorType = ''
+
+			# What set the armor belongs to
+			@armorSet = ''
+
+			# Specific attack type defenses
+			@defSlash = 0
+			@defStrike = 0
+			@defThrust = 0
+
+			# Stamina recovery speed modifier
+			@staRegenMod = 0
+
+
+		# Numeric armor type, for use in sorting
+		sortType :~ ->
+			switch @armorType
+			| \head => 1
+			| \chest => 2
+			| \hands => 3
+			| \legs => 4
+
+}

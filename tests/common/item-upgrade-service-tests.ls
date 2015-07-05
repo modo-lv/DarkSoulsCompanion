@@ -1,11 +1,12 @@
 _ <-! describe "item-upgrade-service"
 
-var svc, edSvc, itemSvc
+var svc, edSvc, itemModels, upModels
 
 beforeEach !->
 	edSvc := new MockExternalDataService
-	itemSvc := new (testRequire "modules/items/services/item-service") edSvc
-	svc := new (testRequire "modules/items/services/item-upgrade-service") itemSvc
+	svc := new (testRequire "modules/items/services/item-upgrade-service") edSvc
+	itemModels := testRequire 'modules/items/models/item-models'
+	upModels := testRequire 'modules/items/models/item-upgrade-models'
 
 
 it "should correctly calculate the base item ID from an upgraded one", !->
@@ -13,17 +14,23 @@ it "should correctly calculate the base item ID from an upgraded one", !->
 	expect baseId .to.equal 103000
 
 
+it "should find the correct upgrade for an item", (done) !->
+	item =
+		\upgradeId : 10000
+		\itemType : \weapon
 
-it "should find the correct base item from upgraded one", (done) !->
-	upItem =
-		\id : 103012
-		\name : "Some Weapon+12"
-	baseItem =
-		\id : 103000
-		\name : "Some Weapon"
+	upgrade =
+		\id : 10012
 
-	edSvc.loadJsonReturnValue = [ upItem, baseItem ]
+	edSvc.loadJsonReturnValue = [ upgrade ]
 
-	expect svc.findBaseItemOf upItem
-		.to.eventually.equal baseItem
+	expect svc.findUpgradeFor item, 12
+		.to.eventually.equal upgrade
 		.notify done
+
+
+it "should apply an upgrade correctly", (done) !->
+	itemModel = new itemModels.Weapon!
+	upModel = new upModels.Weapon
+
+	done!

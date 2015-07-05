@@ -1,9 +1,11 @@
-angular? .module "dsc" .service "itemUpgradeSvc" (itemSvc) ->
-	new ItemUpgradeService itemSvc
+angular? .module "dsc" .service "itemUpgradeSvc" (externalDataSvc) ->
+	new ItemUpgradeService externalDataSvc
 
 class ItemUpgradeService
 
-	(@itemSvc) ->
+	(@externalDataSvc) ->
+		# Holds the upgrade data for weapons and armor
+		@_upgrades = {}
 
 
 	getBaseItemIdFrom : (id) !~>
@@ -15,11 +17,28 @@ class ItemUpgradeService
 
 
 	/**
-	 * Find the un-upgraded base version of a given item
-	 * @returns Promise that resolves with the found base item
+	 * Get the upgrade model for a given weapon at a given upgrade level
+	 * @returns Promise, resolved with the upgrade (or null if nothing found)
 	 */
-	findBaseItemOf : (item) ~>
-		@itemSvc.findItem item.itemType, ~> it.id == @getBaseItemIdOf item
+	findUpgradeFor : (item, level) ~>
+		@getAllUpgrades item.itemType .then (upgrades) ->
+			upgrades |> find (.id == item.upgradeId + level)
+
+
+	/**
+	 * Load information on all upgrades for a given item type
+	 * @returns Promise resolved with the upgrade data
+	 */
+	getAllUpgrades : (itemType) ~>
+		if itemType != \weapon and itemType != \armor
+			throw new Error "Only weapons and armor can be upgraded."
+
+		if not @_upgrades.[][itemType].$promise?
+			@_upgrades.[itemType] = @externalDataSvc.loadJson "/modules/items/content/#{itemType}-upgrades.json", false
+
+		return @_upgrades.[itemType].$promise
+
+
 
 
 module?.exports = ItemUpgradeService
