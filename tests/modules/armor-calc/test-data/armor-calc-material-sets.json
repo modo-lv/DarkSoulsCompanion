@@ -1,0 +1,32 @@
+[
+  {
+    "id": 7100,
+    "matId": -1,
+    "matCost": -1
+  },
+  {
+    "id": 7101,
+    "matId": 100,
+    "matCost": 1
+  },
+  {
+    "id": 7102,
+    "matId": 100,
+    "matCost": 1
+  },
+  {
+    "id": 7103,
+    "matId": 100,
+    "matCost": 2
+  },
+  {
+    "id": 7104,
+    "matId": 100,
+    "matCost": 2
+  },
+  {
+    "id": 7105,
+    "matId": 101,
+    "matCost": 1
+  }
+]

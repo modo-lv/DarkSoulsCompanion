@@ -1,0 +1,116 @@
+[
+  {
+    "id" : 10000,
+    "uid" : "armor10000",
+    "itemType" : "armor",
+    "name" : "Unique helmet"
+  },
+  {
+    "id" : 11000,
+    "uid" : "armor11000",
+    "itemType" : "armor",
+    "name" : "Normal shirt"
+  },
+  {
+    "id" : 11001,
+    "uid" : "armor11001",
+    "itemType" : "armor",
+    "name" : "Normal shirt +1"
+  },
+  {
+    "id" : 11002,
+    "uid" : "armor11002",
+    "itemType" : "armor",
+    "name" : "Normal shirt +2"
+  },
+  {
+    "id" : 11003,
+    "uid" : "armor11003",
+    "itemType" : "armor",
+    "name" : "Normal shirt +3"
+  },
+  {
+    "id" : 11004,
+    "uid" : "armor11004",
+    "itemType" : "armor",
+    "name" : "Normal shirt +4"
+  },
+  {
+    "id" : 11005,
+    "uid" : "armor11005",
+    "itemType" : "armor",
+    "name" : "Normal shirt +5"
+  },
+  {
+    "id" : 12000,
+    "uid" : "armor12000",
+    "itemType" : "armor",
+    "name" : "Normal gloves"
+  },
+  {
+    "id" : 12001,
+    "uid" : "armor12001",
+    "itemType" : "armor",
+    "name" : "Normal gloves +1"
+  },
+  {
+    "id" : 12002,
+    "uid" : "armor12002",
+    "itemType" : "armor",
+    "name" : "Normal gloves +2"
+  },
+  {
+    "id" : 12003,
+    "uid" : "armor12003",
+    "itemType" : "armor",
+    "name" : "Normal gloves +3"
+  },
+  {
+    "id" : 12004,
+    "uid" : "armor12004",
+    "itemType" : "armor",
+    "name" : "Normal gloves +4"
+  },
+  {
+    "id" : 12005,
+    "uid" : "armor12005",
+    "itemType" : "armor",
+    "name" : "Normal gloves +5"
+  },
+  {
+    "id" : 13000,
+    "uid" : "armor13000",
+    "itemType" : "armor",
+    "name" : "Normal boots"
+  },
+  {
+    "id" : 13001,
+    "uid" : "armor13001",
+    "itemType" : "armor",
+    "name" : "Normal boots +1"
+  },
+  {
+    "id" : 13002,
+    "uid" : "armor13002",
+    "itemType" : "armor",
+    "name" : "Normal boots +2"
+  },
+  {
+    "id" : 13003,
+    "uid" : "armor13003",
+    "itemType" : "armor",
+    "name" : "Normal boots +3"
+  },
+  {
+    "id" : 13004,
+    "uid" : "armor13004",
+    "itemType" : "armor",
+    "name" : "Normal boots +4"
+  },
+  {
+    "id" : 13005,
+    "uid" : "armor13005",
+    "itemType" : "armor",
+    "name" : "Normal boots +5"
+  }
+]

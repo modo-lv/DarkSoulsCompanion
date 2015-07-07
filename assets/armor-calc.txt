@@ -1,0 +1,24 @@
+Take all armors within weight limit from inventory
+
+Split off un-upgradables
+
+Add empty hands
+
+for each set
+  for each piece
+    add to set
+    if set full or over weight, stop
+  if set over weight, discard
+  
+for each set remaining
+  calculate score
+  
+take the best X sets, extract armor piecies
+
+find and add all upgrades to armor pieces
+
+combine the result with non-upgradables
+
+for every combination
+  calculate score
+  add to results

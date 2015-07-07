@@ -1,0 +1,46 @@
+[
+  {
+    "id": 100,
+    "uid" : "item100",
+    "itemType": "item",
+    "name": "Titanite Shard",
+    "amount": 100
+  },
+  {
+    "id": 101,
+    "uid" : "item101",
+    "itemType": "item",
+    "name": "Titanite Slab",
+    "amount": 2
+  },
+
+  {
+    "id": 10000,
+    "uid": "armor10000",
+    "itemType" : "armor",
+    "armorType" : "head",
+    "amount": 1
+  },
+  {
+    "id": 11000,
+    "uid": "armor11000",
+    "itemType" : "armor",
+    "armorType" : "chest",
+    "amount": 1
+  },
+  {
+    "id": 12004,
+    "uid": "armor12004",
+    "itemType" : "armor",
+    "armorType" : "hands",
+    "name" : "Normal Gloves +4",
+    "amount": 1
+  },
+  {
+    "id": 13000,
+    "uid": "armor13000",
+    "itemType" : "armor",
+    "armorType" : "legs",
+    "amount": 1
+  }
+]
