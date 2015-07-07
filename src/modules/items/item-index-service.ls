@@ -8,6 +8,14 @@ class ItemIndexService
 		@_armorSetIndex = []
 
 
+	clear : ~>
+		@_index.length = 0
+		delete @_index.$promise
+		@_armorSetIndex.length = 0
+		delete @_armorSetIndex.$promise
+		return this
+
+
 	/**
 	 * Finds the first item matching a given filter.
 	 * @param byFilter Function filter function that takes item as
@@ -17,13 +25,17 @@ class ItemIndexService
 	findEntry : (byFilter) !~>
 		if typeof byFilter != \function
 			throw new Error "[byFilter] is not a function."
-		return @getAllEntries!.then ~> it |> find byFilter
+		return @loadAllEntries!.then ~> it |> find byFilter
 
 
 	findEntries : (byFilter) !~>
 		if typeof byFilter != \function
 			throw new Error "[byFilter] is not a function."
-		return @getAllEntries!.then ~> it |> filter byFilter
+		return @loadAllEntries!.then ~> it |> filter byFilter
+
+
+	findArmorSetFor : (item) !~>
+		return @loadAllArmorSetEntries!.then ~> it |> find (.uid == item.uid)
 
 
 	findByArmorSet : (setName) !~>
@@ -43,7 +55,7 @@ class ItemIndexService
 		return if returnPromise then @_armorSetIndex.$promise else @_armorSetIndex
 
 
-	getAllEntries : (returnPromise = true) !~>
+	loadAllEntries : (returnPromise = true) !~>
 		if not @_index.$promise?
 			@_index = @externalDataSvc.loadJson '/modules/items/content/index.json', false
 

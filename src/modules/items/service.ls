@@ -4,7 +4,7 @@ angular.module "dsc"
 		\TitaniteShard : 1000
 	}
 
-$resource, $ItemIds, $q <-! angular .module "dsc" .service "itemService"
+$resource, $ItemIds, $q <-! angular .module "dsc" .service "itemSvc"
 
 svc = {
 	# Items in separate arrays, grouped by type

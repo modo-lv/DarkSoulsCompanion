@@ -1,19 +1,16 @@
-angular? .module "dsc" .service "inventorySvc" (storageSvc, itemIndexSvc) ->
-	new InventorySvc storageSvc, itemIndexSvc
+angular? .module "dsc" .service "inventorySvc" (storageSvc, itemIndexSvc, $q) ->
+	new InventorySvc storageSvc, itemIndexSvc, $q
 
 class InventorySvc
 
-	(@storageSvc, @itemIndexSvc) ->
+	(@storageSvc, @itemIndexSvc, @$q) ->
 		@_inventory = []
 		@_models = require './models/inventory-models'
 
 
-	inventory :~ -> @load false
-
-
 	save : !~>
 		data = []
-		for item in @inventory
+		for item in @_inventory
 			data.push {
 				\uid : item.uid
 				\amount : item.amount
@@ -21,58 +18,77 @@ class InventorySvc
 		@storageSvc.save 'inventory', data
 
 
-	load : (force = true) !~>
-		if force or @_inventory |> empty
+	load : (returnPromise = true) !~>
+		if not @_inventory.$promise?
 			@clear!
-			@storageSvc.load 'inventory'
-			|> each (item) !~> @_inventory.push(new @_models.InventoryItem item)
+			promises = []
+			for data in @storageSvc.load 'inventory'
+				promise = ((data) ~>
+					item = new @_models.InventoryItem data
+					@itemIndexSvc.findEntry (.uid == data.uid)
+					.then (indexEntry) !~>
+						item.useDataFrom indexEntry
+						@_inventory.push item
+						return item
+				) data
 
-			for invItem in @_inventory
-				((ii) !~> ii.$promise =
-					@itemIndexSvc.findEntry (.uid == ii.uid)
-					.then (item) -> ii.useDataFrom item
-				)(invItem)
+				promises.push promise
 
-		return @_inventory
+			@_inventory.$promise = @$q.all promises .then ~> @_inventory
+
+		return if returnPromise then @_inventory.$promise else @_inventory
 
 
 	findItemByUid : (uid) ~>
-		@inventory |> find (.uid == uid)
+		@load!.then (inventory) ~>
+			inventory |> find (.uid == uid)
 
 
 	find : (item) ~>
+		if not item.uid?
+			throw new Error "Can't find an item without UID."
 		@findItemByUid item.uid
 
 
-	add : (item, amount = item.amount ? 1) !~>
-		existing = @find item
-		if existing
-			existing.amount += amount
-		else
-			new @_models.InventoryItem
-				..useDataFrom item
-				..amount = amount
-				.. |> @inventory.push
-
-		@save!
+	createInventoryItemFrom : (item, amount = 1) ~>
+		new @_models.InventoryItem
+			..useDataFrom item
+			..amount = amount
 
 
-	remove : (item, amount = 1) !~>
-		entry = @find item
-		if not entry?
-			console.log item
-			throw new Error "Failed to remove the above item because couldn't find it in the inventory."
+	add : (item, amount = 1) ~>
+		@find item
+		.then (invItem) !~>
+			if invItem?
+				invItem.amount += amount
+			else
+				invItem = @createInventoryItemFrom item, amount
+					.. |> @_inventory.push
 
-		entry.amount = if amount == true then 0 else entry.amount -= amount
+			@save!
+			return invItem
 
-		if entry.amount < 1
-			@inventory.splice (@inventory.indexOf entry), 1
 
-		@save!
+	remove : (item, amount = 1) ~>
+		@find item
+		.then (entry) !~>
+			if not entry?
+				throw new Error "Failed to remove the above item because couldn't find it in the inventory."
+
+			entry.amount = if amount == true then 0 else entry.amount -= amount
+
+			if entry.amount < 1
+				@_inventory.splice (@_inventory.indexOf entry), 1
+
+			@save!
+			return entry
+
 
 
 	clear : !~>
 		@_inventory.length = 0
+		delete @_inventory.$promise
+		return this
 
 
 

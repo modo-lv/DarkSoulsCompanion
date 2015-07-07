@@ -1,9 +1,9 @@
-$q, $scope, itemService, inventoryService, pcService, uiGridConstants <-! angular.module "dsc" .controller "ArmorCalcController"
+$q, $scope, itemSvc, itemUpgradeSvc, inventorySvc, pcService, uiGridConstants <-! angular.module "dsc" .controller "ArmorCalcController"
 
 $scope.results = []
 
 $scope.maxLoad = 0
-$scope.reservedWeight = 50
+$scope.reservedWeight = 40
 $scope.availableLoad = 0
 
 
@@ -31,7 +31,7 @@ _calcScoresFor = (set) !->
 		def : 0
 	}
 	for item, key in set
-		def = (item.defN + item.defSt + item.defSl + item.defTh) / 4
+		def = (item.defPhy + item.defStrike + item.defSlash + item.defThrust) / 4
 
 		score = def
 
@@ -55,23 +55,22 @@ _addAvailableUpgradesTo = (armors, inventory) !->
 	fullArmorList = []
 	for armor in armors
 
+		fullArmorList.push armor
+
 		if armor.id < 0 or armor.upgradeId < 0 then
-			fullArmorList.push armor
 			continue
 
 		materials = inventory |> map -> {} <<< it
-		for iteration from 1 to 10
-			((armor, materials, iteration) !->
+		for level from 1 to 10
+			((armor, materials, level) !->
 				promise := promise
-				.then !->
-					#console.log "Then1"
-					return itemService.canUpgradeWithMaterials armor, materials, iteration
+				.then ->
+					itemUpgradeSvc .are materials .enoughToUpgrade armor, level
 				.then (canUpgrade) !->
-					#console.log "Then2", canUpgrade
 					if canUpgrade
 						return $q.all [
-							itemService.getUpgradedVersionOf armor, iteration
-							itemService.payForUpgradeFor armor, materials, iteration
+							itemSvc.getUpgraded armor, level
+							itemUpgradeSvc.deductFrom materials .costOfUpgrade armor, level
 						]
 					else
 						materials.length = 0
@@ -81,7 +80,7 @@ _addAvailableUpgradesTo = (armors, inventory) !->
 					#console.log "then4", armor
 					if upArmor?
 						fullArmorList.push upArmor
-			) armor, materials, iteration
+			) armor, materials, level
 
 	promise.then -> def.resolve fullArmorList
 
@@ -92,26 +91,27 @@ $scope.calculate = (type = 'offence') !->
 	$scope.freeWeight = $scope.maxLoad - $scope.reservedWeight
 	results = []
 
-	inventory = inventoryService.loadUserInventory!
-	inventory.$promise
-	.then -> itemService.loadItemData \armors .$promise
-	.then (armors) !->
-		availableArmors = inventory
+	inventorySvc.load!
+	.then (inventory) ->
+		$q.all(inventory
 			|> filter ( .itemType == \armor )
-			|> map (inv) -> armors |> find ( .id == inv.id )
-			|> reject ( .weight > $scope.freeWeight )
-
+			|> map (inv) ->
+				itemSvc.findAnyItem (.uid == inv.uid)
+		)
+	.then (armors) ->
+		availableArmors = armors |> reject ( .weight > $scope.freeWeight )
 
 		# First pass — find the best of the upgradeables
 		staticArmors = availableArmors |> filter (.upgradeId < 0)
 		dynamicArmors = availableArmors |> reject (.upgradeId < 0)
 
 		for part, key in $scope.partNames
-			new itemService.models.Armor
-				..name = "(nothing)"
-				..id = -(key + 1)
-				..armorType = part
-				.. |> dynamicArmors.push
+			dynamicArmors.push <| itemSvc.createItemModel {
+				name : "(nothing)"
+				id : -(key + 1)
+				armorType : part
+				itemType : \armor
+			}
 
 		for head in dynamicArmors |> filter ( .armorType == \head )
 			for chest in dynamicArmors |> filter ( .armorType == \chest )
@@ -133,8 +133,12 @@ $scope.calculate = (type = 'offence') !->
 
 		fitArmors = staticArmors ++ (bestArmors |> values)
 
-		return _addAvailableUpgradesTo (fitArmors |> Obj.values), inventory
-
+		inventorySvc.load!
+		.then (inventory) -> [fitArmors, inventory |> reject (.itemType != \item)]
+	.then (data) ->
+		fitArmors = data.0
+		inventory = data.1
+		_addAvailableUpgradesTo (fitArmors |> Obj.values), inventory
 	.then (availableArmors) !->
 		# Generate all possible combinations
 		results = []

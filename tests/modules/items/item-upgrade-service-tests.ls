@@ -10,7 +10,7 @@ beforeEach !->
 
 
 it "should correctly calculate the base item ID from an upgraded one", !->
-	baseId = svc.getBaseItemIdFrom 103012
+	baseId = svc.getBaseIdFrom 103012
 	expect baseId .to.equal 103000
 
 
@@ -42,6 +42,79 @@ it "should load upgrade data correctly", (done) !->
 
 	edSvc.loadJsonReturnValue = [ upData ]
 
-	expect svc.getAllUpgrades \weapon
+	expect svc.loadAllUpgrades \weapon
 		.to.eventually.have.members [ upData ]
 		.notify done
+
+
+it "should find correct materials for upgrade", (done) !->
+	matSet =
+		\id : 7201
+
+	edSvc.loadJsonReturnValue = [ matSet ]
+
+	upgrade =
+		\id : 100
+		\matSetId : 1
+
+	item =
+		\id : 500
+		\matSetId : 7200
+
+
+	expect svc.findUpgradeMaterialsFor item, upgrade
+		.to.eventually.equal matSet
+		.notify done
+
+
+it "should correctly tell when materials are enough for an upgrade", (done) !->
+	edSvc.loadJsonReturnValue = [
+		{ \id : 1, \matId : 100, \matCost : 2 }
+	]
+
+	svc.loadAllMaterialSets!
+	.then ->
+		edSvc.loadJsonReturnValue = [
+			{ \id : 1, \matSetId : 1 }
+		]
+		materials = [
+			{
+				\id : 100
+				\amount : 3
+			}
+		]
+		armor = {
+			\upgradeId : 0
+			\matSetId : 0
+			\itemType : \armor
+		}
+		svc.are materials .enoughToUpgrade armor, 1
+	.then (result) ->
+		expect(result).to.be.true
+		done!
+	.catch done
+
+
+it "should correctly deduct upgrade cost from materials", (done) !->
+	edSvc.loadJsonReturnValue = [
+		{ \id : 7009, \matId : 100, \matCost : 2 }
+	]
+	materials = [
+		{ \id : 100, \amount : 5 }
+	]
+	armor = {
+		\upgradeId : 9
+		\matSetId : 7009
+		\itemType : \armor
+	}
+
+	svc.loadAllMaterialSets!
+	.then ->
+		edSvc.loadJsonReturnValue = [
+			{ \id : 9, \matSetId : 9 }
+		]
+		svc.deductFrom materials .costOfUpgrade armor, 9
+	.then !->
+		expect(materials.0).to.have.property \amount, 3
+		done!
+	.catch done

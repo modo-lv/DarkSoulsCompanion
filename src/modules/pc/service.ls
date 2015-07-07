@@ -1,4 +1,4 @@
-storageService <-! angular.module "dsc" .service 'pcService'
+storageSvc <-! angular.module "dsc" .service 'pcService'
 ###
 
 svc = {}
@@ -20,7 +20,7 @@ svc.forEachStat = (model = svc.data, func) !~>
 
 
 svc.loadUserData = !->
-	data = storageService.load 'pc' ? {}
+	data = storageSvc.load 'pc' ? {}
 	model = (new svc.PcModel svc) <<< data
 
 	model.forEachStat (stat, name) ->
@@ -42,7 +42,7 @@ svc.saveUserData = (model = svc.data) !->
 		if key != \stats
 			delete data[key]
 
-	storageService.save 'pc', data
+	storageSvc.save 'pc', data
 
 
 svc.statScalingFactorOf= (name) !->

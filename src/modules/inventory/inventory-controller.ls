@@ -1,4 +1,4 @@
-$scope, uiGridConstants, itemSvc, itemIndexSvc, storageSvc, inventorySvc <-! angular.module "dsc" .controller "InventoryController"
+$scope, uiGridConstants, itemSvc, itemIndexSvc, itemUpgradeSvc, storageSvc, inventorySvc, dataExportSvc <-! angular.module "dsc" .controller "InventoryController"
 
 ### SETUP
 
@@ -18,23 +18,38 @@ $scope.gridOptions = (require './config/inventory-grid-opts') uiGridConstants
 
 ### LOAD DATA
 
-$scope.allItems = itemIndexSvc.getAllEntries false
+$scope.allItems = itemIndexSvc.loadAllEntries false
 
 $scope.armorSets = itemIndexSvc.loadAllArmorSetEntries false
 
-$scope.gridOptions.data = inventorySvc.inventory
+$scope.gridOptions.data = inventorySvc.load false
 
 
 # Event handlers
+$scope.export = !->
+
+
+$scope.canUpgrade = (item) !->
+	return item |> itemUpgradeSvc.canBeUpgraded
+	
+$scope.upgrade = (invEntry) ->
+	itemSvc.findAnyItem (.uid == invEntry.uid)
+	.then (item) ->
+		itemSvc.getUpgraded item
+	.then (upItem) !->
+		if not upItem? then return
+		$scope.remove invEntry
+		$scope.add upItem
+
 $scope.addNewItem = (selection) !->
-	$scope.addItem selection.originalObject
+	$scope.add selection.originalObject
 
-$scope.addItem = (item) !-> inventorySvc.add item
+$scope.add = inventorySvc.add
 
-$scope.removeItem = inventorySvc.remove
+$scope.remove = inventorySvc.remove
 
 $scope.addArmorSet = (selection) !->
 	armorSet = selection.originalObject
 
 	itemIndexSvc.findByArmorSet armorSet
-	.then (armors) !-> armors |> each $scope.addItem
+	.then (armors) !-> armors |> each $scope.add

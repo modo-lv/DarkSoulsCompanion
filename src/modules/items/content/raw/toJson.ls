@@ -164,10 +164,7 @@ loadMaterialSets = !->
 			raw.{}materialSets[row.\Id] = row
 		rawDataLoaded!
 
-
-
-
-setTexts = (item) !->
+setName = (item) !->
 	uid = item.itemType + item.id
 	item.name = raw.names[uid]
 
@@ -233,7 +230,7 @@ processItems = (folder = '.') !->
 	for key, rawItem of raw.items
 		item = { id : +rawItem.\Id }
 			..itemType = \item
-			.. |> setTexts
+			.. |> setName
 			..sell = +rawItem.\SellValue
 
 		if not item.name? or item.name.length < 1
@@ -261,7 +258,7 @@ processWeapons = (folder = '.')!->
 		weapon = {}
 			..id = +rawWeapon.\Id
 			..itemType = \weapon
-			.. |> setTexts
+			.. |> setName
 			..sellValue = +rawWeapon.\SellValue
 			..durability = +rawWeapon.\DurabilityMax
 			..weight = +rawWeapon.\Weight
@@ -349,6 +346,14 @@ processWeapons = (folder = '.')!->
 		weapons.push weapon
 
 		weapon |> $addToIndex
+		# Also add to index all the upgrade versions
+		for a from 1 to 10
+			{
+				\id : weapon.id + a
+				\itemType : \weapon
+			}
+				.. |> setName
+				.. |> $addToIndex if ..name?
 
 	fs.writeFileSync "#{folder}/weapons.json", JSON.stringify weapons
 
@@ -361,7 +366,7 @@ processArmor = (folder) !->
 		armor = {}
 			..id = +armorData.\Id
 			..itemType = \armor
-			.. |> setTexts
+			.. |> setName
 			..durability = +armorData.\DurabilityMax
 			..weight = +armorData.\Weight
 			..sellValue = +armorData.\SellValue
@@ -414,6 +419,16 @@ processArmor = (folder) !->
 		armor
 			.. |> $addToIndex
 			.. |> $addToSetIndex
+
+		# Also add to index all the upgrade versions
+		for a from 1 to 10
+			upArmor = {
+				\id : armor.id + a
+				\itemType : \armor
+			}
+				.. |> setName
+				.. |> $addToIndex if ..name?
+
 
 
 	fs.writeFileSync "#{folder}/armors.json", JSON.stringify armors

@@ -1,6 +1,7 @@
 global
 	.. <<< require \chai
 	..use require \chai-as-promised
+	..use require \chai-properties
 	.. <<< require \prelude-ls
 	..sinon = require \sinon
 	..$q = require \q

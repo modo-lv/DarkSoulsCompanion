@@ -1,4 +1,4 @@
-$q, $scope, itemService, inventoryService, pcService, uiGridConstants <-! angular.module "dsc" .controller "WeaponCalcController"
+$q, $scope, itemSvc, inventorySvc, pcService, uiGridConstants <-! angular.module "dsc" .controller "WeaponCalcController"
 
 $scope.results = []
 
@@ -43,9 +43,9 @@ _addResult = (type, weapon) !->
 $scope.calculate = (type = 'offence') !->
 	$scope.gridOptions.data = []
 
-	items = itemService.loadItemData \items
-	weapons = itemService.loadItemData \weapons
-	inventory = inventoryService.loadUserInventory!
+	items = itemSvc.loadItemData \items
+	weapons = itemSvc.loadItemData \weapons
+	inventory = inventorySvc.loadUserInventory!
 
 	$q.all [weapons.$promise, items.$promise] .then ->
 		availableWeapons = (inventory |> map (item) -> weapons |> find (.id == item.id)) |> reject ->
@@ -63,13 +63,13 @@ $scope.calculate = (type = 'offence') !->
 					promise := promise
 					.then !->
 						#console.log "Then1"
-						return itemService.canUpgradeWithMaterials weapon, materials, iteration
+						return itemSvc.canUpgradeWithMaterials weapon, materials, iteration
 					.then (canUpgrade) !->
 						#console.log "Then2", canUpgrade
 						if canUpgrade
 							return $q.all [
-								itemService.getUpgradedVersionOf weapon, iteration
-								itemService.payForUpgradeFor weapon, materials, iteration
+								itemSvc.getUpgradedVersionOf weapon, iteration
+								itemSvc.payForUpgradeFor weapon, materials, iteration
 							]
 						else
 							materials.length = 0

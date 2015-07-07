@@ -1,5 +1,5 @@
 angular.module "dsc"
-	.service 'dataExportService', ->
+	.service 'dataExportSvc', ->
 		{
 			exportJson : (data) !->
 				window.open encodeURI "data:application/json,#{JSON.stringify data }"

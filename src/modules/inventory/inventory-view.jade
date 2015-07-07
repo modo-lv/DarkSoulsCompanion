@@ -19,11 +19,22 @@
 		minlength=1
 	)
 
+	button(ng-click="export()") Export (JSON)
+
 
 	// Grid
 	div(ui-grid-auto-resize ui-grid="gridOptions")
 
 	// Grid action buttons
 	script(id="GridRowHeader.html" type="text/ng-template")
-		button(ng-click="grid.appScope.addItem(row.entity)") +
-		button(ng-click="grid.appScope.removeItem(row.entity)") −
+		button(ng-click="grid.appScope.add(row.entity)")
+			| +
+
+		button(
+			ng-click="grid.appScope.upgrade(row.entity)"
+			title="Upgrade"
+			ng-disabled="!grid.appScope.canUpgrade(row.entity)"
+			) ⇈
+
+		button(ng-click="grid.appScope.remove(row.entity)")
+			| −

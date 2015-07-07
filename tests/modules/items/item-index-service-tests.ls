@@ -28,7 +28,7 @@ it "should return all items when asked", (done) !->
 
 	edSvc.loadJsonReturnValue = sample
 
-	expect svc.getAllEntries!
+	expect svc.loadAllEntries!
 		.to.eventually.have.length 2
 		.notify done
 
