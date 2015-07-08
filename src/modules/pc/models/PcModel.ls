@@ -11,11 +11,11 @@ module?.exports = class PcModel
 		\humanity
 	]
 
-	(@pcService) ->
+	(@pcSvc) ->
 		@forEachStat (stat, name) -> new (require './PcStatModel') name
 
 	forEachStat : (func) !~>
-		@pcService.forEachStat this, func
+		@pcSvc.forEachStat this, func
 
 	validate : !~> @forEachStat !->
 		it.base = max 8, min 99, it.base

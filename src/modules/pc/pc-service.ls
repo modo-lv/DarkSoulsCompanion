@@ -1,4 +1,4 @@
-storageSvc <-! angular.module "dsc" .service 'pcService'
+storageSvc <-! angular.module "dsc" .service 'pcSvc'
 ###
 
 svc = {}

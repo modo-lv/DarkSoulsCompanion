@@ -1,0 +1,6 @@
+#Pc
+	table
+		tr(ng-repeat="stat in model.stats | toStatArray")
+			td {{stat.displayName}}:
+			td
+				input(type="number" min=8 max="99" ng-model="stat.base" ng-change="saveStats()")

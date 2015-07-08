@@ -1,5 +1,5 @@
 doctype html
-html
+html(ng-app="dsc")
 	head
 		meta(charset="UTF-8")
 
@@ -24,14 +24,11 @@ html
 		link(rel="stylesheet" href="style.css")
 		script(src="app.js")
 
-body(ng-app="dsc")
-	nav
-		ul
-			li: a(href="#/guide") Guide
-			li: a(href="#/inventory") Inventory
-			li: a(href="#/w-calc") Weapon calculator
-			li: a(href="#/a-calc") Armor calculator
-			li: a(href="#/stats") Stats
-			li: a(href="#/items") Items
+body(ng-controller="mainController")
+	.page
+		nav
+			ul
+				li(ng-repeat="item in menu" ng-class="{current: $parent.thisLocation.indexOf(item.path)==0}")
+					a(href="#{{item.path}}") {{item.name}}
 
-	div(ng-view)
+		.main-content(ng-view)

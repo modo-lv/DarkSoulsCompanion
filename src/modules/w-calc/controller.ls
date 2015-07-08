@@ -1,4 +1,4 @@
-$q, $scope, itemSvc, inventorySvc, pcService, uiGridConstants <-! angular.module "dsc" .controller "WeaponCalcController"
+$q, $scope, itemSvc, inventorySvc, pcSvc, uiGridConstants <-! angular.module "dsc" .controller "WeaponCalcController"
 
 $scope.results = []
 
@@ -12,15 +12,15 @@ $scope.gridOptions = (require './controller/gridOptions') uiGridConstants
 
 
 _addResult = (type, weapon) !->
-	scS = pcService.statScalingFactorOf \strength
-	scD = pcService.statScalingFactorOf \dexterity
-	scI = pcService.statScalingFactorOf \intelligence
-	scF = pcService.statScalingFactorOf \faith
+	scS = pcSvc.statScalingFactorOf \strength
+	scD = pcSvc.statScalingFactorOf \dexterity
+	scI = pcSvc.statScalingFactorOf \intelligence
+	scF = pcSvc.statScalingFactorOf \faith
 
-	str = $scope.statBonus + pcService.statValueOf \strength
-	dex = $scope.statBonus + pcService.statValueOf \dexterity
-	int = $scope.statBonus + pcService.statValueOf \intelligence
-	fai = $scope.statBonus + pcService.statValueOf \faith
+	str = $scope.statBonus + pcSvc.statValueOf \strength
+	dex = $scope.statBonus + pcSvc.statValueOf \dexterity
+	int = $scope.statBonus + pcSvc.statValueOf \intelligence
+	fai = $scope.statBonus + pcSvc.statValueOf \faith
 
 	if weapon.reqS > str || weapon.reqD > dex || weapon.reqI > int || weapon.reqF > fai
 		#console.log "#{weapon.name} needs higher stats"

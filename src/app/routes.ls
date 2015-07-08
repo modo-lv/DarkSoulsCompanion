@@ -14,8 +14,8 @@ $routeProvider
 		controller : 'InventoryController'
 	}
 	.when '/stats', {
-		templateUrl : 'modules/pc/view.html'
-		controller : 'PcController'
+		templateUrl : 'modules/pc/pc-view.html'
+		controller : 'pcController'
 	}
 	.when '/w-calc', {
 		templateUrl : 'modules/w-calc/view.html'

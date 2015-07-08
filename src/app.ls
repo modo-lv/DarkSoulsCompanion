@@ -20,6 +20,7 @@ require './app/services/storage-service'
 require './app/services/external-data-service'
 require './app/services/data-export-service'
 
+require './app/main-controller'
 
 !-> require "./modules/**/main.js", mode : \expand
 

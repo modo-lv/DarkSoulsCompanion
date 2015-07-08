@@ -1,4 +1,4 @@
-$q, $scope, itemSvc, armorCalcSvc, pcService, uiGridConstants <-! angular.module "dsc" .controller "ArmorCalcController"
+$q, $scope, itemSvc, armorCalcSvc, pcSvc, uiGridConstants <-! angular.module "dsc" .controller "ArmorCalcController"
 
 # SETUP
 
@@ -24,7 +24,7 @@ $scope.modifiers = [
 
 ### INIT
 
-$scope.maxLoad = 40 + pcService.statValueOf \endurance
+$scope.maxLoad = 40 + pcSvc.statValueOf \endurance
 $scope.typeNames = {
 	0 : \head
 	1 : \chest

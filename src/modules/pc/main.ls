@@ -1,6 +1,6 @@
 angular.module "dsc"
 
-require "./service"
+require "./pc-service"
 
-require "./controller"
+require "./pc-controller"
 require "./controller/filters"
