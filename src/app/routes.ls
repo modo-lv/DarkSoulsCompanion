@@ -22,7 +22,7 @@ $routeProvider
 		controller : 'WeaponCalcController'
 	}
 	.when '/a-calc', {
-		templateUrl : 'modules/armor-calc/view.html'
+		templateUrl : 'modules/armor-calc/armor-calc-view.html'
 		controller : 'ArmorCalcController'
 	}
 	.otherwise {

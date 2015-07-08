@@ -109,6 +109,8 @@ it "should correctly generate armor combinations", (done) !->
 
 
 it "should correctly calculate score for an armor combination", !->
+	svc.{}params.{}modifiers.phy = 0.5
+
 	combination =
 		armors : [
 			{
@@ -126,7 +128,7 @@ it "should correctly calculate score for an armor combination", !->
 		]
 
 	expect svc.calculateScoreFor combination
-		.to.equal 150
+		.to.equal 300
 
 
 it "should correctly find all available upgrades for a piece of armor", (done) !->

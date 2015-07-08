@@ -5,6 +5,7 @@ class ArmorCalcSvc
 	(@_inventorySvc, @_itemSvc, @_itemUpgradeSvc, @$q) ->
 		# Weight limit that the armor combinations must not exceed
 		@freeWeight = 0
+		@params = {}
 
 		@armorTypes = [ \head \chest \hands \legs ]
 		@armorTypeKeys = { \head : 0, \chest : 1, \hands : 2, \legs : 3 }
@@ -13,7 +14,7 @@ class ArmorCalcSvc
 	findBestCombinations : (params) ~>
 		if not params?
 			params =
-				takeBest : 2
+				takeBest : 10
 
 		staticArmors = []
 		dynamicArmors = []
@@ -92,7 +93,7 @@ class ArmorCalcSvc
 
 		# Calculate scores and return
 		.then (combs) ~>
-			combs |> map ~> it.score = @calculateScoreFor it; return it
+			combs |> each @calculateScoreFor
 
 
 	/**
@@ -164,7 +165,7 @@ class ArmorCalcSvc
 		# Add (nothing)s if they aren't already in the armor list
 		for type, index in @armorTypes
 			empty = armors |> find -> it.armorType == type and it.weight == 0
-			
+
 			if not empty?
 				empty = @_itemSvc.createItemModel {
 					itemType : \armor
@@ -174,7 +175,7 @@ class ArmorCalcSvc
 					upgradeId : -1
 					id : -(index + 1)
 				}
-				
+
 				armors.push empty
 
 			empties.push empty
@@ -260,8 +261,20 @@ class ArmorCalcSvc
 		return def.promise
 
 
-	calculateScoreFor : (combination, params) ~>
-		return combination.armors |> map (.defPhy) |> average
+	calculateScoreFor : (combination) ~>
+		combination.score = 0
+		combination.detailScores = {}
+		@params.modifiers ?= { phy : 2, poise : 1 }
+		for armor in combination.armors
+			armor.score = 0
+			for mod in [\Phy \Mag \Fir \Lit \Blo \Tox \Cur \Poise]
+				modifier = @params.modifiers[mod.toLowerCase!] ? 0
+				score = (armor.["def#{mod}"] ? 0) * modifier
+				armor.score += score
+				combination.detailScores.[mod.toLowerCase!] = (combination.detailScores.[mod.toLowerCase!] ? 0) + score
+			combination.score += armor.score
+
+		return combination.score
 
 
 

@@ -1,0 +1,32 @@
+#ArmorCalc
+
+	.parameters
+		.weight
+			label Weight&nbsp;
+
+			label(ng-repeat="wl in weightLimits")
+				input(type="radio" name="selectedWeightLimit" ng-model="$parent.selectedWeightLimit" value="{{wl}}")
+				| {{wl * 100}}%&nbsp;
+
+			label
+				| Reserved (weapons):
+				input(ng-model="reservedWeight" type="number")
+
+			label
+				| Maximum:&nbsp;
+				input(type="number" ng-model="maxLoad" readonly)
+
+		.modifiers
+			label Modifiers&nbsp;
+
+			label(ng-repeat="mod in modifiers" title="{{mod.title}}")
+				| {{mod.key}}:
+				input(type="number" ng-model="mod.value")
+
+	button(ng-click="calculate()" ng-disabled="availableLoad < 0")
+		| Find best armor combination for {{availableLoad}} weight
+
+	div
+		| {{gridOptions.data.length}} result(s)
+
+	div(ui-grid-auto-resize ui-grid="gridOptions")
