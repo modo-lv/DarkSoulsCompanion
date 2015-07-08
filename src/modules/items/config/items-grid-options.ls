@@ -4,9 +4,9 @@ module?.exports = ($scope, uiGridConstants) !->
 	percentFieldMinWidth = 45
 
 	$scope.columnConfigs = {
-		\weapons : [
+		\weapon : [
 			{
-				field : 'weaponCategory',
+				field : 'weaponType',
 				displayName : 'Type',
 				minWidth : 70
 				sort : {
@@ -23,112 +23,114 @@ module?.exports = ($scope, uiGridConstants) !->
 				}
 			}
 			{
-				field : \reqS
+				field : \reqStr
 				displayName : \RS
 				type : \number
 			}
 			{
-				field : \reqD
+				field : \reqDex
 				displayName : \RD
 			}
 			{
-				field : \reqI
+				field : \reqInt
 				displayName : \RI
 			}
 			{
-				field : \reqF
+				field : \reqFai
 				displayName : \RF
 			}
 			{
-				field : \dmgN
+				field : \dmgPhy
 				displayName : \AP
 			}
 			{
-				field : \dmgM
+				field : \dmgMag
 				displayName : \AM
 			}
 			{
-				field : \dmgF
+				field : \dmgFir
 				displayName : \AF
 			}
 			{
-				field : \dmgL
+				field : \dmgLit
 				displayName : \AL
 			}
 			{
-				field : \dmgS
-				displayName : \AS
-			}
-			{
-				field : \scS
+				field : \bonusStr
 				displayName : \SS
 				minWidth : percentFieldMinWidth
 				cellFilter : 'percentage'
 			}
 			{
-				field : \scD
+				field : \bonusDex
 				displayName : \SD
 				minWidth : percentFieldMinWidth
 				cellFilter : 'percentage'
 			}
 			{
-				field : \scI
+				field : \bonusInt
 				displayName : \SI
 				minWidth : percentFieldMinWidth
 				cellFilter : 'percentage'
 			}
 			{
-				field : \scF
+				field : \bonusFai
 				displayName : \SF
 				minWidth : percentFieldMinWidth
 				cellFilter : 'percentage'
 			}
 			{
-				field : \defN
+				field : \defPhy
 				displayName : \DP
 			}
 			{
-				field : \defM
+				field : \defMag
 				displayName : \DM
 			}
 			{
-				field : \defF
+				field : \defFir
 				displayName : \DF
 			}
 			{
-				field : \defL
+				field : \defLit
 				displayName : \DL
 			}
 			{
-				field : \defT
+				field : \defTox
 				displayName : \DT
 			}
 			{
-				field : \defB
+				field : \defBlo
 				displayName : \DB
 			}
 			{
-				field : \defC
+				field : \defCur
 				displayName : \DC
 			}
 			{
-				field : \defS
+				field : \defSta
 				displayName : \St
 			}
 			{
-				field : \divMod
+				field : \divine
 				minWidth : percentFieldMinWidth
 				displayName : \Div
 				cellFilter : 'percentage'
 			}
 			{
-				field : \occMod
+				field : \occult
 				minWidth : percentFieldMinWidth
 				displayName : \Occ
 				cellFilter : 'percentage'
 			}
+			{
+				field : \weight
+				displayName : \Wt
+				cellFilter : "number:2"
+				type : \number
+			}
 		]
-		\armors : [
+		\armor : [
 			{
 				name : 'armorSet'
 				displayName : 'Set'
@@ -175,7 +177,7 @@ module?.exports = ($scope, uiGridConstants) !->
 		]
 	}
 
-	for itemType in [\items \keys \materials \rings]
+	for itemType in [\item \rings]
 		$scope.columnConfigs[itemType] = [
 			{
 				field : 'name'

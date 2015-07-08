@@ -44,6 +44,7 @@ $scope.calculate = (type = 'offence') !->
 
 	armorCalcSvc.params = {}
 		..freeWeight = $scope.availableLoad
+		..noUpgrades = $scope.noUpgrades
 
 	for mod in $scope.modifiers
 		armorCalcSvc.params.{}modifiers.[mod.key] = mod.value

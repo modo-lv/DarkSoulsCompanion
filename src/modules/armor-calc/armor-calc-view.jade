@@ -23,6 +23,13 @@
 				| {{mod.key}}:
 				input(type="number" ng-model="mod.value")
 
+		.misc
+			label Misc&nbsp;
+
+			label
+				input(type="checkbox" ng-model="noUpgrades")
+				| No upgrades
+
 	button(ng-click="calculate()" ng-disabled="availableLoad < 0")
 		| Find best armor combination for {{availableLoad}} weight
 

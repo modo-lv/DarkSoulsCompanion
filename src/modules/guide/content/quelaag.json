@@ -1,0 +1,14 @@
+[
+  {
+    "title" : "Fog gate",
+    "labels" : ["info"],
+    "content" : "{Quelaag} boss fight.",
+    "children" : [
+      {
+        "labels" : ["help"],
+        "title" : "Weaknesses",
+        "content" : "Lightning. Direct (ranged) attacks to the human part cause stagger."
+      }
+    ]
+  }
+]

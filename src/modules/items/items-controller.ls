@@ -3,7 +3,7 @@ $scope, dataExportSvc, itemSvc, uiGridConstants <-! angular.module "dsc" .contro
 ### SETUP
 
 $scope.itemTypes = []
-for itemType in [\none \items \weapons \armors]
+for itemType in [\none \item \weapon \armor]
 	$scope.itemTypes.push itemType
 
 (require './config/items-grid-options') $scope, uiGridConstants
@@ -17,13 +17,17 @@ $scope.selectedItemTypeChanged = !->
 		$scope.gridOptions.columnDefs = []
 		return
 
-	itemSvc.loadItemData $scope.selectedItemType .$promise.then (itemData) !->
-		if $scope.selectedItemType == \weapons
+	$scope.gridOptions.columnDefs = $scope.columnConfigs[$scope.selectedItemType]
+
+	itemSvc.loadAllItems $scope.selectedItemType .then (itemData) !->
+		if $scope.selectedItemType == \weapon
 			for weapon in itemData
-				itemSvc.applyUpgradeTo weapon, 0
+				let weapon = weapon
+					itemSvc.getUpgraded weapon, 0
+					.then (up) !->
+						weapon <<< up
 		$scope.gridOptions.data = itemData
 
-	$scope.gridOptions.columnDefs = $scope.columnConfigs[$scope.selectedItemType]
 
 $scope.exportAsJson = !->
 	dataExportSvc.exportJson ($scope.gridOptions.data |> map -> delete it.$$hashKey; return it)

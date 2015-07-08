@@ -117,7 +117,7 @@
     "id": "af994a2f-6fa6-40a3-b80a-5f32db0e7f9c"
   },
   {
-    "title": "Around the lake",
+    "title": "Around the swamp",
     "children": [
       {
         "labels": [
@@ -153,6 +153,70 @@
         ],
         "title": "Large Soul of a Proud Knight",
         "id": "6dcc0a22-8573-45be-9ea4-020938c0ea2c"
+      },
+      {
+        "labels" : ["item"],
+        "title" : "Pyromancy: Poison Mist, Tattered Cloth Hood, Tattered Cloth Robe, Tattered Cloth Manchette, Heavy Boots"
+      },
+      {
+        "labels" : ["item"],
+        "title" : "Large Titanite Shard"
+      },
+      {
+        "labels" : ["item"],
+        "title" : "Server"
+      },
+      {
+        "labels" : ["item"],
+        "title" : "Plank Shield"
+      },
+      {
+        "labels" : ["item", "secret"],
+        "title" : "Twin Humanities"
+      },
+      {
+        "labels" : ["item"],
+        "title" : "Green Titanite Shard"
+      },
+      {
+        "labels" : ["item"],
+        "title" : "Great Club"
+      },
+      {
+        "labels" : ["item"],
+        "title" : "Large Titanite Shard"
+      },
+      {
+        "labels" : ["talk"],
+        "title" : "Quelana of Izalith",
+        "children" : [
+          {
+            "labels" : ["info"],
+            "title" : "Conditions for her apperance",
+            "content" : "To ensure Quelana's appearance in the level, you must have a {Pyromancy Flame} upgraded to +10 or higher."
+          }
+        ]
+      },
+      {
+        "title" : "The elevator",
+        "children" : [
+          {
+            "labels" : ["item"],
+            "title" : "Soul of a Proud Knight"
+          },
+          {
+            "labels" : ["item"],
+            "title" : "Fire Keeper Soul"
+          },
+          {
+            "labels" : ["item"],
+            "title" : "Mask of the Sealer, Crimson Robe, Crimson Gloves, Crimson Waistcloth, Tin Banishment Catalyst"
+          },
+          {
+            "labels" : ["item"],
+            "title" : "Sorcery: Remedy"
+          }
+        ]
       }
     ],
     "id": "8acc5317-7cd0-4df5-bdb6-6d7ba084a043"

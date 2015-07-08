@@ -47,6 +47,9 @@ class ArmorCalcSvc
 
 		# Find all upgradable versions for the best armors
 		.then ~>
+			if (@params.noUpgrades)
+				return dynamicArmors
+
 			promises = []
 			for armor in dynamicArmors
 				promises.push(
@@ -269,9 +272,10 @@ class ArmorCalcSvc
 			armor.score = 0
 			for mod in [\Phy \Mag \Fir \Lit \Blo \Tox \Cur \Poise]
 				modifier = @params.modifiers[mod.toLowerCase!] ? 0
-				score = (armor.["def#{mod}"] ? 0) * modifier
+				baseValue = (armor.["def#{mod}"] ? 0)
+				score = baseValue * modifier
 				armor.score += score
-				combination.detailScores.[mod.toLowerCase!] = (combination.detailScores.[mod.toLowerCase!] ? 0) + score
+				combination.detailScores.[mod.toLowerCase!] = baseValue + (combination.detailScores.[mod.toLowerCase!] ? 0)
 			combination.score += armor.score
 
 		return combination.score
