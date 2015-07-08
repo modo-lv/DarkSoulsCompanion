@@ -24,43 +24,6 @@ module?.exports = (uiGridConstants) ->
 		}
 
 		{
-			field : 'head.name'
+			field : 'armors'
 		}
-		{
-			field : 'head.score'
-			type : \number
-			width : 50
-			cellFilter : 'number:2'
-		}
-
-		{
-			field : 'chest.name'
-		}
-		{
-			field : 'chest.score'
-			type : \number
-			width : 50
-			cellFilter : 'number:2'
-		}
-
-		{
-			field : 'hands.name'
-		}
-		{
-			field : 'hands.score'
-			type : \number
-			width : 50
-			cellFilter : 'number:2'
-		}
-
-		{
-			field : 'legs.name'
-		}
-		{
-			field : 'legs.score'
-			type : \number
-			width : 50
-			cellFilter : 'number:2'
-		}
-
 	]

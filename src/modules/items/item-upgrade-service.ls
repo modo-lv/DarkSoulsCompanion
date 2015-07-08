@@ -73,6 +73,8 @@ class ItemUpgradeService
 				#console.log "Deducting #{materialSet.matId} x #{materialSet.matCost} from", {} <<< materials, "for item", item, "level", level
 				(materials |> find (.id == materialSet.matId)).amount -= materialSet.matCost
 
+				return { matCost : materialSet.matCost, matId : materialSet.matId }
+
 
 	/**
 	 * Asynchronously loads all information on material sets required for upgrades

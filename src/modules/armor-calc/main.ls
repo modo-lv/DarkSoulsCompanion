@@ -1,3 +1,4 @@
 angular.module "dsc"
 
-require './controller'
+require './armor-calc-service'
+require './armor-calc-controller'

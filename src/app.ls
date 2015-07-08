@@ -23,6 +23,6 @@ require './app/services/data-export-service'
 
 !-> require "./modules/**/main.js", mode : \expand
 
-for module in [\guide \items \inventory \pc \w-calc \a-calc]
+for module in [\guide \items \inventory \pc \w-calc \armor-calc]
 	require "./modules/#{module }/main.js"
 
