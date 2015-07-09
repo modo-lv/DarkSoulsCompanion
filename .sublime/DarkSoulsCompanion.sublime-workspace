@@ -1,0 +1,327 @@
+{
+	"auto_complete":
+	{
+		"selected_items":
+		[
+		]
+	},
+	"buffers":
+	[
+		{
+			"file": "/C/Users/mosis/AppData/Roaming/Sublime Text 2/Packages/User/Run tests (.bat).sublime-build",
+			"settings":
+			{
+				"buffer_size": 84,
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "run-tests.bat",
+			"settings":
+			{
+				"buffer_size": 147,
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "/D/home/martin/dev/misc/DarkSoulsCompanion/src/modules/armor-calc/armor-calc-service.ls",
+			"settings":
+			{
+				"buffer_size": 9527,
+				"line_ending": "Windows"
+			}
+		}
+	],
+	"build_system": "Packages/User/Run tests (.bat).sublime-build",
+	"command_palette":
+	{
+		"height": 392.0,
+		"selected_items":
+		[
+			[
+				"ins",
+				"Package Control: Install Package"
+			],
+			[
+				"inst",
+				"Package Control: Install Package"
+			],
+			[
+				"instal",
+				"Package Control: Install Package"
+			],
+			[
+				"install",
+				"Package Control: Install Package"
+			],
+			[
+				"gul",
+				"Gulp"
+			],
+			[
+				"gulp",
+				"Gulp"
+			],
+			[
+				"",
+				"Gulp"
+			],
+			[
+				"npm",
+				"npm: Install Package"
+			],
+			[
+				"Package Control: inst",
+				"Package Control: Install Package"
+			],
+			[
+				"Package Control: instal",
+				"Package Control: Install Package"
+			],
+			[
+				"Package Control: l",
+				"Package Control: List Packages"
+			],
+			[
+				"console",
+				"Set Syntax: R Console"
+			]
+		],
+		"width": 400.0
+	},
+	"console":
+	{
+		"height": 280.0
+	},
+	"distraction_free":
+	{
+		"menu_visible": true,
+		"show_minimap": false,
+		"show_open_files": false,
+		"show_tabs": false,
+		"side_bar_visible": false,
+		"status_bar_visible": false
+	},
+	"file_history":
+	[
+		"/D/home/martin/dev/misc/DarkSoulsCompanion/.sublime/run-tests.bat",
+		"/C/Users/mosis/AppData/Roaming/Sublime Text 2/Packages/User/Run tests (.bat).sublime-build",
+		"/D/home/martin/dev/misc/DarkSoulsCompanion/DarkSoulsCompanion.sublime-workspace",
+		"/D/home/martin/dev/misc/DarkSoulsCompanion/.sublime/DarkSoulsCompanion.sublime-workspace",
+		"/D/home/martin/dev/misc/DarkSoulsCompanion/.sublime/DarkSoulsCompanion.sublime-project",
+		"/D/home/martin/dev/misc/DarkSoulsCompanion/makefile",
+		"/D/home/martin/dev/misc/DarkSoulsCompanion/tests/modules/armor-calc/armor-calc-service-tests.ls",
+		"/D/home/martin/dev/misc/DarkSoulsCompanion/meta/gulpfile.js",
+		"/C/Users/mosis/AppData/Roaming/Sublime Text 3/Packages/User/Mocha.sublime-build",
+		"/D/home/martin/dev/misc/DarkSoulsCompanion/meta/sublime-gulp.log",
+		"/D/home/martin/dev/misc/DarkSoulsCompanion/meta/gulp.ls",
+		"/C/Users/mosis/AppData/Roaming/Sublime Text 3/Packages/User/Gulp.sublime-settings",
+		"/D/home/martin/dev/misc/DarkSoulsCompanion/meta/.sublime-gulp.cache",
+		"/C/Users/mosis/AppData/Roaming/Sublime Text 3/Packages/Gulp/Gulp.sublime-settings",
+		"/C/Users/mosis/AppData/Roaming/Sublime Text 2/Packages/User/Gulp.sublime-settings",
+		"/D/home/martin/dev/misc/DarkSoulsCompanion/DarkSoulsCompanion.sublime-project",
+		"/C/Users/mosis/AppData/Roaming/Sublime Text 2/Packages/Gulp/Gulp.sublime-settings",
+		"/C/Users/mosis/AppData/Roaming/Sublime Text 2/Packages/Clickable URLs/Default (Windows).sublime-keymap",
+		"/C/Users/mosis/AppData/Roaming/Sublime Text 2/Packages/User/ClickableUrls.sublime-settings",
+		"/D/home/martin/dev/misc/DarkSoulsCompanion/src/app.ls",
+		"/C/Users/mosis/AppData/Roaming/Sublime Text 2/Packages/Default/Preferences.sublime-settings"
+	],
+	"find":
+	{
+		"height": 23.0
+	},
+	"find_in_files":
+	{
+		"height": 0.0,
+		"where_history":
+		[
+		]
+	},
+	"find_state":
+	{
+		"case_sensitive": false,
+		"find_history":
+		[
+			"console.log",
+			"		{\n			\"path\": \"src\"\n		}\n"
+		],
+		"highlight": true,
+		"in_selection": false,
+		"preserve_case": false,
+		"regex": false,
+		"replace_history":
+		[
+		],
+		"reverse": false,
+		"show_context": true,
+		"use_buffer2": true,
+		"whole_word": false,
+		"wrap": true
+	},
+	"groups":
+	[
+		{
+			"selected": 0,
+			"sheets":
+			[
+				{
+					"buffer": 0,
+					"file": "/C/Users/mosis/AppData/Roaming/Sublime Text 2/Packages/User/Run tests (.bat).sublime-build",
+					"settings":
+					{
+						"buffer_size": 84,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								84,
+								84
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/JavaScript/JSON.tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 1,
+					"file": "run-tests.bat",
+					"settings":
+					{
+						"buffer_size": 147,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								13,
+								19
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/Batch File/Batch File.tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 2,
+					"file": "/D/home/martin/dev/misc/DarkSoulsCompanion/src/modules/armor-calc/armor-calc-service.ls",
+					"settings":
+					{
+						"buffer_size": 9527,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								492,
+								492
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/LiveScript/Syntaxes/LiveScript.tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				}
+			]
+		}
+	],
+	"incremental_find":
+	{
+		"height": 23.0
+	},
+	"input":
+	{
+		"height": 31.0
+	},
+	"layout":
+	{
+		"cells":
+		[
+			[
+				0,
+				0,
+				1,
+				1
+			]
+		],
+		"cols":
+		[
+			0.0,
+			1.0
+		],
+		"rows":
+		[
+			0.0,
+			1.0
+		]
+	},
+	"menu_visible": true,
+	"output.exec":
+	{
+		"height": 243.0
+	},
+	"output.find_results":
+	{
+		"height": 0.0
+	},
+	"output.gulp_output":
+	{
+		"height": 290.0
+	},
+	"replace":
+	{
+		"height": 42.0
+	},
+	"save_all_on_build": true,
+	"select_file":
+	{
+		"height": 0.0,
+		"selected_items":
+		[
+			[
+				"armorcalctest",
+				"tests\\modules\\armor-calc\\armor-calc-service-tests.ls"
+			],
+			[
+				"sublime",
+				"meta\\sublime-gulp.log"
+			]
+		],
+		"width": 0.0
+	},
+	"select_project":
+	{
+		"height": 0.0,
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"show_minimap": true,
+	"show_open_files": false,
+	"show_tabs": true,
+	"side_bar_visible": true,
+	"side_bar_width": 287.0,
+	"status_bar_visible": true
+}

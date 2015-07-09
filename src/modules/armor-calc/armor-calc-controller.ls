@@ -1,25 +1,35 @@
-$q, $scope, itemSvc, armorCalcSvc, pcSvc, uiGridConstants <-! angular.module "dsc" .controller "ArmorCalcController"
+$q, $scope, storageSvc, itemSvc, armorCalcSvc, pcSvc, uiGridConstants <-! angular.module "dsc" .controller "ArmorCalcController"
 
 # SETUP
 
 $scope.results = []
 
-$scope.maxLoad = 0
-$scope.reservedWeight = 15
-$scope.availableLoad = 0
+maxLoad : 0
+availableLoad : 0
+
+$scope.params = (storageSvc.load \armor-calc-params) ? {
+	reservedWeight : 15
+
+	selectedWeightLimit : 0.50
+
+	includeUpgrades : true
+	
+	modifiers : [ 2 0 0 0 0 0 0 1 ]
+
+	resultLimit : 10
+}
 
 $scope.weightLimits = [ 0.25 0.50 0.75 1.00 ]
-$scope.selectedWeightLimit = 0.50
 
 $scope.modifiers = [
-	{ key : \phy value : 2 title : "Physical defense" }
-	{ key : \mag value : 0 title : "Magic defense" }
-	{ key : \fir value : 0 title : "Fire defense" }
-	{ key : \lit value : 0 title : "Lightning defense" }
-	{ key : \blo value : 0 title : "Bleed resistance" }
-	{ key : \tox value : 0 title : "Poisen resistance" }
-	{ key : \cur value : 0 title : "Cures resistance" }
-	{ key : \poise value : 1 title : "Poise" }
+	{ key : \phy title : "Physical" }
+	{ key : \mag title : "Magic" }
+	{ key : \fir title : "Fire" }
+	{ key : \lit title : "Lightning" }
+	{ key : \blo title : "Bleed" }
+	{ key : \tox title : "Poison" }
+	{ key : \cur title : "Curse" }
+	{ key : \poise title : "Poise" }
 ]
 
 ### INIT
@@ -44,10 +54,10 @@ $scope.calculate = (type = 'offence') !->
 
 	armorCalcSvc.params = {}
 		..freeWeight = $scope.availableLoad
-		..noUpgrades = $scope.noUpgrades
+		..includeUpgrades = $scope.params.includeUpgrades
 
-	for mod in $scope.modifiers
-		armorCalcSvc.params.{}modifiers.[mod.key] = mod.value
+	for mod, index in $scope.modifiers
+		armorCalcSvc.params.{}modifiers.[mod.key] = $scope.params.modifiers.[index]
 
 	armorCalcSvc.findBestCombinations!.then (results) !->
 		$scope.results = []
@@ -59,9 +69,14 @@ $scope.calculate = (type = 'offence') !->
 				detailScores : result.detailScores
 			}
 		$scope.gridOptions.data = $scope.results
+			|> sortBy (.score)
+			|> reverse
+			|> take $scope.params.resultLimit
 
 
 ### EVENTS
 
-$scope.$watchGroup ["selectedWeightLimit", "reservedWeight", "maxLoad"], (nVal, oVal) !->
-	$scope.availableLoad = ($scope.maxLoad * $scope.selectedWeightLimit) - $scope.reservedWeight
+$scope.$watch "params", (!->
+	$scope.availableLoad = ($scope.maxLoad * $scope.params.selectedWeightLimit) - $scope.params.reservedWeight
+	storageSvc.save "armor-calc-params", $scope.params
+), true

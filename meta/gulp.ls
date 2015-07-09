@@ -1,3 +1,5 @@
+require "LiveScript"
+
 global? <<< require "prelude-ls"
 
 #
@@ -12,6 +14,8 @@ sass = require "gulp-sass"
 requireDir = require "require-dir"
 vinyl_stream = require "vinyl-source-stream"
 jade = require "gulp-jade"
+
+module.exports = gulp
 
 #
 # CONFIG

@@ -103,7 +103,7 @@ it "should correctly generate armor combinations", (done) !->
 	.then (combinations) !->
 		expect combinations
 			.to.have.length expectedCount
-		console.log combinations
+		#console.log combinations
 		done!
 	.catch done
 
@@ -162,7 +162,7 @@ it "should find the best armor combination", (done) !->
 
 	svc.findBestCombinations params
 	.then (combs) ->
-		console.log combs
+		#console.log combs
 		#for comb in combs
 		#	console.log (comb.armors |> sortBy (.score) |> reverse |> map (.name))
 		#expect true .to.be.false

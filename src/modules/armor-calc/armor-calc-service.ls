@@ -11,10 +11,8 @@ class ArmorCalcSvc
 		@armorTypeKeys = { \head : 0, \chest : 1, \hands : 2, \legs : 3 }
 
 
-	findBestCombinations : (params) ~>
-		if not params?
-			params =
-				takeBest : 10
+	findBestCombinations : ~>
+		if not @.{}params.includeUpgrades? then @params.includeUpgrades = true
 
 		staticArmors = []
 		dynamicArmors = []
@@ -36,7 +34,10 @@ class ArmorCalcSvc
 			for comb in combinations
 				comb.score = @calculateScoreFor comb
 
-			best = combinations |> sortBy (.score) |> reverse |> take params.\takeBest
+			best = combinations
+				|> sortBy (.score)
+				|> reverse
+				|> take if @params.includeUpgrades then 10 else 100
 
 			dynamicArmors := []
 			for comb in best
@@ -47,7 +48,7 @@ class ArmorCalcSvc
 
 		# Find all upgradable versions for the best armors
 		.then ~>
-			if (@params.noUpgrades)
+			if (!@params.includeUpgrades)
 				return dynamicArmors
 
 			promises = []

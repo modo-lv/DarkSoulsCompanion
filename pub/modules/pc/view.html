@@ -1,8 +1,0 @@
-<div id="Pc" ng-controller="PcController">
-    <table>
-        <tr ng-repeat="stat in model.stats | toStatArray">
-            <td>{{stat.displayName}}:</td>
-            <td><input type="number" min=8 max="99" ng-model="stat.base" ng-blur="saveStats()" /></td>
-        </tr>
-    </table>
-</div>
