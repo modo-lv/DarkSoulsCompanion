@@ -37,7 +37,7 @@ $scope.canUpgrade = (item) !->
 	return item |> itemSvc.upgradeComp.canBeUpgraded
 	
 $scope.upgrade = (invEntry) ->
-	itemSvc.findAnyItem (.uid == invEntry.uid)
+	itemSvc.findAnyItemByUid(invEntry.uid)
 	.then (item) ->
 		itemSvc.getUpgraded item
 	.then (upItem) !->

@@ -1,15 +1,14 @@
 _ <-! describe "item-service"
 
-var svc, edSvc, upgradeSvc, indexSvc, inventorySvc, itemIndexSvc, storageSvc
+var svc, edSvc, upgradeSvc, itemIndexSvc, inventorySvc, storageSvc
 
 beforeEach !->
 	edSvc := new MockExternalDataService
 	storageSvc := new MockStorageService
 	itemIndexSvc := new (testRequire "modules/items/item-index-service") edSvc
 	inventorySvc := new (testRequire "modules/pc/inventory-service") storageSvc, itemIndexSvc, $q
-	svc := new (testRequire "modules/items/item-service") edSvc, indexSvc, inventorySvc, $q
+	svc := new (testRequire "modules/items/item-service") edSvc, itemIndexSvc, inventorySvc, $q
 	upgradeSvc := svc.upgradeComp
-	indexSvc := new (testRequire "modules/items/item-index-service") edSvc
 
 	weapons = [{
 		\id : 500
@@ -61,7 +60,7 @@ beforeEach !->
 	]
 
 	edSvc.loadJsonReturnValue = entries
-	indexSvc.loadAllEntries!
+	itemIndexSvc.loadAllEntries!
 
 
 
@@ -106,7 +105,7 @@ it "should get the upgraded version of a given item", (done) !->
 
 
 it "should generate an item's upgraded version when seaching for it", (done) !->
-	svc.findAnyItem (.uid == \weapon501)
+	svc.findAnyItemByUid(\weapon501)
 	.then (item) !->
 		expect item .to.have.properties {
 			\id : 501
@@ -118,7 +117,7 @@ it "should generate an item's upgraded version when seaching for it", (done) !->
 
 
 it "should correctly upgrade given an already upgraded item", (done) !->
-	svc.findAnyItem (.uid == \weapon501)
+	svc.findAnyItemByUid(\weapon501)
 	.then (upItem) ->
 		expect upItem .to.have.property \id, 501
 		expect upItem .to.have.property \atkPhy, 150
@@ -132,22 +131,25 @@ it "should correctly upgrade given an already upgraded item", (done) !->
 
 it "should fetch real item data", (done) !->
 	inventory = [
-		{ itemType : \weapon , id : 1 }
-		{ itemType : \weapon , id : 2 }
-		{ itemType : \armor , id : 1 }
-		{ itemType : \item , id : 2 }
+		{ itemType : \weapon , id : 100 , uid : \weapon100 }
+		{ itemType : \weapon , id : 200 , uid : \weapon200 }
+		{ itemType : \armor , id : 100 , uid : \armor100 }
+		{ itemType : \item , id : 200 , uid : \item200 }
 	]
 
 	weapons = [
-		{ itemType : \weapon , id : 1 , name : "Weapon One" }
-		{ itemType : \weapon , id : 2 , name : "Weapon Two" }
+		{ itemType : \weapon , id : 100 , uid : \weapon100 , name : "Weapon One" }
+		{ itemType : \weapon , id : 200 , uid : \weapon200 , name : "Weapon Two" }
 	]
 
 	storageSvc.loadReturnValue = inventory
+	edSvc.loadJsonReturnValue = inventory
+	itemIndexSvc.clear!.loadAllEntries!
+
 	edSvc.loadJsonReturnValue = weapons
 	svc.clear!.loadAllItems \weapon
 
-	svc.findRealItems (.itemType == \weapon)
+	svc.findItemsFromInventory \weapon
 	.then (items) !->
 		expect items .to.have.length 2
 		for item, index in items |> sortBy (.id)

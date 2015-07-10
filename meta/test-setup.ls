@@ -9,6 +9,15 @@ global
 	..testRequire = (path) -> require "../src/#{path}"
 
 
+global.createServiceStack = !->
+	global
+		..edSvc := new MockExternalDataService
+		..storageSvc := new MockStorageService
+		..itemIndexSvc := new (testRequire "modules/items/item-index-service") edSvc
+		..inventorySvc := new (testRequire "modules/pc/inventory-service") storageSvc, itemIndexSvc, $q
+		..itemSvc := new (testRequire "modules/items/item-service") edSvc, itemIndexSvc, inventorySvc, $q
+		..statSvc := new (testRequire "modules/pc/stat-service") storageSvc
+
 
 class global.MockExternalDataService
 	->
@@ -29,3 +38,5 @@ class global.MockStorageService
 	load : !-> return @loadReturnValue
 
 	save : !->
+
+

@@ -17,127 +17,132 @@ module?.exports = (uiGridConstants) ->
 			minWidth : 210
 		}
 		{
-			field : 'weapon.reqS'
+			field : 'weapon.reqStr'
 			displayName : \RS
 			type : \number
 		}
 		{
-			field : 'weapon.reqD'
+			field : 'weapon.reqDex'
 			displayName : \RD
 			type : \number
 		}
 		{
-			field : 'weapon.reqI'
+			field : 'weapon.reqInt'
 			displayName : \RI
 			type : \number
 		}
 		{
-			field : 'weapon.reqF'
+			field : 'weapon.reqFai'
 			displayName : \RF
 			type : \number
 		}
 		{
-			field : 'weapon.dmgN'
+			field : 'weapon.atkPhy'
 			displayName : \AP
 			type : \number
+			cellFilter : "number:0"
 		}
 		{
-			field : 'weapon.dmgM'
+			field : 'weapon.atkMag'
 			displayName : \AM
 			type : \number
+			cellFilter : "number:0"
 		}
 		{
-			field : 'weapon.dmgF'
+			field : 'weapon.atkFir'
 			displayName : \AF
 			type : \number
+			cellFilter : "number:0"
 		}
 		{
-			field : 'weapon.dmgL'
+			field : 'weapon.atkLit'
 			displayName : \AL
 			type : \number
+			cellFilter : "number:0"
 		}
 		{
-			field : 'weapon.dmgS'
+			field : 'weapon.atkStaCost'
 			displayName : \AS
 			type : \number
+			cellFilter : "number:0"
 		}
 		{
-			field : 'weapon.scS'
+			field : 'weapon.bonusStr'
 			displayName : \SS
 			minWidth : percentFieldMinWidth
 			cellFilter : 'percentage'
 			type : \number
 		}
 		{
-			field : 'weapon.scD'
+			field : 'weapon.bonusDex'
 			displayName : \SD
 			minWidth : percentFieldMinWidth
 			cellFilter : 'percentage'
 			type : \number
 		}
 		{
-			field : 'weapon.scI'
+			field : 'weapon.bonusInt'
 			displayName : \SI
 			minWidth : percentFieldMinWidth
 			cellFilter : 'percentage'
 			type : \number
 		}
 		{
-			field : 'weapon.scF'
+			field : 'weapon.bonusFai'
 			displayName : \SF
 			minWidth : percentFieldMinWidth
 			cellFilter : 'percentage'
 			type : \number
 		}
 		{
-			field : 'weapon.defN'
+			field : 'weapon.defPhy'
 			displayName : \DP
 			type : \number
 		}
 		{
-			field : 'weapon.defM'
+			field : 'weapon.defMag'
 			displayName : \DM
 			type : \number
 		}
 		{
-			field : 'weapon.defF'
+			field : 'weapon.defFir'
 			displayName : \DF
 			type : \number
 		}
 		{
-			field : 'weapon.defL'
+			field : 'weapon.defLit'
 			displayName : \DL
 			type : \number
 		}
 		{
-			field : 'weapon.defT'
+			field : 'weapon.defTox'
 			displayName : \DT
 			type : \number
 		}
 		{
-			field : 'weapon.defB'
+			field : 'weapon.defBlo'
 			displayName : \DB
 			type : \number
 		}
 		{
-			field : 'weapon.defC'
+			field : 'weapon.defCur'
 			displayName : \DC
 			type : \number
 		}
 		{
-			field : 'weapon.defS'
+			field : 'weapon.defSta'
 			displayName : \St
 			type : \number
 		}
 		{
-			field : 'weapon.divMod'
+			field : 'weapon.divine'
 			minWidth : percentFieldMinWidth
 			displayName : \Div
 			cellFilter : 'percentage'
 			type : \number
 		}
 		{
-			field : 'weapon.occMod'
+			field : 'weapon.occult'
 			minWidth : percentFieldMinWidth
 			displayName : \Occ
 			cellFilter : 'percentage'

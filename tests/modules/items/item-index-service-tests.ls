@@ -15,7 +15,7 @@ it "should find items by UID", (done) !->
 	}
 	edSvc.loadJsonReturnValue = [ sample ]
 
-	expect svc.findEntry ( .uid == \armor100 )
+	expect svc.findEntryByUid \armor100
 		.to.eventually.have.property \name, "Armor One"
 		.notify done
 

@@ -9,7 +9,7 @@ beforeEach (done) !->
 	invSvc := new (testRequire 'modules/pc/inventory-service') storageSvc, itemIndexSvc, $q
 	itemSvc := new (testRequire 'modules/items/item-service') edSvc, itemIndexSvc, invSvc, $q
 	itemUpSvc := itemSvc.upgradeComp
-	svc := new (testRequire 'modules/armor-calc/armor-calc-service') invSvc, itemSvc, itemUpSvc, $q
+	svc := new (testRequire 'modules/armor-calc/armor-calc-service') invSvc, itemSvc, $q
 
 	# Setup default data
 	/*

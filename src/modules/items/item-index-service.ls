@@ -22,10 +22,14 @@ class ItemIndexService
 	 * a parameter and returns true/false if it matches/doesn't.
 	 * @returns Promise that resolves with the found value.
 	 */
-	findEntry : (byFilter) !~>
-		if typeof byFilter != \function
-			throw new Error "[byFilter] is not a function."
-		return @loadAllEntries!.then ~> it |> find byFilter
+	findEntryByUid : (uid) !~>
+		return @loadAllEntries!
+		.then (entries) ~>
+			entry = entries |> find (.uid == uid)
+			if not entry?
+				#console.log entries
+				throw new Error "Failed to find index entry with UID [#{uid}]."
+			return entry
 
 
 	findEntries : (byFilter) !~>

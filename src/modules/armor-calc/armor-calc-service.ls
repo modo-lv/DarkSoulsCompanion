@@ -150,7 +150,7 @@ class ArmorCalcSvc
 		.then (inventory) ~>
 			@$q.all (inventory
 				|> filter ( .itemType == \armor )
-				|> map (entry) ~> @_itemSvc.findAnyItem (.uid == entry.uid)
+				|> map (entry) ~> @_itemSvc.findAnyItemByUid(entry.uid)
 			)
 		.then (armors) ~>
 			armors |> filter ~> it.weight <= @freeWeight

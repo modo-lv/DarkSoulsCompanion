@@ -32,19 +32,30 @@ class ItemService
 			return item
 
 
+	findItemById : (itemType, id) ~>
+		@loadAllItems itemType
+		.then (items) ~>
+			item = items |> find (.id == id)
+			if not item?
+				throw new Error "Failed to find [#{itemType}] with ID [#{id}]."
+			return item
+
+
 	/**
 	 * Finds any item, regardless of type, but can only
 	 * check fields that are in the index.
 	 */
-	findAnyItem : (filterFn) ~>
-		@_itemIndexSvc.findEntry filterFn
+	findAnyItemByUid : (uid) ~>
+		@_itemIndexSvc.findEntryByUid(uid)
 		.then (item) !~>
+			if not item?
+				throw new Error "Failed to find item with UID [#{uid}] in the item index."
 			if @upgradeComp.isUpgraded item
 				baseId = @upgradeComp.getBaseIdFrom item.id
 				upLevel = @upgradeComp.getUpgradeLevelFrom item.id
 				#console.log "Base ID: #{baseId}, upLevel: #{upLevel}"
 				return ((item, baseId, upLevel) ~>
-					@findItem item.itemType, (.id == baseId)
+					@findItemById item.itemType, baseId
 					.then (baseItem) ~> @getUpgraded baseItem, upLevel
 					) item,baseId,upLevel
 			else
@@ -55,20 +66,20 @@ class ItemService
 	 * Filter inventory entries by a given filter and then return the real item data
 	 * for them.
 	 */
-	findRealItems : (byFilter) ~>
-		@_inventorySvc.load true, false
+	findItemsFromInventory : (typeOrFilter) ~>
+		@_inventorySvc.load!
 		.then (inventory) !~>
-			inventory = inventory |> filter byFilter
+			if typeof typeOrFilter == \string
+				inventory = inventory |> filter (.itemType == typeOrFilter)
+			else
+				inventory = inventory |> filter byFilter
 
 			promises = []
 			for itemEntry in inventory
-				let itemEntry = itemEntry
-					promises.push @.findItem itemEntry.itemType, (.id == itemEntry.id)
+				promises.push @.findAnyItemByUid(itemEntry.uid)
 
 			return @$q.all promises
 
-	findRealItemsByType : (type) ~>
-		@findRealItems (.itemType == type)
 
 	/**
 	 * Create a model from given item data
@@ -113,7 +124,7 @@ class ItemService
 			.then (newItem) ~>
 				@upgradeComp .apply upgrade .to newItem
 			.then (newItem) ~>
-				@_itemIndexSvc.findEntry (.uid == newItem.uid)
+				@_itemIndexSvc.findEntryByUid(newItem.uid)
 				.then (entry) ~>
 					newItem.name = entry.name
 					return newItem

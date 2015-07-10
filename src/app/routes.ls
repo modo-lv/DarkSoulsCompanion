@@ -13,9 +13,9 @@ $routeProvider
 		templateUrl : 'modules/pc/pc-view.html'
 		controller : 'pcController'
 	}
-	.when '/w-calc', {
-		templateUrl : 'modules/w-calc/view.html'
-		controller : 'WeaponCalcController'
+	.when '/weapon-finder', {
+		templateUrl : 'modules/weapon-finder/weapon-finder-view.html'
+		controller : 'weaponFinderController'
 	}
 	.when '/armor-calc', {
 		templateUrl : 'modules/armor-calc/armor-calc-view.html'

@@ -9,7 +9,7 @@ class MainController
 			{ path : "/guide" name : "Game info & checklist" }
 			{ path : "/pc" name : "Stats & inventory" }
 			{ path : "/armor-calc" name : "Armor finder" }
-			{ path : "/w-calc" name : "Weapon finder" }
+			{ path : "/weapon-finder" name : "Weapon finder" }
 			{ path : "/items" name : "Item data" }
 		]
 

@@ -18,31 +18,23 @@ class InventorySvc
 		@_storageSvc.save 'inventory', data
 
 
-	load : (returnPromise = true, createModels = true) !~>
+	load : (returnPromise = true) !~>
 		if not @_inventory.$promise?
 			@clear!
 			promises = []
-			raw = @_storageSvc.load 'inventory'
-			if createModels
-				for data in @_storageSvc.load 'inventory'
-					promise = ((data) ~>
-						item = new @_models.InventoryItem data
-						@_itemIndexSvc.findEntry (.uid == data.uid)
-						.then (indexEntry) !~>
-							item.useDataFrom indexEntry
-							@_inventory.push item
-							return item
-					) data
+			for data in @_storageSvc.load 'inventory'
+				promise = ((data) ~>
+					item = new @_models.InventoryItem data
+					@_itemIndexSvc.findEntryByUid(data.uid)
+					.then (indexEntry) !~>
+						item.useDataFrom indexEntry
+						@_inventory.push item
+						return item
+				) data
 
-					promises.push promise
+				promises.push promise
 
-				@_inventory.$promise = @$q.all promises .then ~> @_inventory
-			else
-				@_inventory = raw
-					..$promise = do !~>
-						@$q.defer!
-							..resolve @_inventory
-							return ..promise
+			@_inventory.$promise = @$q.all promises .then ~> @_inventory
 
 		return if returnPromise then @_inventory.$promise else @_inventory
 
