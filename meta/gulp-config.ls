@@ -12,7 +12,7 @@ module?.exports = cfg = {}
 	..src = {}
 		..dir = "#{cfg.baseDir }/src"
 		..libs = "#{cfg.src.dir }/#{cfg.common.libDir }/**"
-		..staticFiles = "#{cfg.src.dir }/**/*.png"
+		..staticFiles = "#{cfg.src.dir }/**/*.{woff,ttf,eot,png}"
 		..staticModuleFiles = "#{cfg.src.dir }/modules/**/*.{html,json}"
 		..staticRequireFiles = "#{cfg.src.dir }/**/*.json"
 		..view = "#{cfg.src.dir }/index.html"
