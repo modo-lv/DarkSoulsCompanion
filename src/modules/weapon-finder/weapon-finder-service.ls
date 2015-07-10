@@ -22,34 +22,38 @@ class WeaponFinderService
 		.then (upWeapons) ~>
 			allWeapons ++= upWeapons
 
-			allWeapons |> each ~> it.score = @calculateScoreFor it
-
-			return allWeapons
+			allWeapons |> map @calculateScoreFor
 
 
 	findFittingWeapons : ~>
 		@_itemSvc.findItemsFromInventory \weapon
 		.then (weapons) !~>
 			# Discard any that don't meet requirements
+			
+			str = @params.statBonus + @_statSvc.statValueOf \strength
+			dex = @params.statBonus + @_statSvc.statValueOf \dexterity
+			int = @params.statBonus + @_statSvc.statValueOf \intelligence
+			fai = @params.statBonus + @_statSvc.statValueOf \faith
+			
+			weapons = weapons
+				|> filter -> str >= it.reqStr and dex >= it.reqDex and int >= it.reqInt and fai >= it.reqFai
 
 			return weapons
 
 
 	calculateScoreFor : (weapon) ~>
+		result = {} <<< weapon
+
 		scS = @_statSvc.statScalingFactorOf \strength
 		scD = @_statSvc.statScalingFactorOf \dexterity
 		scI = @_statSvc.statScalingFactorOf \intelligence
 		scF = @_statSvc.statScalingFactorOf \faith
 
-		str = @params.statBonus + @_statSvc.statValueOf \strength
-		dex = @params.statBonus + @_statSvc.statValueOf \dexterity
-		int = @params.statBonus + @_statSvc.statValueOf \intelligence
-		fai = @params.statBonus + @_statSvc.statValueOf \faith
+		result
+			..atkPhy *= (1 + ((weapon.bonusStr * scS) + (weapon.bonusDex * scD)))
+			..atkMag *= (1 + ((weapon.bonusInt * scI) + (weapon.bonusFai * scF)))
 
-		weapon.atkPhy *= (1 + ((weapon.bonusStr * scS) + (weapon.bonusDex * scD)))
-		weapon.atkMag *= (1 + ((weapon.bonusInt * scI) + (weapon.bonusFai * scF)))
-
-		score = weapon.atkPhy
+			..score = result.atkPhy
 
 
 

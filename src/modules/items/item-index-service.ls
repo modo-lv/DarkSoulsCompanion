@@ -59,6 +59,15 @@ class ItemIndexService
 		return if returnPromise then @_armorSetIndex.$promise else @_armorSetIndex
 
 
+	/**
+	 * Load all index entries that are not of upgraded weapons or armor.
+	 */
+	loadAllBaseEntries : ~>
+		@loadAllEntries!
+		.then (entries) ~>
+			entries |> reject -> (it.itemType in [\weapon \armor] and it.id % 100 > 0)
+
+
 	loadAllEntries : (returnPromise = true) !~>
 		if not @_index.$promise?
 			@_index = @externalDataSvc.loadJson '/modules/items/content/index.json', false

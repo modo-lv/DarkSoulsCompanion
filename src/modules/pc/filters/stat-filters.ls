@@ -5,7 +5,8 @@ output = []
 return (model) !->
 	if output.length > 0 then return output
 
-	statSvc.forEachStat model, (stat, name) !->
+	statSvc.forEachStat ((stat, name) !->
 		output.push model[name]
+	), model
 
 	return output

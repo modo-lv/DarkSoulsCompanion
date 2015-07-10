@@ -37,13 +37,13 @@ module?.exports = (uiGridConstants) ->
 			type : \number
 		}
 		{
-			field : 'weapon.atkPhy'
+			field : 'atkPhy'
 			displayName : \AP
 			type : \number
 			cellFilter : "number:0"
 		}
 		{
-			field : 'weapon.atkMag'
+			field : 'atkMag'
 			displayName : \AM
 			type : \number
 			cellFilter : "number:0"

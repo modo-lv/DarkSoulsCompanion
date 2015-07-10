@@ -1,5 +1,17 @@
 #WeaponFinder
+
+	table.params
+		tr.requirements
+			th.left Requirements:
+
+			td
+				label
+					| Add
+					input(type="number" ng-model="params.statBonus")
+					| to all stats
+
+
 	button(ng-click="findWeapons()")
-		| Find the best weapon
+		| Find
 
 	div(ui-grid-auto-resize ui-grid="gridOptions")

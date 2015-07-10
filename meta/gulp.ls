@@ -87,7 +87,7 @@ gulp.task "compile-scripts", ->
 
 # Combine .js scripts into one file.
 gulp.task "compile-and-browserify", ["copy-require-files", "compile-scripts"], ->
-	browserify cfg.dst.mainTempFile, debug: true
+	browserify cfg.dst.mainTempFile, debug: false
 		.transform "require-globify"
 		.bundle! .on "error", (e) -> throw new Error(e)
 		.pipe vinyl_stream(cfg.dst.mainFile)

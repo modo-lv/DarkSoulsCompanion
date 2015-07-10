@@ -22,7 +22,7 @@ $scope.gridOptions = (require './config/inventory-grid-opts') uiGridConstants
 
 ### LOAD DATA
 
-$scope.allItems = itemIndexSvc.loadAllEntries false
+itemIndexSvc.loadAllBaseEntries!.then (entries) !-> $scope.allItems = entries
 
 $scope.armorSets = itemIndexSvc.loadAllArmorSetEntries false
 
