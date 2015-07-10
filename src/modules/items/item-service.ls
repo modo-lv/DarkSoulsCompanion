@@ -1,10 +1,12 @@
-angular? .module "dsc" .service "itemSvc" (externalDataSvc, itemIndexSvc, itemUpgradeSvc) ->
-	new ItemService externalDataSvc, itemIndexSvc, itemUpgradeSvc
-
+angular? .module "dsc" .service "itemSvc" (externalDataSvc, itemIndexSvc, inventorySvc, $q) -> new ItemService ...
 
 class ItemService
 
-	(@_externalDataSvc, @_itemIndexSvc, @_itemUpgradeSvc) ->
+	(@_externalDataSvc, @_itemIndexSvc, @_inventorySvc, @$q) ->
+		@.upgradeComp = new (require './components/item-service-upgrade-component')
+
+		@.upgradeComp.@@.apply @.{}upgradeComp, [this] ++ (& |> map -> it)
+
 		# Item data storage containing
 		@_storage = {}
 
@@ -13,6 +15,7 @@ class ItemService
 
 	clear : !~>
 		@_storage = {}
+		return this
 
 
 	/**
@@ -29,10 +32,6 @@ class ItemService
 			return item
 
 
-	findBaseItem : (item) ~>
-		@findItem item.itemType, ~> (it.id == @_itemUpgradeSvc.getBaseIdFrom item.id)
-
-
 	/**
 	 * Finds any item, regardless of type, but can only
 	 * check fields that are in the index.
@@ -40,9 +39,9 @@ class ItemService
 	findAnyItem : (filterFn) ~>
 		@_itemIndexSvc.findEntry filterFn
 		.then (item) !~>
-			if @_itemUpgradeSvc.isUpgraded item
-				baseId = @_itemUpgradeSvc.getBaseIdFrom item.id
-				upLevel = @_itemUpgradeSvc.getUpgradeLevelFrom item.id
+			if @upgradeComp.isUpgraded item
+				baseId = @upgradeComp.getBaseIdFrom item.id
+				upLevel = @upgradeComp.getUpgradeLevelFrom item.id
 				#console.log "Base ID: #{baseId}, upLevel: #{upLevel}"
 				return ((item, baseId, upLevel) ~>
 					@findItem item.itemType, (.id == baseId)
@@ -53,14 +52,33 @@ class ItemService
 
 
 	/**
+	 * Filter inventory entries by a given filter and then return the real item data
+	 * for them.
+	 */
+	findRealItems : (byFilter) ~>
+		@_inventorySvc.load true, false
+		.then (inventory) !~>
+			inventory = inventory |> filter byFilter
+
+			promises = []
+			for itemEntry in inventory
+				let itemEntry = itemEntry
+					promises.push @.findItem itemEntry.itemType, (.id == itemEntry.id)
+
+			return @$q.all promises
+
+	findRealItemsByType : (type) ~>
+		@findRealItems (.itemType == type)
+
+	/**
 	 * Create a model from given item data
 	 */
-	createItemModel : (data) ~>
+	createItemModelFrom : (data) ~>
 		(switch data.itemType
 		| \weapon => new @_models.Weapon
 		| \armor => new @_models.Armor
 		| \item => new @_models.Item
-		| otherwise => throw new Error "[#{data.itemType}] is not a recognized item type."
+		| otherwise => throw new Error "Cannot create item model from data with .itemType == #{data.itemType}."
 		).useDataFrom(data)
 
 
@@ -73,7 +91,7 @@ class ItemService
 			@_storage.[itemType].$promise =
 				test = @_externalDataSvc.loadJson "/modules/items/content/#{itemType}s.json"
 				.then (itemData) !~>
-					itemData |> each !~> @_storage.[][itemType].push @createItemModel it
+					itemData |> each !~> @_storage.[][itemType].push @createItemModelFrom it
 					return @_storage.[itemType]
 
 		return if returnPromise then @_storage.[itemType].$promise else @_storage.[itemType]
@@ -83,17 +101,17 @@ class ItemService
 	getUpgraded : (item, level = true) ~>
 		if level == true
 			level = item.upgradeId + 1
-		@_itemUpgradeSvc.findUpgradeFor item, level
+		@upgradeComp.findUpgradeFor item, level
 		.then (upgrade) !~>
 			if not upgrade?
 				#console.warn "Failed to find upgrade at level #{level} for item", item
 				return null
 
-			return (item |> @findBaseItem)
+			return (item |> @upgradeComp.findBaseItem)
 			.then (baseItem) ~>
-				@createItemModel baseItem
+				@createItemModelFrom baseItem
 			.then (newItem) ~>
-				@_itemUpgradeSvc .apply upgrade .to newItem
+				@upgradeComp .apply upgrade .to newItem
 			.then (newItem) ~>
 				@_itemIndexSvc.findEntry (.uid == newItem.uid)
 				.then (entry) ~>

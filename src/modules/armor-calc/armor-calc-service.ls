@@ -1,8 +1,8 @@
-angular? .module "dsc" .service "armorCalcSvc" (inventorySvc, itemSvc, itemUpgradeSvc, $q) ->
-	new ArmorCalcSvc inventorySvc, itemSvc, itemUpgradeSvc, $q
+angular? .module "dsc" .service "armorCalcSvc" (inventorySvc, itemSvc, $q) ->
+	new ArmorCalcSvc ...
 
 class ArmorCalcSvc
-	(@_inventorySvc, @_itemSvc, @_itemUpgradeSvc, @$q) ->
+	(@_inventorySvc, @_itemSvc, @$q) ->
 		# Weight limit that the armor combinations must not exceed
 		@freeWeight = 0
 		@params = {}
@@ -54,7 +54,7 @@ class ArmorCalcSvc
 			promises = []
 			for armor in dynamicArmors
 				promises.push(
-					@findAllAvailableUpgradesFor armor
+					@_itemSvc.upgradeComp.findAllAvailableUpgradesFor armor
 					.then (upgrades) ~>
 						#console.log upgrades
 						dynamicArmors ++= upgrades
@@ -171,7 +171,7 @@ class ArmorCalcSvc
 			empty = armors |> find -> it.armorType == type and it.weight == 0
 
 			if not empty?
-				empty = @_itemSvc.createItemModel {
+				empty = @_itemSvc.createItemModelFrom {
 					itemType : \armor
 					name : "(bare #{type})"
 					armorType : type
@@ -256,7 +256,7 @@ class ArmorCalcSvc
 		for comb in combinations
 			# Add armor names for debugging
 			comb.names = comb.armors |> map -> it?.name
-			comb.pieces = (comb.armors |> map ~> (@_itemUpgradeSvc.getBaseIdFrom it.id)) |> join ','
+			comb.pieces = (comb.armors |> map ~> (@_itemSvc.upgradeComp.getBaseIdFrom it.id)) |> join ','
 			#comb.upLevels = (comb.armors |> map (.upgradeLevel))
 			comb.upgradeLevel = (comb.armors |> map ~> (it.upgradeLevel ? 0)) |> sum
 
@@ -280,68 +280,6 @@ class ArmorCalcSvc
 			combination.score += armor.score
 
 		return combination.score
-
-
-
-	/**
-	 * Find all upgrades that can be applied to a given item,
-	 * within the limits
-	 */
-	findAllAvailableUpgradesFor : (armor) ~>
-		if armor.id < 0 or armor.upgradeId < 0 then
-			@$q.defer!
-				..resolve []
-				return ..promise
-
-		upgradeList = []
-
-		@_inventorySvc.load!
-		.then (inventory) ~>
-			materials = inventory |> filter (.itemType == \item ) |> map -> {} <<< it
-
-			promise = @$q (resolve, reject) !-> resolve!
-
-			for level from (@_itemUpgradeSvc.getUpgradeLevelFrom armor.id) + 1 to 10
-				((materials, level) !~>
-					#console.log level
-					promise := promise
-					.then ~>
-						@_itemUpgradeSvc .are materials .enoughToUpgrade armor, level
-					.then (canUpgrade) !~>
-						if canUpgrade
-							return @$q.all [
-								@_itemSvc.getUpgraded armor, level
-								@_itemUpgradeSvc.deductFrom materials .costOfUpgrade armor, level
-							]
-						else
-							materials.length = 0
-							return null
-					.then (result) !~>
-						upArmor = result?.0
-						cost = result?.1
-						if upArmor?
-							totalCost = materials.[]totalCost
-							costEntry = totalCost |> find (.matId == cost.matId)
-							if not costEntry?
-								costEntry = {
-									matId : cost.matId
-									matCost : 0
-								}
-								totalCost.push costEntry
-
-							costEntry.matCost += cost.matCost
-							upArmor
-								..totalCost = totalCost |> map -> {} <<< it
-								# Upgrade level counting from the starting level as it's in the inventory
-								..upgradeLevel = level - @_itemUpgradeSvc.getUpgradeLevelFrom armor.id
-
-							upgradeList.push upArmor
-				) materials, level
-			return promise
-		.then ->
-			#console.log upgradeList
-			return upgradeList
-
 
 
 module?.exports = ArmorCalcSvc

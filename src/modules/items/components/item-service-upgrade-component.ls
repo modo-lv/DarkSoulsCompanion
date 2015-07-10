@@ -1,9 +1,5 @@
-angular? .module "dsc" .service "itemUpgradeSvc" (externalDataSvc) ->
-	new ItemUpgradeService externalDataSvc
-
-class ItemUpgradeService
-
-	(@externalDataSvc) ->
+class ItemServiceUpgradeComponent
+	(@_itemSvc, @_externalDataSvc, @_itemIndexSvc, @_inventorySvc, @$q) ->
 		# Holds the upgrade data for weapons and armor
 		@_upgrades = {}
 
@@ -23,12 +19,17 @@ class ItemUpgradeService
 		@getBaseIdFrom item.id
 
 
+	findBaseItem : (item) ~>
+		@_itemSvc.findItem item.itemType, ~> (it.id == @getBaseIdFrom item.id)
+
+
 	/**
 	 * Get the upgrade model for a given weapon at a given upgrade level
 	 * @returns Promise, resolved with the upgrade (or null if nothing found)
 	 */
 	findUpgradeFor : (item, level) ~>
 		@loadAllUpgrades item.itemType .then (upgrades) ~>
+			#console.log "upgrades |> find ~> (it.id == #{@getBaseIdFrom(item.upgradeId)} + #{level})"
 			upgrades |> find ~> (it.id == @getBaseIdFrom(item.upgradeId) + level)
 
 
@@ -41,7 +42,7 @@ class ItemUpgradeService
 			throw new Error "Can't find upgrade materials, either item or upgrade is unset."
 
 		if item.matSetId < 0 then
-			$q.defer!
+			@$q.defer!
 				..resolve null
 				return ..promise
 
@@ -82,7 +83,7 @@ class ItemUpgradeService
 	 */
 	loadAllMaterialSets : !~>
 		if not @_materialSets.$promise?
-			@_materialSets = @externalDataSvc.loadJson "/modules/items/content/material-sets.json", false
+			@_materialSets = @_externalDataSvc.loadJson "/modules/items/content/material-sets.json", false
 
 		return @_materialSets.$promise
 
@@ -95,7 +96,7 @@ class ItemUpgradeService
 		itemType |> @ensureItCanBeUpgraded
 
 		if not @_upgrades.[][itemType].$promise?
-			@_upgrades.[itemType] = @externalDataSvc.loadJson "/modules/items/content/#{itemType}-upgrades.json", false
+			@_upgrades.[itemType] = @_externalDataSvc.loadJson "/modules/items/content/#{itemType}-upgrades.json", false
 
 		return @_upgrades.[itemType].$promise
 
@@ -170,4 +171,67 @@ class ItemUpgradeService
 
 			return item
 
-module?.exports = ItemUpgradeService
+
+	/**
+	 * Find all upgrades that can be applied to a given item,
+	 * within the limits of what is available to the user
+	 */
+	findAllAvailableUpgradesFor : (item) ~>
+		if not item.itemType in [\armor \weapon]
+			throw new Error "Only weapons and armor can be upgraded, this is [#{item.itemType}]"
+
+		if item.id < 0 or item.upgradeId < 0 then
+			@$q.defer!
+				..resolve []
+				return ..promise
+
+		upgradeList = []
+
+		@_inventorySvc.load!
+		.then (inventory) ~>
+			materials = inventory |> filter (.itemType == \item ) |> map -> {} <<< it
+
+			promise = @$q (resolve, reject) !-> resolve!
+
+			for level from (@getUpgradeLevelFrom item.id) + 1 to 10
+				((materials, level) !~>
+					#console.log level
+					promise := promise
+					.then ~>
+						@.are materials .enoughToUpgrade item, level
+					.then (canUpgrade) !~>
+						if canUpgrade
+							return @$q.all [
+								@_itemSvc.getUpgraded item, level
+								@deductFrom materials .costOfUpgrade item, level
+							]
+						else
+							materials.length = 0
+							return null
+					.then (result) !~>
+						upItem = result?.0
+						cost = result?.1
+						if upItem?
+							totalCost = materials.[]totalCost
+							costEntry = totalCost |> find (.matId == cost.matId)
+							if not costEntry?
+								costEntry = {
+									matId : cost.matId
+									matCost : 0
+								}
+								totalCost.push costEntry
+
+							costEntry.matCost += cost.matCost
+							upItem
+								..totalCost = totalCost |> map -> {} <<< it
+								# Upgrade level counting from the starting level as it's in the inventory
+								..upgradeLevel = level - @getUpgradeLevelFrom item.id
+
+							upgradeList.push upItem
+				) materials, level
+			return promise
+		.then ->
+			#console.log upgradeList
+			return upgradeList
+
+module?.exports = ItemServiceUpgradeComponent

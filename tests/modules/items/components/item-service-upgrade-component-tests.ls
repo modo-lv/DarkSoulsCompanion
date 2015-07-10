@@ -1,10 +1,14 @@
-_ <-! describe "item-upgrade-service"
+_ <-! describe "item-service-upgrade-component"
 
-var svc, edSvc, itemModels, upModels
+var svc, edSvc, itemModels, upModels, itemSvc, inventorySvc, storageSvc, itemIndexSvc
 
 beforeEach !->
 	edSvc := new MockExternalDataService
-	svc := new (testRequire "modules/items/item-upgrade-service") edSvc
+	storageSvc := new MockStorageService
+	itemIndexSvc := new (testRequire "modules/items/item-index-service") edSvc
+	inventorySvc := new (testRequire "modules/pc/inventory-service") storageSvc, itemIndexSvc, $q
+	itemSvc := new (testRequire "modules/items/item-service") edSvc, itemIndexSvc, inventorySvc, $q
+	svc := itemSvc.upgradeComp
 	itemModels := testRequire 'modules/items/models/item-models'
 	upModels := testRequire 'modules/items/models/item-upgrade-models'
 
@@ -96,7 +100,7 @@ it "should correctly tell when materials are enough for an upgrade", (done) !->
 
 
 it "should correctly deduct upgrade cost from materials", (done) !->
-	edSvc.loadJsonReturnValue = [
+	materialSets = [
 		{ \id : 7009, \matId : 100, \matCost : 2 }
 	]
 	materials = [
@@ -107,12 +111,13 @@ it "should correctly deduct upgrade cost from materials", (done) !->
 		\matSetId : 7009
 		\itemType : \armor
 	}
+	upgrades = [{ \id : 9, \matSetId : 9 }]
+
+	edSvc.loadJsonReturnValue = materialSets
 
 	svc.loadAllMaterialSets!
 	.then ->
-		edSvc.loadJsonReturnValue = [
-			{ \id : 9, \matSetId : 9 }
-		]
+		edSvc.loadJsonReturnValue = upgrades
 		svc.deductFrom materials .costOfUpgrade armor, 9
 	.then !->
 		expect(materials.0).to.have.property \amount, 3

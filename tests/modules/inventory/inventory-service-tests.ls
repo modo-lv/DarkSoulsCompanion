@@ -1,12 +1,14 @@
 _ <-! describe "inventory-service"
 
-var svc, storageSvc, itemIndexSvc, edSvc
+var svc, storageSvc, itemIndexSvc, edSvc, itemUpgradeSvc, itemSvc
 
 beforeEach !->
 	edSvc := new MockExternalDataService
 	storageSvc := new MockStorageService
 	itemIndexSvc := new (testRequire "modules/items/item-index-service") edSvc
 	svc := new (testRequire "modules/pc/inventory-service") storageSvc, itemIndexSvc, $q
+	itemSvc := new (testRequire "modules/items/item-service") edSvc, itemIndexSvc, svc, $q
+	itemUpgradeSvc := itemSvc.upgradeComp
 
 	edSvc.loadJsonReturnValue = [
 		{

@@ -1,12 +1,15 @@
 _ <-! describe "item-service"
 
-var svc, edSvc, upgradeSvc, indexSvc
+var svc, edSvc, upgradeSvc, indexSvc, inventorySvc, itemIndexSvc, storageSvc
 
 beforeEach !->
 	edSvc := new MockExternalDataService
-	upgradeSvc := new (testRequire "modules/items/item-upgrade-service") edSvc
+	storageSvc := new MockStorageService
+	itemIndexSvc := new (testRequire "modules/items/item-index-service") edSvc
+	inventorySvc := new (testRequire "modules/pc/inventory-service") storageSvc, itemIndexSvc, $q
+	svc := new (testRequire "modules/items/item-service") edSvc, indexSvc, inventorySvc, $q
+	upgradeSvc := svc.upgradeComp
 	indexSvc := new (testRequire "modules/items/item-index-service") edSvc
-	svc := new (testRequire "modules/items/item-service") edSvc, indexSvc, upgradeSvc
 
 	weapons = [{
 		\id : 500
@@ -123,5 +126,32 @@ it "should correctly upgrade given an already upgraded item", (done) !->
 	.then (nextItem) ->
 		expect nextItem .to.have.property \id, 502
 		expect nextItem .to.have.property \atkPhy, 200
+		done!
+	.catch done
+
+
+it "should fetch real item data", (done) !->
+	inventory = [
+		{ itemType : \weapon , id : 1 }
+		{ itemType : \weapon , id : 2 }
+		{ itemType : \armor , id : 1 }
+		{ itemType : \item , id : 2 }
+	]
+
+	weapons = [
+		{ itemType : \weapon , id : 1 , name : "Weapon One" }
+		{ itemType : \weapon , id : 2 , name : "Weapon Two" }
+	]
+
+	storageSvc.loadReturnValue = inventory
+	edSvc.loadJsonReturnValue = weapons
+	svc.clear!.loadAllItems \weapon
+
+	svc.findRealItems (.itemType == \weapon)
+	.then (items) !->
+		expect items .to.have.length 2
+		for item, index in items |> sortBy (.id)
+			expect item .to.exist
+			expect item .to.have.properties weapons.[index]
 		done!
 	.catch done

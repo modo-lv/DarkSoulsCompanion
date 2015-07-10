@@ -6,9 +6,9 @@ beforeEach (done) !->
 	edSvc := new MockExternalDataService
 	storageSvc := new MockStorageService
 	itemIndexSvc := new (testRequire 'modules/items/item-index-service') edSvc
-	itemUpSvc := new (testRequire 'modules/items/item-upgrade-service') edSvc
-	itemSvc := new (testRequire 'modules/items/item-service') edSvc, itemIndexSvc, itemUpSvc
 	invSvc := new (testRequire 'modules/pc/inventory-service') storageSvc, itemIndexSvc, $q
+	itemSvc := new (testRequire 'modules/items/item-service') edSvc, itemIndexSvc, invSvc, $q
+	itemUpSvc := itemSvc.upgradeComp
 	svc := new (testRequire 'modules/armor-calc/armor-calc-service') invSvc, itemSvc, itemUpSvc, $q
 
 	# Setup default data
@@ -131,28 +131,6 @@ it "should correctly calculate score for an armor combination", !->
 		.to.equal 300
 
 
-it "should correctly find all available upgrades for a piece of armor", (done) !->
-	itemSvc.findItem \armor, (.id == 480000) # 11000)
-	.then (armor) ->
-		svc.findAllAvailableUpgradesFor armor
-	.then (upgradeList) ->
-		expect upgradeList .to.have.length 10 # 5
-		done!
-	.catch done
-
-
-it "should set the total upgrade cost on found upgrades", (done) !->
-	itemSvc.findItem \armor, (.id == 480000)
-	.then (armor) ->
-		svc.findAllAvailableUpgradesFor armor
-	.then (upgradeList) ->
-		#console.log (upgradeList |> first)
-		expect upgradeList .to.have.length 10
-		#expect (upgradeList |> first) .to.have
-		done!
-	.catch done
-
-
 it "should find the best armor combination", (done) !->
 	svc.freeWeight = 2
 
@@ -166,5 +144,27 @@ it "should find the best armor combination", (done) !->
 		#for comb in combs
 		#	console.log (comb.armors |> sortBy (.score) |> reverse |> map (.name))
 		#expect true .to.be.false
+		done!
+	.catch done
+
+
+it "should correctly find all available upgrades for a piece of armor", (done) !->
+	itemSvc.findItem \armor, (.id == 480000) # 11000)
+	.then (armor) ->
+		itemSvc.upgradeComp.findAllAvailableUpgradesFor armor
+	.then (upgradeList) ->
+		expect upgradeList .to.have.length 10 # 5
+		done!
+	.catch done
+
+
+it "should set the total upgrade cost on found upgrades", (done) !->
+	itemSvc.findItem \armor, (.id == 480000)
+	.then (armor) ->
+		itemSvc.upgradeComp.findAllAvailableUpgradesFor armor
+	.then (upgradeList) ->
+		#console.log (upgradeList |> first)
+		expect upgradeList .to.have.length 10
+		#expect (upgradeList |> first) .to.have
 		done!
 	.catch done

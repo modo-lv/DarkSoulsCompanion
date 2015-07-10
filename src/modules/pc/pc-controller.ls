@@ -1,4 +1,4 @@
-$scope, uiGridConstants, statSvc, itemSvc, itemIndexSvc, itemUpgradeSvc, storageSvc, inventorySvc, dataExportSvc <-! angular.module "dsc" .controller "pcController"
+$scope, uiGridConstants, statSvc, itemSvc, itemIndexSvc, storageSvc, inventorySvc, dataExportSvc <-! angular.module "dsc" .controller "pcController"
 
 $scope.model = statSvc.loadUserData!
 
@@ -34,7 +34,7 @@ $scope.export = !->
 
 
 $scope.canUpgrade = (item) !->
-	return item |> itemUpgradeSvc.canBeUpgraded
+	return item |> itemSvc.upgradeComp.canBeUpgraded
 	
 $scope.upgrade = (invEntry) ->
 	itemSvc.findAnyItem (.uid == invEntry.uid)

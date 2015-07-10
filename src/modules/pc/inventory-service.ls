@@ -1,9 +1,9 @@
 angular? .module "dsc" .service "inventorySvc" (storageSvc, itemIndexSvc, $q) ->
-	new InventorySvc storageSvc, itemIndexSvc, $q
+	new InventorySvc ...
 
 class InventorySvc
 
-	(@storageSvc, @itemIndexSvc, @$q) ->
+	(@_storageSvc, @_itemIndexSvc, @$q) ->
 		@_inventory = []
 		@_models = require './models/inventory-models'
 
@@ -15,26 +15,34 @@ class InventorySvc
 				\uid : item.uid
 				\amount : item.amount
 			}
-		@storageSvc.save 'inventory', data
+		@_storageSvc.save 'inventory', data
 
 
-	load : (returnPromise = true) !~>
+	load : (returnPromise = true, createModels = true) !~>
 		if not @_inventory.$promise?
 			@clear!
 			promises = []
-			for data in @storageSvc.load 'inventory'
-				promise = ((data) ~>
-					item = new @_models.InventoryItem data
-					@itemIndexSvc.findEntry (.uid == data.uid)
-					.then (indexEntry) !~>
-						item.useDataFrom indexEntry
-						@_inventory.push item
-						return item
-				) data
+			raw = @_storageSvc.load 'inventory'
+			if createModels
+				for data in @_storageSvc.load 'inventory'
+					promise = ((data) ~>
+						item = new @_models.InventoryItem data
+						@_itemIndexSvc.findEntry (.uid == data.uid)
+						.then (indexEntry) !~>
+							item.useDataFrom indexEntry
+							@_inventory.push item
+							return item
+					) data
 
-				promises.push promise
+					promises.push promise
 
-			@_inventory.$promise = @$q.all promises .then ~> @_inventory
+				@_inventory.$promise = @$q.all promises .then ~> @_inventory
+			else
+				@_inventory = raw
+					..$promise = do !~>
+						@$q.defer!
+							..resolve @_inventory
+							return ..promise
 
 		return if returnPromise then @_inventory.$promise else @_inventory
 
@@ -44,12 +52,6 @@ class InventorySvc
 			inventory |> find (.uid == uid)
 
 
-	find : (item) ~>
-		if not item.uid?
-			throw new Error "Can't find an item without UID."
-		@findItemByUid item.uid
-
-
 	createInventoryItemFrom : (item, amount = 1) ~>
 		new @_models.InventoryItem
 			..useDataFrom item
@@ -57,7 +59,7 @@ class InventorySvc
 
 
 	add : (item, amount = 1) ~>
-		@find item
+		@findItemByUid item.uid
 		.then (invItem) !~>
 			if invItem?
 				invItem.amount += amount
@@ -70,7 +72,7 @@ class InventorySvc
 
 
 	remove : (item, amount = 1) ~>
-		@find item
+		@findItemByUid item.uid
 		.then (entry) !~>
 			if not entry?
 				throw new Error "Failed to remove the above item because couldn't find it in the inventory."
