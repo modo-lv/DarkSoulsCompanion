@@ -26,9 +26,9 @@ class ItemIndexService
 		return @loadAllEntries!
 		.then (entries) ~>
 			entry = entries |> find (.uid == uid)
-			if not entry?
+			#if not entry?
 				#console.log entries
-				throw new Error "Failed to find index entry with UID [#{uid}]."
+				#throw new Error "Failed to find index entry with UID [#{uid}]."
 			return entry
 
 

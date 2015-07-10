@@ -21,6 +21,7 @@ it "should correctly calculate the base item ID from an upgraded one", !->
 it "should find the correct upgrade for an item", (done) !->
 	item =
 		\upgradeId : 10000
+		\matSetId : 0
 		\itemType : \weapon
 
 	upgrade =

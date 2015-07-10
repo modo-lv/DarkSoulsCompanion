@@ -29,6 +29,8 @@ class ItemServiceUpgradeComponent
 	 */
 	findUpgradeFor : (item, level) ~>
 		@loadAllUpgrades item.itemType .then (upgrades) ~>
+			if item.matSetId < 0
+				return null
 			#console.log "upgrades |> find ~> (it.id == #{@getBaseIdFrom(item.upgradeId)} + #{level})"
 			upgrades |> find ~> (it.id == @getBaseIdFrom(item.upgradeId) + level)
 
@@ -58,10 +60,10 @@ class ItemServiceUpgradeComponent
 					return false
 				@findUpgradeMaterialsFor item, upgrade
 			.then (materialSet) ~>
-				if materialSet == false
-					return null
-				#if not materialSet?
-					#console.log "Failed to find material set for", {} <<< item, level, "upgrade is", upgrade
+				if materialSet == null
+					return false
+				if not materialSet?
+					console.log "Failed to find material set for", {} <<< item, level
 				return materials |> any -> (it.id == materialSet.matId and it.amount >= materialSet.matCost)
 
 
@@ -72,6 +74,8 @@ class ItemServiceUpgradeComponent
 				@findUpgradeMaterialsFor item, upgrade
 			.then (materialSet) ~>
 				#console.log "Deducting #{materialSet.matId} x #{materialSet.matCost} from", {} <<< materials, "for item", item, "level", level
+				if not (materials |> find (.id == materialSet.matId))?
+					console.log materialSet.matId, materials
 				(materials |> find (.id == materialSet.matId)).amount -= materialSet.matCost
 
 				return { matCost : materialSet.matCost, matId : materialSet.matId }
@@ -126,8 +130,11 @@ class ItemServiceUpgradeComponent
 		if not @canBeUpgraded item
 			return false
 
+		if item.weaponType == \Magic
+			return false
+
 		return @findUpgradeFor item, @upgradeLevelOf item
-		.then (upgrade) ~> upgrade?
+			.then (upgrade) ~> upgrade?
 
 
 	apply : (upgrade) ~>
@@ -198,6 +205,8 @@ class ItemServiceUpgradeComponent
 					#console.log level
 					promise := promise
 					.then ~>
+						@.canBeUpgradedFurther item
+						and
 						@.are materials .enoughToUpgrade item, level
 					.then (canUpgrade) !~>
 						if canUpgrade

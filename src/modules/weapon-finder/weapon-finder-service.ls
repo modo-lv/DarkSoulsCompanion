@@ -16,11 +16,14 @@ class WeaponFinderService
 		# Find all the upgrades
 		.then (weapons) ~>
 			allWeapons ++= weapons
-			@$q.all weapons |> map ~> @_itemSvc.upgradeComp.findAllAvailableUpgradesFor it
+			@$q.all (weapons
+				|> map ~> @_itemSvc.upgradeComp.findAllAvailableUpgradesFor it
+			)
 
 		# Apply parameters and calculate scores
 		.then (upWeapons) ~>
-			allWeapons ++= upWeapons
+			allWeapons ++= upWeapons |> (reject -> it |> empty) |> flatten
+			#console.log allWeapons
 
 			allWeapons |> map @calculateScoreFor
 

@@ -2286,6 +2286,9 @@ function curry$(f, bound){
     prototype.findUpgradeFor = function(item, level){
       var this$ = this;
       return this.loadAllUpgrades(item.itemType).then(function(upgrades){
+        if (item.matSetId < 0) {
+          return null;
+        }
         return find(function(it){
           return it.id === this$.getBaseIdFrom(item.upgradeId) + level;
         })(
@@ -2323,8 +2326,11 @@ function curry$(f, bound){
             }
             return this$.findUpgradeMaterialsFor(item, upgrade);
           }).then(function(materialSet){
-            if (materialSet === false) {
-              return null;
+            if (materialSet === null) {
+              return false;
+            }
+            if (materialSet == null) {
+              console.log("Failed to find material set for", import$({}, item), level);
             }
             return any(function(it){
               return it.id === materialSet.matId && it.amount >= materialSet.matCost;
@@ -2341,6 +2347,12 @@ function curry$(f, bound){
           return this$.findUpgradeFor(item, level).then(function(upgrade){
             return this$.findUpgradeMaterialsFor(item, upgrade);
           }).then(function(materialSet){
+            if (find(function(it){
+              return it.id === materialSet.matId;
+            })(
+            materials) == null) {
+              console.log(materialSet.matId, materials);
+            }
             find(function(it){
               return it.id === materialSet.matId;
             })(
@@ -2402,6 +2414,9 @@ function curry$(f, bound){
     prototype.canBeUpgradedFurther = function(item){
       var this$ = this;
       if (!this.canBeUpgraded(item)) {
+        return false;
+      }
+      if (item.weaponType === 'Magic') {
         return false;
       }
       return this.findUpgradeFor(item, this.upgradeLevelOf(item)).then(function(upgrade){
@@ -2477,7 +2492,7 @@ function curry$(f, bound){
         return promise;
         function fn$(materials, level){
           promise = promise.then(function(){
-            return this$.are(materials).enoughToUpgrade(item, level);
+            return this$.canBeUpgradedFurther(item) && this$.are(materials).enoughToUpgrade(item, level);
           }).then(function(canUpgrade){
             if (canUpgrade) {
               return this$.$q.all([this$._itemSvc.getUpgraded(item, level), this$.deductFrom(materials).costOfUpgrade(item, level)]);
@@ -2814,9 +2829,6 @@ function curry$(f, bound){
           return it.uid === uid;
         })(
         entries);
-        if (entry == null) {
-          throw new Error("Failed to find index entry with UID [" + uid + "].");
-        }
         return entry;
       });
     };
@@ -3080,6 +3092,9 @@ function curry$(f, bound){
           return this$.upgradeComp.apply(upgrade).to(newItem);
         }).then(function(newItem){
           return this$._itemIndexSvc.findEntryByUid(newItem.uid).then(function(entry){
+            if (entry == null) {
+              console.log(newItem);
+            }
             newItem.name = entry.name;
             return newItem;
           });
@@ -4031,12 +4046,17 @@ function curry$(f, bound){
       allWeapons = [];
       return this.findFittingWeapons().then(function(weapons){
         allWeapons = allWeapons.concat(weapons);
-        return map(function(it){
+        return this$.$q.all(map(function(it){
           return this$._itemSvc.upgradeComp.findAllAvailableUpgradesFor(it);
         })(
-        this$.$q.all(weapons));
+        weapons));
       }).then(function(upWeapons){
-        allWeapons = allWeapons.concat(upWeapons);
+        allWeapons = allWeapons.concat(flatten(
+        reject(function(it){
+          return empty(
+          it);
+        })(
+        upWeapons)));
         return map(this$.calculateScoreFor)(
         allWeapons);
       });
