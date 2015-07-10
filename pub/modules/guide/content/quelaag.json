@@ -26,8 +26,51 @@
       {
         "title": "Quelana of Izalith (Blighttown)",
         "id": "ced35c24-fd24-4d8d-80f3-60651ddaca30"
+      },
+      {
+        "title": "Domnhand of Zena (The Depths)",
+        "id": "4bdb705e-946f-4215-a87f-f7129900b1b6"
       }
     ],
     "id": "fb433b7f-2042-4ba6-b945-b490eeb384ee"
+  },
+  {
+    "title": "Firelink Shrine",
+    "children": [
+      {
+        "labels": [
+          "talk"
+        ],
+        "title": "Laurentius of The Great Swamp",
+        "children": [
+          {
+            "labels": [
+              "spoiler"
+            ],
+            "title": "If you've purchased anything from Quelana of Izalith",
+            "content": "Answering \"Yes\" to Laurentius' question will make him disappear for the rest of the game once you leave Firelink Shrine.",
+            "id": "6f238984-c85d-454c-850b-99def48960dc"
+          }
+        ],
+        "id": "b5d2521b-ed9c-422b-9124-30e07fb3674e"
+      },
+      {
+        "labels": [
+          "item"
+        ],
+        "title": "If you freed Lautrec of Carim",
+        "children": [
+          {
+            "labels": [
+              "item"
+            ],
+            "title": "Dingy Hood, Dingy Robe, Dingy Gloves, Blood-Stained Shirt, Black Eye Orb",
+            "id": "d74d5756-2c53-4e0c-b508-f1b168abd546"
+          }
+        ],
+        "id": "f96c8aa1-c607-4b92-afcd-058f29d1d7bc"
+      }
+    ],
+    "id": "34f35d6c-5f63-4915-a8bb-7094767b8754"
   }
 ]
