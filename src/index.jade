@@ -29,6 +29,8 @@ body(ng-controller="mainController")
 		nav
 			ul
 				li(ng-repeat="item in menu" ng-class="{current: $parent.thisLocation.indexOf(item.path)==0}")
-					a(href="#{{item.path}}") {{item.name}}
+					a(href="#{{item.path}}")
+						img(ng-src="/app/content/menu-icons/{{item.path}}.png")
+						| {{item.name}}
 
 		.main-content(ng-view)

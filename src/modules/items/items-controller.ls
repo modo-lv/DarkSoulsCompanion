@@ -22,6 +22,7 @@ $scope.selectedItemTypeChanged = !->
 	itemSvc.loadAllItems $scope.selectedItemType .then (itemData) !->
 		if $scope.selectedItemType == \weapon
 			for weapon in itemData
+				#console.log weapon.atkPhy, weapon.atkStaCost, weapon.dpsPhy
 				let weapon = weapon
 					itemSvc.getUpgraded weapon, 0
 					.then (up) !->

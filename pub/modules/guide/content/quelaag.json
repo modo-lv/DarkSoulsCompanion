@@ -1,14 +1,33 @@
 [
   {
-    "title" : "Fog gate",
-    "labels" : ["info"],
-    "content" : "{Quelaag} boss fight.",
-    "children" : [
+    "title": "Fog gate",
+    "labels": [
+      "info"
+    ],
+    "content": "{Quelaag} boss fight.",
+    "children": [
       {
-        "labels" : ["help"],
-        "title" : "Weaknesses",
-        "content" : "Lightning. Direct (ranged) attacks to the human part cause stagger."
+        "labels": [
+          "help"
+        ],
+        "title": "Weaknesses",
+        "content": "Lightning. Direct (ranged) attacks to the human part cause stagger.",
+        "id": "c8e161d4-635e-4482-b8e5-cb10f60730ce"
       }
-    ]
+    ],
+    "id": "1c4fce9e-86ad-485b-96b8-ef7e68771d7b"
+  },
+  {
+    "title": "Talk",
+    "labels": [
+      "talk"
+    ],
+    "children": [
+      {
+        "title": "Quelana of Izalith (Blighttown)",
+        "id": "ced35c24-fd24-4d8d-80f3-60651ddaca30"
+      }
+    ],
+    "id": "fb433b7f-2042-4ba6-b945-b490eeb384ee"
   }
 ]

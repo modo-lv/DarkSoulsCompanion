@@ -1,4 +1,4 @@
-$q, $scope, itemSvc, inventorySvc, pcSvc, uiGridConstants <-! angular.module "dsc" .controller "WeaponCalcController"
+$q, $scope, itemSvc, inventorySvc, statSvc, uiGridConstants <-! angular.module "dsc" .controller "WeaponCalcController"
 
 $scope.results = []
 
@@ -12,15 +12,15 @@ $scope.gridOptions = (require './controller/gridOptions') uiGridConstants
 
 
 _addResult = (type, weapon) !->
-	scS = pcSvc.statScalingFactorOf \strength
-	scD = pcSvc.statScalingFactorOf \dexterity
-	scI = pcSvc.statScalingFactorOf \intelligence
-	scF = pcSvc.statScalingFactorOf \faith
+	scS = statSvc.statScalingFactorOf \strength
+	scD = statSvc.statScalingFactorOf \dexterity
+	scI = statSvc.statScalingFactorOf \intelligence
+	scF = statSvc.statScalingFactorOf \faith
 
-	str = $scope.statBonus + pcSvc.statValueOf \strength
-	dex = $scope.statBonus + pcSvc.statValueOf \dexterity
-	int = $scope.statBonus + pcSvc.statValueOf \intelligence
-	fai = $scope.statBonus + pcSvc.statValueOf \faith
+	str = $scope.statBonus + statSvc.statValueOf \strength
+	dex = $scope.statBonus + statSvc.statValueOf \dexterity
+	int = $scope.statBonus + statSvc.statValueOf \intelligence
+	fai = $scope.statBonus + statSvc.statValueOf \faith
 
 	if weapon.reqS > str || weapon.reqD > dex || weapon.reqI > int || weapon.reqF > fai
 		#console.log "#{weapon.name} needs higher stats"
@@ -43,11 +43,20 @@ _addResult = (type, weapon) !->
 $scope.calculate = (type = 'offence') !->
 	$scope.gridOptions.data = []
 
-	items = itemSvc.loadItemData \items
-	weapons = itemSvc.loadItemData \weapons
-	inventory = inventorySvc.loadUserInventory!
+	items = []
+	weapons = []
+	inventory = []
 
-	$q.all [weapons.$promise, items.$promise] .then ->
+	itemSvc.loadAllItems \item
+	.then (items) ->
+		items := items
+		itemSvc.loadAllItems \weapon
+	.then (weapons) ->
+		weapons := weapons
+		inventorySvc.load!
+	.then (inventory) ->
+		inventory := inventory
+
 		availableWeapons = (inventory |> map (item) -> weapons |> find (.id == item.id)) |> reject ->
 			#console.log it?.path
 			not it? or ($scope.ignoreCrystal and (it.name |> take 4) == \Crys)

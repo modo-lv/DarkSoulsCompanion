@@ -6,7 +6,7 @@ beforeEach !->
 	edSvc := new MockExternalDataService
 	storageSvc := new MockStorageService
 	itemIndexSvc := new (testRequire "modules/items/item-index-service") edSvc
-	svc := new (testRequire "modules/inventory/inventory-service") storageSvc, itemIndexSvc, $q
+	svc := new (testRequire "modules/pc/inventory-service") storageSvc, itemIndexSvc, $q
 
 	edSvc.loadJsonReturnValue = [
 		{

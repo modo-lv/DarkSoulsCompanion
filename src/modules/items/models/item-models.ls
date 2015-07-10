@@ -137,6 +137,15 @@ module?.exports = {
 
 			# HP recovery-on-hit effect
 			@atkHeal = 0
+			
+		_dpsFor : (stat) ~>
+
+			if @atkStaCost > 1 then stat / (@atkStaCost * 1.8) else 0
+
+		dpsPhy :~ -> @_dpsFor @atkPhy
+		dpsMag :~ -> @_dpsFor @atkMag
+		dpsFir :~ -> @_dpsFor @atkFir
+		dpsLit :~ -> @_dpsFor @atkLit
 
 
 	\Armor : class ArmorModel extends EquipmentModel

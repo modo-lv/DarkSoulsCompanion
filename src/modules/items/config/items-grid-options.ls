@@ -1,5 +1,7 @@
 module?.exports = ($scope, uiGridConstants) !->
-	$scope.gridOptions = {}
+	$scope.gridOptions = {
+		enableFiltering : true
+	}
 	
 	percentFieldMinWidth = 45
 
@@ -40,19 +42,19 @@ module?.exports = ($scope, uiGridConstants) !->
 				displayName : \RF
 			}
 			{
-				field : \dmgPhy
+				field : \atkPhy
 				displayName : \AP
 			}
 			{
-				field : \dmgMag
+				field : \atkMag
 				displayName : \AM
 			}
 			{
-				field : \dmgFir
+				field : \atkFir
 				displayName : \AF
 			}
 			{
-				field : \dmgLit
+				field : \atkLit
 				displayName : \AL
 			}
 			{
@@ -126,6 +128,37 @@ module?.exports = ($scope, uiGridConstants) !->
 			{
 				field : \weight
 				displayName : \Wt
+				cellFilter : "number:2"
+				type : \number
+			}
+
+			{
+				field : \atkStaCost
+				displayNamo : \Sta
+				cellFilter : "number:2"
+				type : \number
+			}
+			{
+				field : \dpsPhy
+				displayNamo : \dpsP
+				cellFilter : "number:2"
+				type : \number
+			}
+			{
+				field : \dpsMag
+				displayNamo : \dpsM
+				cellFilter : "number:2"
+				type : \number
+			}
+			{
+				field : \dpsFir
+				displayNamo : \dpsF
+				cellFilter : "number:2"
+				type : \number
+			}
+			{
+				field : \dpsLit
+				displayNamo : \dpsL
 				cellFilter : "number:2"
 				type : \number
 			}

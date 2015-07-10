@@ -6,37 +6,42 @@ $width : 900px
 	margin: auto
 	width: 90%
 
-.main-content
-	border: $border
-	border-top: 0
-	box-sizing: border-box
-	width: 100%
-	padding: 0.5em
-
-nav
-	$liPadding : 5px
-	width: 100%
-	display: table
-	ul
-		padding: 0
-		margin: 0
-		display: table-row
-	li
-		display: table-cell
+	> .main-content
 		border: $border
-		$br: 8px
-		border-radius: $br $br 0 0
-		text-align: center
-		background: #CCB280
-		font-weight: bold
+		border-top: 0
+		box-sizing: border-box
+		width: 100%
+		padding: 0.5em
 
-		a
-			color: #000
-			text-decoration: none
-			display: block
-			padding: $liPadding
+	> nav
+		$liPadding : 5px
+		width: 100%
+		display: table
+		ul
+			padding: 0
+			margin: 0
+			display: table-row
+		li
+			display: table-cell
+			border: $border
+			$br: 8px
+			border-radius: $br $br 0 0
+			text-align: center
+			background: #CCB280
+			font-weight: bold
 
-		&.current
-			border-bottom: none
-			background: #fff
-      
+			a
+				color: #000
+				text-decoration: none
+				display: block
+				padding: $liPadding
+				
+				img
+					//border-radius: 16px
+					$size : 32px
+					width: $size
+					height: $size
+
+			&.current
+				border-bottom: none
+				background: #fff

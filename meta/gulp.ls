@@ -66,9 +66,14 @@ gulp.task "compile-stylesheets", ->
 
 
 # Copy static files used in require() calls over to the temp directory
-gulp.task "copy-static-files", ->
+gulp.task "copy-require-files", ->
 	gulp.src cfg.src.staticRequireFiles
 		.pipe gulp.dest cfg.dst.tempDir
+
+
+gulp.task "copy-static-files", ->
+	gulp.src cfg.src.staticFiles
+		.pipe gulp.dest cfg.dst.dir
 
 
 
@@ -81,7 +86,7 @@ gulp.task "compile-scripts", ->
 
 
 # Combine .js scripts into one file.
-gulp.task "compile-and-browserify", ["copy-static-files", "compile-scripts"], ->
+gulp.task "compile-and-browserify", ["copy-require-files", "compile-scripts"], ->
 	browserify cfg.dst.mainTempFile, debug: true
 		.transform "require-globify"
 		.bundle! .on "error", (e) -> throw new Error(e)
@@ -89,7 +94,7 @@ gulp.task "compile-and-browserify", ["copy-static-files", "compile-scripts"], ->
 		.pipe gulp.dest(cfg.dst.dir)
 
 
-gulp.task "build", ["compile-html", "copy-libs", "compile-and-browserify", "compile-stylesheets"], ->
+gulp.task "build", ["compile-html", "copy-static-files", "copy-libs", "compile-and-browserify", "compile-stylesheets"], ->
 	# Once everything is done, delete the temp directory
 	del.sync cfg.dst.tempDir, force : true
 

@@ -304,10 +304,10 @@ processWeapons = (folder = '.')!->
 			..reqInt = +rawWeapon.\ProperMagic
 			..reqFai = +rawWeapon.\ProperFaith
 
-			..dmgPhy = +rawWeapon.\AttackBasePhysics
-			..dmgMag = +rawWeapon.\AttackBaseMagic
-			..dmgFir = +rawWeapon.\AttackBaseFire
-			..dmgLit = +rawWeapon.\AttackBaseThunder
+			..atkPhy = +rawWeapon.\AttackBasePhysics
+			..atkMag = +rawWeapon.\AttackBaseMagic
+			..atkFir = +rawWeapon.\AttackBaseFire
+			..atkLit = +rawWeapon.\AttackBaseThunder
 
 			..atkStaCost = +rawWeapon.\AttackBaseStamina
 

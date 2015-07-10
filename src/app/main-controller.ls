@@ -6,11 +6,10 @@ class MainController
 		$scope.$watch (~> @$location.path!), !~> $scope.thisLocation = it
 
 		$scope.menu = [
-			{ path : "/guide" name : "Guide" }
-			{ path : "/inventory" name : "Inventory" }
-			{ path : "/a-calc" name : "Armor calculator" }
-			{ path : "/w-calc" name : "Weapon calculator" }
-			{ path : "/stats" name : "Stats" }
+			{ path : "/guide" name : "Game info & checklist" }
+			{ path : "/pc" name : "Stats & inventory" }
+			{ path : "/armor-calc" name : "Armor finder" }
+			{ path : "/w-calc" name : "Weapon finder" }
 			{ path : "/items" name : "Item data" }
 		]
 

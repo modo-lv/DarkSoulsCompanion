@@ -1,8 +1,10 @@
 #Guide
-	a(
-		ng-repeat="section in sections"
-		href="#/guide/{{section.id}}"
-	) {{section.name}}
+
+	nav
+		ul
+			li(ng-repeat="section in sections")
+				a(href="#/guide/{{section.id}}")
+					| {{section.name}}
 
 	div(ng-include="'GuideEntry'")
 
