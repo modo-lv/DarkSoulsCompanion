@@ -13,5 +13,8 @@
 
 	button(ng-click="findWeapons()")
 		| Find
+		select(ng-click="$event.stopPropagation()" ng-model="params.searchType")
+			option(value="offence") weapons
+			option(value="defence") shields
 
 	div(ui-grid-auto-resize ui-grid="gridOptions")

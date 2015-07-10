@@ -1374,7 +1374,7 @@ function curry$(f, bound){
           name: "Armor finder"
         }, {
           path: "/weapon-finder",
-          name: "Weapon finder"
+          name: "Weapon & shield finder"
         }, {
           path: "/items",
           name: "Item data"
@@ -2026,49 +2026,49 @@ function curry$(f, bound){
           }, {
             field: 'detailScores.phy',
             minWidth: 50,
-            cellFilter: 'number:2',
+            cellFilter: 'number:0',
             type: 'number',
             displayName: 'Phys.'
           }, {
             field: 'detailScores.mag',
             minWidth: 50,
-            cellFilter: 'number:2',
+            cellFilter: 'number:0',
             type: 'number',
             displayName: 'Magic'
           }, {
             field: 'detailScores.fir',
             minWidth: 50,
-            cellFilter: 'number:2',
+            cellFilter: 'number:0',
             type: 'number',
             displayName: 'Fire'
           }, {
             field: 'detailScores.lit',
             minWidth: 50,
-            cellFilter: 'number:2',
+            cellFilter: 'number:0',
             type: 'number',
             displayName: 'Light.'
           }, {
             field: 'detailScores.blo',
             minWidth: 50,
-            cellFilter: 'number:2',
+            cellFilter: 'number:0',
             type: 'number',
             displayName: 'Bleed'
           }, {
             field: 'detailScores.tox',
             minWidth: 50,
-            cellFilter: 'number:2',
+            cellFilter: 'number:0',
             type: 'number',
             displayName: 'Tox.'
           }, {
             field: 'detailScores.cur',
             minWidth: 50,
-            cellFilter: 'number:2',
+            cellFilter: 'number:0',
             type: 'number',
             displayName: 'Curse'
           }, {
             field: 'detailScores.poise',
             minWidth: 50,
-            cellFilter: 'number:2',
+            cellFilter: 'number:0',
             type: 'number',
             displayName: 'Poise'
           }
@@ -2443,7 +2443,7 @@ function curry$(f, bound){
           }
           switch (item['itemType']) {
           case 'weapon':
-            for (i$ = 0, len$ = (ref$ = ['atkModPhy', 'atkModMag', 'atkModFir', 'atkModLit', 'bonusModStr', 'bonusModDex', 'bonusModInt', 'bonusModFai']).length; i$ < len$; ++i$) {
+            for (i$ = 0, len$ = (ref$ = ['atkModPhy', 'atkModMag', 'atkModFir', 'atkModLit', 'bonusModStr', 'bonusModDex', 'bonusModInt', 'bonusModFai', 'defModSta']).length; i$ < len$; ++i$) {
               field = ref$[i$];
               item[field.replace('Mod', '')] *= upgrade[field];
             }
@@ -3079,7 +3079,7 @@ function curry$(f, bound){
       var this$ = this;
       level == null && (level = true);
       if (level === true) {
-        level = item.upgradeId + 1;
+        level = this.upgradeComp.getUpgradeLevelFrom(item.id) + 1;
       }
       return this.upgradeComp.findUpgradeFor(item, level).then(function(upgrade){
         if (upgrade == null) {
@@ -3954,7 +3954,8 @@ function curry$(f, bound){
           }, {
             field: 'weapon.defSta',
             displayName: 'St',
-            type: 'number'
+            type: 'number',
+            cellFilter: "number:0"
           }, {
             field: 'weapon.divine',
             minWidth: percentFieldMinWidth,
@@ -3970,7 +3971,8 @@ function curry$(f, bound){
           }, {
             field: 'weapon.weight',
             displayName: 'Wt',
-            type: 'number'
+            type: 'number',
+            cellFilter: "number:2"
           }
         ]
       };
@@ -3989,7 +3991,8 @@ function curry$(f, bound){
   angular.module("dsc").controller("weaponFinderController", function($scope, storageSvc, weaponFinderSvc, uiGridConstants){
     $scope.results = [];
     $scope.params = import$({
-      statBonus: 0
+      statBonus: 0,
+      searchType: 'offence'
     }, storageSvc.load('weapon-finder-params'));
     $scope.gridOptions = require('./config/weapon-finder-grid-options')(uiGridConstants);
     $scope.findWeapons = function(){
@@ -4038,7 +4041,8 @@ function curry$(f, bound){
       this.findFittingWeapons = bind$(this, 'findFittingWeapons', prototype);
       this.findBestWeapons = bind$(this, 'findBestWeapons', prototype);
       this.params = {
-        statBonus: 0
+        statBonus: 0,
+        searchType: 'offence'
       };
     }
     prototype.findBestWeapons = function(){
@@ -4086,8 +4090,13 @@ function curry$(f, bound){
       x$ = result;
       x$.atkPhy *= 1 + (weapon.bonusStr * scS + weapon.bonusDex * scD);
       x$.atkMag *= 1 + (weapon.bonusInt * scI + weapon.bonusFai * scF);
-      x$.score = result.atkPhy;
-      return x$;
+      if (this.params.searchType === 'defence') {
+        result.score = average(
+        [result.defPhy * 4, result.defMag * 2, result.defFir, result.defLit, result.defSta * 3]);
+      } else {
+        result.score = result.atkPhy;
+      }
+      return result;
     };
     return WeaponFinderService;
   }());

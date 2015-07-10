@@ -170,6 +170,7 @@ class ItemServiceUpgradeComponent
 					\bonusModDex
 					\bonusModInt
 					\bonusModFai
+					\defModSta
 				]
 					item.[field.replace 'Mod', ''] *= upgrade.[field]
 			case \armor

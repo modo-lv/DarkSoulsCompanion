@@ -133,6 +133,7 @@ module?.exports = (uiGridConstants) ->
 			field : 'weapon.defSta'
 			displayName : \St
 			type : \number
+			cellFilter : "number:0"
 		}
 		{
 			field : 'weapon.divine'
@@ -152,5 +153,6 @@ module?.exports = (uiGridConstants) ->
 			field : 'weapon.weight'
 			displayName : \Wt
 			type : \number
+			cellFilter : "number:2"
 		}
 	]

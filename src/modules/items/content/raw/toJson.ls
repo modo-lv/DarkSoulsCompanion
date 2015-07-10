@@ -98,7 +98,7 @@ loadWeaponTypeNames = !->
 
 loadUpgrades = !->
 	console.log "Loading reinforcement data..."
-	content = fs.readFileSync \upgrades.csv , { \encoding : \utf8 }
+	content = fs.readFileSync \weapon-upgrades.csv , { \encoding : \utf8 }
 	csvParse content, { \columns : true }, (err, data) !->
 		if err? then throw err
 		for row in data
@@ -199,6 +199,9 @@ processUpgrades = (folder = '.') !->
 			..defModTox = +rawUp.\PoisonGuardResistRate
 			..defModBlo = +rawUp.\BloodGuardResistRate
 			..defModCur = +rawUp.\CurseGuardResistRate
+
+			..defModSta = +rawUp.\StaminaGuardDefRate
+
 
 			..matSetId = +rawUp.\MaterialSetId
 

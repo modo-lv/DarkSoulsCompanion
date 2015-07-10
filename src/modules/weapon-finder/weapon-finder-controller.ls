@@ -6,6 +6,7 @@ $scope.results = []
 
 $scope.params = {
 	statBonus : 0
+	searchType : \offence
 } <<< (storageSvc.load 'weapon-finder-params')
 
 $scope.gridOptions = (require './config/weapon-finder-grid-options') uiGridConstants

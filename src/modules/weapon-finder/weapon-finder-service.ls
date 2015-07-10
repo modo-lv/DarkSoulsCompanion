@@ -4,6 +4,7 @@ class WeaponFinderService
 	(@_itemSvc, @_statSvc, @$q) ->
 		@params = {
 			statBonus : 0
+			searchType : \offence
 		}
 
 
@@ -56,7 +57,13 @@ class WeaponFinderService
 			..atkPhy *= (1 + ((weapon.bonusStr * scS) + (weapon.bonusDex * scD)))
 			..atkMag *= (1 + ((weapon.bonusInt * scI) + (weapon.bonusFai * scF)))
 
-			..score = result.atkPhy
+		if @params.searchType == \defence
+			result.score = [result.defPhy * 4, result.defMag * 2, result.defFir, result.defLit, result.defSta * 3]
+				|> average
+		else
+			result.score = result.atkPhy
+
+		return result
 
 
 
