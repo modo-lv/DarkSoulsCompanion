@@ -2201,8 +2201,8 @@ function curry$(f, bound){
         armor.detailScores = {};
         for (j$ = 0, len1$ = modSet.length; j$ < len1$; ++j$) {
           mod = modSet[j$];
-          armor.detailScores[mod[0]] = armor[mod[1]] * this.params.modifiers[mod[0]];
-          armor.score += armor.detailScores[mod[0]];
+          armor.detailScores[mod[0]] = armor[mod[1]];
+          armor.score += armor[mod[1]] * this.params.modifiers[mod[0]];
         }
       }
     };

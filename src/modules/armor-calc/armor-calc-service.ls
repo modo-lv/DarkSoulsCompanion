@@ -311,8 +311,8 @@ class ArmorCalcSvc
 			armor.score = 0
 			armor.detailScores = {}
 			for mod in modSet
-				armor.detailScores[mod.0] = armor.[mod.1] * @params.modifiers[mod.0]
-				armor.score += armor.detailScores[mod.0]
+				armor.detailScores[mod.0] = armor.[mod.1]
+				armor.score += armor.[mod.1] * @params.modifiers[mod.0]
 
 
 	calculateCombinationScores : (combinations) ~>
@@ -327,8 +327,6 @@ class ArmorCalcSvc
 				if best.[a] == -1 or comb.score > best.[a].score
 					best.[a] = comb
 					break
-
-
 
 		return best |> filter (!= -1)
 
