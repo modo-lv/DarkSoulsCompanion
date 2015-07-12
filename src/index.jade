@@ -27,6 +27,41 @@ html(ng-app="dsc")
 body(ng-controller="mainController")
 	header
 		h1 Dark Souls Companion
+		h2
+			label
+				| Profile:
+				select(
+					ng-model="currentProfile"
+					ng-options="profile for profile in profileList"
+					ng-change="switchProfile()"
+				)
+
+			input(
+				type="text"
+				ng-model="$parent.newProfileName"
+				ng-if="profileEditStatus === 'new'"
+			)
+
+			button(
+				ng-click="addNewProfile()"
+				ng-if="profileEditStatus == null || profileEditStatus == 'new'"
+			) +
+
+			button(ng-click="deleteProfile()"
+				ng-if="profileEditStatus == null || profileEditStatus == 'delete'"
+			) −
+
+			button(
+				ng-click="resetProfileEditStatus()"
+				ng-if="profileEditStatus != null"
+			) Cancel
+
+			button(
+				ng-if="profileEditStatus === null"
+				ng-click="resetProfile()"
+				title="Clear (reset) all data for the selected profile."
+			) Clear
+
 	.page
 		nav
 			ul
