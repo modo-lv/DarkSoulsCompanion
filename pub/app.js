@@ -2134,13 +2134,14 @@ function curry$(f, bound){
         empty = find(fn$)(
         armors);
         if (empty == null) {
-          empty = [{
+          empty = {
             name: "(bare " + type + ")",
             armorType: type,
             weight: 0,
             upgradeId: -1,
-            id: -(index + 1)
-          }];
+            id: -(index + 1),
+            score: 0
+          };
           armors.push(empty);
         }
         empties.push(empty);
@@ -2188,7 +2189,7 @@ function curry$(f, bound){
       def.resolve(combinations);
       return def.promise;
       function fn$(it){
-        return it.armorType === type && it.weight === 0;
+        return it.armorType === type && it.id < 0;
       }
     };
     prototype.calculateArmorScores = function(armors){
@@ -2224,7 +2225,10 @@ function curry$(f, bound){
           }
         }
       }
-      return best;
+      return filter((function(it){
+        return it !== -1;
+      }))(
+      best);
     };
     return ArmorCalcSvc;
   }());

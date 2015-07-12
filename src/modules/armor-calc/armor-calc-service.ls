@@ -52,7 +52,6 @@ class ArmorCalcSvc
 						if not comb.detailScores[key]?
 							comb.detailScores[key] = 0
 						comb.detailScores[key] += val
-
 			return combs
 
 
@@ -238,16 +237,17 @@ class ArmorCalcSvc
 
 		# Add (nothing)s if they aren't already in the armor list
 		for type, index in @armorTypes
-			empty = armors |> find -> it.armorType == type and it.weight == 0
+			empty = armors |> find -> it.armorType == type and it.id < 0
 
 			if not empty?
-				empty = [
+				empty = {
 					name : "(bare #{type})"
 					armorType : type
 					weight : 0
 					upgradeId : -1
 					id : -(index + 1)
-				]
+					score : 0
+				}
 
 				armors.push empty
 
@@ -328,7 +328,9 @@ class ArmorCalcSvc
 					best.[a] = comb
 					break
 
-		return best
+
+
+		return best |> filter (!= -1)
 
 
 module?.exports = ArmorCalcSvc
