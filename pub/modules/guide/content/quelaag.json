@@ -72,5 +72,102 @@
       }
     ],
     "id": "34f35d6c-5f63-4915-a8bb-7094767b8754"
+  },
+  {
+    "title": "Quelaag's domain",
+    "children": [
+      {
+        "title": "Hidden bonfire",
+        "labels": [
+          "secret"
+        ],
+        "children": [
+          {
+            "title": "Engyi",
+            "children": [
+              {
+                "title": "Getting past him",
+                "labels": [
+                  "help"
+                ],
+                "content": "If you answer \"no\", Engyi will not let you pass, but you can leave the area (or reload the game) and he will ask you again.",
+                "id": "e194a3df-82ae-4d25-8d07-d80906b155ad"
+              },
+              {
+                "title": "Unlocking his shop",
+                "labels": [
+                  "help"
+                ],
+                "content": "In order for Engyi to give you access to all of his wares, you must get infected with {Egghead} and talk to him when it's hatched.",
+                "id": "1328d475-0690-44ad-9189-3e403719fab9"
+              },
+              {
+                "title": "Egghead infection",
+                "labels": [
+                  "info"
+                ],
+                "content": "Egghead infection has a chance to occur every time one of the {Egg Burdened} use their grab attack on you. Successful infection will manifest as the character scratching his head while standing still, and eventually blossom into a full egg covering the player's head. This will prevent the player from wearing helmets and will absorb half of all the souls acquired from then on. After absorbing 100000 souls the egg will grow bigger and kick attack will be replaced with a larva biting attack",
+                "id": "0d63811f-9d72-46b9-858a-4ea6f4c636d9"
+              }
+            ],
+            "id": "fa79e9f0-e121-4b17-98ba-47f6f4e69608"
+          },
+          {
+            "title": "Quelaag's Sister",
+            "children": [
+              {
+                "title": "Talk [Old Witch's Ring]",
+                "labels": [
+                  "talk"
+                ],
+                "id": "22570063-7445-49b1-bbed-239be0d8a8ae"
+              },
+              {
+                "title": "Reinforce Estus Flask",
+                "labels": [
+                  "estus"
+                ],
+                "id": "b540cbf0-1679-409c-862e-c3fb44b98ea5"
+              },
+              {
+                "title": "Chaos Servant covenant",
+                "labels": [
+                  "info"
+                ],
+                "content": "This covenant has no special rules, abilities or requirements.",
+                "children": [
+                  {
+                    "labels": [
+                      "pyromancy"
+                    ],
+                    "title": "Pyromany: Great Chaos Fireball",
+                    "id": "1531e453-3080-463f-a0af-8a17af361b43"
+                  },
+                  {
+                    "labels": [
+                      "spoiler"
+                    ],
+                    "title": "Chaos Servant +2",
+                    "content": "Having rank +2 in this covenant is required for opening a shortcut much later in the game.",
+                    "id": "a19f286d-5693-41b3-9228-b0adbffcd7d1"
+                  },
+                  {
+                    "labels": [
+                      "pyromany"
+                    ],
+                    "title": "Pyromancy: Chaos Storm [Chaos Servant +2]",
+                    "id": "2c985646-6450-4b9f-9b8e-67002cf58ce4"
+                  }
+                ],
+                "id": "cdcef082-dfa8-4d3e-9f28-4fb7fa437a6f"
+              }
+            ],
+            "id": "49e3cbf8-f0a9-49d5-a633-57a3f3ee8540"
+          }
+        ],
+        "id": "4bfc63ff-3010-4074-8232-7513f4abbff2"
+      }
+    ],
+    "id": "0ac6dc8e-c5f4-444b-83a4-29afceb3add2"
   }
 ]

@@ -26,6 +26,7 @@ itemIndexSvc.loadAllBaseEntries!.then (entries) !-> $scope.allItems = entries
 
 $scope.armorSets = itemIndexSvc.loadAllArmorSetEntries false
 
+inventorySvc.clear!
 $scope.gridOptions.data = inventorySvc.load false
 
 

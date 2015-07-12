@@ -1346,7 +1346,7 @@ function curry$(f, bound){
 (function(){
   var MainController;
   if (typeof angular != 'undefined' && angular !== null) {
-    angular.module("dsc").controller("mainController", function($scope, $location, storageSvc, $route){
+    angular.module("dsc").controller("mainController", function($scope, $location, storageSvc, inventorySvc, $route){
       return (function(func, args, ctor) {
         ctor.prototype = func.prototype;
         var child = new ctor, result = func.apply(child, args), t;
@@ -1357,11 +1357,12 @@ function curry$(f, bound){
   MainController = (function(){
     MainController.displayName = 'MainController';
     var prototype = MainController.prototype, constructor = MainController;
-    function MainController($scope, $location, _storageSvc, $route){
+    function MainController($scope, $location, _storageSvc, _inventorySvc, $route){
       var this$ = this;
       this.$scope = $scope;
       this.$location = $location;
       this._storageSvc = _storageSvc;
+      this._inventorySvc = _inventorySvc;
       this.$route = $route;
       this.resetProfile = bind$(this, 'resetProfile', prototype);
       this.resetProfileEditStatus = bind$(this, 'resetProfileEditStatus', prototype);
@@ -3890,6 +3891,7 @@ function curry$(f, bound){
       $scope.allItems = entries;
     });
     $scope.armorSets = itemIndexSvc.loadAllArmorSetEntries(false);
+    inventorySvc.clear();
     $scope.gridOptions.data = inventorySvc.load(false);
     $scope['export'] = function(){};
     $scope.canUpgrade = function(item){

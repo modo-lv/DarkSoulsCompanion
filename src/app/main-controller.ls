@@ -1,8 +1,8 @@
-angular?.module "dsc" .controller "mainController" ($scope, $location, storageSvc, $route) ->
+angular?.module "dsc" .controller "mainController" ($scope, $location, storageSvc, inventorySvc, $route) ->
 	new MainController ...
 
 class MainController
-	(@$scope, @$location, @_storageSvc, @$route) ->
+	(@$scope, @$location, @_storageSvc, @_inventorySvc, @$route) ->
 		@$scope.profileEditStatus = null
 		@$scope.newProfileName = ''
 		@$scope.currentProfile = ''
