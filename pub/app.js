@@ -1909,7 +1909,7 @@ function curry$(f, bound){
       time = end - start;
       console.log("Permutated " + dynamicArmors.length + " upgradeable armors into " + combinations.length + " combinations in " + time / 1000 + " seconds");
       start = new Date().getTime();
-      best = this.calculateCombinationScores(combinations, 50);
+      best = this.calculateCombinationScores(combinations, 40);
       end = new Date().getTime();
       time = end - start;
       if (this._debugLog) {
@@ -1942,19 +1942,28 @@ function curry$(f, bound){
         start = new Date().getTime();
         return this$.takeOnlyAffordable(combs);
       }).then(function(combs){
-        var end, time, allArmors, i$, len$, comb;
+        var end, time, allArmors, i$, len$, comb, j$, ref$, len1$, armor;
         end = new Date().getTime();
         time = end - start;
         if (this$._debugLog) {
           console.log("Kept " + combs.length + " affordable combinations in " + time / 1000 + " seconds");
         }
+        start = new Date().getTime();
         allArmors = [];
         for (i$ = 0, len$ = combs.length; i$ < len$; ++i$) {
           comb = combs[i$];
-          allArmors = allArmors.concat(comb.armors);
+          for (j$ = 0, len1$ = (ref$ = comb.armors).length; j$ < len1$; ++j$) {
+            armor = ref$[j$];
+            allArmors.push(armor);
+          }
         }
         allArmors = unique(
         allArmors.concat(staticArmors));
+        end = new Date().getTime();
+        time = end - start;
+        if (this$._debugLog) {
+          console.log("Extracted and merged " + allArmors.length + " armors, upgrades and un-upgradable armors in " + time / 1000 + " seconds");
+        }
         start = new Date().getTime();
         combs = this$.findAllCombinationsOf(allArmors);
         end = new Date().getTime();

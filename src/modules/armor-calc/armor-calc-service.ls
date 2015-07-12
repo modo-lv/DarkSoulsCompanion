@@ -64,7 +64,7 @@ class ArmorCalcSvc
 
 		start := new Date!.getTime!
 
-		best = @calculateCombinationScores combinations, 50
+		best = @calculateCombinationScores combinations, 40
 
 		end = new Date!.getTime!
 		time = end - start
@@ -109,10 +109,16 @@ class ArmorCalcSvc
 			if @_debugLog
 				console.log "Kept #{combs.length} affordable combinations in #{time / 1000} seconds"
 
+			start := new Date!.getTime!
 			allArmors = []
 			for comb in combs
-				allArmors ++= comb.armors
+				for armor in comb.armors
+					allArmors.push armor
 			allArmors = (allArmors ++ staticArmors) |> unique
+			end = new Date!.getTime!
+			time = end - start
+			if @_debugLog
+				console.log "Extracted and merged #{allArmors.length} armors, upgrades and un-upgradable armors in #{time / 1000} seconds"
 
 
 			start := new Date!.getTime!
