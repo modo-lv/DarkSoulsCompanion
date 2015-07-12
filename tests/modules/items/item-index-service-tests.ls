@@ -46,7 +46,7 @@ it "should load all armor sets", (done) !->
 
 it "should find and return armors in a set", (done) !->
 	armorSets = [ { \name : "Test", \armors : [ 100, 101 ] } ]
-	armors = [ { \id : 100 }, { \id : 101 } ]
+	armors = [ { \id : 100, itemType : \armor }, { \id : 101, itemType : \armor } ]
 
 	edSvc.loadJsonReturnValue = armorSets
 	svc.loadAllArmorSetEntries!

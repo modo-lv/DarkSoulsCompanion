@@ -6,6 +6,7 @@ class ArmorCalcSvc
 		# Weight limit that the armor combinations must not exceed
 		@freeWeight = 0
 		@params = {}
+		@_debugLog = true
 
 		@armorTypes = [ \head \chest \hands \legs ]
 		@armorTypeKeys = { \head : 0, \chest : 1, \hands : 2, \legs : 3 }
@@ -14,41 +15,99 @@ class ArmorCalcSvc
 	findBestCombinations : ~>
 		if not @.{}params.includeUpgrades? then @params.includeUpgrades = true
 
-		staticArmors = []
-		dynamicArmors = []
-		canAfford = []
+		start = null
 
-		# Take armors that are withing the weight allowance.
+		# Take armors that are within the weight allowance.
 		@findUsableArmors!
 
 		# Put aside non-upgradeables and find combinations for upgradeables
-		.then (armors) !~>
-			staticArmors := armors |> filter -> (it.matSetId < 0)
-			dynamicArmors := armors |> reject (.upgradeId < 0)
+		.then (armors) ~>
+			start := new Date!.getTime!
+			@calculateArmorScores armors
+			end = new Date!.getTime!
+			time = end - start
+			console.log "Calculated scores for #{armors.length} armors in #{time / 1000} seconds"
+			if @params.includUpgrades
+				; # @findCombinationsWithUpgrades armors
+			else
+				start := new Date!.getTime!
+				@findAllCombinationsOf armors
+				.then (combs) ~>
+					end = new Date!.getTime!
+					time = end - start
+					console.log "Permutated #{armors.length} armors into #{combs.length} combinations in #{time / 1000} seconds"
 
-			return @findAllCombinationsOf dynamicArmors
+					start := new Date!.getTime!
+					combs = @calculateCombinationScores combs
+					end = new Date!.getTime!
+					time = end - start
+					console.log "Calculated scores and found the best #{combs.length} combinations in #{time / 1000} seconds"
+
+					return combs
+		.then (combs) ~>
+			for comb in combs
+				comb.detailScores = {}
+				for armor in comb.armors
+					for key, val of armor.detailScores
+						if not comb.detailScores[key]?
+							comb.detailScores[key] = 0
+						comb.detailScores[key] += val
+
+			return combs
+
+
+	findCombinationsWithUpgrades : (armors) ~>
+		start = new Date!.getTime!
+		staticArmors = armors |> filter (.matSetId < 0)
+		dynamicArmors = armors |> reject (.matSetId < 0)
+
+		@findAllCombinationsOf dynamicArmors
 
 		# Take the best combination(s) and discard all other upgradable armors
 		.then (combinations) !~>
+			@calculateScoreFor combinations
 
-			for comb in combinations
-				comb.score = @calculateScoreFor comb
+			end = new Date!.getTime!
+			time = end - start
+			if @_debugLog
+				console.log "Permutated and scored #{combinations.length} combinations in #{time / 1000} seconds"
 
-			best = combinations
-				|> sortBy (.score)
-				|> reverse
-				|> take if @params.includeUpgrades then 10 else 100
+			start := new Date!.getTime!
 
-			dynamicArmors := []
-			for comb in best
-				for armor in comb.armors
-					dynamicArmors.push armor
+			if @params.includeUpgrades
+				scores = []
+				for comb in combinations
+					scores.push comb.score
 
-			dynamicArmors := dynamicArmors |> unique
+
+				best = [0 til 50]
+
+				for a from 10 til scores.length
+					for bestScore, b in best
+						if scores[a] > bestScore
+							best[b] = a
+							break
+
+				for a from 0 til best.length
+					best[a] = combinations[best[a]]
+
+				dynamicArmors.length = 0
+				for comb in best
+					for armor in comb.armors
+						dynamicArmors.push armor
+
+				dynamicArmors := dynamicArmors |> unique
+
+			end = new Date!.getTime!
+			time = end - start
+			if @_debugLog
+				console.log "Found the best #{dynamicArmors.length} armors in #{time / 1000} seconds"
+
+			return dynamicArmors
 
 		# Find all upgradable versions for the best armors
 		.then ~>
-			if (!@params.includeUpgrades)
+			if not @params.includeUpgrades
 				return dynamicArmors
 
 			promises = []
@@ -63,8 +122,10 @@ class ArmorCalcSvc
 
 		# Find all combinations of the upgradable armors and their upgrades
 		.then ~>
-			@_debugLog = false
-			@findAllCombinationsOf dynamicArmors
+			if @params.includeUpgrades
+				@findAllCombinationsOf dynamicArmors
+			else
+				return
 
 		# Drop unaffordable combinations
 		.then (combinations) ~>
@@ -75,19 +136,24 @@ class ArmorCalcSvc
 		# add back in the un-upgradables and
 		# and find all the combinations
 		.then (combs) ~>
-			#console.log combs
-			sets = combs |> groupBy (.pieces) |> Obj.values
-			best = []
-			for set in sets
-				best.push (set |> sortBy (.upgradeLevel) |> reverse |> first)
-
 			bestArmors = []
-			for set in best
-				bestArmors ++= set.armors
+			console.log (@params.includeUpgrades)
+			if @params.includeUpgrades
+				#console.log combs
+				sets = combs |> groupBy (.pieces) |> Obj.values
+				best = []
+				for set in sets
+					best.push (set |> sortBy (.upgradeLevel) |> reverse |> first)
 
-			bestArmors = (bestArmors |> unique) ++ staticArmors
+				for set in best
+					bestArmors ++= set.armors
 
-			#console.log (bestArmors |> map (.name))
+				bestArmors = (bestArmors |> unique) ++ staticArmors
+			else
+				bestArmors = dynamicArmors
+
+			console.log (dynamicArmors |> map (.name))
+			console.log (bestArmors |> map (.name))
 
 			@findAllCombinationsOf bestArmors
 
@@ -97,13 +163,16 @@ class ArmorCalcSvc
 
 		# Calculate scores and return
 		.then (combs) ~>
-			combs |> each @calculateScoreFor
+			@calculateScoreFor combs
 
 
 	/**
 	 * Given a list of combinations, only take those that the user can afford.
 	 */
 	takeOnlyAffordable : (combinations) ~>
+		if not @params.includeUpgrades
+			return combinations
+
 		canAfford = []
 		for comb in combinations
 			comb.totalCost = []
@@ -148,10 +217,11 @@ class ArmorCalcSvc
 	findUsableArmors : ~>
 		@_inventorySvc .load!
 		.then (inventory) ~>
-			@$q.all (inventory
-				|> filter ( .itemType == \armor )
-				|> map (entry) ~> @_itemSvc.findAnyItemByUid(entry.uid)
-			)
+			promises = []
+			for entry in inventory |> filter (.itemType == \armor )
+				let entry = entry
+					promises.push @_itemSvc.findAnyItemByUid entry.uid
+			return @$q.all promises
 		.then (armors) ~>
 			armors |> filter ~> it.weight <= @freeWeight
 
@@ -171,14 +241,13 @@ class ArmorCalcSvc
 			empty = armors |> find -> it.armorType == type and it.weight == 0
 
 			if not empty?
-				empty = @_itemSvc.createItemModelFrom {
-					itemType : \armor
+				empty = [
 					name : "(bare #{type})"
 					armorType : type
 					weight : 0
 					upgradeId : -1
 					id : -(index + 1)
-				}
+				]
 
 				armors.push empty
 
@@ -190,96 +259,76 @@ class ArmorCalcSvc
 			|> map -> it?.length or 0
 		combCount = lengths |> product
 
-		#console.log (groupOf |> Obj.values |> map -> it |> map (.name)), lengths
-
-		# Index split points
-		prod = 1
-		splitAt = [ 0 0 0 0 ]
-		for b in [ 1 3 0 2 ]
-			prod *= lengths.[b]
-			splitAt[b] = (combCount / prod)
-
-		combinationIndex = {}
-		indexes = [ 0 0 0 0 ]
-		a = 0
-		while ++a <= combCount
-			combination = {
-				armors : [null null null null]
-				weight : 0
-			}
-
-			# Do the pieces in order chest, legs, head, hands,
-			# since chest and legs are usually the heaviest and
-			# the second heaviest pieces.
-			log = []
-			log.push "#{a} : #{indexes |> join ','}"
-			ciKey = ""
-			for b, key in (seq = [ 1 3 0 2 ])
-				if combination.weight < @freeWeight
-					piece = groupOf.[@armorTypes.[b]][indexes.[b]]
-					log.push "#{combination.weight} < #{@freeWeight} => +#{indexes.[b]} (#{piece.name})"
-					combination
-						..armors.[b] = piece
-						..weight += piece.weight
-					ciKey += "#{if piece.id > 0 then indexes.[b] else piece.id},"
-				else
-					if combination.weight == @freeWeight
-						log.push "#{combination.weight} == #{@freeWeight} => +#{empties.[b].name}"
-						combination.armors.[b] = empties.[b]
-						ciKey += "#{empties.[b].id},"
-						if key > 0
-							split = splitAt.[seq[key-1]]
-							jumpTo = a + (split - a % split)
-							if jumpTo != a
-								log.push "Jumping to #{a} + (#{split} - #{a} % #{split}) = #{jumpTo}"
-								a = jumpTo
-
-			if combination.weight <= @freeWeight
-				if combinationIndex[ciKey]?
-					log.push "Combination [#{ciKey}] already added, skipping"
-				else
-					log.push "Adding combination [#{ciKey}] to list"
-					combinationIndex[ciKey] = true
-					combinations.push combination
-				if @_debugLog
-					console.log (log |> join "\n")
-
-			#console.log combination
-
-			for b in [ 1 3 0 2 ]
-				if a % splitAt.[b] == 0
-					indexes.[b] = (indexes.[b] + 1) % lengths.[b]
-					break
-
-			#console.log indexes
-
-		for comb in combinations
-			# Add armor names for debugging
-			comb.names = comb.armors |> map -> it?.name
-			comb.pieces = (comb.armors |> map ~> (@_itemSvc.upgradeComp.getBaseIdFrom it.id)) |> join ','
-			#comb.upLevels = (comb.armors |> map (.upgradeLevel))
-			comb.upgradeLevel = (comb.armors |> map ~> (it.upgradeLevel ? 0)) |> sum
+		pieces = [null null null null]
+		a = lengths.0 - 1
+		do
+			pieces.0 = groupOf.[\head].[a]
+			pieces.1 = pieces.2 = pieces.3 = null
+			b = lengths.1 - 1
+			do
+				pieces.1 = groupOf.[\chest].[b]
+				pieces.2 = pieces.3 = null
+				c = lengths.2 - 1
+				do
+					pieces.2 = groupOf.[\hands].[c]
+					pieces.3 = null
+					d = lengths.3 - 1
+					do
+						pieces.3 = groupOf.[\legs].[d]
+						weight = 0
+						weight = pieces[0].weight + pieces[1].weight + pieces[2].weight + pieces[3].weight
+						upgradeLevel =
+							pieces[0].upgradeLevel + pieces[1].upgradeLevel + pieces[2].upgradeLevel + pieces[3].upgradeLevel
+						if weight <= @freeWeight
+							combinations.push {
+								armors : [] ++ pieces
+								weight : weight
+								upgradeLevel : upgradeLevel
+							}
+					while --d >=0
+				while --c >= 0
+			while --b >= 0
+		while --a >= 0
 
 		def.resolve combinations
 
 		return def.promise
 
 
-	calculateScoreFor : (combination) ~>
-		combination.score = 0
-		combination.detailScores = {}
-		@params.modifiers ?= { phy : 2, poise : 1 }
-		for armor in combination.armors
-			armor.score = 0
-			for mod in [\Phy \Mag \Fir \Lit \Blo \Tox \Cur \Poise]
-				modifier = @params.modifiers[mod.toLowerCase!] ? 0
-				baseValue = (armor.["def#{mod}"] ? 0)
-				score = baseValue * modifier
-				armor.score += score
-				combination.detailScores.[mod.toLowerCase!] = baseValue + (combination.detailScores.[mod.toLowerCase!] ? 0)
-			combination.score += armor.score
+	calculateArmorScores : (armors) !~>
+		modSet = [
+			[\phy \defPhy]
+			[\mag \defMag]
+			[\fir \defFir]
+			[\lit \defLit]
+			[\blo \defBlo]
+			[\tox \defTox]
+			[\cur \defCur]
+			[\poise \defPoise]
+		]
 
-		return combination.score
+		for armor in armors
+			armor.score = 0
+			armor.detailScores = {}
+			for mod in modSet
+				armor.detailScores[mod.0] = armor.[mod.1] * @params.modifiers[mod.0]
+				armor.score += armor.detailScores[mod.0]
+
+
+	calculateCombinationScores : (combinations) ~>
+		best = for from 0 til @params.resultLimit
+			-1
+		min = 10000
+
+		for comb in combinations by -1
+			comb.score = comb.armors.0.score + comb.armors.1.score + comb.armors.2.score + comb.armors.3.score
+
+			for a from 0 til @params.resultLimit
+				if best.[a] == -1 or comb.score > best.[a].score
+					best.[a] = comb
+					break
+
+		return best
 
 
 module?.exports = ArmorCalcSvc

@@ -191,18 +191,15 @@ module?.exports = ($scope, uiGridConstants) !->
 			}
 			{ field : 'name', minWidth : 250 }
 
-			{ name : \defN , type : \number , displayName : \DN }
-			{ name : \defSl , type : \number , displayName : \DSl }
-			{ name : \defSt , type : \number , displayName : \DSt }
-			{ name : \defTh , type : \number , displayName : \DTh }
-			{ name : \defM , type : \number , displayName : \DM }
-			{ name : \defF , type : \number , displayName : \DF }
-			{ name : \defL , type : \number , displayName : \DL }
-			{ name : \defP , type : \number , displayName : \DP }
+			{ name : \defPhy , type : \number , displayName : \DN }
+			{ name : \defMag , type : \number , displayName : \DM }
+			{ name : \defFir , type : \number , displayName : \DF }
+			{ name : \defLit , type : \number , displayName : \DL }
+			{ name : \defPoise , type : \number , displayName : \DP }
 
-			{ name : \defT , type : \number , displayName : \RP }
-			{ name : \defB , type : \number , displayName : \RB }
-			{ name : \defC , type : \number , displayName : \RC }
+			{ name : \defTox , type : \number , displayName : \RP }
+			{ name : \defBlo , type : \number , displayName : \RB }
+			{ name : \defCur , type : \number , displayName : \RC }
 
 			{ name : \stRec , type : \number , displayName : \Sr }
 

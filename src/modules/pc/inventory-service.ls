@@ -22,7 +22,7 @@ class InventorySvc
 		if not @_inventory.$promise?
 			@clear!
 			promises = []
-			for data in @_storageSvc.load 'inventory'
+			for data in (@_storageSvc.load 'inventory') ? []
 				promise = ((data) ~>
 					item = new @_models.InventoryItem data
 					@_itemIndexSvc.findEntryByUid(data.uid)

@@ -1776,6 +1776,7 @@ function curry$(f, bound){
       x$ = armorCalcSvc.params = {};
       x$.freeWeight = $scope.availableLoad;
       x$.includeUpgrades = $scope.params.includeUpgrades;
+      x$.resultLimit = $scope.params.resultLimit;
       for (i$ = 0, len$ = (ref$ = $scope.modifiers).length; i$ < len$; ++i$) {
         index = i$;
         mod = ref$[i$];
@@ -1795,19 +1796,19 @@ function curry$(f, bound){
             detailScores: result.detailScores
           });
         }
-        $scope.gridOptions.data = take($scope.params.resultLimit)(
-        reverse(
-        sortBy(function(it){
-          return it.score;
-        })(
-        $scope.results)));
+        $scope.gridOptions.data = $scope.results;
         function fn$(it){
           return it.name;
         }
       });
     };
     $scope.$watch("params", function(){
-      $scope.availableLoad = $scope.maxLoad * $scope.params.selectedWeightLimit - $scope.params.reservedWeight;
+      var max;
+      max = $scope.maxLoad;
+      if ($scope.params.havelRing) {
+        max *= 1.5;
+      }
+      $scope.availableLoad = max * $scope.params.selectedWeightLimit - $scope.params.reservedWeight;
       storageSvc.save("armor-calc-params", $scope.params);
     }, true);
   });
@@ -1832,13 +1833,16 @@ function curry$(f, bound){
       this._inventorySvc = _inventorySvc;
       this._itemSvc = _itemSvc;
       this.$q = $q;
-      this.calculateScoreFor = bind$(this, 'calculateScoreFor', prototype);
+      this.calculateCombinationScores = bind$(this, 'calculateCombinationScores', prototype);
+      this.calculateArmorScores = bind$(this, 'calculateArmorScores', prototype);
       this.findAllCombinationsOf = bind$(this, 'findAllCombinationsOf', prototype);
       this.findUsableArmors = bind$(this, 'findUsableArmors', prototype);
       this.takeOnlyAffordable = bind$(this, 'takeOnlyAffordable', prototype);
+      this.findCombinationsWithUpgrades = bind$(this, 'findCombinationsWithUpgrades', prototype);
       this.findBestCombinations = bind$(this, 'findBestCombinations', prototype);
       this.freeWeight = 0;
       this.params = {};
+      this._debugLog = true;
       this.armorTypes = ['head', 'chest', 'hands', 'legs'];
       this.armorTypeKeys = {
         'head': 0,
@@ -1848,45 +1852,111 @@ function curry$(f, bound){
       };
     }
     prototype.findBestCombinations = function(){
-      var staticArmors, dynamicArmors, canAfford, this$ = this;
+      var start, this$ = this;
       if ((this.params || (this.params = {})).includeUpgrades == null) {
         this.params.includeUpgrades = true;
       }
-      staticArmors = [];
-      dynamicArmors = [];
-      canAfford = [];
+      start = null;
       return this.findUsableArmors().then(function(armors){
-        staticArmors = filter(function(it){
-          return it.matSetId < 0;
-        })(
-        armors);
-        dynamicArmors = reject(function(it){
-          return it.upgradeId < 0;
-        })(
-        armors);
-        return this$.findAllCombinationsOf(dynamicArmors);
-      }).then(function(combinations){
-        var i$, len$, comb, best, j$, ref$, len1$, armor;
-        for (i$ = 0, len$ = combinations.length; i$ < len$; ++i$) {
-          comb = combinations[i$];
-          comb.score = this$.calculateScoreFor(comb);
+        var end, time;
+        start = new Date().getTime();
+        this$.calculateArmorScores(armors);
+        end = new Date().getTime();
+        time = end - start;
+        console.log("Calculated scores for " + armors.length + " armors in " + time / 1000 + " seconds");
+        if (this$.params.includUpgrades) {} else {
+          start = new Date().getTime();
+          return this$.findAllCombinationsOf(armors).then(function(combs){
+            var end, time;
+            end = new Date().getTime();
+            time = end - start;
+            console.log("Permutated " + armors.length + " armors into " + combs.length + " combinations in " + time / 1000 + " seconds");
+            start = new Date().getTime();
+            combs = this$.calculateCombinationScores(combs);
+            end = new Date().getTime();
+            time = end - start;
+            console.log("Calculated scores and found the best " + combs.length + " combinations in " + time / 1000 + " seconds");
+            return combs;
+          });
         }
-        best = take(this$.params.includeUpgrades ? 10 : 100)(
-        reverse(
-        sortBy(function(it){
-          return it.score;
-        })(
-        combinations)));
-        dynamicArmors = [];
-        for (i$ = 0, len$ = best.length; i$ < len$; ++i$) {
-          comb = best[i$];
+      }).then(function(combs){
+        var i$, len$, comb, j$, ref$, len1$, armor, key, ref1$, val;
+        for (i$ = 0, len$ = combs.length; i$ < len$; ++i$) {
+          comb = combs[i$];
+          comb.detailScores = {};
           for (j$ = 0, len1$ = (ref$ = comb.armors).length; j$ < len1$; ++j$) {
             armor = ref$[j$];
-            dynamicArmors.push(armor);
+            for (key in ref1$ = armor.detailScores) {
+              val = ref1$[key];
+              if (comb.detailScores[key] == null) {
+                comb.detailScores[key] = 0;
+              }
+              comb.detailScores[key] += val;
+            }
           }
         }
-        dynamicArmors = unique(
-        dynamicArmors);
+        return combs;
+      });
+    };
+    prototype.findCombinationsWithUpgrades = function(armors){
+      var start, staticArmors, dynamicArmors, this$ = this;
+      start = new Date().getTime();
+      staticArmors = filter(function(it){
+        return it.matSetId < 0;
+      })(
+      armors);
+      dynamicArmors = reject(function(it){
+        return it.matSetId < 0;
+      })(
+      armors);
+      return this.findAllCombinationsOf(dynamicArmors).then(function(combinations){
+        var end, time, scores, i$, len$, comb, best, to$, a, j$, b, bestScore, ref$, len1$, armor;
+        this$.calculateScoreFor(combinations);
+        end = new Date().getTime();
+        time = end - start;
+        if (this$._debugLog) {
+          console.log("Permutated and scored " + combinations.length + " combinations in " + time / 1000 + " seconds");
+        }
+        start = new Date().getTime();
+        if (this$.params.includeUpgrades) {
+          scores = [];
+          for (i$ = 0, len$ = combinations.length; i$ < len$; ++i$) {
+            comb = combinations[i$];
+            scores.push(comb.score);
+          }
+          best = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49];
+          for (i$ = 10, to$ = scores.length; i$ < to$; ++i$) {
+            a = i$;
+            for (j$ = 0, len$ = best.length; j$ < len$; ++j$) {
+              b = j$;
+              bestScore = best[j$];
+              if (scores[a] > bestScore) {
+                best[b] = a;
+                break;
+              }
+            }
+          }
+          for (i$ = 0, to$ = best.length; i$ < to$; ++i$) {
+            a = i$;
+            best[a] = combinations[best[a]];
+          }
+          dynamicArmors.length = 0;
+          for (i$ = 0, len$ = best.length; i$ < len$; ++i$) {
+            comb = best[i$];
+            for (j$ = 0, len1$ = (ref$ = comb.armors).length; j$ < len1$; ++j$) {
+              armor = ref$[j$];
+              dynamicArmors.push(armor);
+            }
+          }
+          dynamicArmors = unique(
+          dynamicArmors);
+        }
+        end = new Date().getTime();
+        time = end - start;
+        if (this$._debugLog) {
+          console.log("Found the best " + dynamicArmors.length + " armors in " + time / 1000 + " seconds");
+        }
+        return dynamicArmors;
       }).then(function(){
         var promises, i$, ref$, len$, armor;
         if (!this$.params.includeUpgrades) {
@@ -1902,32 +1972,46 @@ function curry$(f, bound){
           return dynamicArmors = dynamicArmors.concat(upgrades);
         }
       }).then(function(){
-        this$._debugLog = false;
-        return this$.findAllCombinationsOf(dynamicArmors);
+        if (this$.params.includeUpgrades) {
+          return this$.findAllCombinationsOf(dynamicArmors);
+        } else {}
       }).then(function(combinations){
         return this$.takeOnlyAffordable(combinations);
       }).then(function(combs){
-        var sets, best, i$, len$, set, bestArmors;
-        sets = Obj.values(
-        groupBy(function(it){
-          return it.pieces;
-        })(
-        combs));
-        best = [];
-        for (i$ = 0, len$ = sets.length; i$ < len$; ++i$) {
-          set = sets[i$];
-          best.push(first(
-          reverse(
-          sortBy(fn$)(
-          set))));
-        }
+        var bestArmors, sets, best, i$, len$, set;
         bestArmors = [];
-        for (i$ = 0, len$ = best.length; i$ < len$; ++i$) {
-          set = best[i$];
-          bestArmors = bestArmors.concat(set.armors);
+        console.log(this$.params.includeUpgrades);
+        if (this$.params.includeUpgrades) {
+          sets = Obj.values(
+          groupBy(function(it){
+            return it.pieces;
+          })(
+          combs));
+          best = [];
+          for (i$ = 0, len$ = sets.length; i$ < len$; ++i$) {
+            set = sets[i$];
+            best.push(first(
+            reverse(
+            sortBy(fn$)(
+            set))));
+          }
+          for (i$ = 0, len$ = best.length; i$ < len$; ++i$) {
+            set = best[i$];
+            bestArmors = bestArmors.concat(set.armors);
+          }
+          bestArmors = unique(
+          bestArmors).concat(staticArmors);
+        } else {
+          bestArmors = dynamicArmors;
         }
-        bestArmors = unique(
-        bestArmors).concat(staticArmors);
+        console.log(map(function(it){
+          return it.name;
+        })(
+        dynamicArmors));
+        console.log(map(function(it){
+          return it.name;
+        })(
+        bestArmors));
         return this$.findAllCombinationsOf(bestArmors);
         function fn$(it){
           return it.upgradeLevel;
@@ -1935,8 +2019,7 @@ function curry$(f, bound){
       }).then(function(combs){
         return this$.takeOnlyAffordable(combs);
       }).then(function(combs){
-        return each(this$.calculateScoreFor)(
-        combs);
+        return this$.calculateScoreFor(combs);
       });
     };
     /**
@@ -1944,6 +2027,9 @@ function curry$(f, bound){
      */
     prototype.takeOnlyAffordable = function(combinations){
       var canAfford, i$, len$, comb, promises, j$, ref$, len1$, armor, k$, ref1$, len2$, aCost, cCost, this$ = this;
+      if (!this.params.includeUpgrades) {
+        return combinations;
+      }
       canAfford = [];
       for (i$ = 0, len$ = combinations.length; i$ < len$; ++i$) {
         comb = combinations[i$];
@@ -2011,13 +2097,20 @@ function curry$(f, bound){
     prototype.findUsableArmors = function(){
       var this$ = this;
       return this._inventorySvc.load().then(function(inventory){
-        return this$.$q.all(map(function(entry){
-          return this$._itemSvc.findAnyItemByUid(entry.uid);
-        })(
-        filter(function(it){
+        var promises, i$, ref$, len$, entry;
+        promises = [];
+        for (i$ = 0, len$ = (ref$ = filter(fn$)(
+        inventory)).length; i$ < len$; ++i$) {
+          entry = ref$[i$];
+          (fn1$.call(this$, entry));
+        }
+        return this$.$q.all(promises);
+        function fn$(it){
           return it.itemType === 'armor';
-        })(
-        inventory)));
+        }
+        function fn1$(entry){
+          promises.push(this._itemSvc.findAnyItemByUid(entry.uid));
+        }
       }).then(function(armors){
         return filter(function(it){
           return it.weight <= this$.freeWeight;
@@ -2031,7 +2124,7 @@ function curry$(f, bound){
      * @returns Promise that will be resolved with an array of combinations.
      */
     prototype.findAllCombinationsOf = function(armors){
-      var def, combinations, empties, i$, ref$, len$, index, type, empty, groupOf, lengths, combCount, prod, splitAt, b, combinationIndex, indexes, a, combination, log, ciKey, seq, key, piece, x$, split, jumpTo, comb, this$ = this;
+      var def, combinations, empties, i$, ref$, len$, index, type, empty, groupOf, lengths, combCount, pieces, a, b, c, d, weight, upgradeLevel;
       def = this.$q.defer();
       combinations = [];
       empties = [];
@@ -2041,14 +2134,13 @@ function curry$(f, bound){
         empty = find(fn$)(
         armors);
         if (empty == null) {
-          empty = this._itemSvc.createItemModelFrom({
-            itemType: 'armor',
+          empty = [{
             name: "(bare " + type + ")",
             armorType: type,
             weight: 0,
             upgradeId: -1,
             id: -(index + 1)
-          });
+          }];
           armors.push(empty);
         }
         empties.push(empty);
@@ -2063,123 +2155,76 @@ function curry$(f, bound){
       [groupOf['head'], groupOf['chest'], groupOf['hands'], groupOf['legs']]);
       combCount = product(
       lengths);
-      prod = 1;
-      splitAt = [0, 0, 0, 0];
-      for (i$ = 0, len$ = (ref$ = [1, 3, 0, 2]).length; i$ < len$; ++i$) {
-        b = ref$[i$];
-        prod *= lengths[b];
-        splitAt[b] = combCount / prod;
-      }
-      combinationIndex = {};
-      indexes = [0, 0, 0, 0];
-      a = 0;
-      while (++a <= combCount) {
-        combination = {
-          armors: [null, null, null, null],
-          weight: 0
-        };
-        log = [];
-        log.push(a + " : " + join(',')(
-        indexes));
-        ciKey = "";
-        for (i$ = 0, len$ = (ref$ = seq = [1, 3, 0, 2]).length; i$ < len$; ++i$) {
-          key = i$;
-          b = ref$[i$];
-          if (combination.weight < this.freeWeight) {
-            piece = groupOf[this.armorTypes[b]][indexes[b]];
-            log.push(combination.weight + " < " + this.freeWeight + " => +" + indexes[b] + " (" + piece.name + ")");
-            x$ = combination;
-            x$.armors[b] = piece;
-            x$.weight += piece.weight;
-            ciKey += (piece.id > 0
-              ? indexes[b]
-              : piece.id) + ",";
-          } else {
-            if (combination.weight === this.freeWeight) {
-              log.push(combination.weight + " == " + this.freeWeight + " => +" + empties[b].name);
-              combination.armors[b] = empties[b];
-              ciKey += empties[b].id + ",";
-              if (key > 0) {
-                split = splitAt[seq[key - 1]];
-                jumpTo = a + (split - a % split);
-                if (jumpTo !== a) {
-                  log.push("Jumping to " + a + " + (" + split + " - " + a + " % " + split + ") = " + jumpTo);
-                  a = jumpTo;
-                }
+      pieces = [null, null, null, null];
+      a = lengths[0] - 1;
+      do {
+        pieces[0] = groupOf['head'][a];
+        pieces[1] = pieces[2] = pieces[3] = null;
+        b = lengths[1] - 1;
+        do {
+          pieces[1] = groupOf['chest'][b];
+          pieces[2] = pieces[3] = null;
+          c = lengths[2] - 1;
+          do {
+            pieces[2] = groupOf['hands'][c];
+            pieces[3] = null;
+            d = lengths[3] - 1;
+            do {
+              pieces[3] = groupOf['legs'][d];
+              weight = 0;
+              weight = pieces[0].weight + pieces[1].weight + pieces[2].weight + pieces[3].weight;
+              upgradeLevel = pieces[0].upgradeLevel + pieces[1].upgradeLevel + pieces[2].upgradeLevel + pieces[3].upgradeLevel;
+              if (weight <= this.freeWeight) {
+                combinations.push({
+                  armors: [].concat(pieces),
+                  weight: weight,
+                  upgradeLevel: upgradeLevel
+                });
               }
-            }
-          }
-        }
-        if (combination.weight <= this.freeWeight) {
-          if (combinationIndex[ciKey] != null) {
-            log.push("Combination [" + ciKey + "] already added, skipping");
-          } else {
-            log.push("Adding combination [" + ciKey + "] to list");
-            combinationIndex[ciKey] = true;
-            combinations.push(combination);
-          }
-          if (this._debugLog) {
-            console.log(join("\n")(
-            log));
-          }
-        }
-        for (i$ = 0, len$ = (ref$ = [1, 3, 0, 2]).length; i$ < len$; ++i$) {
-          b = ref$[i$];
-          if (a % splitAt[b] === 0) {
-            indexes[b] = (indexes[b] + 1) % lengths[b];
-            break;
-          }
-        }
-      }
-      for (i$ = 0, len$ = combinations.length; i$ < len$; ++i$) {
-        comb = combinations[i$];
-        comb.names = map(fn1$)(
-        comb.armors);
-        comb.pieces = join(',')(
-        map(fn2$)(
-        comb.armors));
-        comb.upgradeLevel = sum(
-        map(fn3$)(
-        comb.armors));
-      }
+            } while (--d >= 0);
+          } while (--c >= 0);
+        } while (--b >= 0);
+      } while (--a >= 0);
       def.resolve(combinations);
       return def.promise;
       function fn$(it){
         return it.armorType === type && it.weight === 0;
       }
-      function fn1$(it){
-        return it != null ? it.name : void 8;
-      }
-      function fn2$(it){
-        return this$._itemSvc.upgradeComp.getBaseIdFrom(it.id);
-      }
-      function fn3$(it){
-        var ref$;
-        return (ref$ = it.upgradeLevel) != null ? ref$ : 0;
+    };
+    prototype.calculateArmorScores = function(armors){
+      var modSet, i$, len$, armor, j$, len1$, mod;
+      modSet = [['phy', 'defPhy'], ['mag', 'defMag'], ['fir', 'defFir'], ['lit', 'defLit'], ['blo', 'defBlo'], ['tox', 'defTox'], ['cur', 'defCur'], ['poise', 'defPoise']];
+      for (i$ = 0, len$ = armors.length; i$ < len$; ++i$) {
+        armor = armors[i$];
+        armor.score = 0;
+        armor.detailScores = {};
+        for (j$ = 0, len1$ = modSet.length; j$ < len1$; ++j$) {
+          mod = modSet[j$];
+          armor.detailScores[mod[0]] = armor[mod[1]] * this.params.modifiers[mod[0]];
+          armor.score += armor.detailScores[mod[0]];
+        }
       }
     };
-    prototype.calculateScoreFor = function(combination){
-      var ref$, i$, len$, armor, j$, ref1$, len1$, mod, modifier, ref2$, baseValue, score;
-      combination.score = 0;
-      combination.detailScores = {};
-      (ref$ = this.params).modifiers == null && (ref$.modifiers = {
-        phy: 2,
-        poise: 1
-      });
-      for (i$ = 0, len$ = (ref$ = combination.armors).length; i$ < len$; ++i$) {
-        armor = ref$[i$];
-        armor.score = 0;
-        for (j$ = 0, len1$ = (ref1$ = ['Phy', 'Mag', 'Fir', 'Lit', 'Blo', 'Tox', 'Cur', 'Poise']).length; j$ < len1$; ++j$) {
-          mod = ref1$[j$];
-          modifier = (ref2$ = this.params.modifiers[mod.toLowerCase()]) != null ? ref2$ : 0;
-          baseValue = (ref2$ = armor["def" + mod]) != null ? ref2$ : 0;
-          score = baseValue * modifier;
-          armor.score += score;
-          combination.detailScores[mod.toLowerCase()] = baseValue + ((ref2$ = combination.detailScores[mod.toLowerCase()]) != null ? ref2$ : 0);
-        }
-        combination.score += armor.score;
+    prototype.calculateCombinationScores = function(combinations){
+      var best, res$, i$, to$, min, comb, j$, a;
+      res$ = [];
+      for (i$ = 0, to$ = this.params.resultLimit; i$ < to$; ++i$) {
+        res$.push(-1);
       }
-      return combination.score;
+      best = res$;
+      min = 10000;
+      for (i$ = combinations.length - 1; i$ >= 0; --i$) {
+        comb = combinations[i$];
+        comb.score = comb.armors[0].score + comb.armors[1].score + comb.armors[2].score + comb.armors[3].score;
+        for (j$ = 0, to$ = this.params.resultLimit; j$ < to$; ++j$) {
+          a = j$;
+          if (best[a] === -1 || comb.score > best[a].score) {
+            best[a] = comb;
+            break;
+          }
+        }
+      }
+      return best;
     };
     return ArmorCalcSvc;
   }());
@@ -2913,47 +2958,35 @@ function curry$(f, bound){
             field: 'name',
             minWidth: 250
           }, {
-            name: 'defN',
+            name: 'defPhy',
             type: 'number',
             displayName: 'DN'
           }, {
-            name: 'defSl',
-            type: 'number',
-            displayName: 'DSl'
-          }, {
-            name: 'defSt',
-            type: 'number',
-            displayName: 'DSt'
-          }, {
-            name: 'defTh',
-            type: 'number',
-            displayName: 'DTh'
-          }, {
-            name: 'defM',
+            name: 'defMag',
             type: 'number',
             displayName: 'DM'
           }, {
-            name: 'defF',
+            name: 'defFir',
             type: 'number',
             displayName: 'DF'
           }, {
-            name: 'defL',
+            name: 'defLit',
             type: 'number',
             displayName: 'DL'
           }, {
-            name: 'defP',
+            name: 'defPoise',
             type: 'number',
             displayName: 'DP'
           }, {
-            name: 'defT',
+            name: 'defTox',
             type: 'number',
             displayName: 'RP'
           }, {
-            name: 'defB',
+            name: 'defBlo',
             type: 'number',
             displayName: 'RB'
           }, {
-            name: 'defC',
+            name: 'defCur',
             type: 'number',
             displayName: 'RC'
           }, {
@@ -3066,7 +3099,7 @@ function curry$(f, bound){
           return any((function(it){
             return it === entry.id;
           }))(
-          armorIds);
+          entry.itemType === 'armor' && armorIds);
         });
       });
     };
@@ -3667,12 +3700,14 @@ function curry$(f, bound){
       this._storageSvc.save('inventory', data);
     };
     prototype.load = function(returnPromise){
-      var promises, i$, ref$, len$, data, promise, this$ = this;
+      var promises, i$, ref$, ref1$, len$, data, promise, this$ = this;
       returnPromise == null && (returnPromise = true);
       if (this._inventory.$promise == null) {
         this.clear();
         promises = [];
-        for (i$ = 0, len$ = (ref$ = this._storageSvc.load('inventory')).length; i$ < len$; ++i$) {
+        for (i$ = 0, len$ = (ref$ = (ref1$ = this._storageSvc.load('inventory')) != null
+          ? ref1$
+          : []).length; i$ < len$; ++i$) {
           data = ref$[i$];
           promise = fn$(data);
           promises.push(promise);

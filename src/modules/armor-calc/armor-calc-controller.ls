@@ -55,6 +55,7 @@ $scope.calculate = (type = 'offence') !->
 	armorCalcSvc.params = {}
 		..freeWeight = $scope.availableLoad
 		..includeUpgrades = $scope.params.includeUpgrades
+		..resultLimit = $scope.params.resultLimit
 
 	for mod, index in $scope.modifiers
 		armorCalcSvc.params.{}modifiers.[mod.key] = $scope.params.modifiers.[index]
@@ -69,14 +70,14 @@ $scope.calculate = (type = 'offence') !->
 				detailScores : result.detailScores
 			}
 		$scope.gridOptions.data = $scope.results
-			|> sortBy (.score)
-			|> reverse
-			|> take $scope.params.resultLimit
 
 
 ### EVENTS
 
 $scope.$watch "params", (!->
-	$scope.availableLoad = ($scope.maxLoad * $scope.params.selectedWeightLimit) - $scope.params.reservedWeight
+	max = $scope.maxLoad
+	if $scope.params.havelRing
+		max *= 1.5
+	$scope.availableLoad = (max * $scope.params.selectedWeightLimit) - $scope.params.reservedWeight
 	storageSvc.save "armor-calc-params", $scope.params
 ), true

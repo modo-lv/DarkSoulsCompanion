@@ -19,6 +19,10 @@
 					| Maximum:
 					input(type="number" ng-model="maxLoad" readonly)
 
+				pandp
+					input(type="checkbox" ng-model="params.havelRing")
+					| Havel's Ring
+
 		tr.modifiers
 			th.left Importance:
 
@@ -32,7 +36,7 @@
 
 			td
 				label
-					input(type="checkbox" ng-model="params.useUpgrades")
+					input(type="checkbox" ng-model="params.includeUpgrades")
 					| Include available upgrades
 
 	button(ng-click="calculate()" ng-disabled="availableLoad < 0")

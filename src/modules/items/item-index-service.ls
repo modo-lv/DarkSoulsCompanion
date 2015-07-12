@@ -50,7 +50,10 @@ class ItemIndexService
 			
 		return @loadAllArmorSetEntries!.then (sets) !~>
 			armorIds = (sets |> find (.name == setName))?.armors
-			return @findEntries (entry) -> armorIds |> any (== entry.id)
+			return @findEntries (entry) ->
+				entry.itemType == \armor
+				and
+				armorIds |> any (== entry.id)
 
 
 	loadAllArmorSetEntries : (returnPromise = true) !~>
