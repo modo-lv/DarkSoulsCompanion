@@ -56,12 +56,6 @@ body(ng-controller="mainController")
 				ng-if="profileEditStatus != null"
 			) Cancel
 
-			button(
-				ng-if="profileEditStatus === null"
-				ng-click="resetProfile()"
-				title="Clear (reset) all data for the selected profile."
-			) Clear
-
 	.page
 		nav
 			ul

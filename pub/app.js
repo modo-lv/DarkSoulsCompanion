@@ -1858,24 +1858,19 @@ function curry$(f, bound){
       }
       start = null;
       return this.findUsableArmors().then(function(armors){
-        var end, time;
-        start = new Date().getTime();
         this$.calculateArmorScores(armors);
-        end = new Date().getTime();
-        time = end - start;
-        console.log("Calculated scores for " + armors.length + " armors in " + time / 1000 + " seconds");
-        if (this$.params.includUpgrades) {} else {
+        if (this$.params.includeUpgrades) {
+          return this$.findCombinationsWithUpgrades(armors);
+        } else {
           start = new Date().getTime();
           return this$.findAllCombinationsOf(armors).then(function(combs){
             var end, time;
             end = new Date().getTime();
             time = end - start;
-            console.log("Permutated " + armors.length + " armors into " + combs.length + " combinations in " + time / 1000 + " seconds");
             start = new Date().getTime();
             combs = this$.calculateCombinationScores(combs);
             end = new Date().getTime();
             time = end - start;
-            console.log("Calculated scores and found the best " + combs.length + " combinations in " + time / 1000 + " seconds");
             return combs;
           });
         }
@@ -1899,7 +1894,7 @@ function curry$(f, bound){
       });
     };
     prototype.findCombinationsWithUpgrades = function(armors){
-      var start, staticArmors, dynamicArmors, this$ = this;
+      var start, staticArmors, dynamicArmors, combinations, end, time, best, i$, len$, comb, j$, ref$, len1$, armor, promises, this$ = this;
       start = new Date().getTime();
       staticArmors = filter(function(it){
         return it.matSetId < 0;
@@ -1909,187 +1904,145 @@ function curry$(f, bound){
         return it.matSetId < 0;
       })(
       armors);
-      return this.findAllCombinationsOf(dynamicArmors).then(function(combinations){
-        var end, time, scores, i$, len$, comb, best, to$, a, j$, b, bestScore, ref$, len1$, armor;
-        this$.calculateScoreFor(combinations);
+      combinations = this.findAllCombinationsOf(dynamicArmors);
+      end = new Date().getTime();
+      time = end - start;
+      console.log("Permutated " + dynamicArmors.length + " upgradeable armors into " + combinations.length + " combinations in " + time / 1000 + " seconds");
+      start = new Date().getTime();
+      best = this.calculateCombinationScores(combinations, 50);
+      end = new Date().getTime();
+      time = end - start;
+      if (this._debugLog) {
+        console.log("Scored and found the " + best.length + " best combinations in " + time / 1000 + " seconds");
+      }
+      dynamicArmors.length = 0;
+      for (i$ = 0, len$ = best.length; i$ < len$; ++i$) {
+        comb = best[i$];
+        for (j$ = 0, len1$ = (ref$ = comb.armors).length; j$ < len1$; ++j$) {
+          armor = ref$[j$];
+          dynamicArmors.push(armor);
+        }
+      }
+      dynamicArmors = unique(
+      dynamicArmors);
+      promises = [];
+      for (i$ = 0, len$ = dynamicArmors.length; i$ < len$; ++i$) {
+        armor = dynamicArmors[i$];
+        promises.push(this._itemSvc.upgradeComp.findAllAvailableUpgradesFor(armor).then(fn$));
+      }
+      return this.$q.all(promises).then(function(armors){
+        var combs, end, time;
+        start = new Date().getTime();
+        combs = this$.findAllCombinationsOf(dynamicArmors);
         end = new Date().getTime();
         time = end - start;
         if (this$._debugLog) {
-          console.log("Permutated and scored " + combinations.length + " combinations in " + time / 1000 + " seconds");
+          console.log("Permutated " + dynamicArmors.length + " armors & upgrades into " + combs.length + " combinations in " + time / 1000 + " seconds");
         }
         start = new Date().getTime();
-        if (this$.params.includeUpgrades) {
-          scores = [];
-          for (i$ = 0, len$ = combinations.length; i$ < len$; ++i$) {
-            comb = combinations[i$];
-            scores.push(comb.score);
-          }
-          best = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49];
-          for (i$ = 10, to$ = scores.length; i$ < to$; ++i$) {
-            a = i$;
-            for (j$ = 0, len$ = best.length; j$ < len$; ++j$) {
-              b = j$;
-              bestScore = best[j$];
-              if (scores[a] > bestScore) {
-                best[b] = a;
-                break;
-              }
-            }
-          }
-          for (i$ = 0, to$ = best.length; i$ < to$; ++i$) {
-            a = i$;
-            best[a] = combinations[best[a]];
-          }
-          dynamicArmors.length = 0;
-          for (i$ = 0, len$ = best.length; i$ < len$; ++i$) {
-            comb = best[i$];
-            for (j$ = 0, len1$ = (ref$ = comb.armors).length; j$ < len1$; ++j$) {
-              armor = ref$[j$];
-              dynamicArmors.push(armor);
-            }
-          }
-          dynamicArmors = unique(
-          dynamicArmors);
-        }
+        return this$.takeOnlyAffordable(combs);
+      }).then(function(combs){
+        var end, time, allArmors, i$, len$, comb;
         end = new Date().getTime();
         time = end - start;
         if (this$._debugLog) {
-          console.log("Found the best " + dynamicArmors.length + " armors in " + time / 1000 + " seconds");
+          console.log("Kept " + combs.length + " affordable combinations in " + time / 1000 + " seconds");
         }
-        return dynamicArmors;
-      }).then(function(){
-        var promises, i$, ref$, len$, armor;
-        if (!this$.params.includeUpgrades) {
-          return dynamicArmors;
+        allArmors = [];
+        for (i$ = 0, len$ = combs.length; i$ < len$; ++i$) {
+          comb = combs[i$];
+          allArmors = allArmors.concat(comb.armors);
         }
-        promises = [];
-        for (i$ = 0, len$ = (ref$ = dynamicArmors).length; i$ < len$; ++i$) {
-          armor = ref$[i$];
-          promises.push(this$._itemSvc.upgradeComp.findAllAvailableUpgradesFor(armor).then(fn$));
+        allArmors = unique(
+        allArmors.concat(staticArmors));
+        start = new Date().getTime();
+        combs = this$.findAllCombinationsOf(allArmors);
+        end = new Date().getTime();
+        time = end - start;
+        if (this$._debugLog) {
+          console.log("Permutated " + allArmors.length + " armors, upgrades and un-upgradable armors into " + combs.length + " combinations in " + time / 1000 + " seconds");
         }
-        return this$.$q.all(promises);
-        function fn$(upgrades){
-          return dynamicArmors = dynamicArmors.concat(upgrades);
+        for (i$ = 0, len$ = combs.length; i$ < len$; ++i$) {
+          comb = combs[i$];
+          comb.armors = this$.calculateArmorScores(comb.armors);
         }
-      }).then(function(){
-        if (this$.params.includeUpgrades) {
-          return this$.findAllCombinationsOf(dynamicArmors);
-        } else {}
-      }).then(function(combinations){
-        return this$.takeOnlyAffordable(combinations);
-      }).then(function(combs){
-        var bestArmors, sets, best, i$, len$, set;
-        bestArmors = [];
-        console.log(this$.params.includeUpgrades);
-        if (this$.params.includeUpgrades) {
-          sets = Obj.values(
-          groupBy(function(it){
-            return it.pieces;
-          })(
-          combs));
-          best = [];
-          for (i$ = 0, len$ = sets.length; i$ < len$; ++i$) {
-            set = sets[i$];
-            best.push(first(
-            reverse(
-            sortBy(fn$)(
-            set))));
-          }
-          for (i$ = 0, len$ = best.length; i$ < len$; ++i$) {
-            set = best[i$];
-            bestArmors = bestArmors.concat(set.armors);
-          }
-          bestArmors = unique(
-          bestArmors).concat(staticArmors);
-        } else {
-          bestArmors = dynamicArmors;
+        start = new Date().getTime();
+        combs = this$.calculateCombinationScores(combs);
+        end = new Date().getTime();
+        time = end - start;
+        if (this$._debugLog) {
+          console.log("Calculated scores and found the best " + combs.length + " combinations in " + time / 1000 + " seconds");
         }
-        console.log(map(function(it){
-          return it.name;
-        })(
-        dynamicArmors));
-        console.log(map(function(it){
-          return it.name;
-        })(
-        bestArmors));
-        return this$.findAllCombinationsOf(bestArmors);
-        function fn$(it){
-          return it.upgradeLevel;
-        }
-      }).then(function(combs){
-        return this$.takeOnlyAffordable(combs);
-      }).then(function(combs){
-        return this$.calculateScoreFor(combs);
+        return combs;
       });
+      function fn$(upgrades){
+        return dynamicArmors = dynamicArmors.concat(upgrades);
+      }
     };
     /**
      * Given a list of combinations, only take those that the user can afford.
      */
     prototype.takeOnlyAffordable = function(combinations){
-      var canAfford, i$, len$, comb, promises, j$, ref$, len1$, armor, k$, ref1$, len2$, aCost, cCost, this$ = this;
-      if (!this.params.includeUpgrades) {
-        return combinations;
-      }
+      var canAfford, this$ = this;
       canAfford = [];
-      for (i$ = 0, len$ = combinations.length; i$ < len$; ++i$) {
-        comb = combinations[i$];
-        comb.totalCost = [];
-        promises = [];
-        for (j$ = 0, len1$ = (ref$ = filter(fn$)(
-        comb.armors)).length; j$ < len1$; ++j$) {
-          armor = ref$[j$];
-          for (k$ = 0, len2$ = (ref1$ = armor.totalCost).length; k$ < len2$; ++k$) {
-            aCost = ref1$[k$];
-            cCost = find(fn1$)(
-            comb.totalCost);
-            if (cCost == null) {
-              cCost = {
-                matId: aCost.matId,
-                matCost: 0
-              };
-              comb.totalCost.push(cCost);
+      return this._inventorySvc.load().then(function(inventory){
+        var i$, ref$, len$, comb, j$, ref1$, len1$, armor, k$, ref2$, len2$, aCost, cCost, l$, ref3$, len3$, x, materials, item, can, cost, material, mat;
+        for (i$ = 0, len$ = (ref$ = combinations).length; i$ < len$; ++i$) {
+          comb = ref$[i$];
+          comb.totalCost = [];
+          for (j$ = 0, len1$ = (ref1$ = comb.armors).length; j$ < len1$; ++j$) {
+            armor = ref1$[j$];
+            if (armor.totalCost == null) {
+              continue;
             }
-            cCost.matCost += aCost.matCost;
+            for (k$ = 0, len2$ = (ref2$ = armor.totalCost).length; k$ < len2$; ++k$) {
+              aCost = ref2$[k$];
+              cCost = null;
+              for (l$ = 0, len3$ = (ref3$ = comb.totalCost).length; l$ < len3$; ++l$) {
+                x = ref3$[l$];
+                if (x.matId === aCost.matId) {
+                  cCost = x;
+                  break;
+                }
+              }
+              if (cCost == null) {
+                cCost = {
+                  matId: aCost.matId,
+                  matCost: 0
+                };
+                comb.totalCost.push(cCost);
+              }
+              cCost.matCost += aCost.matCost;
+            }
           }
-        }
-        promises.push(fn2$(comb));
-      }
-      return this.$q.all(promises).then(function(){
-        return canAfford;
-      });
-      function fn$(it){
-        return it.totalCost != null;
-      }
-      function fn1$(it){
-        return it.matId === aCost.matId;
-      }
-      function fn2$(comb){
-        return this$._inventorySvc.load().then(function(inventory){
-          var materials, can, i$, ref$, len$, cost, material;
-          materials = filter(function(it){
-            return it.itemType === 'item';
-          })(
-          inventory);
+          materials = [];
+          for (j$ = 0, len1$ = inventory.length; j$ < len1$; ++j$) {
+            item = inventory[j$];
+            if (item.itemType === 'item') {
+              materials.push(item);
+            }
+          }
           can = true;
-          for (i$ = 0, len$ = (ref$ = comb.totalCost).length; i$ < len$; ++i$) {
-            cost = ref$[i$];
-            material = find(fn$)(
-            materials);
+          for (j$ = 0, len1$ = (ref1$ = comb.totalCost).length; j$ < len1$; ++j$) {
+            cost = ref1$[j$];
+            material = null;
+            for (k$ = 0, len2$ = materials.length; k$ < len2$; ++k$) {
+              mat = materials[k$];
+              if (mat.id === cost.matId) {
+                material = mat;
+                break;
+              }
+            }
             if (!(material != null && material.amount >= cost.matCost)) {
               can = false;
             }
           }
           if (can) {
             canAfford.push(comb);
-            return comb;
-          } else {
-            return null;
           }
-          function fn$(it){
-            return it.id === cost.matId;
-          }
-        });
-      }
+        }
+        return canAfford;
+      });
     };
     /**
      * Find armors fit for using in calculations.
@@ -2124,8 +2077,7 @@ function curry$(f, bound){
      * @returns Promise that will be resolved with an array of combinations.
      */
     prototype.findAllCombinationsOf = function(armors){
-      var def, combinations, empties, i$, ref$, len$, index, type, empty, groupOf, lengths, combCount, pieces, a, b, c, d, weight, upgradeLevel;
-      def = this.$q.defer();
+      var combinations, empties, i$, ref$, len$, index, type, empty, groupOf, lengths, combCount, pieces, a, b, c, d, weight, upgradeLevel;
       combinations = [];
       empties = [];
       for (i$ = 0, len$ = (ref$ = this.armorTypes).length; i$ < len$; ++i$) {
@@ -2186,8 +2138,7 @@ function curry$(f, bound){
           } while (--c >= 0);
         } while (--b >= 0);
       } while (--a >= 0);
-      def.resolve(combinations);
-      return def.promise;
+      return combinations;
       function fn$(it){
         return it.armorType === type && it.id < 0;
       }
@@ -2197,6 +2148,9 @@ function curry$(f, bound){
       modSet = [['phy', 'defPhy'], ['mag', 'defMag'], ['fir', 'defFir'], ['lit', 'defLit'], ['blo', 'defBlo'], ['tox', 'defTox'], ['cur', 'defCur'], ['poise', 'defPoise']];
       for (i$ = 0, len$ = armors.length; i$ < len$; ++i$) {
         armor = armors[i$];
+        if (armor.score != null) {
+          continue;
+        }
         armor.score = 0;
         armor.detailScores = {};
         for (j$ = 0, len1$ = modSet.length; j$ < len1$; ++j$) {
@@ -2205,19 +2159,20 @@ function curry$(f, bound){
           armor.score += armor[mod[1]] * this.params.modifiers[mod[0]];
         }
       }
+      return armors;
     };
-    prototype.calculateCombinationScores = function(combinations){
-      var best, res$, i$, to$, min, comb, j$, a;
+    prototype.calculateCombinationScores = function(combinations, limit){
+      var best, res$, i$, comb, j$, a;
+      limit == null && (limit = this.params.resultLimit);
       res$ = [];
-      for (i$ = 0, to$ = this.params.resultLimit; i$ < to$; ++i$) {
+      for (i$ = 0; i$ < limit; ++i$) {
         res$.push(-1);
       }
       best = res$;
-      min = 10000;
       for (i$ = combinations.length - 1; i$ >= 0; --i$) {
         comb = combinations[i$];
         comb.score = comb.armors[0].score + comb.armors[1].score + comb.armors[2].score + comb.armors[3].score;
-        for (j$ = 0, to$ = this.params.resultLimit; j$ < to$; ++j$) {
+        for (j$ = 0; j$ < limit; ++j$) {
           a = j$;
           if (best[a] === -1 || comb.score > best[a].score) {
             best[a] = comb;
