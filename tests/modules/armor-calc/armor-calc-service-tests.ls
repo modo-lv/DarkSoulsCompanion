@@ -57,7 +57,7 @@ it "should correctly find potential armors", (done) !->
 	.catch done
 
 
-it "should correctly generate armor combinations", (done) !->
+it "should correctly generate armor combinations", !->
 	armors = [
 		{
 			\id : 100
@@ -100,52 +100,53 @@ it "should correctly generate armor combinations", (done) !->
 	expectedCount = 7
 
 	svc.findAllCombinationsOf armors
-	.then (combinations) !->
+	|> (combinations) !->
 		expect combinations
 			.to.have.length expectedCount
 		#console.log combinations
-		done!
-	.catch done
 
 
-it "should correctly calculate score for an armor combination", !->
-	svc.{}params.{}modifiers.phy = 0.5
+it "should correctly calculate score for a set of armors", !->
+	svc.{}params.{}modifiers.fir = 0.5
 
-	combination =
-		armors : [
-			{
-				"defPhy" : 100
-			},
-			{
-				"defPhy" : 200
-			},
-			{
-				"defPhy" : 200
-			},
-			{
-				"defPhy" : 100
-			}
-		]
+	armors = [
+		{
+			"defFir" : 100
+		},
+		{
+			"defFir" : 200
+		},
+	]
 
-	expect svc.calculateScoreFor combination
-		.to.equal 300
+	armors = svc.calculateArmorScores armors
 
+	expect armors.0.score .to.equal 50
+	expect armors.1.score .to.equal 100
 
-it "should find the best armor combination", (done) !->
-	svc.freeWeight = 2
+it "should correctly calculate scores for a set of combinations", !->
+	combinations = [
+		{
+			armors : [
+				{score : 10}
+				{score : 10}
+				{score : 10}
+				{score : 10}
+			]
+		}
+		{
+			armors : [
+				{ score : 10 }
+				{ score : 20 }
+				{ score : 30 }
+				{ score : 40 }
+			]
+		}
+	]
 
-	params = {
-		takeBest : 5
-	}
+	svc.calculateCombinationScores combinations
 
-	svc.findBestCombinations params
-	.then (combs) ->
-		#console.log combs
-		#for comb in combs
-		#	console.log (comb.armors |> sortBy (.score) |> reverse |> map (.name))
-		#expect true .to.be.false
-		done!
-	.catch done
+	expect combinations.0.score .to.equal 40
+	expect combinations.1.score .to.equal 100
 
 
 it "should correctly find all available upgrades for a piece of armor", (done) !->

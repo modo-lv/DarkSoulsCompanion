@@ -169,5 +169,71 @@
       }
     ],
     "id": "0ac6dc8e-c5f4-444b-83a4-29afceb3add2"
+  },
+  {
+    "title": "Blighttown",
+    "children": [
+      {
+        "labels": [
+          "item"
+        ],
+        "title": "Key to New Londo Ruins",
+        "id": "22ce586d-f4e7-49e2-9bd7-f5b82b07df46"
+      }
+    ],
+    "id": "3ef9900c-e931-41d7-aa15-a14a626a292a"
+  },
+  {
+    "title": "Valley of the Drakes",
+    "children": [
+      {
+        "labels": [
+          "item"
+        ],
+        "title": "Dragon Scale (Undead Dragon)",
+        "id": "8fadb549-33a2-4358-9298-d02ea1296385"
+      },
+      {
+        "labels": [
+          "item"
+        ],
+        "title": "Astora's Straight Sword",
+        "id": "1921a601-4108-4ed5-9505-8325850440c7"
+      },
+      {
+        "labels": [
+          "item"
+        ],
+        "title": "Dragon Crest Shield",
+        "id": "57cede33-34bc-4d52-b9e5-73360bb3789d"
+      },
+      {
+        "labels": [
+          "item"
+        ],
+        "title": "Soul of a Proud Knight",
+        "id": "a3abffbf-452f-4faf-9f94-37b3614ba659"
+      },
+      {
+        "labels": [
+          "item"
+        ],
+        "title": "Large Soul of a Nameless Soldier",
+        "id": "e7867c5b-1ebf-4653-a78f-08110e2d40c3"
+      },
+      {
+        "labels": [
+          "shortcut"
+        ],
+        "title": "Gate to New Londo Ruins [Key to New Londo Ruins]",
+        "id": "f977c4b6-e482-4b9f-b133-f081efd882f8"
+      }
+    ],
+    "id": "4b64f6d8-236a-4bac-ae70-598c7d6de20c"
+  },
+  {
+    "title": "Firelink Shrine",
+    "children": [],
+    "id": "1036bb80-fe45-47e1-adb3-bbba7029a6dc"
   }
 ]

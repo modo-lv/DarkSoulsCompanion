@@ -302,8 +302,8 @@ class ArmorCalcSvc
 			armor.score = 0
 			armor.detailScores = {}
 			for mod in modSet
-				armor.detailScores[mod.0] = armor.[mod.1]
-				armor.score += armor.[mod.1] * @params.modifiers[mod.0]
+				armor.detailScores[mod.0] = armor.[mod.1] ? 0
+				armor.score += (armor.[mod.1] ? 0) * (@params.modifiers[mod.0] ? 0)
 
 
 		return armors
