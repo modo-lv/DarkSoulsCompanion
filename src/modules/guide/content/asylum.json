@@ -1,7 +1,6 @@
 [
   {
-    "title": "Before fog gate",
-    "id": "360c3087-8cdc-4eb8-8f3c-1fb1d0a819e9",
+    "title": "Dungeon",
     "children": [
       {
         "title": "Dungeon Cell Key",
@@ -9,115 +8,175 @@
           "item",
           "unmissable"
         ],
-        "id": "bb22d01a-7e80-4212-85a7-9c2cc8b33c30"
-      },
-      {
-        "title": "Demon's Great Hammer (Asylum Demon)",
-        "labels": [
-          "drop",
-          "item",
-          "ng+",
-          "warning"
-        ],
-        "content": "The Asylum demon only drops this hammer if he's defeated on the first encounter.",
-        "id": "cbbb056a-2c8d-4ec7-bb10-bde096765bca"
-      },
-      {
-        "title": "Estus Flask",
-        "labels": [
-          "item",
-          "unmissable"
-        ],
-        "id": "2943dcc5-9709-4301-9204-ce1e8b1f7ace"
-      },
-      {
-        "title": "Undead Asylum F2 East Key",
-        "labels": [
-          "item",
-          "unmissable"
-        ],
-        "id": "7611f825-8aec-4b4d-b3ae-715b99c27d12"
-      },
-      {
-        "title": "Weapon (depending on class)",
-        "labels": [
-          "item"
-        ],
-        "flags": [
-          "abstract"
-        ],
-        "id": "62fb279e-d8c2-44cb-a6f8-5cbdbfafac7c"
-      },
-      {
-        "title": "Shield (depending on class)",
-        "labels": [
-          "checklist",
-          "item"
-        ],
-        "flags": [
-          "abstract"
-        ],
-        "id": "7c85eeb9-548d-4b82-8082-227379f02d32"
-      },
-      {
-        "title": "Catalyst if Sorcerer / Pyromancy flame if Pyromancer",
-        "labels": [
-          "checklist",
-          "item"
-        ],
-        "flags": [
-          "abstract"
-        ],
-        "id": "f5266859-8df3-40f5-8e4a-4db2e117972e"
+        "id": "17480170-62de-41e2-9c7e-2b2fae45770b"
       }
-    ]
-  },
-  {
-    "title": "Fog gate",
-    "labels": [
-      "spoiler"
     ],
-    "content": "Boss fight with {Asylum Demon}",
-    "id": "e72c697d-2a85-4ad7-8e57-11b25c147c6b"
+    "id": "ecc4e826-96b2-442c-9b0e-8d365192c0d2"
   },
   {
-    "title": "After fog gate",
+    "title": "Courtyard and main building",
     "children": [
       {
-        "labels": [
-          "warning"
-        ],
-        "title": "Leaving the area",
-        "content": "After exiting the main building, you will leave Northern Undead Asylum as soon as you reach the end / peak of the outside pathway. Make sure you are done with the level before approaching it.",
-        "id": "1b8e4c7d-b8df-4bb3-a192-2a7d3c32da44"
+        "title": "Asylum bonfire",
+        "labels": "bonfire",
+        "id": "45989e1a-519b-4504-9e9a-d1a0eb6d73e7"
       },
       {
+        "title": "Asylum Demon",
+        "labels": "spoiler",
+        "children": [
+          {
+            "title": "Flee",
+            "reqNot": "asylum-demon-kill",
+            "id": "e9eb385e-3e13-414c-8249-56402d51f84f"
+          },
+          {
+            "setFlags": "asylum-demon-kill",
+            "title": "Kill",
+            "id": "9a11fae6-203c-44ec-8eb3-dab4a872ab3e"
+          },
+          {
+            "title": "Demon's Great Hammer (Asylum Demon)",
+            "labels": "item",
+            "req": "asylum-demon-kill",
+            "id": "3dfa7edd-241f-48e7-ad92-09d8c6a4e59a"
+          }
+        ],
+        "id": "f07256f7-3087-42cf-86b3-a82d384ea31e"
+      },
+      {
+        "labels": "shortcut",
+        "title": "Gate back to courtyard",
+        "id": "338cf1f2-7e38-441a-845a-f14d429ac366"
+      },
+      {
+        "title": "Oscar, Knight of Astora",
+        "children": [
+          {
+            "title": "\"Yes\" or \"no\"",
+            "labels": [
+              "spoiler",
+              "warning"
+            ],
+            "content": "Answering \"no\" means missing out on minor exposition and having to kill Oscar in order to progress.",
+            "id": "c843be01-d39e-4193-87fa-ed703625cead"
+          },
+          {
+            "labels": [
+              "item",
+              "unmissable"
+            ],
+            "title": "Estus Flask, Undead Asylum F2 East Key",
+            "id": "c17f8e88-d859-472e-a9a1-5a24ff901cc9"
+          },
+          {
+            "labels": "item",
+            "title": "Big Pilgrim's Key",
+            "req": "asylum-demon-kill",
+            "id": "4dceee08-a923-4390-b124-002db7b04235"
+          }
+        ],
+        "id": "90a534a3-ff07-4677-bc14-8779df5f8c9e"
+      },
+      {
+        "labels": "item",
+        "title": "Weapon (depending on character class)",
+        "id": "88486955-135b-4d8a-b533-ed639d3858be"
+      },
+      {
+        "labels": "item",
+        "title": "Shield (depending on character class)",
+        "id": "b05c47b8-f944-4fcb-aa8e-30396230d733"
+      },
+      {
+        "labels": "item",
+        "title": "Catalyst, Pyromancy or Talisman (for Sorcerer, Pyromancer or Cleric)",
+        "id": "d2d716e8-0d21-4717-9458-5debd972a8ff"
+      },
+      {
+        "labels": "info",
+        "title": "Fog gate",
+        "content": "{Asylum Demon} boss fight.",
+        "reqNot": "asylum-demon-kill",
+        "id": "05a58dc1-a582-4e7f-83c2-05c5addb872d"
+      },
+      {
+        "labels": "item",
         "title": "Big Pilgrim's Key",
-        "labels": [
-          "checklist",
-          "item",
-          "unmissable"
-        ],
-        "id": "0582832c-7faf-4f5c-afb4-f88b86d4e1ea"
-      },
+        "reqNot": "asylum-demon-kill",
+        "id": "aa6cfb6e-1946-43ab-8d0d-549860069433"
+      }
+    ],
+    "id": "a3a84133-28f7-479a-883e-d1d034b16141"
+  },
+  {
+    "title": "Outside",
+    "children": [
       {
-        "title": "Humanity",
-        "labels": [
-          "checklist",
-          "item",
-          "unmissable"
-        ],
-        "id": "64ef5197-5dd6-420e-afc3-832d33f7b397"
+        "labels": "warning",
+        "title": "Leaving the area",
+        "content": "Once you exit the main building, you will leave {Northern Undead Asylum} as soon as you reach the peak end of the outside pathway. Make sure you are done with the level before going there.",
+        "id": "9d308a1c-6355-4046-87d1-b51609dc4fe1"
       },
       {
         "title": "Soul of a Lost Undead",
-        "labels": [
-          "checklist",
-          "item"
-        ],
-        "id": "b42aa0d7-dfcd-4928-8df8-685bf6b5d085"
+        "labels": "item",
+        "id": "f112d21a-7dc8-4468-b495-ee772c327190"
       }
     ],
-    "id": "d60a8add-82f2-434b-ae9d-a807eafac893"
+    "id": "96c1267e-0f31-4d6b-9bfc-99feffccf504"
+  },
+  {
+    "title": "Revisited",
+    "req": "parish_firelink_shortcut",
+    "children": [
+      {
+        "labels": "item",
+        "title": "Red Titanite Chunk (Black Knight)",
+        "id": "5b0c778f-79b2-457b-994a-e5276e0d12c3"
+      },
+      {
+        "labels": "item",
+        "title": "Crest Shield (Oscar, Knight of Astoria)",
+        "setFlags": "oscar_dead",
+        "id": "f7fabf0f-81ee-4033-baf0-94b994c8596b"
+      },
+      {
+        "labels": "item",
+        "title": "Rusted Iron Ring",
+        "req": {
+          "have-item": "Undead Asylum F2 West Key"
+        },
+        "id": "29f17550-9e4e-4c01-98a6-2b32f11aa3ef"
+      },
+      {
+        "labels": "item",
+        "title": "Red Titanite Chunk (Black Knight)",
+        "id": "d19c5c8b-ecfc-4e99-81d5-290755963640"
+      },
+      {
+        "labels": "item",
+        "title": "Peculiar Doll",
+        "id": "fe08f052-9596-4205-af98-2263383059ff"
+      },
+      {
+        "title": "Stray Demon",
+        "children": [
+          {
+            "labels": "item",
+            "title": "Humanity, Homeward Bone, Titanite Slab (Stray Demon)",
+            "id": "b5ff08b1-c6f7-467b-b490-c264590bd81d"
+          },
+          {
+            "labels": "help",
+            "title": "Weaknesses",
+            "content": "<ul><li>Black Knight weapons</li><li>Bleeding</li><li>Lightning</li><li>Fire</li></ul>",
+            "id": "311c5348-4e2e-4887-a5ed-82c40b7dfea8"
+          }
+        ],
+        "id": "725c8230-bb33-4492-999b-ca052f197660"
+      }
+    ],
+    "id": "9b92e549-c4cf-41c8-97ca-5be8a248597f"
   }
 ]

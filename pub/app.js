@@ -1859,21 +1859,20 @@ function curry$(f, bound){
       }
       start = null;
       return this.findUsableArmors().then(function(armors){
+        var combs, end, time;
         this$.calculateArmorScores(armors);
         if (this$.params.includeUpgrades) {
           return this$.findCombinationsWithUpgrades(armors);
         } else {
           start = new Date().getTime();
-          return this$.findAllCombinationsOf(armors).then(function(combs){
-            var end, time;
-            end = new Date().getTime();
-            time = end - start;
-            start = new Date().getTime();
-            combs = this$.calculateCombinationScores(combs);
-            end = new Date().getTime();
-            time = end - start;
-            return combs;
-          });
+          combs = this$.findAllCombinationsOf(armors);
+          end = new Date().getTime();
+          time = end - start;
+          start = new Date().getTime();
+          combs = this$.calculateCombinationScores(combs);
+          end = new Date().getTime();
+          time = end - start;
+          return combs;
         }
       }).then(function(combs){
         var i$, len$, comb, j$, ref$, len1$, armor, key, ref1$, val;
@@ -1986,6 +1985,11 @@ function curry$(f, bound){
         return combs;
       });
       function fn$(upgrades){
+        var i$, len$, upgrade;
+        for (i$ = 0, len$ = upgrades.length; i$ < len$; ++i$) {
+          upgrade = upgrades[i$];
+          delete upgrade.score;
+        }
         return dynamicArmors = dynamicArmors.concat(upgrades);
       }
     };
@@ -2154,7 +2158,7 @@ function curry$(f, bound){
       }
     };
     prototype.calculateArmorScores = function(armors){
-      var modSet, i$, len$, armor, j$, len1$, mod;
+      var modSet, i$, len$, armor, j$, len1$, mod, ref$;
       modSet = [['phy', 'defPhy'], ['mag', 'defMag'], ['fir', 'defFir'], ['lit', 'defLit'], ['blo', 'defBlo'], ['tox', 'defTox'], ['cur', 'defCur'], ['poise', 'defPoise']];
       for (i$ = 0, len$ = armors.length; i$ < len$; ++i$) {
         armor = armors[i$];
@@ -2165,8 +2169,8 @@ function curry$(f, bound){
         armor.detailScores = {};
         for (j$ = 0, len1$ = modSet.length; j$ < len1$; ++j$) {
           mod = modSet[j$];
-          armor.detailScores[mod[0]] = armor[mod[1]];
-          armor.score += armor[mod[1]] * this.params.modifiers[mod[0]];
+          armor.detailScores[mod[0]] = (ref$ = armor[mod[1]]) != null ? ref$ : 0;
+          armor.score += ((ref$ = armor[mod[1]]) != null ? ref$ : 0) * ((ref$ = this.params.modifiers[mod[0]]) != null ? ref$ : 0);
         }
       }
       return armors;
@@ -2298,65 +2302,164 @@ function curry$(f, bound){
 
 },{"./armor-calc-controller":13,"./armor-calc-service":14}],17:[function(require,module,exports){
 (function(){
-  angular.module("dsc").controller("GuideController", function($sce, $scope, $routeParams, $resource, guideService, storageSvc){
-    var _getArrowFor, _prepareGuideContent, _saveUserData, _loadUserData, data;
-    $scope.sections = [
-      {
-        id: 'intro',
-        name: "Intro"
-      }, {
-        id: 'asylum',
-        name: "Northern Undead Asylum"
-      }, {
-        id: 'firelink',
-        name: "Firelink Shrine"
-      }, {
-        id: 'burg',
-        name: "Undead Burg"
-      }, {
-        id: 'parish',
-        name: "Undead Parish"
-      }, {
-        id: 'low',
-        name: "Lower Undead Burg"
-      }, {
-        id: 'depths',
-        name: "The Depths"
-      }, {
-        id: 'blight',
-        name: "Blighttown"
-      }, {
-        id: 'quelaag',
-        name: "Quelaag's Domain"
+  var GuideController;
+  if (typeof angular != 'undefined' && angular !== null) {
+    angular.module("dsc").controller("GuideController", function($sce, $scope, $routeParams, $resource, guideSvc, storageSvc){
+      return (function(func, args, ctor) {
+        ctor.prototype = func.prototype;
+        var child = new ctor, result = func.apply(child, args), t;
+        return (t = typeof result)  == "object" || t == "function" ? result || child : child;
+  })(GuideController, arguments, function(){});
+    });
+  }
+  GuideController = (function(){
+    GuideController.displayName = 'GuideController';
+    var prototype = GuideController.prototype, constructor = GuideController;
+    function GuideController($sce, $scope, $routeParams, $resource, _guideSvc, _storageSvc){
+      this.$sce = $sce;
+      this.$scope = $scope;
+      this.$routeParams = $routeParams;
+      this.$resource = $resource;
+      this._guideSvc = _guideSvc;
+      this._storageSvc = _storageSvc;
+      this.processReqs = bind$(this, 'processReqs', prototype);
+      this.loadUserData = bind$(this, 'loadUserData', prototype);
+      this.saveUserData = bind$(this, 'saveUserData', prototype);
+      this.prepareGuideContent = bind$(this, 'prepareGuideContent', prototype);
+      this.getArrowFor = bind$(this, 'getArrowFor', prototype);
+      this.enact = bind$(this, 'enact', prototype);
+      this.entryClicked = bind$(this, 'entryClicked', prototype);
+      this.canAddToInventory = bind$(this, 'canAddToInventory', prototype);
+      this.wireUp = bind$(this, 'wireUp', prototype);
+      this.load = bind$(this, 'load', prototype);
+      this.setup = bind$(this, 'setup', prototype);
+      this.setup();
+      this.load();
+      this.wireUp();
+    }
+    prototype.setup = function(){
+      this.$scope.sections = [
+        {
+          id: 'intro',
+          name: "Intro"
+        }, {
+          id: 'asylum',
+          name: "Northern Undead Asylum"
+        }, {
+          id: 'firelink',
+          name: "Firelink Shrine"
+        }, {
+          id: 'burg',
+          name: "Undead Burg"
+        }, {
+          id: 'parish',
+          name: "Undead Parish"
+        }, {
+          id: 'low',
+          name: "Lower Undead Burg"
+        }, {
+          id: 'depths',
+          name: "The Depths"
+        }, {
+          id: 'blight',
+          name: "Blighttown"
+        }, {
+          id: 'quelaag',
+          name: "Quelaag's Domain"
+        }
+      ];
+      this.$scope.section = this.$routeParams['section'];
+      this.$scope.userData = null;
+      this.$scope.entryIndex = {};
+    };
+    prototype.load = function(){
+      var data, this$ = this;
+      this.loadUserData();
+      data = this._guideSvc.getContentFor(this.$scope.section);
+      this.$scope.entry = {
+        children: data
+      };
+      data.$promise.then(function(){
+        this$.prepareGuideContent(this$.$scope.entry);
+        this$.processReqs();
+      });
+    };
+    prototype.wireUp = function(){
+      var i$, ref$, len$, func;
+      for (i$ = 0, len$ = (ref$ = ['canAddToInventory', 'markDone', 'entryClicked', 'enact']).length; i$ < len$; ++i$) {
+        func = ref$[i$];
+        this.$scope[func] = this[func];
       }
-    ];
-    $scope.section = $routeParams['section'];
-    $scope.userData = null;
-    $scope.entryIndex = {};
-    _getArrowFor = function(entry){
+    };
+    prototype.canAddToInventory = function(entry){
+      var can;
+      can = any((function(it){
+        return it === 'item';
+      }))(
+      entry.labels || (entry.labels = []));
+      return can;
+    };
+    prototype.entryClicked = function($event, entry){
+      var x$;
+      $event.stopPropagation();
+      if (!(entry.meta || (entry.meta = {})).isExpandable) {
+        return;
+      }
+      x$ = entry.meta || (entry.meta = {});
+      x$.isCollapsed = !(entry.meta || (entry.meta = {})).isCollapsed;
+      x$.arrow = this.getArrowFor(entry);
+      this.saveUserData();
+    };
+    prototype.entryDone = function(entry){
+      entry.meta.isDone = true;
+      this.saveUserData();
+    };
+    prototype.enact = function(entry){
+      var i$, ref$, len$, type, j$, ref1$, len1$, flag, ref2$;
+      for (i$ = 0, len$ = (ref$ = ['setFlags', 'clearFlags']).length; i$ < len$; ++i$) {
+        type = ref$[i$];
+        if (entry[type] == null) {
+          continue;
+        }
+        if (entry[type].constructor !== Array) {
+          entry[type] = [entry[type]];
+        }
+        for (j$ = 0, len1$ = (ref1$ = entry[type]).length; j$ < len1$; ++j$) {
+          flag = ref1$[j$];
+          ((ref2$ = this.$scope.userData).flags || (ref2$.flags = {}))[flag] = type === 'setFlags';
+        }
+      }
+      this.processReqs();
+    };
+    prototype.getArrowFor = function(entry){
       if (!(entry.meta || (entry.meta = {})).isExpandable) {
         return '';
       }
       return (entry.meta || (entry.meta = {})).isCollapsed ? '[..]' : '';
     };
-    _prepareGuideContent = function(entry){
-      var userMeta, ref$, ref1$, x$, i$, len$, check, child;
+    prototype.prepareGuideContent = function(entry){
+      var userMeta, ref$, ref1$, ref2$, x$, i$, len$, check, child;
       if (entry.id != null) {
-        $scope.entryIndex[entry.id] = entry;
+        this.$scope.entryIndex[entry.id] = entry;
       }
       if (entry.content != null) {
-        entry.content = $sce.trustAsHtml(entry.content);
+        entry.content = this.$sce.trustAsHtml(entry.content);
       }
-      userMeta = (ref$ = ((ref1$ = $scope.userData || ($scope.userData = {})).entryMeta || (ref1$.entryMeta = {}))[entry.id]) != null
+      userMeta = (ref$ = ((ref1$ = (ref2$ = this.$scope).userData || (ref2$.userData = {})).entryMeta || (ref1$.entryMeta = {}))[entry.id]) != null
         ? ref$
         : {};
+      if (typeof (entry.labels || (entry.labels = [])) === 'string') {
+        entry.labels = [entry.labels];
+      }
       x$ = entry.meta || (entry.meta = {});
       x$.isCollapsed = (ref$ = userMeta.isCollapsed) != null
         ? ref$
         : entry.content != null;
       x$.isDone = (ref$ = userMeta.isDone) != null ? ref$ : false;
       x$.isExpandable = entry.children != null || entry.content != null;
-      x$.arrow = _getArrowFor(entry);
+      x$.arrow = this.getArrowFor(entry);
+      x$.setsFlags = entry.setFlags != null || entry.clearFlags != null;
+      x$.isItem = in$('item', entry.labels);
       for (i$ = 0, len$ = (ref$ = ['content', 'children']).length; i$ < len$; ++i$) {
         check = ref$[i$];
         ((ref1$ = entry.meta || (entry.meta = {})).additionalClasses || (ref1$.additionalClasses = [])).push(entry[check] != null
@@ -2366,68 +2469,76 @@ function curry$(f, bound){
       if (entry.children != null) {
         for (i$ = 0, len$ = (ref$ = entry.children).length; i$ < len$; ++i$) {
           child = ref$[i$];
-          _prepareGuideContent(child);
+          this.prepareGuideContent(child);
         }
       }
     };
-    _saveUserData = function(){
-      var id, ref$, entry, i$, ref1$, len$, field, ref2$, ref3$;
-      for (id in ref$ = $scope.entryIndex) {
+    prototype.saveUserData = function(){
+      var id, ref$, entry, i$, ref1$, len$, field, ref2$, ref3$, ref4$;
+      for (id in ref$ = this.$scope.entryIndex) {
         entry = ref$[id];
         for (i$ = 0, len$ = (ref1$ = ['isCollapsed', 'isDone']).length; i$ < len$; ++i$) {
           field = ref1$[i$];
-          ((ref2$ = (ref3$ = $scope.userData || ($scope.userData = {})).entryMeta || (ref3$.entryMeta = {}))[id] || (ref2$[id] = {}))[field] = entry.meta[field];
+          ((ref2$ = (ref3$ = (ref4$ = this.$scope).userData || (ref4$.userData = {})).entryMeta || (ref3$.entryMeta = {}))[id] || (ref2$[id] = {}))[field] = entry.meta[field];
         }
       }
-      storageSvc.save('guide:userData', $scope.userData);
+      this._storageSvc.save('guide:userData', this.$scope.userData);
     };
-    _loadUserData = function(){
+    prototype.loadUserData = function(){
       var ref$;
-      $scope.userData = (ref$ = storageSvc.load('guide:userData')) != null
+      this.$scope.userData = (ref$ = this._storageSvc.load('guide:userData')) != null
         ? ref$
         : {};
     };
-    _loadUserData();
-    data = guideService.getContentFor($scope.section);
-    $scope.entry = {
-      children: data
-    };
-    data.$promise.then(function(){
-      _prepareGuideContent($scope.entry);
-    });
-    $scope.canAddToInventory = function(entry){
-      var can;
-      can = any((function(it){
-        return it === 'item';
-      }))(
-      entry.labels || (entry.labels = []));
-      can = can && !any((function(it){
-        return it === 'abstract';
-      }))(
-      entry.flags || (entry.flags = []));
-      return can;
-    };
-    $scope.entryClicked = function($event, entry){
-      var x$;
-      $event.stopPropagation();
-      if (!(entry.meta || (entry.meta = {})).isExpandable) {
-        return;
+    /**
+     *
+     */
+    prototype.processReqs = function(){
+      var id, ref$, entry, i$, ref1$, len$, key, j$, ref2$, len1$, req, ref3$;
+      for (id in ref$ = this.$scope.entryIndex) {
+        entry = ref$[id];
+        entry.meta.isEnabled = true;
+        for (i$ = 0, len$ = (ref1$ = ['req', 'reqNot']).length; i$ < len$; ++i$) {
+          key = ref1$[i$];
+          if (entry[key] == null) {
+            continue;
+          }
+          if (entry[key].constructor !== Array) {
+            entry[key] = [entry[key]];
+          }
+          for (j$ = 0, len1$ = (ref2$ = entry[key]).length; j$ < len1$; ++j$) {
+            req = ref2$[j$];
+            if (typeof req === 'string') {
+              entry.meta.isEnabled = (key === 'req') === (((ref3$ = this.$scope.userData).flags || (ref3$.flags = {}))[req] === true);
+            }
+            if (!entry.meta.isEnabled) {
+              break;
+            }
+          }
+          if (!entry.meta.isEnabled) {
+            break;
+          }
+        }
       }
-      x$ = entry.meta || (entry.meta = {});
-      x$.isCollapsed = !(entry.meta || (entry.meta = {})).isCollapsed;
-      x$.arrow = _getArrowFor(entry);
-      _saveUserData();
     };
-    $scope.entryDone = function(entry){
-      entry.meta.isDone = true;
-      _saveUserData();
-    };
-  });
+    return GuideController;
+  }());
+  if (typeof module != 'undefined' && module !== null) {
+    module.exports = GuideController;
+  }
+  function bind$(obj, key, target){
+    return function(){ return (target || obj)[key].apply(obj, arguments) };
+  }
+  function in$(x, xs){
+    var i = -1, l = xs.length >>> 0;
+    while (++i < l) if (x === xs[i]) return true;
+    return false;
+  }
 }).call(this);
 
 },{}],18:[function(require,module,exports){
 (function(){
-  angular.module("dsc").service("guideService", function($resource){
+  angular.module("dsc").service("guideSvc", function($resource){
     var svc;
     svc = {};
     svc.getContentFor = function(section){
@@ -2641,28 +2752,28 @@ function curry$(f, bound){
       }
       return {
         to: function(item){
-          var x$, i$, ref$, len$, field;
+          var x$, i$, ref$, len$, field, ref1$;
           this$.ensureItCanBeUpgraded(
           item);
           x$ = item;
           x$.id += upgrade['id'] % 100;
           x$.upgradeId = upgrade['id'];
           x$.matSetId += upgrade['matSetId'];
-          for (i$ = 0, len$ = (ref$ = ['defModPhy', 'defModMag', 'defModFir', 'defModLit', 'defModTox', 'defModBlo', 'defModCur']).length; i$ < len$; ++i$) {
+          for (i$ = 0, len$ = (ref$ = [['defPhy', 'defModPhy'], ['defMag', 'defModMag'], ['defFir', 'defModFir'], ['defLit', 'defModLit'], ['defTox', 'defModTox'], ['defBlo', 'defModBlo'], ['defCur', 'defModCur']]).length; i$ < len$; ++i$) {
             field = ref$[i$];
-            item[field.replace('Mod', '')] *= upgrade[field];
+            item[field[0]] *= (ref1$ = upgrade[field[1]]) != null ? ref1$ : 1;
           }
           switch (item['itemType']) {
           case 'weapon':
-            for (i$ = 0, len$ = (ref$ = ['atkModPhy', 'atkModMag', 'atkModFir', 'atkModLit', 'bonusModStr', 'bonusModDex', 'bonusModInt', 'bonusModFai', 'defModSta']).length; i$ < len$; ++i$) {
+            for (i$ = 0, len$ = (ref$ = [['atkPhy', 'atkModPhy'], ['atkMag', 'atkModMag'], ['atkFir', 'atkModFir'], ['atkLit', 'atkModLit'], ['bonusStr', 'bonusModStr'], ['bonusDex', 'bonusModDex'], ['bonusInt', 'bonusModInt'], ['bonusFai', 'bonusModFai'], ['defSta', 'defModSta']]).length; i$ < len$; ++i$) {
               field = ref$[i$];
-              item[field.replace('Mod', '')] *= upgrade[field];
+              item[field[0]] *= (ref1$ = upgrade[field[1]]) != null ? ref1$ : 1;
             }
             break;
           case 'armor':
-            for (i$ = 0, len$ = (ref$ = ['defModStrike', 'defModSlash', 'defModThrust']).length; i$ < len$; ++i$) {
+            for (i$ = 0, len$ = (ref$ = [['defStrike', 'defModStrike'], ['defSlash', 'defModSlash'], ['defThrust', 'defModThrust']]).length; i$ < len$; ++i$) {
               field = ref$[i$];
-              item[field.replace('Mod', '')] *= upgrade[field];
+              item[field[0]] *= (ref1$ = upgrade[field[1]]) != null ? ref1$ : 1;
             }
           }
           return item;

@@ -34,11 +34,34 @@ it "should find the correct upgrade for an item", (done) !->
 		.notify done
 
 
-it "should apply an upgrade correctly", (done) !->
-	itemModel = new itemModels.Weapon!
-	upModel = new upModels.Weapon
+it "should apply a weapon upgrade correctly", !->
+	upgrade = {
+		atkModPhy : 1.5
+	}
 
-	done!
+	itemModel = new itemModels.Weapon
+		..useDataFrom {
+			atkPhy : 100
+		}
+
+	svc.apply upgrade .to itemModel
+
+	expect itemModel.atkPhy .to.equal 150
+
+
+it "should apply an armor upgrade correctly", !->
+	upgrade = {
+		"defModPhy" : 1.08
+	}
+	armor = new itemModels.Armor
+		..useDataFrom {
+			"defPhy" : 29
+		}
+
+	svc.apply upgrade .to armor
+
+	expect armor.defPhy .to.equal 31.32
+
 
 
 it "should load upgrade data correctly", (done) !->

@@ -149,33 +149,37 @@ class ItemServiceUpgradeComponent
 				..matSetId += upgrade.\matSetId
 
 			for field in [
-				\defModPhy
-				\defModMag
-				\defModFir
-				\defModLit
-				\defModTox
-				\defModBlo
-				\defModCur
+				[\defPhy	\defModPhy]
+				[\defMag	\defModMag]
+				[\defFir	\defModFir]
+				[\defLit	\defModLit]
+				[\defTox	\defModTox]
+				[\defBlo	\defModBlo]
+				[\defCur	\defModCur]
 			]
-				item.[field.replace 'Mod', ''] *= upgrade.[field]
+				item.[field.0] *= (upgrade.[field.1] ? 1)
 
 			switch item.\itemType
-			case \weapon
+			| \weapon =>
 				for field in [
-					\atkModPhy
-					\atkModMag
-					\atkModFir
-					\atkModLit
-					\bonusModStr
-					\bonusModDex
-					\bonusModInt
-					\bonusModFai
-					\defModSta
+					[ \atkPhy \atkModPhy ]
+					[ \atkMag \atkModMag ]
+					[ \atkFir \atkModFir ]
+					[ \atkLit \atkModLit ]
+					[ \bonusStr \bonusModStr ]
+					[ \bonusDex \bonusModDex ]
+					[ \bonusInt \bonusModInt ]
+					[ \bonusFai \bonusModFai ]
+					[ \defSta \defModSta ]
 				]
-					item.[field.replace 'Mod', ''] *= upgrade.[field]
-			case \armor
-				for field in [\defModStrike \defModSlash \defModThrust ]
-					item.[field.replace 'Mod', ''] *= upgrade.[field]
+					item.[field.0] *= (upgrade.[field.1] ? 1)
+			| \armor =>
+				for field in [
+					[\defStrike \defModStrike]
+					[\defSlash \defModSlash]
+					[\defThrust \defModThrust]
+				]
+					item.[field.0] *= (upgrade.[field.1] ? 1)
 
 			return item
 

@@ -1,4 +1,4 @@
-$resource <-! angular .module "dsc" .service "guideService"
+$resource <-! angular .module "dsc" .service "guideSvc"
 
 svc = {}
 

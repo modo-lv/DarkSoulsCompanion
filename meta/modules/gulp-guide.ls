@@ -42,7 +42,7 @@ $.preprocessGuideData = (cb) !->
 		if item['title']? and not item['id']?
 			item['id'] = uuid.v4!
 
-		if item.labels?
+		if item.labels? and item.labels.@@ == Array
 			item.labels = sort item.labels
 
 		if item['children']?

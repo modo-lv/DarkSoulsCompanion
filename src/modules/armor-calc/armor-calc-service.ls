@@ -27,19 +27,18 @@ class ArmorCalcSvc
 				@findCombinationsWithUpgrades armors
 			else
 				start := new Date!.getTime!
-				@findAllCombinationsOf armors
-				.then (combs) ~>
-					end = new Date!.getTime!
-					time = end - start
-					#console.log "Permutated #{armors.length} armors into #{combs.length} combinations in #{time / 1000} seconds"
+				combs = @findAllCombinationsOf armors
+				end = new Date!.getTime!
+				time = end - start
+				#console.log "Permutated #{armors.length} armors into #{combs.length} combinations in #{time / 1000} seconds"
 
-					start := new Date!.getTime!
-					combs = @calculateCombinationScores combs
-					end = new Date!.getTime!
-					time = end - start
-					#console.log "Calculated scores and found the best #{combs.length} combinations in #{time / 1000} seconds"
+				start := new Date!.getTime!
+				combs = @calculateCombinationScores combs
+				end = new Date!.getTime!
+				time = end - start
+				#console.log "Calculated scores and found the best #{combs.length} combinations in #{time / 1000} seconds"
 
-					return combs
+				return combs
 		.then (combs) ~>
 			for comb in combs
 				comb.detailScores = {}
@@ -84,6 +83,8 @@ class ArmorCalcSvc
 			promises.push(
 				@_itemSvc.upgradeComp.findAllAvailableUpgradesFor armor
 				.then (upgrades) ~>
+					for upgrade in upgrades
+						delete upgrade.score
 					#console.log upgrades
 					dynamicArmors ++= upgrades
 			)

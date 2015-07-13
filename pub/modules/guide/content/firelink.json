@@ -368,5 +368,29 @@
       }
     ],
     "id": "e25a1f11-a287-4b40-b6f4-f155280b2c79"
+  },
+  {
+    "title": "Undead Asylum F2 West Key",
+    "labels": "item",
+    "req": "parish_firelink_shortcut",
+    "id": "e6b2cd53-0b01-4ad5-ae02-875ab5dfa8f9"
+  },
+  {
+    "title": "After second bell",
+    "req": "second_bell",
+    "children": [
+      {
+        "labels": "talk",
+        "title": "Crestfallen Warrior",
+        "setFlags": "crestfallen_warrior_finished",
+        "id": "5e7a5db8-328b-49dd-897c-5023b67215cf"
+      },
+      {
+        "labels": "talk",
+        "title": "Kingseeker Frampt",
+        "id": "4635ce14-9dc0-4f18-b26e-fcfc69d954c6"
+      }
+    ],
+    "id": "b3e83898-ada2-4d4f-b98c-0ecc25ef8949"
   }
 ]
