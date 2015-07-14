@@ -30,24 +30,17 @@ class StatService
 
 
 	loadUserData : !~>
-		data = @_storageSvc.load 'pc' ? {}
+		data = (@_storageSvc.load 'pc.stats') ? {}
 
 		model = {}
-		for name, values of data.stats
-			model[name] = values.base
+		for name in @@allStats
+			model[name] = data.[name] ? 8
 
 		return @data = model
 
 
 	saveUserData : (model = @data) !~>
-		model.validate!
-
-		data = {} <<< model
-		for key, value of model
-			if key != \stats
-				delete data[key]
-
-		@_storageSvc.save 'pc', data
+		@_storageSvc.save 'pc.stats', model
 
 
 	statScalingFactorOf : (name) !~>

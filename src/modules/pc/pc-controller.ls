@@ -52,6 +52,7 @@ class PcController
 			\upgrade
 			\addArmorSet
 			\addNewItem
+			\saveUserData
 		]
 			@$scope.[func] = @.[func]
 		
@@ -72,7 +73,7 @@ class PcController
 			armors |> each @$scope.add
 
 
-	canUpgrade : (item) !~>
+	canUpgrade : (item) ~>
 		item |> @_itemSvc.upgradeComp.canBeUpgraded
 
 
@@ -84,8 +85,11 @@ class PcController
 			if not upItem? then return
 			@$scope.remove invEntry
 			@$scope.add upItem
-			
-			
+
+
+	saveUserData : !~> @_statSvc.saveUserData @$scope.userData.stats
+
+
 	### Utility functions
 
 

@@ -3731,7 +3731,10 @@ function curry$(f, bound){
         return output;
       }
       statSvc.forEachStat(function(name, value){
-        output.push(model[name]);
+        output.push({
+          "name": name,
+          "value": value
+        });
       }, model);
       return output;
     };
@@ -3946,6 +3949,7 @@ function curry$(f, bound){
       this._itemIndexSvc = _itemIndexSvc;
       this._storageSvc = _storageSvc;
       this._inventorySvc = _inventorySvc;
+      this.saveUserData = bind$(this, 'saveUserData', prototype);
       this.upgrade = bind$(this, 'upgrade', prototype);
       this.canUpgrade = bind$(this, 'canUpgrade', prototype);
       this.addArmorSet = bind$(this, 'addArmorSet', prototype);
@@ -3985,7 +3989,7 @@ function curry$(f, bound){
     };
     prototype.wireUp = function(){
       var i$, ref$, len$, func;
-      for (i$ = 0, len$ = (ref$ = ['canUpgrade', 'upgrade', 'addArmorSet', 'addNewItem']).length; i$ < len$; ++i$) {
+      for (i$ = 0, len$ = (ref$ = ['canUpgrade', 'upgrade', 'addArmorSet', 'addNewItem', 'saveUserData']).length; i$ < len$; ++i$) {
         func = ref$[i$];
         this.$scope[func] = this[func];
       }
@@ -4006,7 +4010,7 @@ function curry$(f, bound){
       });
     };
     prototype.canUpgrade = function(item){
-      this._itemSvc.upgradeComp.canBeUpgraded(
+      return this._itemSvc.upgradeComp.canBeUpgraded(
       item);
     };
     prototype.upgrade = function(invEntry){
@@ -4020,6 +4024,9 @@ function curry$(f, bound){
         this$.$scope.remove(invEntry);
         this$.$scope.add(upItem);
       });
+    };
+    prototype.saveUserData = function(){
+      this._statSvc.saveUserData(this.$scope.userData.stats);
     };
     return PcController;
   }());
@@ -4070,29 +4077,20 @@ function curry$(f, bound){
       }
     };
     prototype.loadUserData = function(){
-      var data, model, name, ref$, values;
-      data = this._storageSvc.load('pc' != null
-        ? 'pc'
-        : {});
+      var data, ref$, model, i$, len$, name, ref1$;
+      data = (ref$ = this._storageSvc.load('pc.stats')) != null
+        ? ref$
+        : {};
       model = {};
-      for (name in ref$ = data.stats) {
-        values = ref$[name];
-        model[name] = values.base;
+      for (i$ = 0, len$ = (ref$ = constructor.allStats).length; i$ < len$; ++i$) {
+        name = ref$[i$];
+        model[name] = (ref1$ = data[name]) != null ? ref1$ : 8;
       }
       return this.data = model;
     };
     prototype.saveUserData = function(model){
-      var data, key, value;
       model == null && (model = this.data);
-      model.validate();
-      data = import$({}, model);
-      for (key in model) {
-        value = model[key];
-        if (key !== 'stats') {
-          delete data[key];
-        }
-      }
-      this._storageSvc.save('pc', data);
+      this._storageSvc.save('pc.stats', model);
     };
     prototype.statScalingFactorOf = function(name){
       var statValue, thresholds, result, i$, len$, threshold;
@@ -4134,11 +4132,6 @@ function curry$(f, bound){
   }
   function bind$(obj, key, target){
     return function(){ return (target || obj)[key].apply(obj, arguments) };
-  }
-  function import$(obj, src){
-    var own = {}.hasOwnProperty;
-    for (var key in src) if (own.call(src, key)) obj[key] = src[key];
-    return obj;
   }
 }).call(this);
 

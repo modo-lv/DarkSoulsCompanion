@@ -1,12 +1,19 @@
 #Pc
 	.container
 		table.stats
-			tr(ng-repeat="(name, value) in userData.stats")
-				td {{name}}:
+			thead: tr: th(colspan=2): h3 Stats
+			tbody: tr(ng-repeat="stat in userData.stats | toStatArray")
+				td {{stat.name}}:
 				td
-					input(type="number" min=8 max="99" ng-model="value" ng-change="saveStats()")
+					input(type="number"
+						min=8 max=99
+						ng-model="$parent.userData.stats[stat.name]"
+						ng-change="saveUserData()"
+					)
 
 		.inventory
+			h3 Inventory
+
 			angucomplete-alt#AddToInventory(
 				local-data="allItems"
 				selected-object="addNewItem"
