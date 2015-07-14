@@ -3943,6 +3943,7 @@ function curry$(f, bound){
       this.upgrade = bind$(this, 'upgrade', prototype);
       this.addArmorSet = bind$(this, 'addArmorSet', prototype);
       this.addNewItem = bind$(this, 'addNewItem', prototype);
+      this.add = bind$(this, 'add', prototype);
       this.wireUp = bind$(this, 'wireUp', prototype);
       this.load = bind$(this, 'load', prototype);
       this.setup = bind$(this, 'setup', prototype);
@@ -3998,18 +3999,23 @@ function curry$(f, bound){
     };
     prototype.wireUp = function(){
       var i$, ref$, len$, func;
-      for (i$ = 0, len$ = (ref$ = ['canUpgrade', 'upgrade', 'addArmorSet', 'addNewItem', 'saveUserData']).length; i$ < len$; ++i$) {
+      for (i$ = 0, len$ = (ref$ = ['canUpgrade', 'upgrade', 'addArmorSet', 'addNewItem', 'saveUserData', 'add']).length; i$ < len$; ++i$) {
         func = ref$[i$];
         this.$scope[func] = this[func];
       }
-      for (i$ = 0, len$ = (ref$ = ['add', 'remove']).length; i$ < len$; ++i$) {
+      for (i$ = 0, len$ = (ref$ = ['remove']).length; i$ < len$; ++i$) {
         func = ref$[i$];
         this.$scope[func] = this._inventorySvc[func];
       }
     };
+    prototype.add = function(item){
+      var this$ = this;
+      this._inventorySvc.add(item).then(function(){
+        this$.setUpgradeableStatus();
+      });
+    };
     prototype.addNewItem = function(selection){
       this.$scope.add(selection.originalObject);
-      this.setUpgradeableStatus();
     };
     prototype.addArmorSet = function(selection){
       var armorSet, this$ = this;

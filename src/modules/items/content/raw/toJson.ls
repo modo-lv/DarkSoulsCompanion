@@ -60,7 +60,21 @@ effectMap =
 parseTexts = (data, type) !->
 	target = {}
 	for row in data
-		target[type + row.\Id] = row.\Value
+		uid = "#{type}#{row.\Id}"
+		name = row.\Value
+		if (uid.indexOf \weapon1332) == 0
+			name = name.replace "Pyromancy Flame", "Pyromancy Flame (ascended)"
+		else
+			name = switch uid
+				# Crystal Greatswords
+				| \weapon304000 => name + " (store-bought)"
+				| \weapon351100 => name + " (ascended)"
+				# Traveling Gloves
+				| \armor382000 => name + " (Big Hat's)"
+				| \armor312000 => name + " (cleric's)"
+				| otherwise => name
+
+		target[type + row.\Id] = name
 	return target
 
 

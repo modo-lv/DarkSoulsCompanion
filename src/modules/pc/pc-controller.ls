@@ -76,18 +76,22 @@ class PcController
 			\addArmorSet
 			\addNewItem
 			\saveUserData
+			\add
 		]
 			@$scope.[func] = @.[func]
 		
-		for func in [\add \remove]
+		for func in [\remove]
 			@$scope.[func] = @_inventorySvc.[func]
 
 
 	### Event handlers
 
+	add : (item) !~>
+		@_inventorySvc.add item
+		.then !~> @setUpgradeableStatus!
+
 	addNewItem : (selection) !~>
 		@$scope.add selection.originalObject
-		@setUpgradeableStatus!
 
 
 	addArmorSet : (selection) !~>
