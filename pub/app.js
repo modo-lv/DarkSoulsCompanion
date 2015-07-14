@@ -2735,10 +2735,7 @@ function curry$(f, bound){
     };
     prototype.canBeUpgradedFurther = function(item){
       var this$ = this;
-      if (!this.canBeUpgraded(item)) {
-        return false;
-      }
-      if (item.weaponType === 'Magic') {
+      if (!this.canBeUpgraded(item) || item.weaponType === 'Magic' || item.matSetId < 0 || item.upgradeId < 0) {
         return false;
       }
       return this.findUpgradeFor(item, this.upgradeLevelOf(item)).then(function(upgrade){
@@ -3707,15 +3704,7 @@ function curry$(f, bound){
             field: 'amount',
             width: 50
           }
-        ],
-        onRegisterApi: function(gridApi){
-          gridApi.core.addRowHeaderColumn({
-            name: 'rowHeaderCol',
-            displayName: '',
-            width: 100,
-            cellTemplate: 'GridRowHeader.html'
-          });
-        }
+        ]
       };
     };
   }
@@ -3949,9 +3938,9 @@ function curry$(f, bound){
       this._itemIndexSvc = _itemIndexSvc;
       this._storageSvc = _storageSvc;
       this._inventorySvc = _inventorySvc;
+      this.setUpgradeableStatus = bind$(this, 'setUpgradeableStatus', prototype);
       this.saveUserData = bind$(this, 'saveUserData', prototype);
       this.upgrade = bind$(this, 'upgrade', prototype);
-      this.canUpgrade = bind$(this, 'canUpgrade', prototype);
       this.addArmorSet = bind$(this, 'addArmorSet', prototype);
       this.addNewItem = bind$(this, 'addNewItem', prototype);
       this.wireUp = bind$(this, 'wireUp', prototype);
@@ -3976,6 +3965,12 @@ function curry$(f, bound){
       this.$scope.gridOptions = require('./config/inventory-grid-opts')(this.$uiGridConstants);
       this.$scope.gridOptions.onRegisterApi = function(gridApi){
         this$.$scope.gridApi = gridApi;
+        gridApi.core.addRowHeaderColumn({
+          name: 'rowHeaderCol',
+          displayName: '',
+          width: 100,
+          cellTemplate: 'GridRowHeader.html'
+        });
         gridApi.core.on.filterChanged(this$.$scope, function(){
           this$._storageSvc.save("pc.grid-state", this$.$scope.gridApi.saveState.save());
         });
@@ -3991,6 +3986,7 @@ function curry$(f, bound){
         return this$._inventorySvc.clear().load();
       }).then(function(inv){
         this$.$scope.userData.inventory = this$.$scope.gridOptions.data = inv;
+        this$.setUpgradeableStatus();
         this$.$scope.gridApi.saveState.restore(this$.$scope, this$._storageSvc.load('pc.grid-state'));
       });
       this.$scope.userData.stats = this._statSvc.loadUserData();
@@ -4008,6 +4004,7 @@ function curry$(f, bound){
     };
     prototype.addNewItem = function(selection){
       this.$scope.add(selection.originalObject);
+      this.setUpgradeableStatus();
     };
     prototype.addArmorSet = function(selection){
       var armorSet, this$ = this;
@@ -4016,10 +4013,6 @@ function curry$(f, bound){
         each(this$.$scope.add)(
         armors);
       });
-    };
-    prototype.canUpgrade = function(item){
-      return this._itemSvc.upgradeComp.canBeUpgraded(
-      item);
     };
     prototype.upgrade = function(invEntry){
       var this$ = this;
@@ -4035,6 +4028,27 @@ function curry$(f, bound){
     };
     prototype.saveUserData = function(){
       this._statSvc.saveUserData(this.$scope.userData.stats);
+    };
+    prototype.setUpgradeableStatus = function(){
+      var i$, ref$, len$, invItem;
+      for (i$ = 0, len$ = (ref$ = this.$scope.userData.inventory).length; i$ < len$; ++i$) {
+        invItem = ref$[i$];
+        if (invItem.canBeUpgraded != null) {
+          continue;
+        }
+        if (!this._itemSvc.upgradeComp.canBeUpgraded(
+        invItem)) {
+          invItem.canBeUpgraded = false;
+          continue;
+        }
+        (fn$.call(this, invItem));
+      }
+      function fn$(inventoryItem){
+        var this$ = this;
+        this._itemSvc.findAnyItemByUid(inventoryItem.uid).then(function(realItem){
+          inventoryItem.canBeUpgraded = this$._itemSvc.upgradeComp.canBeUpgradedFurther(realItem);
+        });
+      }
     };
     return PcController;
   }());

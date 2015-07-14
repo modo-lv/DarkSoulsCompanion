@@ -127,10 +127,7 @@ class ItemServiceUpgradeComponent
 
 
 	canBeUpgradedFurther : (item) ~>
-		if not @canBeUpgraded item
-			return false
-
-		if item.weaponType == \Magic
+		if (not @canBeUpgraded item) or item.weaponType == \Magic or item.matSetId < 0 or item.upgradeId < 0
 			return false
 
 		return @findUpgradeFor item, @upgradeLevelOf item

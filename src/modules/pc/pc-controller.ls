@@ -32,6 +32,14 @@ class PcController
 		@$scope.gridOptions = (require './config/inventory-grid-opts') @$uiGridConstants
 		@$scope.gridOptions.onRegisterApi = (gridApi) !~>
 			@$scope.gridApi = gridApi
+
+			gridApi.core.addRowHeaderColumn {
+				name : 'rowHeaderCol'
+				displayName : ''
+				width : 100
+				cellTemplate : 'GridRowHeader.html'
+			}
+
 			gridApi.core.on.filterChanged @$scope, !~>
 				@_storageSvc.save "pc.grid-state", @$scope.gridApi.saveState.save!
 
@@ -47,6 +55,7 @@ class PcController
 			@_inventorySvc.clear!.load!
 		.then (inv) !~>
 			@$scope.userData.inventory = @$scope.gridOptions.data = inv
+			@setUpgradeableStatus!
 			@$scope.gridApi.saveState.restore @$scope, @_storageSvc.load 'pc.grid-state'
 
 		@$scope.userData.stats = @_statSvc.loadUserData!
@@ -70,6 +79,7 @@ class PcController
 
 	addNewItem : (selection) !~>
 		@$scope.add selection.originalObject
+		@setUpgradeableStatus!
 
 
 	addArmorSet : (selection) !~>
@@ -77,10 +87,6 @@ class PcController
 
 		@_itemIndexSvc.findByArmorSet armorSet .then (armors) !~>
 			armors |> each @$scope.add
-
-
-	canUpgrade : (item) ~>
-		item |> @_itemSvc.upgradeComp.canBeUpgraded
 
 
 	upgrade : (invEntry) !~>
@@ -97,6 +103,20 @@ class PcController
 
 
 	### Utility functions
+
+	setUpgradeableStatus : !~>
+		for invItem in @$scope.userData.inventory
+			if invItem.canBeUpgraded? then continue
+
+			if not (invItem |> @_itemSvc.upgradeComp.canBeUpgraded) then
+				invItem.canBeUpgraded = false
+				continue
+
+			let inventoryItem = invItem
+				@_itemSvc.findAnyItemByUid inventoryItem.uid
+				.then (realItem) !~>
+					inventoryItem.canBeUpgraded =
+						@_itemSvc.upgradeComp.canBeUpgradedFurther realItem
 
 
 module?.exports = PcController

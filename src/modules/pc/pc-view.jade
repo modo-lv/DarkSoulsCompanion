@@ -37,16 +37,16 @@
 			// Grid
 			div(ui-grid="gridOptions" ui-grid-auto-resize ui-grid-save-state)
 
-	// Grid action buttons
-	script(id="GridRowHeader.html" type="text/ng-template")
-		button(ng-click="grid.appScope.add(row.entity)")
-			| +
+// Grid action buttons
+script(id="GridRowHeader.html" type="text/ng-template")
+	button(ng-click="grid.appScope.add(row.entity)")
+		| +
 
-		button(
-			ng-click="grid.appScope.upgrade(row.entity)"
-			title="Upgrade"
-			ng-disabled="!grid.appScope.canUpgrade(row.entity)"
-			) ⇈
+	button(
+		ng-click="grid.appScope.upgrade(row.entity)"
+		title="Upgrade"
+		ng-disabled="!(row.entity.canBeUpgraded)"
+		) ⇈
 
-		button(ng-click="grid.appScope.remove(row.entity)")
-			| −
+	button(ng-click="grid.appScope.remove(row.entity)")
+		| −
