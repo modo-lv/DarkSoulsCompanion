@@ -14,6 +14,7 @@ class PcController
 			userData : {
 				stats : {}
 				inventory : []
+				gridState : {}
 			}
 			
 			# Item that the user has selected in the auto-complete field
@@ -29,6 +30,10 @@ class PcController
 		}
 
 		@$scope.gridOptions = (require './config/inventory-grid-opts') @$uiGridConstants
+		@$scope.gridOptions.onRegisterApi = (gridApi) !~>
+			@$scope.gridApi = gridApi
+			gridApi.core.on.filterChanged @$scope, !~>
+				@_storageSvc.save "pc.grid-state", @$scope.gridApi.saveState.save!
 
 
 	load : !~>
@@ -42,6 +47,7 @@ class PcController
 			@_inventorySvc.clear!.load!
 		.then (inv) !~>
 			@$scope.userData.inventory = @$scope.gridOptions.data = inv
+			@$scope.gridApi.saveState.restore @$scope, @_storageSvc.load 'pc.grid-state'
 
 		@$scope.userData.stats = @_statSvc.loadUserData!
 

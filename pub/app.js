@@ -3962,17 +3962,24 @@ function curry$(f, bound){
       this.wireUp();
     }
     prototype.setup = function(){
-      var ref$;
+      var ref$, this$ = this;
       ref$ = this.$scope;
       ref$.userData = {
         stats: {},
-        inventory: []
+        inventory: [],
+        gridState: {}
       };
       ref$.selectedItem = null;
       ref$.armorSets = [];
       ref$.allItems = [];
       ref$.itemTypes = ['weapon', 'armor', 'item'];
       this.$scope.gridOptions = require('./config/inventory-grid-opts')(this.$uiGridConstants);
+      this.$scope.gridOptions.onRegisterApi = function(gridApi){
+        this$.$scope.gridApi = gridApi;
+        gridApi.core.on.filterChanged(this$.$scope, function(){
+          this$._storageSvc.save("pc.grid-state", this$.$scope.gridApi.saveState.save());
+        });
+      };
     };
     prototype.load = function(){
       var this$ = this;
@@ -3984,6 +3991,7 @@ function curry$(f, bound){
         return this$._inventorySvc.clear().load();
       }).then(function(inv){
         this$.$scope.userData.inventory = this$.$scope.gridOptions.data = inv;
+        this$.$scope.gridApi.saveState.restore(this$.$scope, this$._storageSvc.load('pc.grid-state'));
       });
       this.$scope.userData.stats = this._statSvc.loadUserData();
     };
