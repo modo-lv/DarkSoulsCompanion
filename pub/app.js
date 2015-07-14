@@ -1760,7 +1760,7 @@ function curry$(f, bound){
         title: "Poise"
       }
     ];
-    $scope.maxLoad = 40 + statSvc.statValueOf('endurance');
+    $scope.maxLoad = 40 + statSvc.statValueOf('end');
     $scope.typeNames = {
       0: 'head',
       1: 'chest',
@@ -1966,23 +1966,26 @@ function curry$(f, bound){
         }
         start = new Date().getTime();
         combs = this$.findAllCombinationsOf(allArmors);
-        end = new Date().getTime();
-        time = end - start;
-        if (this$._debugLog) {
-          console.log("Permutated " + allArmors.length + " armors, upgrades and un-upgradable armors into " + combs.length + " combinations in " + time / 1000 + " seconds");
-        }
-        for (i$ = 0, len$ = combs.length; i$ < len$; ++i$) {
-          comb = combs[i$];
-          comb.armors = this$.calculateArmorScores(comb.armors);
-        }
-        start = new Date().getTime();
-        combs = this$.calculateCombinationScores(combs);
-        end = new Date().getTime();
-        time = end - start;
-        if (this$._debugLog) {
-          console.log("Calculated scores and found the best " + combs.length + " combinations in " + time / 1000 + " seconds");
-        }
-        return combs;
+        return this$.takeOnlyAffordable(combs).then(function(combs){
+          var end, time, i$, len$, comb;
+          end = new Date().getTime();
+          time = end - start;
+          if (this$._debugLog) {
+            console.log("Permutated " + allArmors.length + " armors, upgrades and un-upgradable armors into " + combs.length + " combinations in " + time / 1000 + " seconds");
+          }
+          for (i$ = 0, len$ = combs.length; i$ < len$; ++i$) {
+            comb = combs[i$];
+            comb.armors = this$.calculateArmorScores(comb.armors);
+          }
+          start = new Date().getTime();
+          combs = this$.calculateCombinationScores(combs);
+          end = new Date().getTime();
+          time = end - start;
+          if (this$._debugLog) {
+            console.log("Calculated scores and found the best " + combs.length + " combinations in " + time / 1000 + " seconds");
+          }
+          return combs;
+        });
       });
       function fn$(upgrades){
         var i$, len$, upgrade;
@@ -2102,6 +2105,7 @@ function curry$(f, bound){
         if (empty == null) {
           empty = {
             name: "(bare " + type + ")",
+            itemType: 'armor',
             armorType: type,
             weight: 0,
             upgradeId: -1,
@@ -2583,9 +2587,25 @@ function curry$(f, bound){
       this.getBaseItemIdOf = bind$(this, 'getBaseItemIdOf', prototype);
       this.getUpgradeLevelFrom = bind$(this, 'getUpgradeLevelFrom', prototype);
       this.getBaseIdFrom = bind$(this, 'getBaseIdFrom', prototype);
+      this.clearMaterialSets = bind$(this, 'clearMaterialSets', prototype);
+      this.clearUpgrades = bind$(this, 'clearUpgrades', prototype);
       this._upgrades = {};
       this._materialSets = [];
     }
+    prototype.clearUpgrades = function(){
+      var i$, ref$, len$, type, ref1$;
+      for (i$ = 0, len$ = (ref$ = ['weapon', 'armor']).length; i$ < len$; ++i$) {
+        type = ref$[i$];
+        ((ref1$ = this._upgrades)[type] || (ref1$[type] = [])).length = 0;
+        delete this._upgrades[type].$promise;
+      }
+      return this;
+    };
+    prototype.clearMaterialSets = function(){
+      this._materialSets.length = 0;
+      delete this._materialSets.$promise;
+      return this;
+    };
     prototype.getBaseIdFrom = function(id){
       return id - this.getUpgradeLevelFrom(id);
     };
@@ -2738,7 +2758,10 @@ function curry$(f, bound){
       if (!this.canBeUpgraded(item) || item.weaponType === 'Magic' || item.matSetId < 0 || item.upgradeId < 0) {
         return false;
       }
-      return this.findUpgradeFor(item, this.upgradeLevelOf(item)).then(function(upgrade){
+      return this.findUpgradeFor(item, this.upgradeLevelOf(item) + 1).then(function(upgrade){
+        if (this$._debugLog && upgrade == null) {
+          console.log("Failed to find an upgrade for item (id: " + item.id + ") at level " + this$.upgradeLevelOf(item));
+        }
         return upgrade != null;
       });
     };
@@ -2782,9 +2805,11 @@ function curry$(f, bound){
      * within the limits of what is available to the user
      */
     prototype.findAllAvailableUpgradesFor = function(item){
-      var ref$, x$, upgradeList, this$ = this;
-      if ((ref$ = !item.itemType) === 'armor' || ref$ === 'weapon') {
-        throw new Error("Only weapons and armor can be upgraded, this is [" + item.itemType + "]");
+      var x$, upgradeList, maxUpgrades, this$ = this;
+      this.ensureItCanBeUpgraded(
+      item);
+      if (item.id == null) {
+        throw new Error("Can't find upgrades for an item with no ID.");
       }
       if (item.id < 0 || item.upgradeId < 0) {
         x$ = this.$q.defer();
@@ -2792,8 +2817,9 @@ function curry$(f, bound){
         return x$.promise;
       }
       upgradeList = [];
+      maxUpgrades = item.itemType === 'weapon' ? 15 : 10;
       return this._inventorySvc.load().then(function(inventory){
-        var materials, promise, i$, level;
+        var materials, promise, canKeepUpgrading, i$, to$, level;
         materials = map(function(it){
           return import$({}, it);
         })(
@@ -2804,20 +2830,36 @@ function curry$(f, bound){
         promise = this$.$q(function(resolve, reject){
           resolve();
         });
-        for (i$ = this$.getUpgradeLevelFrom(item.id) + 1; i$ <= 10; ++i$) {
+        canKeepUpgrading = true;
+        if (this$._debugLog) {
+          console.log("Item's current upgrade level is " + this$.getUpgradeLevelFrom(item.id));
+        }
+        for (i$ = this$.getUpgradeLevelFrom(item.id) + 1, to$ = maxUpgrades; i$ <= to$; ++i$) {
           level = i$;
           fn$(materials, level);
         }
         return promise;
         function fn$(materials, level){
           promise = promise.then(function(){
-            return this$.canBeUpgradedFurther(item) && this$.are(materials).enoughToUpgrade(item, level);
-          }).then(function(canUpgrade){
-            if (canUpgrade) {
-              return this$.$q.all([this$._itemSvc.getUpgraded(item, level), this$.deductFrom(materials).costOfUpgrade(item, level)]);
-            } else {
-              materials.length = 0;
+            if (!canKeepUpgrading) {
               return null;
+            }
+            if (this$._debugLog) {
+              console.log("Checking upgrade level " + level);
+            }
+            return this$.$q.all([this$.canBeUpgradedFurther(item), this$.are(materials).enoughToUpgrade(item, level)]);
+          }).then(function(canUpgrade){
+            if (this$._debugLog && canUpgrade != null) {
+              console.log("Can upgrade further: " + canUpgrade[0]);
+              console.log("Enough materials: " + canUpgrade[1]);
+            }
+            if (!((canUpgrade != null && canUpgrade[0]) && (canUpgrade != null && canUpgrade[1]))) {
+              materials.length = 0;
+              canKeepUpgrading = false;
+              return null;
+            }
+            if (canUpgrade = canUpgrade[0] + canUpgrade[1]) {
+              return this$.$q.all([this$._itemSvc.getUpgraded(item, level), this$.deductFrom(materials).costOfUpgrade(item, level)]);
             }
           }).then(function(result){
             var upItem, cost, totalCost, costEntry, x$;
@@ -3399,9 +3441,6 @@ function curry$(f, bound){
           return this$.upgradeComp.apply(upgrade).to(newItem);
         }).then(function(newItem){
           return this$._itemIndexSvc.findEntryByUid(newItem.uid).then(function(entry){
-            if (entry == null) {
-              console.log(newItem);
-            }
             newItem.name = entry.name;
             return newItem;
           });
@@ -4495,7 +4534,6 @@ function curry$(f, bound){
           for (j$ = 0, len1$ = statKeys.length; j$ < len1$; ++j$) {
             a = j$;
             key = statKeys[j$];
-            console.log(key + " : " + weapon[reqKeys[a]] + " > " + this$.params.reqLimits[key]);
             if (this$.params.reqLimits[key] == null) {
               continue;
             }

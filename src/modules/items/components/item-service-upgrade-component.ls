@@ -7,6 +7,18 @@ class ItemServiceUpgradeComponent
 		@_materialSets = []
 
 
+	clearUpgrades : !~>
+		for type in [\weapon \armor]
+			@_upgrades.[][type].length = 0
+			delete @_upgrades.[type].$promise
+		return this
+
+	clearMaterialSets : !~>
+		@_materialSets.length = 0
+		delete @_materialSets.$promise
+		return this
+
+
 	getBaseIdFrom : (id) !~>
 		return id - @getUpgradeLevelFrom id
 
@@ -53,6 +65,8 @@ class ItemServiceUpgradeComponent
 
 
 	are : (materials) ~>
+		#if @_debugLog
+		#	console.log "Materials:", materials
 		enoughToUpgrade : (item, level) ~>
 			@findUpgradeFor item, level
 			.then (upgrade) ~>
@@ -130,8 +144,11 @@ class ItemServiceUpgradeComponent
 		if (not @canBeUpgraded item) or item.weaponType == \Magic or item.matSetId < 0 or item.upgradeId < 0
 			return false
 
-		return @findUpgradeFor item, @upgradeLevelOf item
-			.then (upgrade) ~> upgrade?
+		return @findUpgradeFor item, (@upgradeLevelOf item) + 1
+			.then (upgrade) ~>
+				if @_debugLog and not upgrade?
+					console.log "Failed to find an upgrade for item (id: #{item.id}) at level #{@upgradeLevelOf item}"
+				upgrade?
 
 
 	apply : (upgrade) ~>
@@ -186,8 +203,10 @@ class ItemServiceUpgradeComponent
 	 * within the limits of what is available to the user
 	 */
 	findAllAvailableUpgradesFor : (item) ~>
-		if not item.itemType in [\armor \weapon]
-			throw new Error "Only weapons and armor can be upgraded, this is [#{item.itemType}]"
+		item |> @ensureItCanBeUpgraded
+
+		if not item.id?
+			throw new Error "Can't find upgrades for an item with no ID."
 
 		if item.id < 0 or item.upgradeId < 0 then
 			@$q.defer!
@@ -195,6 +214,7 @@ class ItemServiceUpgradeComponent
 				return ..promise
 
 		upgradeList = []
+		maxUpgrades = if item.itemType == \weapon then 15 else 10
 
 		@_inventorySvc.load!
 		.then (inventory) ~>
@@ -202,23 +222,38 @@ class ItemServiceUpgradeComponent
 
 			promise = @$q (resolve, reject) !-> resolve!
 
-			for level from (@getUpgradeLevelFrom item.id) + 1 to 10
+			canKeepUpgrading = true
+
+			if @_debugLog
+				console.log "Item's current upgrade level is #{@getUpgradeLevelFrom item.id}"
+
+			for level from (@getUpgradeLevelFrom item.id) + 1 to maxUpgrades
 				((materials, level) !~>
-					#console.log level
 					promise := promise
 					.then ~>
-						@.canBeUpgradedFurther item
-						and
-						@.are materials .enoughToUpgrade item, level
+						if not canKeepUpgrading then return null
+						if @_debugLog
+							console.log "Checking upgrade level #{level}"
+
+						@$q.all [
+							@.canBeUpgradedFurther item
+							@.are materials .enoughToUpgrade item, level
+						]
 					.then (canUpgrade) !~>
-						if canUpgrade
+						if @_debugLog and canUpgrade?
+							console.log "Can upgrade further: #{canUpgrade.0}"
+							console.log "Enough materials: #{canUpgrade.1}"
+
+						if not (canUpgrade?.0 and canUpgrade?.1)
+							materials.length = 0
+							canKeepUpgrading := false
+							return null
+
+						if canUpgrade := canUpgrade.0 + canUpgrade.1
 							return @$q.all [
 								@_itemSvc.getUpgraded item, level
 								@deductFrom materials .costOfUpgrade item, level
 							]
-						else
-							materials.length = 0
-							return null
 					.then (result) !~>
 						upItem = result?.0
 						cost = result?.1

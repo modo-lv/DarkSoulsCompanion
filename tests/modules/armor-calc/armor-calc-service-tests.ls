@@ -12,18 +12,17 @@ beforeEach (done) !->
 	svc := new (testRequire 'modules/armor-calc/armor-calc-service') invSvc, itemSvc, $q
 
 	# Setup default data
-	/*
 	inventory = require './test-data/armor-calc-test-inventory.json'
 	armors = require './test-data/armor-calc-test-armors.json'
 	materialSets = require './test-data/armor-calc-material-sets.json'
 	upgrades = require './test-data/armor-calc-upgrades.json'
 	index = require './test-data/armor-calc-index.json'
-	*/
-	inventory = require './test-data/temp-inventory.json'
-	armors = testRequire './modules/items/content/armors.json'
-	materialSets = testRequire './modules/items/content/material-sets.json'
-	upgrades = testRequire './modules/items/content/armor-upgrades.json'
-	index = testRequire './modules/items/content/index.json'
+
+#	inventory = require './test-data/temp-inventory.json'
+#	armors = testRequire './modules/items/content/armors.json'
+#	materialSets = testRequire './modules/items/content/material-sets.json'
+#	upgrades = testRequire './modules/items/content/armor-upgrades.json'
+#	index = testRequire './modules/items/content/index.json'
 
 	storageSvc.loadReturnValue = inventory
 
@@ -49,7 +48,7 @@ it "should correctly find potential armors", (done) !->
 
 	svc.findUsableArmors!
 	.then (armors) !->
-		expect armors .to.have.length 22 #3
+		expect armors .to.have.length 3
 		for armor in armors
 			expect armor .to.have.property \itemType, \armor
 			expect armor .to.have.property \weight .at.most svc.freeWeight
@@ -150,22 +149,44 @@ it "should correctly calculate scores for a set of combinations", !->
 
 
 it "should correctly find all available upgrades for a piece of armor", (done) !->
-	itemSvc.findItem \armor, (.id == 480000) # 11000)
+	itemSvc.findItem \armor, (.id == 11000)
 	.then (armor) ->
 		itemSvc.upgradeComp.findAllAvailableUpgradesFor armor
 	.then (upgradeList) ->
-		expect upgradeList .to.have.length 10 # 5
+		expect upgradeList .to.have.length 5
 		done!
 	.catch done
 
 
-it "should set the total upgrade cost on found upgrades", (done) !->
-	itemSvc.findItem \armor, (.id == 480000)
-	.then (armor) ->
-		itemSvc.upgradeComp.findAllAvailableUpgradesFor armor
-	.then (upgradeList) ->
-		#console.log (upgradeList |> first)
-		expect upgradeList .to.have.length 10
-		#expect (upgradeList |> first) .to.have
+it "should not give unoffordable combinations", (done) !->
+	inventory = [
+		{ id : 100, amount : 3, itemType : \item }
+	]
+
+	combinations = [
+		{
+			armors : [
+				{ totalCost : [ { matId : 100, matCost : 2} ] }
+				{ totalCost : [ { matId : 100, matCost : 2} ] }
+			]
+		}
+		{
+			armors : [
+				{ totalCost : [ { matId : 100, matCost : 2} ] }
+				{ totalCost : [ { matId : 100, matCost : 1} ] }
+			]
+		}
+	]
+
+	storageSvc.loadReturnValue = inventory
+	invSvc.clear!.load!
+	.then ->
+		svc.takeOnlyAffordable combinations
+	.then (canAfford) !->
+		expect canAfford .to.have.length 1
+		expect canAfford.0.totalCost.0 .to.have.properties {
+			matId : 100
+			matCost : 3
+		}
 		done!
 	.catch done

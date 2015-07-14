@@ -53,7 +53,7 @@ class WeaponFinderService
 			for weapon in weapons
 				fit = true
 				for key, a in statKeys
-					console.log "#{key} : #{weapon[reqKeys.[a]]} > #{@params.reqLimits[key]}"
+					#console.log "#{key} : #{weapon[reqKeys.[a]]} > #{@params.reqLimits[key]}"
 					if not @params.reqLimits[key]? then continue
 					if weapon[reqKeys.[a]] > @params.reqLimits[key]
 						fit = false

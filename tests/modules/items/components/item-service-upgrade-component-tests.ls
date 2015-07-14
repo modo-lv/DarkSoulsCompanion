@@ -147,3 +147,45 @@ it "should correctly deduct upgrade cost from materials", (done) !->
 		expect(materials.0).to.have.property \amount, 3
 		done!
 	.catch done
+
+
+it "should correctly set total upgrade cost", (done) !->
+	armor = {
+		id : 1000
+		itemType : \armor
+		upgradeId : 0
+		matSetId : 0
+	}
+
+	upgrades = [{id : 1, matSetId : 1}]
+	inventory = [{id : 100, itemType : \item , amount : 2}]
+	materialSets = [{id : 1, matId : 100, matCost : 2}]
+	index = inventory ++ [armor] ++ [{
+		uid : \armor1001
+		name : "Armor +1"
+		itemType : \armor
+	}]
+
+	edSvc.loadJsonReturnValue = upgrades
+	svc.clearUpgrades!.loadAllUpgrades \armor
+	.then ->
+		edSvc.loadJsonReturnValue = materialSets
+		svc.clearMaterialSets!.loadAllMaterialSets!
+	.then ->
+		edSvc.loadJsonReturnValue = index
+		itemIndexSvc.clear!.loadAllEntries!
+	.then ->
+		storageSvc.loadReturnValue = inventory
+		inventorySvc.clear!.load!
+	.then (inventory) ->
+		svc._debugLog = true
+		svc.findAllAvailableUpgradesFor armor
+	.then (upgrades) !->
+		expect upgrades .to.exist
+		expect upgrades .to.have.length 1
+		expect upgrades.0.totalCost.0 .to.have.properties {
+			matId : 100
+			matCost : 2
+		}
+		done!
+	.catch done

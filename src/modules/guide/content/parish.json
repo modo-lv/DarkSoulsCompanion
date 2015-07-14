@@ -445,5 +445,16 @@
       }
     ],
     "id": "fd1b1681-363f-4642-b05c-f4e418420d7f"
+  },
+
+
+  {
+    "title" : "The old church",
+    "children" : [
+      {
+        "labels" : "item",
+        "title" : "Demon Titanite (Titanite Demon)"
+      }
+    ]
   }
 ]

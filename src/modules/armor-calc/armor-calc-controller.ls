@@ -34,7 +34,7 @@ $scope.modifiers = [
 
 ### INIT
 
-$scope.maxLoad = 40 + statSvc.statValueOf \endurance
+$scope.maxLoad = 40 + statSvc.statValueOf \end
 $scope.typeNames = {
 	0 : \head
 	1 : \chest

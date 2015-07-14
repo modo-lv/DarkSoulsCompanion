@@ -126,8 +126,8 @@ class ItemService
 			.then (newItem) ~>
 				@_itemIndexSvc.findEntryByUid(newItem.uid)
 				.then (entry) ~>
-					if not entry?
-						console.log newItem
+					#if not entry?
+						#console.log newItem
 					newItem.name = entry.name
 					return newItem
 			.then (newItem) ~>

@@ -1,0 +1,45 @@
+[
+  {
+    "labels" : "item",
+    "title" : "Brigand Hood, Brigand Armor, Brigand Gauntlets, Brigand Trousers, Spider Shield"
+  },
+  {
+    "labels" : "item",
+    "title" : "Large Soul of a Nameless Soldier"
+  },
+  {
+    "labels" : "item",
+    "title" : "Dragon Scale, Dusk Crown Ring (Hydra)",
+    "setFlags" : "hydra_dead"
+  },
+  {
+    "title" : "Dusk of Oolacile",
+    "req" : "hydra_dead",
+    "reqNot" : "dusk_dead",
+    "labels" : ["dlc", "talk"],
+    "children" : [
+      {
+        "labels" : "warning",
+        "title" : "Answering \"no\"",
+        "content" : "Answering \"no\" when you first talk to her will make Dusk disappear for the rest of the playthrough.",
+        "setFlags" : "dusk_dead",
+        "reqNot": "dusk_dead"
+      },
+      {
+        "labels" : "talk",
+        "title" : "Summon",
+        "setFlag" : "dusk_summoned"
+      },
+      {
+        "labels" : "gesture",
+        "title" : "Proper Bow",
+        "req" : "dusk_summoned"
+      },
+      {
+        "labels" : "item",
+        "title" : "Crown of Dusk, Antiquated Dress, Antiquated Gloves, Antiquated Skirt",
+        "req" : "dusk_summoned"
+      }
+    ]
+  }
+]

@@ -121,27 +121,29 @@ class ArmorCalcSvc
 			if @_debugLog
 				console.log "Extracted and merged #{allArmors.length} armors, upgrades and un-upgradable armors in #{time / 1000} seconds"
 
-
 			start := new Date!.getTime!
 			combs = @findAllCombinationsOf allArmors
-			end = new Date!.getTime!
-			time = end - start
-			if @_debugLog
-				console.log "Permutated #{allArmors.length} armors, upgrades and un-upgradable armors into #{combs.length} combinations in #{time / 1000} seconds"
+			@takeOnlyAffordable combs
 
-			for comb in combs
-				comb.armors = @calculateArmorScores comb.armors
+			.then (combs) !~>
+				end = new Date!.getTime!
+				time = end - start
+				if @_debugLog
+					console.log "Permutated #{allArmors.length} armors, upgrades and un-upgradable armors into #{combs.length} combinations in #{time / 1000} seconds"
 
-			start := new Date!.getTime!
+				for comb in combs
+					comb.armors = @calculateArmorScores comb.armors
 
-			combs = @calculateCombinationScores combs
+				start := new Date!.getTime!
 
-			end = new Date!.getTime!
-			time = end - start
-			if @_debugLog
-				console.log "Calculated scores and found the best #{combs.length} combinations in #{time / 1000} seconds"
+				combs = @calculateCombinationScores combs
 
-			return combs
+				end = new Date!.getTime!
+				time = end - start
+				if @_debugLog
+					console.log "Calculated scores and found the best #{combs.length} combinations in #{time / 1000} seconds"
+
+				return combs
 
 
 	/**
@@ -235,6 +237,7 @@ class ArmorCalcSvc
 			if not empty?
 				empty = {
 					name : "(bare #{type})"
+					itemType : \armor
 					armorType : type
 					weight : 0
 					upgradeId : -1
