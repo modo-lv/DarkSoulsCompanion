@@ -33,6 +33,7 @@ class PcController
 		@$scope.gridOptions.onRegisterApi = (gridApi) !~>
 			@$scope.gridApi = gridApi
 
+
 			gridApi.core.addRowHeaderColumn {
 				name : 'rowHeaderCol'
 				displayName : ''
@@ -42,6 +43,14 @@ class PcController
 
 			gridApi.core.on.filterChanged @$scope, !~>
 				@_storageSvc.save "pc.grid-state", @$scope.gridApi.saveState.save!
+
+			gridApi.core.on.rowsRendered @$scope, !~>
+				# This way seems to be the only way to ensure that the state is restored
+				# when switching between tabs.
+				if not @$scope.gridState?
+					@$scope.gridState = @_storageSvc.load 'pc.grid-state'
+					@$scope.gridApi.saveState.restore @$scope, @$scope.gridState
+
 
 
 	load : !~>
@@ -56,7 +65,6 @@ class PcController
 		.then (inv) !~>
 			@$scope.userData.inventory = @$scope.gridOptions.data = inv
 			@setUpgradeableStatus!
-			@$scope.gridApi.saveState.restore @$scope, @_storageSvc.load 'pc.grid-state'
 
 		@$scope.userData.stats = @_statSvc.loadUserData!
 

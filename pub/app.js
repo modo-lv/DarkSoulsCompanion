@@ -3974,6 +3974,12 @@ function curry$(f, bound){
         gridApi.core.on.filterChanged(this$.$scope, function(){
           this$._storageSvc.save("pc.grid-state", this$.$scope.gridApi.saveState.save());
         });
+        gridApi.core.on.rowsRendered(this$.$scope, function(){
+          if (this$.$scope.gridState == null) {
+            this$.$scope.gridState = this$._storageSvc.load('pc.grid-state');
+            this$.$scope.gridApi.saveState.restore(this$.$scope, this$.$scope.gridState);
+          }
+        });
       };
     };
     prototype.load = function(){
@@ -3987,7 +3993,6 @@ function curry$(f, bound){
       }).then(function(inv){
         this$.$scope.userData.inventory = this$.$scope.gridOptions.data = inv;
         this$.setUpgradeableStatus();
-        this$.$scope.gridApi.saveState.restore(this$.$scope, this$._storageSvc.load('pc.grid-state'));
       });
       this.$scope.userData.stats = this._statSvc.loadUserData();
     };
@@ -4307,29 +4312,72 @@ function curry$(f, bound){
 
 },{"./weapon-finder-controller":36,"./weapon-finder-service":37}],36:[function(require,module,exports){
 (function(){
-  angular.module("dsc").controller("weaponFinderController", function($scope, storageSvc, weaponFinderSvc, uiGridConstants){
-    $scope.results = [];
-    $scope.params = import$({
-      statBonus: 0,
-      searchType: 'offence'
-    }, storageSvc.load('weapon-finder-params'));
-    $scope.gridOptions = require('./config/weapon-finder-grid-options')(uiGridConstants);
-    $scope.findWeapons = function(){
-      import$(weaponFinderSvc.params, $scope.params);
-      weaponFinderSvc.findBestWeapons().then(function(results){
-        $scope.results = map(function(result){
+  var WeaponFinderController;
+  if (typeof angular != 'undefined' && angular !== null) {
+    angular.module("dsc").controller("weaponFinderController", function($scope, storageSvc, weaponFinderSvc, uiGridConstants){
+      return (function(func, args, ctor) {
+        ctor.prototype = func.prototype;
+        var child = new ctor, result = func.apply(child, args), t;
+        return (t = typeof result)  == "object" || t == "function" ? result || child : child;
+  })(WeaponFinderController, arguments, function(){});
+    });
+  }
+  WeaponFinderController = (function(){
+    WeaponFinderController.displayName = 'WeaponFinderController';
+    var prototype = WeaponFinderController.prototype, constructor = WeaponFinderController;
+    function WeaponFinderController($scope, _storageSvc, _weaponFinderSvc, $uiGridConstants){
+      this.$scope = $scope;
+      this._storageSvc = _storageSvc;
+      this._weaponFinderSvc = _weaponFinderSvc;
+      this.$uiGridConstants = $uiGridConstants;
+      this.findWeapons = bind$(this, 'findWeapons', prototype);
+      this.wireUp = bind$(this, 'wireUp', prototype);
+      this.load = bind$(this, 'load', prototype);
+      this.setup = bind$(this, 'setup', prototype);
+      this.setup();
+      this.load();
+      this.wireUp();
+    }
+    prototype.setup = function(){
+      this.$scope.results = [];
+      this.$scope.params = import$({
+        statBonus: 0,
+        searchType: 'offence'
+      }, this._storageSvc.load('weapon-finder.params'));
+      this.$scope.gridOptions = require('./config/weapon-finder-grid-options')(this.$uiGridConstants);
+    };
+    prototype.load = function(){};
+    prototype.wireUp = function(){
+      var i$, ref$, len$, func, this$ = this;
+      for (i$ = 0, len$ = (ref$ = ['findWeapons']).length; i$ < len$; ++i$) {
+        func = ref$[i$];
+        this.$scope[func] = this[func];
+      }
+      this.$scope.$watch("params", function(){
+        this$._storageSvc.save("weapon-finder.params", this$.$scope.params);
+      }, true);
+    };
+    prototype.findWeapons = function(){
+      var this$ = this;
+      import$(this._weaponFinderSvc.params, this.$scope.params);
+      this._weaponFinderSvc.findBestWeapons().then(function(results){
+        this$.$scope.results = map(function(result){
           return import$({
             weapon: result
           }, result);
         })(
         results);
-        $scope.gridOptions.data = $scope.results;
+        this$.$scope.gridOptions.data = this$.$scope.results;
       });
     };
-    $scope.$watch("params", function(){
-      storageSvc.save("weapon-finder-params", $scope.params);
-    }, true);
-  });
+    return WeaponFinderController;
+  }());
+  if (typeof module != 'undefined' && module !== null) {
+    module.exports = WeaponFinderController;
+  }
+  function bind$(obj, key, target){
+    return function(){ return (target || obj)[key].apply(obj, arguments) };
+  }
   function import$(obj, src){
     var own = {}.hasOwnProperty;
     for (var key in src) if (own.call(src, key)) obj[key] = src[key];

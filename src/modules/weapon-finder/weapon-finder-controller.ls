@@ -1,35 +1,50 @@
-$scope, storageSvc, weaponFinderSvc, uiGridConstants <-! angular .module "dsc" .controller "weaponFinderController"
+angular? .module "dsc" .controller "weaponFinderController" ($scope, storageSvc, weaponFinderSvc, uiGridConstants) ->
+	new WeaponFinderController ...
 
-### SETUP
+class WeaponFinderController
+	(@$scope, @_storageSvc, @_weaponFinderSvc, @$uiGridConstants) ->
 
-$scope.results = []
-
-$scope.params = {
-	statBonus : 0
-	searchType : \offence
-} <<< (storageSvc.load 'weapon-finder-params')
-
-$scope.gridOptions = (require './config/weapon-finder-grid-options') uiGridConstants
+		@setup!
+		@load!
+		@wireUp!
 
 
-### INIT
+	setup : !~>
+		@$scope.results = []
+
+		@$scope.params = {
+			statBonus : 0
+			searchType : \offence
+		} <<< (@_storageSvc.load 'weapon-finder.params')
+
+		@$scope.gridOptions = (require './config/weapon-finder-grid-options') @$uiGridConstants
+
+	load : !~>
+
+
+	wireUp : !~>
+		for func in [
+			\findWeapons
+		]
+			@$scope.[func] = @.[func]
+
+		@$scope.$watch "params", (!~>
+			@_storageSvc.save "weapon-finder.params", @$scope.params
+		), true
+
+
+	### Event handlers
+	findWeapons : !~>
+		@_weaponFinderSvc.params <<< @$scope.params
+
+		@_weaponFinderSvc.findBestWeapons!
+		.then (results) !~>
+			@$scope.results = results |> map (result) ~> {
+				weapon : result
+			} <<< result
+
+			@$scope.gridOptions.data = @$scope.results
 
 
 
-### EVENTS
-
-$scope.findWeapons = !->
-	weaponFinderSvc.params <<< $scope.params
-
-	weaponFinderSvc.findBestWeapons!
-	.then (results) !->
-		$scope.results = results |> map (result) -> {
-			weapon : result
-		} <<< result
-
-		$scope.gridOptions.data = $scope.results
-
-
-$scope.$watch "params", (!->
-	storageSvc.save "weapon-finder-params", $scope.params
-), true
+module?.exports = WeaponFinderController
