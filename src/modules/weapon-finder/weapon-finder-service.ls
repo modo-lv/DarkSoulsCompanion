@@ -5,6 +5,14 @@ class WeaponFinderService
 		@params = {
 			statBonus : 0
 			searchType : \offence
+			includeUpgrades : true
+			modifiers : {}
+			reqLimits : {
+				\str : 20
+				\dex : 20
+				\int : 20
+				\fai : 20
+			}
 		}
 
 
@@ -17,6 +25,9 @@ class WeaponFinderService
 		# Find all the upgrades
 		.then (weapons) ~>
 			allWeapons ++= weapons
+
+			if not @params.includeUpgrades then return []
+
 			@$q.all (weapons
 				|> map ~> @_itemSvc.upgradeComp.findAllAvailableUpgradesFor it
 			)
@@ -34,24 +45,31 @@ class WeaponFinderService
 		.then (weapons) !~>
 			# Discard any that don't meet requirements
 			
-			str = @params.statBonus + @_statSvc.statValueOf \strength
-			dex = @params.statBonus + @_statSvc.statValueOf \dexterity
-			int = @params.statBonus + @_statSvc.statValueOf \intelligence
-			fai = @params.statBonus + @_statSvc.statValueOf \faith
-			
-			weapons = weapons
-				|> filter -> str >= it.reqStr and dex >= it.reqDex and int >= it.reqInt and fai >= it.reqFai
+			fitWeapons = []
+			statKeys = [\str \dex \int \fai]
+			reqKeys = [\reqStr \reqDex \reqInt \reqFai]
+			statValues = {}
 
-			return weapons
+			for weapon in weapons
+				fit = true
+				for key, a in statKeys
+					console.log "#{key} : #{weapon[reqKeys.[a]]} > #{@params.reqLimits[key]}"
+					if not @params.reqLimits[key]? then continue
+					if weapon[reqKeys.[a]] > @params.reqLimits[key]
+						fit = false
+						break
+				if fit then fitWeapons.push weapon
+
+			return fitWeapons
 
 
 	calculateScoreFor : (weapon) ~>
 		result = {} <<< weapon
 
-		scS = @_statSvc.statScalingFactorOf \strength
-		scD = @_statSvc.statScalingFactorOf \dexterity
-		scI = @_statSvc.statScalingFactorOf \intelligence
-		scF = @_statSvc.statScalingFactorOf \faith
+		scS = @_statSvc.statScalingFactorOf \str
+		scD = @_statSvc.statScalingFactorOf \dex
+		scI = @_statSvc.statScalingFactorOf \int
+		scF = @_statSvc.statScalingFactorOf \fai
 
 		result
 			..atkPhy *= (1 + ((weapon.bonusStr * scS) + (weapon.bonusDex * scD)))

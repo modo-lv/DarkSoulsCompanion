@@ -7,11 +7,11 @@ beforeEach !->
 	svc := new (testRequire 'modules/weapon-finder/weapon-finder-service') itemSvc, statSvc, $q
 
 	weapons = [
-		{ id : 100 , uid : \weapon100 , itemType : \weapon , atkPhy : 1 }
-		{ id : 100 , uid : \weapon100 , itemType : \weapon , atkPhy : 1 }
-		{ id : 200 , uid : \weapon200 , itemType : \weapon , atkPhy : 1 }
-		{ id : 300 , uid : \weapon300 , itemType : \weapon , atkPhy : 1 }
-		{ id : 400 , uid : \weapon400 , itemType : \weapon , atkPhy : 1 }
+		{ id : 100 , uid : \weapon100 , itemType : \weapon , atkPhy : 1 , reqStr : 1 }
+		{ id : 100 , uid : \weapon100 , itemType : \weapon , atkPhy : 1 , reqStr : 10 }
+		{ id : 200 , uid : \weapon200 , itemType : \weapon , atkPhy : 1 , reqStr : 15 }
+		{ id : 300 , uid : \weapon300 , itemType : \weapon , atkPhy : 1 , reqStr : 20 }
+		{ id : 400 , uid : \weapon400 , itemType : \weapon , atkPhy : 1 , reqStr : 25 }
 	]
 
 	inventory = [
@@ -26,11 +26,15 @@ beforeEach !->
 
 
 it "should only find fitting weapons", (done) !->
+	svc.params.reqLimits = {
+		\str : 10
+	}
+
 	# At the moment there aren't any parameters yet,
 	# so the whole weapon set is returned
 	svc.findFittingWeapons!
 	.then (weapons) !->
-		expect weapons .to.have.length 4
+		expect weapons .to.have.length 2
 		done!
 	.catch done
 

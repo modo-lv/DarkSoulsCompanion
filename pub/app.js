@@ -1342,7 +1342,7 @@ function curry$(f, bound){
 }).call(this);
 
 }).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
-},{"./app/main-controller":8,"./app/routes":9,"./app/services/data-export-service":10,"./app/services/external-data-service":11,"./app/services/storage-service":12,"./modules/armor-calc/main.js":16,"./modules/guide/main.js":19,"./modules/items/main.js":25,"./modules/pc/main.js":30,"./modules/weapon-finder/main.js":35,"prelude-ls":6}],8:[function(require,module,exports){
+},{"./app/main-controller":8,"./app/routes":9,"./app/services/data-export-service":10,"./app/services/external-data-service":11,"./app/services/storage-service":12,"./modules/armor-calc/main.js":16,"./modules/guide/main.js":19,"./modules/items/main.js":25,"./modules/pc/main.js":30,"./modules/weapon-finder/main.js":36,"prelude-ls":6}],8:[function(require,module,exports){
 (function(){
   var MainController;
   if (typeof angular != 'undefined' && angular !== null) {
@@ -4086,7 +4086,7 @@ function curry$(f, bound){
   StatService = (function(){
     StatService.displayName = 'StatService';
     var prototype = StatService.prototype, constructor = StatService;
-    StatService.allStats = ['vitality', 'attunement', 'endurance', 'strength', 'dexterity', 'resistance', 'intelligence', 'faith', 'humanity'];
+    StatService.allStats = ['vit', 'att', 'end', 'str', 'dex', 'res', 'int', 'fai', 'hum'];
     function StatService(_storageSvc){
       this._storageSvc = _storageSvc;
       this.statScalingFactorOf = bind$(this, 'statScalingFactorOf', prototype);
@@ -4130,13 +4130,13 @@ function curry$(f, bound){
       statValue = this.statValueOf(name);
       thresholds = (function(){
         switch (name) {
-        case 'strength':
+        case 'str':
           // fallthrough
-        case 'dexterity':
+        case 'dex':
           return [[10, 0.5], [10, 3.5], [20, 2.25]];
-        case 'intelligence':
+        case 'int':
           // fallthrough
-        case 'faith':
+        case 'fai':
           return [[10, 0.5], [20, 2.25], [20, 1.5]];
         default:
           throw Error('unimplemented');
@@ -4312,15 +4312,28 @@ function curry$(f, bound){
 
 },{}],35:[function(require,module,exports){
 (function(){
+  angular.module("dsc").filter("statName", function(statSvc){
+    return function(name){
+      if (name.indexOf('req') === 0) {
+        name = name.substr(3);
+      }
+      return name;
+    };
+  });
+}).call(this);
+
+},{}],36:[function(require,module,exports){
+(function(){
   require('./weapon-finder-service');
+  require('./filters/weapon-finder-filters');
   require('./weapon-finder-controller');
 }).call(this);
 
-},{"./weapon-finder-controller":36,"./weapon-finder-service":37}],36:[function(require,module,exports){
+},{"./filters/weapon-finder-filters":35,"./weapon-finder-controller":37,"./weapon-finder-service":38}],37:[function(require,module,exports){
 (function(){
   var WeaponFinderController;
   if (typeof angular != 'undefined' && angular !== null) {
-    angular.module("dsc").controller("weaponFinderController", function($scope, storageSvc, weaponFinderSvc, uiGridConstants){
+    angular.module("dsc").controller("weaponFinderController", function($scope, storageSvc, weaponFinderSvc, uiGridConstants, statSvc){
       return (function(func, args, ctor) {
         ctor.prototype = func.prototype;
         var child = new ctor, result = func.apply(child, args), t;
@@ -4331,12 +4344,14 @@ function curry$(f, bound){
   WeaponFinderController = (function(){
     WeaponFinderController.displayName = 'WeaponFinderController';
     var prototype = WeaponFinderController.prototype, constructor = WeaponFinderController;
-    function WeaponFinderController($scope, _storageSvc, _weaponFinderSvc, $uiGridConstants){
+    function WeaponFinderController($scope, _storageSvc, _weaponFinderSvc, $uiGridConstants, _statSvc){
       this.$scope = $scope;
       this._storageSvc = _storageSvc;
       this._weaponFinderSvc = _weaponFinderSvc;
       this.$uiGridConstants = $uiGridConstants;
+      this._statSvc = _statSvc;
       this.findWeapons = bind$(this, 'findWeapons', prototype);
+      this.copyStatsToReqs = bind$(this, 'copyStatsToReqs', prototype);
       this.wireUp = bind$(this, 'wireUp', prototype);
       this.load = bind$(this, 'load', prototype);
       this.setup = bind$(this, 'setup', prototype);
@@ -4346,22 +4361,39 @@ function curry$(f, bound){
     }
     prototype.setup = function(){
       this.$scope.results = [];
-      this.$scope.params = import$({
+      this.$scope.params = {
         statBonus: 0,
-        searchType: 'offence'
-      }, this._storageSvc.load('weapon-finder.params'));
+        reqLimits: {
+          'str': 20,
+          'dex': 20,
+          'int': 20,
+          'fai': 20
+        },
+        searchType: 'offence',
+        includeUpgrades: true,
+        modifiers: {}
+      };
       this.$scope.gridOptions = require('./config/weapon-finder-grid-options')(this.$uiGridConstants);
     };
-    prototype.load = function(){};
+    prototype.load = function(){
+      import$(this.$scope.params, this._storageSvc.load('weapon-finder.params'));
+    };
     prototype.wireUp = function(){
       var i$, ref$, len$, func, this$ = this;
-      for (i$ = 0, len$ = (ref$ = ['findWeapons']).length; i$ < len$; ++i$) {
+      for (i$ = 0, len$ = (ref$ = ['findWeapons', 'copyStatsToReqs']).length; i$ < len$; ++i$) {
         func = ref$[i$];
         this.$scope[func] = this[func];
       }
       this.$scope.$watch("params", function(){
         this$._storageSvc.save("weapon-finder.params", this$.$scope.params);
       }, true);
+    };
+    prototype.copyStatsToReqs = function(){
+      var i$, ref$, len$, key;
+      for (i$ = 0, len$ = (ref$ = ['str', 'dex', 'int', 'fai']).length; i$ < len$; ++i$) {
+        key = ref$[i$];
+        this.$scope.params.reqLimits[key] = this._statSvc.statValueOf(key);
+      }
     };
     prototype.findWeapons = function(){
       var this$ = this;
@@ -4391,7 +4423,7 @@ function curry$(f, bound){
   }
 }).call(this);
 
-},{"./config/weapon-finder-grid-options":34}],37:[function(require,module,exports){
+},{"./config/weapon-finder-grid-options":34}],38:[function(require,module,exports){
 (function(){
   var WeaponFinderService;
   if (typeof angular != 'undefined' && angular !== null) {
@@ -4415,7 +4447,15 @@ function curry$(f, bound){
       this.findBestWeapons = bind$(this, 'findBestWeapons', prototype);
       this.params = {
         statBonus: 0,
-        searchType: 'offence'
+        searchType: 'offence',
+        includeUpgrades: true,
+        modifiers: {},
+        reqLimits: {
+          'str': 20,
+          'dex': 20,
+          'int': 20,
+          'fai': 20
+        }
       };
     }
     prototype.findBestWeapons = function(){
@@ -4423,6 +4463,9 @@ function curry$(f, bound){
       allWeapons = [];
       return this.findFittingWeapons().then(function(weapons){
         allWeapons = allWeapons.concat(weapons);
+        if (!this$.params.includeUpgrades) {
+          return [];
+        }
         return this$.$q.all(map(function(it){
           return this$._itemSvc.upgradeComp.findAllAvailableUpgradesFor(it);
         })(
@@ -4441,25 +4484,40 @@ function curry$(f, bound){
     prototype.findFittingWeapons = function(){
       var this$ = this;
       return this._itemSvc.findItemsFromInventory('weapon').then(function(weapons){
-        var str, dex, int, fai;
-        str = this$.params.statBonus + this$._statSvc.statValueOf('strength');
-        dex = this$.params.statBonus + this$._statSvc.statValueOf('dexterity');
-        int = this$.params.statBonus + this$._statSvc.statValueOf('intelligence');
-        fai = this$.params.statBonus + this$._statSvc.statValueOf('faith');
-        weapons = filter(function(it){
-          return str >= it.reqStr && dex >= it.reqDex && int >= it.reqInt && fai >= it.reqFai;
-        })(
-        weapons);
-        return weapons;
+        var fitWeapons, statKeys, reqKeys, statValues, i$, len$, weapon, fit, j$, len1$, a, key;
+        fitWeapons = [];
+        statKeys = ['str', 'dex', 'int', 'fai'];
+        reqKeys = ['reqStr', 'reqDex', 'reqInt', 'reqFai'];
+        statValues = {};
+        for (i$ = 0, len$ = weapons.length; i$ < len$; ++i$) {
+          weapon = weapons[i$];
+          fit = true;
+          for (j$ = 0, len1$ = statKeys.length; j$ < len1$; ++j$) {
+            a = j$;
+            key = statKeys[j$];
+            console.log(key + " : " + weapon[reqKeys[a]] + " > " + this$.params.reqLimits[key]);
+            if (this$.params.reqLimits[key] == null) {
+              continue;
+            }
+            if (weapon[reqKeys[a]] > this$.params.reqLimits[key]) {
+              fit = false;
+              break;
+            }
+          }
+          if (fit) {
+            fitWeapons.push(weapon);
+          }
+        }
+        return fitWeapons;
       });
     };
     prototype.calculateScoreFor = function(weapon){
       var result, scS, scD, scI, scF, x$;
       result = import$({}, weapon);
-      scS = this._statSvc.statScalingFactorOf('strength');
-      scD = this._statSvc.statScalingFactorOf('dexterity');
-      scI = this._statSvc.statScalingFactorOf('intelligence');
-      scF = this._statSvc.statScalingFactorOf('faith');
+      scS = this._statSvc.statScalingFactorOf('str');
+      scD = this._statSvc.statScalingFactorOf('dex');
+      scI = this._statSvc.statScalingFactorOf('int');
+      scF = this._statSvc.statScalingFactorOf('fai');
       x$ = result;
       x$.atkPhy *= 1 + (weapon.bonusStr * scS + weapon.bonusDex * scD);
       x$.atkMag *= 1 + (weapon.bonusInt * scI + weapon.bonusFai * scF);
