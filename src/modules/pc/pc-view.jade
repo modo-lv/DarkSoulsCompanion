@@ -1,35 +1,34 @@
 #Pc
-	table
-		tr(ng-repeat="stat in model.stats | toStatArray")
-			td {{stat.displayName}}:
-			td
-				input(type="number" min=8 max="99" ng-model="stat.base" ng-change="saveStats()")
+	.container
+		table.stats
+			tr(ng-repeat="(name, value) in userData.stats")
+				td {{name}}:
+				td
+					input(type="number" min=8 max="99" ng-model="value" ng-change="saveStats()")
 
-	angucomplete-alt#AddToInventory(
-		local-data="allItems"
-		selected-object="addNewItem"
-		title-field="name"
-		search-fields="name"
-		clear-selected=true
-		placeholder="Add item..."
-		minlength=1
-	)
+		.inventory
+			angucomplete-alt#AddToInventory(
+				local-data="allItems"
+				selected-object="addNewItem"
+				title-field="name"
+				search-fields="name"
+				clear-selected=true
+				placeholder="Add item..."
+				minlength=1
+			)
 
-	angucomplete-alt#AddArmorSet(
-		local-data="armorSets"
-		selected-object="addArmorSet"
-		title-field="name"
-		search-fields="name"
-		clear-selected="true"
-		placeholder="Add armor set..."
-		minlength=1
-	)
+			angucomplete-alt#AddArmorSet(
+				local-data="armorSets"
+				selected-object="addArmorSet"
+				title-field="name"
+				search-fields="name"
+				clear-selected="true"
+				placeholder="Add armor set..."
+				minlength=1
+			)
 
-	button(ng-click="export()") Export (JSON)
-
-
-	// Grid
-	div(ui-grid-auto-resize ui-grid="gridOptions")
+			// Grid
+			div(ui-grid="gridOptions" ui-grid-auto-resize ui-grid-save-state)
 
 	// Grid action buttons
 	script(id="GridRowHeader.html" type="text/ng-template")

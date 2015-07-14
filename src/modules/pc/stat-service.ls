@@ -2,32 +2,39 @@ angular?.module "dsc" .service "statSvc" (storageSvc) -> new StatService ...
 ###
 
 class StatService
+	@allStats = [
+		\vitality
+		\attunement
+		\endurance
+		\strength
+		\dexterity
+		\resistance
+		\intelligence
+		\faith
+		\humanity
+	]
+
 	(@_storageSvc) ->
 		@data = {}
-		@PcModel = (require './models/PcModel')
-		@PcStatModel = (require './models/PcStatModel')
 
 
 	statValueOf : (name) ~>
 		@loadUserData!
-		@data.stats[name].total
+		@data[name]
 
 
 	forEachStat : (func, model = @data) !~>
-		for statName in @PcModel.Stats
-			stat = model.{}stats[statName]
-			model.{}stats[statName] = (func stat, statName) ? stat
+		for statName in @@allStats
+			statValue = model.{}stats[statName]
+			model.stats[statName] = (func statName, statValue) ? statValue
 
 
 	loadUserData : !~>
 		data = @_storageSvc.load 'pc' ? {}
-		model = (new @PcModel this) <<< data
 
-		model.forEachStat (stat, name) ~>
-			new @PcStatModel <<< data?.stats?[name]
-				..name = name
-
-		model.validate!
+		model = {}
+		for name, values of data.stats
+			model[name] = values.base
 
 		return @data = model
 

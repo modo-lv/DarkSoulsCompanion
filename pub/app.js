@@ -1316,7 +1316,7 @@ function curry$(f, bound){
   if (typeof global != 'undefined' && global) {
     import$(global, require('prelude-ls'));
   }
-  angular.module("dsc", ["ngRoute", "ngResource", "LocalStorageModule", "angucomplete-alt", "ui.grid", "ui.grid.autoResize"]).filter('percentage', function($filter){
+  angular.module("dsc", ["ngRoute", "ngResource", "LocalStorageModule", "angucomplete-alt", "ui.grid", "ui.grid.autoResize", "ui.grid.saveState"]).filter('percentage', function($filter){
     return function(input, decimals){
       decimals == null && (decimals = 0);
       return $filter('number')(input * 100, decimals) + '%';
@@ -1342,7 +1342,7 @@ function curry$(f, bound){
 }).call(this);
 
 }).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
-},{"./app/main-controller":8,"./app/routes":9,"./app/services/data-export-service":10,"./app/services/external-data-service":11,"./app/services/storage-service":12,"./modules/armor-calc/main.js":16,"./modules/guide/main.js":19,"./modules/items/main.js":25,"./modules/pc/main.js":30,"./modules/weapon-finder/main.js":37,"prelude-ls":6}],8:[function(require,module,exports){
+},{"./app/main-controller":8,"./app/routes":9,"./app/services/data-export-service":10,"./app/services/external-data-service":11,"./app/services/storage-service":12,"./modules/armor-calc/main.js":16,"./modules/guide/main.js":19,"./modules/items/main.js":25,"./modules/pc/main.js":30,"./modules/weapon-finder/main.js":35,"prelude-ls":6}],8:[function(require,module,exports){
 (function(){
   var MainController;
   if (typeof angular != 'undefined' && angular !== null) {
@@ -3730,7 +3730,7 @@ function curry$(f, bound){
       if (output.length > 0) {
         return output;
       }
-      statSvc.forEachStat(function(stat, name){
+      statSvc.forEachStat(function(name, value){
         output.push(model[name]);
       }, model);
       return output;
@@ -3874,7 +3874,7 @@ function curry$(f, bound){
   }
 }).call(this);
 
-},{"./models/inventory-models":33}],30:[function(require,module,exports){
+},{"./models/inventory-models":31}],30:[function(require,module,exports){
 (function(){
   angular.module("dsc");
   require("./inventory-service");
@@ -3883,70 +3883,7 @@ function curry$(f, bound){
   require("./pc-controller");
 }).call(this);
 
-},{"./filters/stat-filters":28,"./inventory-service":29,"./pc-controller":34,"./stat-service":35}],31:[function(require,module,exports){
-(function(){
-  var PcModel;
-  if (typeof module != 'undefined' && module !== null) {
-    module.exports = PcModel = (function(){
-      PcModel.displayName = 'PcModel';
-      var prototype = PcModel.prototype, constructor = PcModel;
-      PcModel.Stats = ['vitality', 'attunement', 'endurance', 'strength', 'dexterity', 'resistance', 'intelligence', 'faith', 'humanity'];
-      function PcModel(statSvc){
-        this.statSvc = statSvc;
-        this.validate = bind$(this, 'validate', prototype);
-        this.forEachStat = bind$(this, 'forEachStat', prototype);
-        this.forEachStat(function(stat, name){
-          return new (require('./PcStatModel'))(name);
-        });
-      }
-      prototype.forEachStat = function(func){
-        this.statSvc.forEachStat(func, this);
-      };
-      prototype.validate = function(){
-        this.forEachStat(function(it){
-          it.base = max(8, min(99, it.base));
-        });
-      };
-      return PcModel;
-    }());
-  }
-  function bind$(obj, key, target){
-    return function(){ return (target || obj)[key].apply(obj, arguments) };
-  }
-}).call(this);
-
-},{"./PcStatModel":32}],32:[function(require,module,exports){
-(function(){
-  var PcStatModel;
-  if (typeof module != 'undefined' && module !== null) {
-    module.exports = PcStatModel = (function(){
-      PcStatModel.displayName = 'PcStatModel';
-      var prototype = PcStatModel.prototype, constructor = PcStatModel;
-      function PcStatModel(name, base){
-        this.name = name;
-        this.base = base != null ? base : 0;
-        this.bonus = 0;
-      }
-      Object.defineProperty(prototype, 'total', {
-        get: function(){
-          return this.base + this.bonus;
-        },
-        configurable: true,
-        enumerable: true
-      });
-      Object.defineProperty(prototype, 'displayName', {
-        get: function(){
-          return capitalize(this.name);
-        },
-        configurable: true,
-        enumerable: true
-      });
-      return PcStatModel;
-    }());
-  }
-}).call(this);
-
-},{}],33:[function(require,module,exports){
+},{"./filters/stat-filters":28,"./inventory-service":29,"./pc-controller":32,"./stat-service":33}],31:[function(require,module,exports){
 (function(){
   var InventoryItemModel;
   InventoryItemModel = (function(){
@@ -3986,57 +3923,115 @@ function curry$(f, bound){
   }
 }).call(this);
 
-},{}],34:[function(require,module,exports){
+},{}],32:[function(require,module,exports){
 (function(){
-  angular.module("dsc").controller("pcController", function($scope, uiGridConstants, statSvc, itemSvc, itemIndexSvc, storageSvc, inventorySvc, dataExportSvc){
-    $scope.model = statSvc.loadUserData();
-    $scope.saveStats = function(){
-      statSvc.saveUserData($scope.model);
-    };
-    $scope.selectedItem = null;
-    $scope.armorSets = [];
-    $scope.allItems = [];
-    $scope.itemTypes = ['weapon', 'armor', 'item'];
-    $scope.gridOptions = require('./config/inventory-grid-opts')(uiGridConstants);
-    itemIndexSvc.loadAllBaseEntries().then(function(entries){
-      $scope.allItems = entries;
+  var PcController;
+  if (typeof angular != 'undefined' && angular !== null) {
+    angular.module("dsc").controller("pcController", function($scope, uiGridConstants, statSvc, itemSvc, itemIndexSvc, storageSvc, inventorySvc){
+      return (function(func, args, ctor) {
+        ctor.prototype = func.prototype;
+        var child = new ctor, result = func.apply(child, args), t;
+        return (t = typeof result)  == "object" || t == "function" ? result || child : child;
+  })(PcController, arguments, function(){});
     });
-    $scope.armorSets = itemIndexSvc.loadAllArmorSetEntries(false);
-    inventorySvc.clear();
-    $scope.gridOptions.data = inventorySvc.load(false);
-    $scope['export'] = function(){};
-    $scope.canUpgrade = function(item){
-      return itemSvc.upgradeComp.canBeUpgraded(
+  }
+  PcController = (function(){
+    PcController.displayName = 'PcController';
+    var prototype = PcController.prototype, constructor = PcController;
+    function PcController($scope, $uiGridConstants, _statSvc, _itemSvc, _itemIndexSvc, _storageSvc, _inventorySvc){
+      this.$scope = $scope;
+      this.$uiGridConstants = $uiGridConstants;
+      this._statSvc = _statSvc;
+      this._itemSvc = _itemSvc;
+      this._itemIndexSvc = _itemIndexSvc;
+      this._storageSvc = _storageSvc;
+      this._inventorySvc = _inventorySvc;
+      this.upgrade = bind$(this, 'upgrade', prototype);
+      this.canUpgrade = bind$(this, 'canUpgrade', prototype);
+      this.addArmorSet = bind$(this, 'addArmorSet', prototype);
+      this.addNewItem = bind$(this, 'addNewItem', prototype);
+      this.wireUp = bind$(this, 'wireUp', prototype);
+      this.load = bind$(this, 'load', prototype);
+      this.setup = bind$(this, 'setup', prototype);
+      this.setup();
+      this.load();
+      this.wireUp();
+    }
+    prototype.setup = function(){
+      var ref$;
+      ref$ = this.$scope;
+      ref$.userData = {
+        stats: {},
+        inventory: []
+      };
+      ref$.selectedItem = null;
+      ref$.armorSets = [];
+      ref$.allItems = [];
+      ref$.itemTypes = ['weapon', 'armor', 'item'];
+      this.$scope.gridOptions = require('./config/inventory-grid-opts')(this.$uiGridConstants);
+    };
+    prototype.load = function(){
+      var this$ = this;
+      this._itemIndexSvc.loadAllArmorSetEntries().then(function(armorSets){
+        this$.$scope.armorSets = armorSets;
+      });
+      this._itemIndexSvc.loadAllBaseEntries().then(function(entries){
+        this$.$scope.allItems = entries;
+        return this$._inventorySvc.clear().load();
+      }).then(function(inv){
+        this$.$scope.userData.inventory = this$.$scope.gridOptions.data = inv;
+      });
+      this.$scope.userData.stats = this._statSvc.loadUserData();
+    };
+    prototype.wireUp = function(){
+      var i$, ref$, len$, func;
+      for (i$ = 0, len$ = (ref$ = ['canUpgrade', 'upgrade', 'addArmorSet', 'addNewItem']).length; i$ < len$; ++i$) {
+        func = ref$[i$];
+        this.$scope[func] = this[func];
+      }
+      for (i$ = 0, len$ = (ref$ = ['add', 'remove']).length; i$ < len$; ++i$) {
+        func = ref$[i$];
+        this.$scope[func] = this._inventorySvc[func];
+      }
+    };
+    prototype.addNewItem = function(selection){
+      this.$scope.add(selection.originalObject);
+    };
+    prototype.addArmorSet = function(selection){
+      var armorSet, this$ = this;
+      armorSet = selection.originalObject;
+      this._itemIndexSvc.findByArmorSet(armorSet).then(function(armors){
+        each(this$.$scope.add)(
+        armors);
+      });
+    };
+    prototype.canUpgrade = function(item){
+      this._itemSvc.upgradeComp.canBeUpgraded(
       item);
     };
-    $scope.upgrade = function(invEntry){
-      return itemSvc.findAnyItemByUid(invEntry.uid).then(function(item){
-        return itemSvc.getUpgraded(item);
+    prototype.upgrade = function(invEntry){
+      var this$ = this;
+      this._itemSvc.findAnyItemByUid(invEntry.uid).then(function(item){
+        return this$._itemSvc.getUpgraded(item);
       }).then(function(upItem){
         if (upItem == null) {
           return;
         }
-        $scope.remove(invEntry);
-        $scope.add(upItem);
+        this$.$scope.remove(invEntry);
+        this$.$scope.add(upItem);
       });
     };
-    $scope.addNewItem = function(selection){
-      $scope.add(selection.originalObject);
-    };
-    $scope.add = inventorySvc.add;
-    $scope.remove = inventorySvc.remove;
-    $scope.addArmorSet = function(selection){
-      var armorSet;
-      armorSet = selection.originalObject;
-      itemIndexSvc.findByArmorSet(armorSet).then(function(armors){
-        each($scope.add)(
-        armors);
-      });
-    };
-  });
+    return PcController;
+  }());
+  if (typeof module != 'undefined' && module !== null) {
+    module.exports = PcController;
+  }
+  function bind$(obj, key, target){
+    return function(){ return (target || obj)[key].apply(obj, arguments) };
+  }
 }).call(this);
 
-},{"./config/inventory-grid-opts":27}],35:[function(require,module,exports){
+},{"./config/inventory-grid-opts":27}],33:[function(require,module,exports){
 (function(){
   var StatService;
   if (typeof angular != 'undefined' && angular !== null) {
@@ -4051,6 +4046,7 @@ function curry$(f, bound){
   StatService = (function(){
     StatService.displayName = 'StatService';
     var prototype = StatService.prototype, constructor = StatService;
+    StatService.allStats = ['vitality', 'attunement', 'endurance', 'strength', 'dexterity', 'resistance', 'intelligence', 'faith', 'humanity'];
     function StatService(_storageSvc){
       this._storageSvc = _storageSvc;
       this.statScalingFactorOf = bind$(this, 'statScalingFactorOf', prototype);
@@ -4059,35 +4055,30 @@ function curry$(f, bound){
       this.forEachStat = bind$(this, 'forEachStat', prototype);
       this.statValueOf = bind$(this, 'statValueOf', prototype);
       this.data = {};
-      this.PcModel = require('./models/PcModel');
-      this.PcStatModel = require('./models/PcStatModel');
     }
     prototype.statValueOf = function(name){
       this.loadUserData();
-      return this.data.stats[name].total;
+      return this.data[name];
     };
     prototype.forEachStat = function(func, model){
-      var i$, ref$, len$, statName, stat, ref1$;
+      var i$, ref$, len$, statName, statValue, ref1$;
       model == null && (model = this.data);
-      for (i$ = 0, len$ = (ref$ = this.PcModel.Stats).length; i$ < len$; ++i$) {
+      for (i$ = 0, len$ = (ref$ = constructor.allStats).length; i$ < len$; ++i$) {
         statName = ref$[i$];
-        stat = (model.stats || (model.stats = {}))[statName];
-        (model.stats || (model.stats = {}))[statName] = (ref1$ = func(stat, statName)) != null ? ref1$ : stat;
+        statValue = (model.stats || (model.stats = {}))[statName];
+        model.stats[statName] = (ref1$ = func(statName, statValue)) != null ? ref1$ : statValue;
       }
     };
     prototype.loadUserData = function(){
-      var data, model, this$ = this;
+      var data, model, name, ref$, values;
       data = this._storageSvc.load('pc' != null
         ? 'pc'
         : {});
-      model = import$(new this.PcModel(this), data);
-      model.forEachStat(function(stat, name){
-        var x$, ref$;
-        x$ = import$(new this$.PcStatModel, data != null ? (ref$ = data.stats) != null ? ref$[name] : void 8 : void 8);
-        x$.name = name;
-        return x$;
-      });
-      model.validate();
+      model = {};
+      for (name in ref$ = data.stats) {
+        values = ref$[name];
+        model[name] = values.base;
+      }
       return this.data = model;
     };
     prototype.saveUserData = function(model){
@@ -4151,7 +4142,7 @@ function curry$(f, bound){
   }
 }).call(this);
 
-},{"./models/PcModel":31,"./models/PcStatModel":32}],36:[function(require,module,exports){
+},{}],34:[function(require,module,exports){
 (function(){
   if (typeof module != 'undefined' && module !== null) {
     module.exports = function(uiGridConstants){
@@ -4293,13 +4284,13 @@ function curry$(f, bound){
   }
 }).call(this);
 
-},{}],37:[function(require,module,exports){
+},{}],35:[function(require,module,exports){
 (function(){
   require('./weapon-finder-service');
   require('./weapon-finder-controller');
 }).call(this);
 
-},{"./weapon-finder-controller":38,"./weapon-finder-service":39}],38:[function(require,module,exports){
+},{"./weapon-finder-controller":36,"./weapon-finder-service":37}],36:[function(require,module,exports){
 (function(){
   angular.module("dsc").controller("weaponFinderController", function($scope, storageSvc, weaponFinderSvc, uiGridConstants){
     $scope.results = [];
@@ -4331,7 +4322,7 @@ function curry$(f, bound){
   }
 }).call(this);
 
-},{"./config/weapon-finder-grid-options":36}],39:[function(require,module,exports){
+},{"./config/weapon-finder-grid-options":34}],37:[function(require,module,exports){
 (function(){
   var WeaponFinderService;
   if (typeof angular != 'undefined' && angular !== null) {
