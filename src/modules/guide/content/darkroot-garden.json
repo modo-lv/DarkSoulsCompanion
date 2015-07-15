@@ -1,0 +1,67 @@
+[
+  {
+    "title": "Entrance",
+    "children": [
+      {
+        "labels": "item",
+        "title": "Large Soul of a Nameless Soldier"
+      },
+      {
+        "labels": [
+          "bonfire",
+          "secret"
+        ],
+        "title": "Darkroot Garden secret bonfire",
+        "content" : "Behind an illusory wall."
+      },
+      {
+        "labels" : "item",
+        "title" : "Large Soul of a Nameless Soldier"
+      },
+      {
+        "labels" : "info",
+        "title" : "Fog gate",
+        "content" : "Passing through."
+      }
+    ]
+  },
+  {
+    "title" : "Cul-de-sack",
+    "children" : [
+      {
+        "title" : "Secret area",
+        "children" : [
+          {
+            "labels" : "item",
+            "title" : "Wolf Ring"
+          }
+        ]
+      },
+      {
+        "labels" : "item",
+        "title" : "Partizan"
+      },
+      {
+        "labels" : "item",
+        "title" : "Elite Knight Helm, Elite Knight Armor, Elite Knight Gauntlets, Elite Knight Leggings"
+      },
+      {
+        "labels" : "info",
+        "title" : "Fog gate",
+        "content" : "{Moonlight Butterfly} boss battle.",
+        "children" : [
+          {
+            "labels" : "item",
+            "title" : "Soul of the Moonlight Butterfly, Humanity (Moonlight Butterfly)",
+            "setFlags" : "butterfly_dead"
+          },
+          {
+            "labels" : "item",
+            "title" : "Watchtower Basement Key, Divine Ember, Homeward Bone",
+            "req" : "butterfly_dead"
+          }
+        ]
+      }
+    ]
+  }
+]
