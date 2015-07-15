@@ -446,15 +446,15 @@
     ],
     "id": "fd1b1681-363f-4642-b05c-f4e418420d7f"
   },
-
-
   {
-    "title" : "The old church",
-    "children" : [
+    "title": "The old church",
+    "children": [
       {
-        "labels" : "item",
-        "title" : "Demon Titanite (Titanite Demon)"
+        "labels": "item",
+        "title": "Demon Titanite (Titanite Demon)",
+        "id": "ba07d9b1-fdd8-4dcf-a054-e30487fbd908"
       }
-    ]
+    ],
+    "id": "6fa0daa3-1a4e-4c94-aa03-ebac491883db"
   }
 ]

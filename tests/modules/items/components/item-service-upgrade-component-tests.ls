@@ -178,7 +178,6 @@ it "should correctly set total upgrade cost", (done) !->
 		storageSvc.loadReturnValue = inventory
 		inventorySvc.clear!.load!
 	.then (inventory) ->
-		svc._debugLog = true
 		svc.findAllAvailableUpgradesFor armor
 	.then (upgrades) !->
 		expect upgrades .to.exist

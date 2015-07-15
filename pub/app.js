@@ -1842,7 +1842,9 @@ function curry$(f, bound){
       this.findCombinationsWithUpgrades = bind$(this, 'findCombinationsWithUpgrades', prototype);
       this.findBestCombinations = bind$(this, 'findBestCombinations', prototype);
       this.freeWeight = 0;
-      this.params = {};
+      this.params = {
+        resultLimit: 20
+      };
       this._debugLog = true;
       this.armorTypes = ['head', 'chest', 'hands', 'legs'];
       this.armorTypeKeys = {
@@ -2067,20 +2069,20 @@ function curry$(f, bound){
     prototype.findUsableArmors = function(){
       var this$ = this;
       return this._inventorySvc.load().then(function(inventory){
-        var promises, i$, ref$, len$, entry;
+        var promises, i$, len$, entry;
         promises = [];
-        for (i$ = 0, len$ = (ref$ = filter(fn$)(
-        inventory)).length; i$ < len$; ++i$) {
-          entry = ref$[i$];
-          (fn1$.call(this$, entry));
+        for (i$ = 0, len$ = inventory.length; i$ < len$; ++i$) {
+          entry = inventory[i$];
+          if (entry.itemType == null) {
+            console.log(entry);
+            throw new Error("Above inventory entry does not have an [.itemType] set:");
+          }
+          if (entry.itemType !== 'armor') {
+            continue;
+          }
+          promises.push(this$._itemSvc.findAnyItemByUid(entry.uid));
         }
         return this$.$q.all(promises);
-        function fn$(it){
-          return it.itemType === 'armor';
-        }
-        function fn1$(entry){
-          promises.push(this._itemSvc.findAnyItemByUid(entry.uid));
-        }
       }).then(function(armors){
         return filter(function(it){
           return it.weight <= this$.freeWeight;
@@ -2126,6 +2128,9 @@ function curry$(f, bound){
       [groupOf['head'], groupOf['chest'], groupOf['hands'], groupOf['legs']]);
       combCount = product(
       lengths);
+      if (this._debugLog) {
+        console.log("Lengths:", lengths);
+      }
       pieces = [null, null, null, null];
       a = lengths[0] - 1;
       do {
@@ -2162,7 +2167,7 @@ function curry$(f, bound){
       }
     };
     prototype.calculateArmorScores = function(armors){
-      var modSet, i$, len$, armor, j$, len1$, mod, ref$;
+      var modSet, i$, len$, armor, j$, len1$, mod, ref$, ref1$;
       modSet = [['phy', 'defPhy'], ['mag', 'defMag'], ['fir', 'defFir'], ['lit', 'defLit'], ['blo', 'defBlo'], ['tox', 'defTox'], ['cur', 'defCur'], ['poise', 'defPoise']];
       for (i$ = 0, len$ = armors.length; i$ < len$; ++i$) {
         armor = armors[i$];
@@ -2174,25 +2179,30 @@ function curry$(f, bound){
         for (j$ = 0, len1$ = modSet.length; j$ < len1$; ++j$) {
           mod = modSet[j$];
           armor.detailScores[mod[0]] = (ref$ = armor[mod[1]]) != null ? ref$ : 0;
-          armor.score += ((ref$ = armor[mod[1]]) != null ? ref$ : 0) * ((ref$ = this.params.modifiers[mod[0]]) != null ? ref$ : 0);
+          armor.score += ((ref$ = armor[mod[1]]) != null ? ref$ : 0) * ((ref$ = ((ref1$ = this.params).modifiers || (ref1$.modifiers = {}))[mod[0]]) != null ? ref$ : 0);
         }
       }
       return armors;
     };
     prototype.calculateCombinationScores = function(combinations, limit){
-      var best, res$, i$, comb, j$, a;
+      var best, i$, a, comb, to$, j$;
       limit == null && (limit = this.params.resultLimit);
-      res$ = [];
+      best = [];
       for (i$ = 0; i$ < limit; ++i$) {
-        res$.push(-1);
+        a = i$;
+        if ((comb = combinations[a]) == null) {
+          break;
+        }
+        comb.score = comb.armors[0].score + comb.armors[1].score + comb.armors[2].score + comb.armors[3].score;
+        best.push(comb);
       }
-      best = res$;
-      for (i$ = combinations.length - 1; i$ >= 0; --i$) {
-        comb = combinations[i$];
+      for (i$ = limit, to$ = combinations.length; i$ < to$; ++i$) {
+        a = i$;
+        comb = combinations[a];
         comb.score = comb.armors[0].score + comb.armors[1].score + comb.armors[2].score + comb.armors[3].score;
         for (j$ = 0; j$ < limit; ++j$) {
           a = j$;
-          if (best[a] === -1 || comb.score > best[a].score) {
+          if (comb.score > best[a].score) {
             best[a] = comb;
             break;
           }
@@ -2674,6 +2684,9 @@ function curry$(f, bound){
             if (materialSet == null) {
               console.log("Failed to find material set for", import$({}, item), level);
             }
+            if (materialSet.matId < 0 || materialSet.matCost < 0) {
+              return true;
+            }
             return any(function(it){
               return it.id === materialSet.matId && it.amount >= materialSet.matCost;
             })(
@@ -2689,16 +2702,17 @@ function curry$(f, bound){
           return this$.findUpgradeFor(item, level).then(function(upgrade){
             return this$.findUpgradeMaterialsFor(item, upgrade);
           }).then(function(materialSet){
-            if (find(function(it){
-              return it.id === materialSet.matId;
-            })(
-            materials) == null) {
-              console.log(materialSet.matId, materials);
+            var material;
+            if (materialSet.matId >= 0 && materialSet.matCost >= 0) {
+              material = find(function(it){
+                return it.id === materialSet.matId;
+              })(
+              materials);
+              if (material == null) {
+                console.log(materialSet.matId, materials);
+              }
+              material.amount -= materialSet.matCost;
             }
-            find(function(it){
-              return it.id === materialSet.matId;
-            })(
-            materials).amount -= materialSet.matCost;
             return {
               matCost: materialSet.matCost,
               matId: materialSet.matId
@@ -3299,8 +3313,13 @@ function curry$(f, bound){
       this._storage = {};
       this._models = require('./models/item-models');
     }
-    prototype.clear = function(){
-      this._storage = {};
+    prototype.clear = function(itemType){
+      if (itemType == null) {
+        this._storage = {};
+      } else {
+        this._storage[itemType].length = 0;
+        delete this._storage[itemType].$promise;
+      }
       return this;
     };
     /**
@@ -3355,9 +3374,7 @@ function curry$(f, bound){
             });
           }(item, baseId, upLevel);
         } else {
-          return this$.findItem(item.itemType, function(it){
-            return it.id === item.id;
-          });
+          return this$.findItemById(item.itemType, item.id);
         }
       });
     };
@@ -3540,8 +3557,8 @@ function curry$(f, bound){
         function ItemModel(){
           this.useDataFrom = bind$(this, 'useDataFrom', prototype);
           this.id = 0;
-          this.itemType = 'item';
-          this.itemSubtype = '';
+          this.itemType = null;
+          this.itemSubtype = null;
           this.name = '';
           this.sellValue = 0;
           this.iconId = 0;
@@ -3924,7 +3941,7 @@ function curry$(f, bound){
       this.useDataFrom = bind$(this, 'useDataFrom', prototype);
       this.amount = 1;
       this.name = '';
-      this.itemType = '';
+      this.itemType = null;
       this.id = '';
       this.uid = '';
       this.useDataFrom(item);

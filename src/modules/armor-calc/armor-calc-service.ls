@@ -5,7 +5,9 @@ class ArmorCalcSvc
 	(@_inventorySvc, @_itemSvc, @$q) ->
 		# Weight limit that the armor combinations must not exceed
 		@freeWeight = 0
-		@params = {}
+		@params = {
+			resultLimit : 20
+		}
 		@_debugLog = true
 
 		@armorTypes = [ \head \chest \hands \legs ]
@@ -213,9 +215,13 @@ class ArmorCalcSvc
 		@_inventorySvc .load!
 		.then (inventory) ~>
 			promises = []
-			for entry in inventory |> filter (.itemType == \armor )
-				let entry = entry
-					promises.push @_itemSvc.findAnyItemByUid entry.uid
+			for entry in inventory
+				if not entry.itemType?
+					console.log entry
+					throw new Error "Above inventory entry does not have an [.itemType] set:"
+				if entry.itemType != \armor
+					continue
+				promises.push @_itemSvc.findAnyItemByUid entry.uid
 			return @$q.all promises
 		.then (armors) ~>
 			armors |> filter ~> it.weight <= @freeWeight
@@ -254,6 +260,9 @@ class ArmorCalcSvc
 		lengths = [ groupOf.[\head], groupOf.[\chest], groupOf.[\hands], groupOf.[\legs] ]
 			|> map -> it?.length or 0
 		combCount = lengths |> product
+
+		if @_debugLog
+			console.log "Lengths:", lengths
 
 		pieces = [null null null null]
 		a = lengths.0 - 1
@@ -307,21 +316,25 @@ class ArmorCalcSvc
 			armor.detailScores = {}
 			for mod in modSet
 				armor.detailScores[mod.0] = armor.[mod.1] ? 0
-				armor.score += (armor.[mod.1] ? 0) * (@params.modifiers[mod.0] ? 0)
+				armor.score += (armor.[mod.1] ? 0) * (@params.{}modifiers[mod.0] ? 0)
 
 
 		return armors
 
 
 	calculateCombinationScores : (combinations, limit = @params.resultLimit) ~>
-		best = for from 0 til limit
-			-1
+		best = []
+		for a from 0 til limit
+			if not (comb = combinations[a])? then break
+			comb.score = comb.armors.0.score + comb.armors.1.score + comb.armors.2.score + comb.armors.3.score
+			best.push comb
 
-		for comb in combinations by -1
+		for a from limit til combinations.length
+			comb = combinations[a]
 			comb.score = comb.armors.0.score + comb.armors.1.score + comb.armors.2.score + comb.armors.3.score
 
 			for a from 0 til limit
-				if best.[a] == -1 or comb.score > best.[a].score
+				if comb.score > best.[a].score
 					best.[a] = comb
 					break
 

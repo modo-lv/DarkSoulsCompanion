@@ -78,6 +78,10 @@ class ItemServiceUpgradeComponent
 					return false
 				if not materialSet?
 					console.log "Failed to find material set for", {} <<< item, level
+
+				if materialSet.matId < 0 or materialSet.matCost < 0
+					return true
+
 				return materials |> any -> (it.id == materialSet.matId and it.amount >= materialSet.matCost)
 
 
@@ -87,10 +91,12 @@ class ItemServiceUpgradeComponent
 			.then (upgrade) ~>
 				@findUpgradeMaterialsFor item, upgrade
 			.then (materialSet) ~>
-				#console.log "Deducting #{materialSet.matId} x #{materialSet.matCost} from", {} <<< materials, "for item", item, "level", level
-				if not (materials |> find (.id == materialSet.matId))?
-					console.log materialSet.matId, materials
-				(materials |> find (.id == materialSet.matId)).amount -= materialSet.matCost
+				if materialSet.matId >= 0 and materialSet.matCost >= 0
+					#console.log "Deducting #{materialSet.matId} x #{materialSet.matCost} from", {} <<< materials, "for item", item, "level", level
+					material = materials |> find (.id == materialSet.matId)
+					if not material?
+						console.log materialSet.matId, materials
+					material.amount -= materialSet.matCost
 
 				return { matCost : materialSet.matCost, matId : materialSet.matId }
 

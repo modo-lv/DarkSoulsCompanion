@@ -1,15 +1,15 @@
 _ <-! describe "armor-calc-service"
 
-var svc, edSvc, invSvc, itemUpSvc, itemSvc, storageSvc, itemIndexSvc
+var svc, edSvc, inventorySvc, itemUpSvc, itemSvc, storageSvc, itemIndexSvc
 
 beforeEach (done) !->
 	edSvc := new MockExternalDataService
 	storageSvc := new MockStorageService
 	itemIndexSvc := new (testRequire 'modules/items/item-index-service') edSvc
-	invSvc := new (testRequire 'modules/pc/inventory-service') storageSvc, itemIndexSvc, $q
-	itemSvc := new (testRequire 'modules/items/item-service') edSvc, itemIndexSvc, invSvc, $q
+	inventorySvc := new (testRequire 'modules/pc/inventory-service') storageSvc, itemIndexSvc, $q
+	itemSvc := new (testRequire 'modules/items/item-service') edSvc, itemIndexSvc, inventorySvc, $q
 	itemUpSvc := itemSvc.upgradeComp
-	svc := new (testRequire 'modules/armor-calc/armor-calc-service') invSvc, itemSvc, $q
+	svc := new (testRequire 'modules/armor-calc/armor-calc-service') inventorySvc, itemSvc, $q
 
 	# Setup default data
 	inventory = require './test-data/armor-calc-test-inventory.json'
@@ -179,7 +179,7 @@ it "should not give unoffordable combinations", (done) !->
 	]
 
 	storageSvc.loadReturnValue = inventory
-	invSvc.clear!.load!
+	inventorySvc.clear!.load!
 	.then ->
 		svc.takeOnlyAffordable combinations
 	.then (canAfford) !->
@@ -190,3 +190,91 @@ it "should not give unoffordable combinations", (done) !->
 		}
 		done!
 	.catch done
+
+
+it "should not override combinations with better ones while there are still empty slots in the 'best' array", !->
+	combs = [
+		{armors : [{score : 1}, {score : 2}, {score : 3}, {score : 4}]}
+		{armors : [{score : 10}, {score : 20}, {score : 30}, {score : 40}]}
+		{armors : [{score : 1}, {score : 2}, {score : 3}, {score : 4}]}
+	]
+
+	best = svc.calculateCombinationScores combs
+
+	expect best .to.have.length 3
+
+
+#it "an already applied upgrade and a potential one should have the same score", (done) !->
+#	armor = {
+#		id : 1000
+#		itemType : \armor
+#		armorType : \chest
+#		upgradeId : 0
+#		matSetId : 0
+#		defPhy : 50
+#		weight : 1
+#	}
+#
+#	armor2 = {
+#		id : 1200
+#		itemType : \armor
+#		armorType : \chest
+#		upgradeId : 100
+#		matSetId : 0
+#		defPhy : 100
+#		weight : 1
+#	}
+#
+#	upgraded = {} <<< armor <<< {
+#		id : 1201
+#		score : 100
+#		defPhy : 100
+#		upgradeId : 101
+#		matSetId : 0
+#	}
+#
+#	upgrades = [
+#		{id : 1, matSetId : 1, defModPhy : 2}
+#		{id : 101, matSetId : 1, defModPhy : 1}
+#	]
+#	inventory = [
+#		{ id : 1000 , uid : \armor1000 , amount : 1 , itemType : \armor }
+#		{ id : 1201 , uid : \armor1201 , amount : 1 , itemType : \armor }
+#	]
+#	materialSets = [{id : 1, matId : -1, matCost : -1}]
+#	index = inventory ++ [armor] ++ [
+#		{ id : 1000 , uid : \armor1000 , name : "Armor" , itemType : \armor }
+#		{ id : 1001 , uid : \armor1001 , name : "Armor +1" , itemType : \armor }
+#		{ id : 1200 , uid : \armor1200 , name : "Other armor" , itemType : \armor }
+#		{ id : 1201 , uid : \armor1201 , name : "Other armor +1" , itemType : \armor }
+#	]
+#
+#	edSvc.loadJsonReturnValue = [armor, armor2]
+#	itemSvc.clear \armor .loadAllItems \armor
+#	.then ->
+#		edSvc.loadJsonReturnValue = upgrades
+#		itemUpSvc.clearUpgrades!.loadAllUpgrades \armor
+#	.then ->
+#		edSvc.loadJsonReturnValue = materialSets
+#		itemUpSvc.clearMaterialSets!.loadAllMaterialSets!
+#	.then ->
+#		edSvc.loadJsonReturnValue = index
+#		itemIndexSvc.clear!.loadAllEntries!
+#	.then ->
+#		storageSvc.loadReturnValue = inventory
+#		inventorySvc.clear!.load!
+#	.then (inventory) ->
+#		svc.freeWeight = 10
+#		svc.params = {
+#			includeUpgrades : true
+#			modifiers : {
+#				\phy : 1
+#			}
+#		}
+#		svc._debugLog = true
+#		svc.findBestCombinations!
+#	.then (combs) !->
+#		console.log combs
+#		expect combs .to.have.length 4
+#		done!
+#	.catch done

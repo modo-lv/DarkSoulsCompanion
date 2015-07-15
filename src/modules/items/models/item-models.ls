@@ -6,11 +6,11 @@ module?.exports = {
 			@id = 0
 
 			# Broad category of the item. Possible values: item, ring, weapon, armor.
-			@itemType = \item
+			@itemType = null
 
 			# More specific subtype. Armors and weapons will have their own properties,
 			# but for the rest this differentiates between spells, usables, upgrade materials, keys etc.
-			@itemSubtype = ''
+			@itemSubtype = null
 
 			# Item name.
 			@name = ''

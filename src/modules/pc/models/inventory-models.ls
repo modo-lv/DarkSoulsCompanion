@@ -2,7 +2,7 @@ class InventoryItemModel
 	(item) ->
 		@amount = 1
 		@name = ''
-		@itemType = ''
+		@itemType = null
 		@id = ''
 		@uid = ''
 

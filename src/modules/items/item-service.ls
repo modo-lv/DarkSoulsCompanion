@@ -13,8 +13,12 @@ class ItemService
 		@_models = require './models/item-models'
 
 
-	clear : !~>
-		@_storage = {}
+	clear : (itemType) !~>
+		if not itemType?
+			@_storage = {}
+		else
+			@_storage.[itemType].length = 0
+			delete @_storage.[itemType].$promise
 		return this
 
 
@@ -56,10 +60,11 @@ class ItemService
 				#console.log "Base ID: #{baseId}, upLevel: #{upLevel}"
 				return ((item, baseId, upLevel) ~>
 					@findItemById item.itemType, baseId
-					.then (baseItem) ~> @getUpgraded baseItem, upLevel
-					) item,baseId,upLevel
+					.then (baseItem) ~>
+						@getUpgraded baseItem, upLevel
+				) item, baseId, upLevel
 			else
-				return @findItem item.itemType, (.id == item.id)
+				return @findItemById item.itemType, item.id
 
 
 	/**
@@ -134,7 +139,6 @@ class ItemService
 				if newItem.itemType == \armor
 					newItem.armorSet = (@_itemIndexSvc.findArmorSetFor newItem).name
 				return newItem
-
 
 
 module?.exports = ItemService
