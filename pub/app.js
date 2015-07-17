@@ -3876,6 +3876,7 @@ function curry$(f, bound){
       this.add = bind$(this, 'add', prototype);
       this.addByName = bind$(this, 'addByName', prototype);
       this.addAllByName = bind$(this, 'addAllByName', prototype);
+      this.hasItemWithName = bind$(this, 'hasItemWithName', prototype);
       this.addAll = bind$(this, 'addAll', prototype);
       this.createInventoryItemFrom = bind$(this, 'createInventoryItemFrom', prototype);
       this.findItemByUid = bind$(this, 'findItemByUid', prototype);
@@ -3969,6 +3970,15 @@ function curry$(f, bound){
         })(
         invEntries));
         this$._notificationSvc.addInfo("Added " + itemList + " to the inventory.");
+      });
+    };
+    prototype.hasItemWithName = function(name){
+      var this$ = this;
+      return this.load().then(function(it){
+        return any(function(it){
+          return it.name === name;
+        })(
+        it);
       });
     };
     prototype.addAllByName = function(namesAndAmounts){
@@ -4371,7 +4381,7 @@ function curry$(f, bound){
 (function(){
   var TrackerController;
   if (typeof angular != 'undefined' && angular !== null) {
-    angular.module("dsc").controller("trackerController", function($sce, $scope, trackerSvc, notificationSvc, inventorySvc){
+    angular.module("dsc").controller("trackerController", function($sce, $scope, trackerSvc, notificationSvc, inventorySvc, $q){
       return (function(func, args, ctor) {
         ctor.prototype = func.prototype;
         var child = new ctor, result = func.apply(child, args), t;
@@ -4382,12 +4392,13 @@ function curry$(f, bound){
   TrackerController = (function(){
     TrackerController.displayName = 'TrackerController';
     var prototype = TrackerController.prototype, constructor = TrackerController;
-    function TrackerController($sce, $scope, _trackerSvc, _notificationSvc, _inventorySvc){
+    function TrackerController($sce, $scope, _trackerSvc, _notificationSvc, _inventorySvc, $q){
       this.$sce = $sce;
       this.$scope = $scope;
       this._trackerSvc = _trackerSvc;
       this._notificationSvc = _notificationSvc;
       this._inventorySvc = _inventorySvc;
+      this.$q = $q;
       this.addItemsFrom = bind$(this, 'addItemsFrom', prototype);
       this.set = bind$(this, 'set', prototype);
       this.checkAvailability = bind$(this, 'checkAvailability', prototype);
@@ -4443,42 +4454,54 @@ function curry$(f, bound){
       }
     };
     prototype.performActionOn = function(entry){
-      var ref$, key$, ref1$, parts, name, value;
+      var def, ref$, key$, ref1$, this$ = this;
+      def = this.$q.defer();
       switch (entry.action) {
       case 'kill':
         ((ref$ = (ref1$ = this.$scope.globals).enemies || (ref1$.enemies = {}))[key$ = entry.title] || (ref$[key$] = {})).isDead = true;
+        def.resolve();
         break;
       case 'pick-up':
-        this.addItemsFrom(entry['title']);
+        def.promise = this.addItemsFrom(entry['title']);
+        break;
+      default:
+        def.resolve();
       }
-      if (entry['setVar'] != null) {
-        parts = entry['setVar'].split('|');
-        switch (parts[0]) {
-        case 'global':
-          parts = parts[1].split(':');
-          name = parts[0];
-          value = (ref$ = parts[1]) != null ? ref$ : true;
-          this.$scope.globals['vars'][name] = value;
+      return def.promise.then(function(){
+        var parts, name, value, ref$;
+        if (entry['setVar'] != null) {
+          parts = entry['setVar'].split('|');
+          switch (parts[0]) {
+          case 'global':
+            parts = parts[1].split(':');
+            name = parts[0];
+            value = (ref$ = parts[1]) != null ? ref$ : true;
+            this$.$scope.globals['vars'][name] = value;
+          }
         }
-      }
-      if (entry['items'] != null) {
-        this.addItemsFrom(entry['items']);
-      }
-      entry.meta.isHidden = true;
-      return this.checkAvailability();
+        if (entry['items'] != null) {
+          return this$.addItemsFrom(entry['items']);
+        }
+      }).then(function(){
+        entry.meta.isHidden = true;
+        this$.checkAvailability();
+      });
     };
     prototype.expandOrCollapse = function($event, entry){
       $event.stopPropagation();
       return entry.meta.isCollapsed = !entry.meta.isCollapsed;
     };
     prototype.process = function(entry){
-      var x$, ref$, this$ = this;
+      var x$, ref$, y$, this$ = this;
       x$ = entry.meta || (entry.meta = {});
       x$.isCollapsed = (ref$ = (x$.userData || (x$.userData = {})).isCollapsed) != null
         ? ref$
         : in$('spoiler', entry.labels);
       x$.isHidden = (ref$ = (x$.userData || (x$.userData = {})).isHidden) != null ? ref$ : false;
       x$.isExpandable = entry.children != null || entry.content != null;
+      y$ = x$.additionalClasses = [];
+      y$.push((entry.children != null ? "with" : "without") + "-children");
+      y$.push((entry.content != null ? "with" : "without") + "-content");
       if (in$('enemy', entry.labels)) {
         entry.action == null && (entry.action = 'kill');
       }
@@ -4495,16 +4518,22 @@ function curry$(f, bound){
       ((ref$ = this.$scope).entryIndex || (ref$.entryIndex = {}))[entry.id] = entry;
     };
     prototype.checkAvailability = function(entries){
-      var i$, len$, entry, ref$, this$ = this;
+      var i$, len$, entry;
       entries == null && (entries = this.$scope.areaContent);
       for (i$ = 0, len$ = entries.length; i$ < len$; ++i$) {
         entry = entries[i$];
-        entry.meta.isAvailable = true;
+        (fn$.call(this, entry));
+      }
+      function fn$(entry){
+        var def, ref$, this$ = this;
+        entry.meta.additionalClasses = reject((function(it){
+          return it === 'unavailable';
+        }))(
+        entry.meta.additionalClasses);
+        def = this.$q.defer();
         if (((ref$ = entry.parent) != null ? ref$.meta : void 8) != null && entry.parent.meta.isAvailable === false) {
-          entry.meta.isAvailable = false;
-          continue;
-        }
-        if (entry['if'] != null) {
+          def.resolve(false);
+        } else if (entry['if'] != null) {
           if (typeof entry['if'] === 'string') {
             entry['if'] = [entry['if']];
           }
@@ -4512,22 +4541,34 @@ function curry$(f, bound){
             console.log(entry);
             throw new Error("Can't process the above entry's [.if] property");
           }
-          each(fn$)(
-          entry['if']);
+          def.promise = this.$q.all(map(function(requirement){
+            return this$.set(entry).availabilityAccordingTo(requirement);
+          })(
+          entry['if']));
+        } else {
+          def.resolve(true);
         }
-        if (entry.children != null) {
-          this.checkAvailability(entry.children);
-        }
-      }
-      function fn$(requirement){
-        return this$.set(entry).availabilityAccordingTo(requirement);
+        def.promise.then(function(isAvailable){
+          isAvailable = all((function(it){
+            return it === true;
+          }))(
+          [].concat(isAvailable));
+          if (!isAvailable) {
+            entry.meta.additionalClasses.push('unavailable');
+          }
+          entry.meta.isAvailable = isAvailable;
+          if (entry.children != null) {
+            return this$.checkAvailability(entry.children);
+          }
+        });
       }
     };
     prototype.set = function(entry){
       var this$ = this;
       return {
         availabilityAccordingTo: function(req){
-          var parts, inverse, name, value, ref$, shouldBeDead, ref1$;
+          var def, parts, inverse, name, value, ref$, shouldBeDead, ref1$;
+          def = this$.$q.defer();
           parts = req.split('|');
           inverse = parts[parts.length - 1] === 'not';
           switch (parts[0]) {
@@ -4535,7 +4576,10 @@ function curry$(f, bound){
             parts = parts[1].split(':');
             name = parts[0];
             value = (ref$ = parts[1]) != null ? ref$ : true;
-            entry.meta.isAvailable = (this$.$scope.globals['vars'][name] === value) !== inverse;
+            def.resolve((this$.$scope.globals['vars'][name] === value) !== inverse);
+            break;
+          case 'item':
+            def.promise = this$._inventorySvc.hasItemWithName(parts[1]);
             break;
           case 'enemy':
             name = parts[1];
@@ -4543,33 +4587,38 @@ function curry$(f, bound){
             if (inverse) {
               shouldBeDead = !shouldBeDead;
             }
-            entry.meta.isAvailable = ((ref$ = (ref1$ = this$.$scope.globals['enemies'][name]) != null ? ref1$.isDead : void 8) != null ? ref$ : false) === shouldBeDead;
+            def.resolve(((ref$ = (ref1$ = this$.$scope.globals['enemies'][name]) != null ? ref1$.isDead : void 8) != null ? ref$ : false) === shouldBeDead);
+            break;
+          default:
+            throw new Error("Unrecognized condition: '" + req + "'");
           }
+          return def.promise.then(function(isAvailable){
+            if (isAvailable !== entry.meta.isAvailable) {
+              entry.meta.isCollapsed = !isAvailable;
+            }
+            return isAvailable;
+          });
         }
       };
     };
-    prototype.addItemsFrom = function(itemText){
-      var itemTexts, i$, len$, text, potentials, batch, j$, len1$, potential, result, ref$, results$ = [];
-      itemTexts = [].concat(itemText);
-      for (i$ = 0, len$ = itemTexts.length; i$ < len$; ++i$) {
-        text = itemTexts[i$];
-        potentials = map(fn$)(
-        text.split(','));
-        batch = [];
-        for (j$ = 0, len1$ = potentials.length; j$ < len1$; ++j$) {
-          potential = potentials[j$];
-          result = /([^()]+)(?:\s+\((\d+)\)|$)/.exec(potential);
-          batch.push({
-            name: result[1],
-            amount: (ref$ = result[2]) != null ? ref$ : 1
-          });
-        }
-        results$.push(this._inventorySvc.addAllByName(batch));
-      }
-      return results$;
-      function fn$(it){
+    prototype.addItemsFrom = function(text){
+      var promises, potentials, batch, i$, len$, potential, result, ref$;
+      promises = [];
+      potentials = map(function(it){
         return it.trim();
+      })(
+      text.split(','));
+      batch = [];
+      for (i$ = 0, len$ = potentials.length; i$ < len$; ++i$) {
+        potential = potentials[i$];
+        result = /([^()]+)(?:\s+\((\d+)\)|$)/.exec(potential);
+        batch.push({
+          name: result[1],
+          amount: (ref$ = result[2]) != null ? ref$ : 1
+        });
       }
+      promises.push(this._inventorySvc.addAllByName(batch));
+      return this.$q.all(promises);
     };
     return TrackerController;
   }());

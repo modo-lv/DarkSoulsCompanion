@@ -1,9 +1,9 @@
-angular? .module "dsc" .controller "trackerController", ($sce, $scope, trackerSvc, notificationSvc, inventorySvc) ->
+angular? .module "dsc" .controller "trackerController", ($sce, $scope, trackerSvc, notificationSvc, inventorySvc, $q) ->
 	new TrackerController ...
 
 
 class TrackerController
-	(@$sce, @$scope, @_trackerSvc, @_notificationSvc, @_inventorySvc) ->
+	(@$sce, @$scope, @_trackerSvc, @_notificationSvc, @_inventorySvc, @$q) ->
 		@setUp!
 		@wireUp!
 		@loadUp!
@@ -59,28 +59,33 @@ class TrackerController
 
 	performActionOn : (entry) ~>
 		#console.log "Preforming '#{action}' action on '#{entry.title}'."
+		def = @$q.defer!
 		switch entry.action
 		| \kill =>
 			@$scope.globals.{}enemies.{}[entry.title].isDead = true
+			def.resolve!
 		| \pick-up =>
-			@addItemsFrom entry.[\title]
+			def.promise = @addItemsFrom entry.[\title]
+		| otherwise => def.resolve!
 
-		if entry.[\setVar]?
-			parts = entry.[\setVar].split '|'
-			switch parts.0
-			| \global =>
-				parts = parts.1.split ':'
-				name = parts.0
-				value = parts.1 ? true
+		def.promise
+		.then ~>
+			if entry.[\setVar]?
+				parts = entry.[\setVar].split '|'
+				switch parts.0
+				| \global =>
+					parts = parts.1.split ':'
+					name = parts.0
+					value = parts.1 ? true
 
-				@$scope.globals.[\vars].[name] = value
+					@$scope.globals.[\vars].[name] = value
 
-		if entry.[\items]?
-			@addItemsFrom entry.[\items]
+			if entry.[\items]?
+				@addItemsFrom entry.[\items]
+		.then !~>
+			entry.meta.isHidden = true
 
-		entry.meta.isHidden = true
-
-		@checkAvailability!
+			@checkAvailability!
 
 
 	expandOrCollapse : ($event, entry) ~>
@@ -96,6 +101,10 @@ class TrackerController
 			..isCollapsed = ..{}userData.isCollapsed ? (\spoiler in entry.labels)
 			..isHidden = ..{}userData.isHidden ? false
 			..isExpandable = entry.children? or entry.content?
+			..additionalClasses = []
+				..push "#{if entry.children? then "with" else "without"}-children"
+				..push "#{if entry.content? then "with" else "without"}-content"
+
 
 		# Actions
 		if \enemy in entry.labels
@@ -114,26 +123,40 @@ class TrackerController
 
 	checkAvailability : (entries = @$scope.areaContent) !~>
 		for entry in entries
-			entry.meta.isAvailable = true
+			let entry = entry
+				entry.meta.additionalClasses = entry.meta.additionalClasses |> reject (== \unavailable)
 
-			if entry.parent?.meta? and entry.parent.meta.isAvailable == false
-				entry.meta.isAvailable = false
-				continue
+				def = @$q.defer!
 
-			if entry.if?
-				if typeof entry.if == \string then entry.if = [entry.if]
+				if entry.parent?.meta? and entry.parent.meta.isAvailable == false
+					def.resolve false
+				else if entry.if?
+					if typeof entry.if == \string then entry.if = [entry.if]
 
-				if entry.if.@@ != Array then
-					console.log entry
-					throw new Error "Can't process the above entry's [.if] property"
+					if entry.if.@@ != Array then
+						console.log entry
+						throw new Error "Can't process the above entry's [.if] property"
 
-				entry.if |> each (requirement) ~> @set entry .availabilityAccordingTo requirement
+					def.promise = @$q.all(entry.if |> map (requirement) ~> @set entry .availabilityAccordingTo requirement)
+				else
+					def.resolve true
 
-			if entry.children? then @checkAvailability entry.children
+				def.promise
+				.then (isAvailable) ~>
+					isAvailable = ([] ++ isAvailable) |> all (== true)
+					#console.log "#{entry.title} is available: #{isAvailable}"
+					if not isAvailable
+						entry.meta.additionalClasses.push \unavailable
+
+					entry.meta.isAvailable = isAvailable
+
+					if entry.children? then @checkAvailability entry.children
 
 
 	set : (entry) ~>
-		availabilityAccordingTo : (req) !~>
+		availabilityAccordingTo : (req) ~>
+			def = @$q.defer!
+
 			parts = req.split '|'
 			inverse = parts[*-1] == \not
 			switch parts.0
@@ -141,7 +164,10 @@ class TrackerController
 				parts = parts.1.split ':'
 				name = parts.0
 				value = parts.1 ? true
-				entry.meta.isAvailable = (@$scope.globals.[\vars].[name] == value) != inverse
+				def.resolve((@$scope.globals.[\vars].[name] == value) != inverse)
+
+			| \item =>
+				def.promise = @_inventorySvc.hasItemWithName parts.1
 
 			| \enemy =>
 				name = parts.1
@@ -150,24 +176,34 @@ class TrackerController
 				if inverse
 					shouldBeDead = !shouldBeDead
 
-				entry.meta.isAvailable = (@$scope.globals.[\enemies].[name]?.isDead ? false) == shouldBeDead
+				def.resolve((@$scope.globals.[\enemies].[name]?.isDead ? false) == shouldBeDead)
 				#console.log "#{name} should-be-dead condition is #{shouldBeDead}, so setting #{entry.title} availability to #{entry.meta.isAvailable}."
+			| otherwise => throw new Error "Unrecognized condition: '#{req}'"
+
+			def.promise
+			.then (isAvailable) ~>
+				if isAvailable != entry.meta.isAvailable
+					#console.log entry, "#{isAvailable} != #{entry.meta.isAvailable} changed available status, collapsed will be: #{!isAvailable}"
+					entry.meta.isCollapsed = !isAvailable
+				#console.log "Setting #{entry.title} availability to #{isAvailable}"
+				return isAvailable
 
 
-	addItemsFrom : (itemText) ~>
-		itemTexts = [] ++ itemText
-		for text in itemTexts
-			potentials = (text.split ',') |> map (.trim!)
-			batch = []
-			for potential in potentials
-				result = /([^()]+)(?:\s+\((\d+)\)|$)/ .exec potential
-				#console.log result
-				batch.push {
-					name : result.1
-					amount : result.2 ? 1
-				}
-			#console.log batch
-			@_inventorySvc.addAllByName batch
+	addItemsFrom : (text) ~>
+		promises = []
+		potentials = (text.split ',') |> map (.trim!)
+		batch = []
+		for potential in potentials
+			result = /([^()]+)(?:\s+\((\d+)\)|$)/ .exec potential
+			#console.log result
+			batch.push {
+				name : result.1
+				amount : result.2 ? 1
+			}
+		#console.log batch
+		promises.push @_inventorySvc.addAllByName batch
+		return @$q.all promises
+
 
 
 

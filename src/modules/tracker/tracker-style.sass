@@ -15,15 +15,25 @@ $entryBorder: 0.5em
 	.entry
 		display: block
 		margin: 0.5em 0
+		border: 1px solid #ddd
+		border-radius: $entryBorder
+
+		&.unavailable
+			color: silver
 
 		.buttons
 			display: inline-block
+			width: 7em
 
 			button
 				border-radius: 10px
 
 		.header
+			background-color: #f5f5f5
+			border-color: #ddd
+			border-bottom: 1px solid #ddd
 			border-radius: $entryBorder
+			padding: 0.25em
 
 			.title
 				display: inline-block
@@ -31,7 +41,6 @@ $entryBorder: 0.5em
 
 		.content
 			border-radius: 0 0 $entryBorder $entryBorder
-
 			> div
 				margin: 0.5em
 
@@ -53,4 +62,3 @@ $entryBorder: 0.5em
 		vertical-align: baseline
 		border-radius: .5em
 		background: #AAA
-

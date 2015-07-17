@@ -65,6 +65,10 @@ class InventorySvc
 			@_notificationSvc.addInfo "Added #{itemList} to the inventory."
 
 
+	hasItemWithName : (name) ~>
+		@load! .then ~> it |> any (.name == name)
+
+
 	addAllByName : (namesAndAmounts) ~>
 		promises = []
 		for entry in namesAndAmounts

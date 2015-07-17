@@ -106,11 +106,13 @@
   },
   {
     "title": "Dungeon Cell Key",
+    "if": "global|pc-class-chosen",
     "labels": "item",
     "id": "17acde8d-2189-427c-9c2f-409d57941678"
   },
   {
     "title": "First (ground) floor",
+    "if": "item|Dungeon Cell Key",
     "children": [
       {
         "title": "Asylum Courtyard",
@@ -137,6 +139,7 @@
   },
   {
     "title": "Second floor",
+    "if": "item|Dungeon Cell Key",
     "children": [
       {
         "title": "Gate back to courtyard",
@@ -187,5 +190,23 @@
       }
     ],
     "id": "e710824b-6f65-4ed1-9014-cb67c87354db"
+  },
+  {
+    "title": "Outside",
+    "if": "item|Big Pilgrim's Key",
+    "children": [
+      {
+        "title": "End of the level",
+        "labels": "warning",
+        "content": "Once you exit the main building, you will leave {Northern Undead Asylum} as soon as you reach the peak end of the outside pathway. Make sure you are done with the level before going there.",
+        "id": "69f9ca8c-09ec-4899-a26c-394658198795"
+      },
+      {
+        "title": "Soul of a Lost Undead",
+        "labels": "item",
+        "id": "f44776b5-903d-449b-a768-5ce339ff26d5"
+      }
+    ],
+    "id": "bb0e1084-ef82-44b2-962c-163d22d92e71"
   }
 ]
