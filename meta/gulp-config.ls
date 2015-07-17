@@ -11,22 +11,30 @@ module?.exports = cfg = {}
 	# source files, folders, and other config
 	..src = {}
 		..dir = "#{cfg.baseDir }/src"
-		..libs = "#{cfg.src.dir }/#{cfg.common.libDir }/**"
-		..staticFiles = "#{cfg.src.dir }/**/*.{woff,ttf,eot,png}"
-		..staticModuleFiles = "#{cfg.src.dir }/modules/**/*.{html,json}"
-		..staticRequireFiles = "#{cfg.src.dir }/**/*.json"
-		..view = "#{cfg.src.dir }/index.html"
-		..viewFiles = "#{cfg.src.dir}/**/*.html"
-		..main = "#{cfg.src.dir }/app.ls"
-		..scriptFiles = "#{cfg.src.dir }/**/*.ls"
-		..jadeFiles = "#{cfg.src.dir }/**/*.jade"
+		..e2eDir = "#{cfg.baseDir}/e2e"
+		..libs = "#{..dir }/#{cfg.common.libDir }/**"
+		..staticFiles = "#{..dir}/**/*.{woff,ttf,eot,png}"
+		..e2eStaticFiles = "#{..e2eDir}/*.{html,js}"
+		..e2eMain = "#{..e2eDir}/main.ls"
+		..staticModuleFiles = "#{..dir}/modules/**/*.json"
+		..staticRequireFiles = "#{..dir}/**/*.json"
+		..view = "#{..dir }/index.html"
+		..viewFiles = "#{..dir}/**/*.html"
+		..main = "#{..dir }/app.ls"
+		..scriptFiles = "#{..dir }/**/*.ls"
+		..jadeFiles = "#{..dir }/**/*.jade"
+
+
 
 	# destination (published) files, folder and other config
 	..dst = {}
 		..dir = "#{cfg.baseDir }/pub"
+		..e2eDir = "#{..dir }/e2e"
 
 		..mainFile = "app.js"
+		..e2eMainFile = "main.js"
 		..tempDir = "#{cfg.dst.dir }/_temp_"
+		..e2eTempDir = "#{..tempDir}/e2e"
 		..mainTempFile = "#{cfg.dst.tempDir }/#{cfg.dst.mainFile }"
 		..libs = "#{cfg.dst.dir }/#{cfg.common.libDir }"
 		..moduleDir = "#{cfg.dst.dir }/modules"

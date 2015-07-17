@@ -98,7 +98,7 @@ class PcController
 		armorSet = selection.originalObject
 
 		@_itemIndexSvc.findByArmorSet armorSet .then (armors) !~>
-			armors |> each @$scope.add
+			@_inventorySvc.addAll armors
 
 
 	upgrade : (invEntry) !~>

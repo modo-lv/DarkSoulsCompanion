@@ -1,0 +1,96 @@
+[
+  {
+    "title": "Cliffside path",
+    "children": [
+      {
+        "labels": "item",
+        "title": "Twinkling Titanite (2), Large Titanite Shard (2) (Crystal Lizard)",
+        "id": "f159f280-d2b2-41fb-9eaa-c4c0ed595fac"
+      },
+      {
+        "labels": "item",
+        "title": "Leather Armor, Leather Gloves, Leather Boots, Longbow, Feather Arrow (16)",
+        "id": "ee7356fa-c894-40e4-adc7-1cf8a26f4406"
+      },
+      {
+        "labels": "item",
+        "title": "Blue Titanite Chunk (Black Knight)",
+        "id": "26b53948-bcac-4e6c-8bff-a14933472fab"
+      },
+      {
+        "labels": "item",
+        "title": "Grass Crest Shield",
+        "id": "a339d07c-1fd9-4b41-ba9e-18c1440043e4"
+      },
+      {
+        "labels": "bonfire",
+        "title": "Underground bonfire",
+        "id": "cde70045-4089-4b67-82ce-58163eec56fc"
+      }
+    ],
+    "id": "32ea354c-bfa5-45b9-b3ef-2493aa433af0"
+  },
+  {
+    "title": "Lake and surroundings",
+    "children": [
+      {
+        "labels": "item",
+        "title": "Large Soul of a Nameless Soldier",
+        "id": "d68553df-084a-41b6-8728-451862d31188"
+      },
+      {
+        "labels": "item",
+        "title": "Dragon Scale, Dusk Crown Ring (Hydra)",
+        "setFlags": "hydra_dead",
+        "id": "a12681b4-c190-4a54-b304-1ed05309cc44"
+      },
+      {
+        "title": "Dusk of Oolacile",
+        "req": "hydra_dead",
+        "reqNot": "dusk_dead",
+        "labels": [
+          "dlc",
+          "talk"
+        ],
+        "children": [
+          {
+            "labels": "warning",
+            "title": "Answering \"no\"",
+            "content": "Answering \"no\" when you first talk to her will make Dusk disappear for the rest of the playthrough.",
+            "setFlags": "dusk_dead",
+            "reqNot": "dusk_dead",
+            "id": "30863cfe-1325-4829-bd30-5b452f480b90"
+          },
+          {
+            "labels": "talk",
+            "title": "Summon",
+            "setFlag": "dusk_summoned",
+            "id": "c83ff930-39dc-42c1-9b87-59a88d30ccae"
+          },
+          {
+            "labels": "gesture",
+            "title": "Proper Bow",
+            "req": "dusk_summoned",
+            "id": "90568d73-2b8a-491d-b70c-c18bc05a4283"
+          },
+          {
+            "labels": "item",
+            "title": "Crown of Dusk, Antiquated Dress, Antiquated Gloves, Antiquated Skirt",
+            "req": "dusk_summoned",
+            "id": "7b9111bd-4526-446e-9ed4-0bff241011cf"
+          }
+        ],
+        "id": "6d1d24a3-6169-44ec-a2d9-408fa3842049"
+      },
+      {
+        "labels": "item",
+        "title": "Havel's Ring",
+        "req": {
+          "have-item": "Watchtower Basement Key"
+        },
+        "id": "9267dc2f-a40a-4a34-b1d7-f289990d6e71"
+      }
+    ],
+    "id": "e6e97295-ca64-455d-8b7a-f08f1ec6fa33"
+  }
+]

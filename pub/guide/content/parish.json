@@ -1,0 +1,460 @@
+[
+  {
+    "title": "Before first fog gate",
+    "children": [
+      {
+        "title": "Warrior of Sunlight",
+        "labels": [
+          "covenant"
+        ],
+        "content": "In order to join this covenant, you must have 25 {Faith}. This requirement is reduced by 5 for every co-op victorious fight against a boss that you have been summoned to. Joining changes your summoning sign from white to gold and ensures that all participants receive a {Sunlight Medal} when defeating a boss together.",
+        "children": [
+          {
+            "labels": [
+              "item"
+            ],
+            "title": "Lightning Spear",
+            "id": "47c76d27-5c09-4337-a607-012dde53f663"
+          },
+          {
+            "labels": [
+              "gesture"
+            ],
+            "title": "Praise the Sun",
+            "id": "9a6f1065-b2c3-46cb-b6a2-333c4aa5242d"
+          },
+          {
+            "labels": [
+              "item",
+              "trade"
+            ],
+            "title": "Great Lightning Spear",
+            "content": "Acquired by sacrificing 10 {Sunlight Medal}s.",
+            "id": "5cca0bfd-d602-4405-adfb-a26fcea5f03b"
+          },
+          {
+            "labels": [
+              "item",
+              "ng+",
+              "trade"
+            ],
+            "title": "Sunlight Spear",
+            "content": "Acquired by sacrificing {Soul of Gwyn, Lord of Cinder}.",
+            "id": "036fb194-8e9c-468f-9d54-eb66f576f953"
+          }
+        ],
+        "id": "ac105a32-3ffe-4a31-bec1-847bd9b1e176"
+      },
+      {
+        "title": "Titanite Shard (Black Knight)",
+        "labels": [
+          "drop",
+          "item"
+        ],
+        "id": "6f80e2bf-3537-4ea4-b0bd-0e19d4b71e8e"
+      },
+      {
+        "labels": [
+          "checklist",
+          "item"
+        ],
+        "title": "Alluring Skull (4)",
+        "id": "06d2eb78-66af-401b-8fc7-f7345892309a"
+      },
+      {
+        "labels": [
+          "checklist",
+          "item"
+        ],
+        "title": "Mystery Key",
+        "id": "2c17603d-1cb2-42e2-8eda-2e90b6e888a2"
+      },
+      {
+        "labels": [
+          "checklist",
+          "item"
+        ],
+        "title": "Large Soul of a Lost Undead",
+        "id": "2f33f94d-d6d7-47bf-a503-94ca6ec86403"
+      }
+    ],
+    "id": "d7465491-8b03-4189-b9cb-966b20bb3a84"
+  },
+  {
+    "title": "First fog gate",
+    "labels": [
+      "info"
+    ],
+    "content": "No boss fight, just passing through.",
+    "id": "e539a8c8-f6af-42d9-8eac-a4ea8009e8a0"
+  },
+  {
+    "title": "Around the church",
+    "children": [
+      {
+        "labels": [
+          "checklist",
+          "item"
+        ],
+        "title": "Knight Shield",
+        "id": "59f2c49c-fb8e-49c6-a85d-7e78903a10d1"
+      },
+      {
+        "labels": [
+          "checklist",
+          "item"
+        ],
+        "title": "Halberd",
+        "id": "39e2ec9a-943c-4060-9198-5277652bdf0e"
+      },
+      {
+        "labels": [
+          "checklist",
+          "item"
+        ],
+        "title": "Basement Key",
+        "id": "bea2cb75-d4b7-40f7-8101-a7b6dcaf5fcb"
+      },
+      {
+        "labels": [
+          "shortcut"
+        ],
+        "title": "Gate back to the Altar of Sunlight bonfire.",
+        "id": "9918a213-d798-4a6f-8fae-b3185e2ae81f"
+      },
+      {
+        "title": "Seigmeyer of Catarina",
+        "labels": [
+          "talk"
+        ],
+        "children": [
+          {
+            "title": "Glitch prevention",
+            "labels": [
+              "warning"
+            ],
+            "content": "If you stop talking to Seigmeyer before he starts repeating himself, there is a chance that the game will glitch and his side-story / side-quest will be lost for the rest of the playthrough. So make sure you talk to him until you've heard everything.",
+            "id": "2189a662-a41a-496b-9f7a-8ac53eca4e3d"
+          },
+          {
+            "title": "Killing Seigmeyer",
+            "labels": [
+              "spoiler"
+            ],
+            "content": "{Seigmeyer of Catarina} appears at several points in the playthrough as part of his side-story, providing opportunities to get special and unique items, which will be permanently lost if he is killed.",
+            "id": "e2f5fe49-c163-40c0-9d04-91bfeb86bc02"
+          }
+        ],
+        "id": "c6c2e7f5-649f-4379-a30d-034205bcf7f9"
+      },
+      {
+        "title": "Undead Parish bonfire",
+        "labels": [
+          "bonfire"
+        ],
+        "id": "271cfb87-e1c6-4233-aa32-bc7d6aa379d6"
+      },
+      {
+        "title": "Andre of Astora",
+        "labels": [
+          "talk"
+        ],
+        "children": [
+          {
+            "title": "Hurrah! gesture",
+            "labels": [
+              "gesture"
+            ],
+            "id": "8d2dc731-134d-4a10-bd66-abe7bf844339"
+          },
+          {
+            "title": "Weapon Smithbox",
+            "labels": [
+              "item"
+            ],
+            "id": "331664fd-1f48-4ed4-bd11-a494b48a7509"
+          },
+          {
+            "title": "Armor Smithbox",
+            "labels": [
+              "item"
+            ],
+            "id": "8dd1f282-8abf-47cb-8fa5-5965f3dd624e"
+          }
+        ],
+        "id": "25dcb698-c562-4c5e-bcce-60f913ddaa37"
+      }
+    ],
+    "id": "5a2d51dc-cd4a-4023-aa17-1e93ec7e511a"
+  },
+  {
+    "title": "Church",
+    "children": [
+      {
+        "title": "Black Knight",
+        "children": [
+          {
+            "labels": [
+              "drop"
+            ],
+            "title": "Titanite Shard",
+            "id": "13502fdc-26ed-4eba-81d1-b29eef1d52b3"
+          }
+        ],
+        "id": "e58f7d66-d044-48a1-bc8a-0b93adb330f1"
+      },
+      {
+        "labels": [
+          "item"
+        ],
+        "title": "Fire Keeper Soul",
+        "id": "578041ec-44ee-439c-8942-62f859c6bc76"
+      },
+      {
+        "title": "Elevator to Firelink Shrine",
+        "labels": [
+          "shortcut"
+        ],
+        "id": "71f46a2c-0e19-426d-a2b0-345e94a01d3c"
+      }
+    ],
+    "id": "6e048939-f02d-4600-b0d9-01cf597d93b6"
+  },
+  {
+    "title": "Firelink Shrine",
+    "children": [
+      {
+        "title": "Crestfallen Warrior",
+        "labels": [
+          "talk"
+        ],
+        "id": "6454b188-ce28-4300-99cc-207145dd5fbd"
+      },
+      {
+        "title": "Reinforce Estus Flasks",
+        "labels": [
+          "estus"
+        ],
+        "id": "8a21c094-e86e-47a0-9310-c0595b868b6e"
+      }
+    ],
+    "id": "bdf5468f-5271-4cc5-8125-befd9617000e"
+  },
+  {
+    "title": "Church",
+    "children": [
+      {
+        "title": "Humanity",
+        "labels": [
+          "item"
+        ],
+        "id": "e1f893de-9ab7-4e57-8e7a-2d1bd08b8ddf"
+      },
+      {
+        "labels": [
+          "talk"
+        ],
+        "title": "Knight Lautrec of Carim",
+        "id": "578041ec-44ee-439c-8942-62f859c6bc76"
+      },
+      {
+        "labels": [
+          "item"
+        ],
+        "title": "Large Soul of a Nameless Soldier",
+        "id": "9e5da84f-ca46-47da-a9dd-0c063f2264db"
+      },
+      {
+        "labels": [
+          "info"
+        ],
+        "title": "Fog gate",
+        "content": "{Gargoyle} boss fight.",
+        "children": [
+          {
+            "labels": [
+              "item",
+              "tail"
+            ],
+            "title": "Gargoyle Tail Axe",
+            "content": "Cut off the first Gargoyle's tail.",
+            "id": "cd9fb16d-1b13-45ab-b860-aab0bf012646"
+          },
+          {
+            "title": "Gargoyle items",
+            "labels": [
+              "drop",
+              "farm",
+              "item"
+            ],
+            "content": "Gargoyles have a chance to drop {Gargoyle's Halberd}, {Gargoyle Shield} and {Gargoyle Helm}. There are only four {Gargoyle}s in the game and they don't respawn, so farming this boss fight is the only way to ensure you get them. You can farm by killing one of the {Gargoyle}s and then returning to the bonfire (by dying or using {Homeward} items/spells).",
+            "id": "6829a795-9efc-4f15-a994-59385163db0e"
+          }
+        ],
+        "id": "2da0545c-f616-4153-8125-2f4a9de4f83b"
+      }
+    ],
+    "id": "e7f528a6-96d9-4b35-bc29-cfa25a244f28"
+  },
+  {
+    "title": "Talk",
+    "labels": [
+      "talk"
+    ],
+    "children": [
+      {
+        "title": "Crestfallen Warrior (Firelink Shrine)",
+        "id": "36c4a2e6-7325-4481-9a7a-52ef8a182e90"
+      },
+      {
+        "title": "Andre of Astora (Undead Parish)",
+        "id": "ec25d6d2-b1a9-4d51-bd3e-c6017e85a4ac"
+      }
+    ],
+    "id": "0896568b-aa91-41ba-9cb3-3ae8e7a2d647"
+  },
+  {
+    "title": "Bell Tower",
+    "children": [
+      {
+        "title": "Oswald of Carim",
+        "labels": [
+          "talk"
+        ],
+        "children": [
+          {
+            "labels": [
+              "info"
+            ],
+            "title": "The \"Abandon Covenant\" option is virtually useless",
+            "content": "It does what it says, but since joining another covenant carries no penalties (and can often be done in places closer to a bonfire) the only real purpose for this option is if you specifically want to be in no covenant at all.",
+            "id": "a2ccf9a8-9498-4323-a348-d06e6d9cbbb6"
+          },
+          {
+            "labels": [
+              "info"
+            ],
+            "title": "Sin and indictment",
+            "content": "Whenever you commit a sin in the game, your sin counter is increased and you are entered into the {Book of the Guilty} and {Blade of the Darkmoon} covenant members become able to target your world for invasions. The sins in the game are:<ul><li>Killing an NPC.</li><li>Betraying a covenant you are in (depends on the covenant, usually attacking someone you shouldn't).</li><li>Getting indicted. When a player invades and kills another player who has the {Indictment} item on them, the victim will be given the option of indicting the invader.</li></ul> The only way to erase these sins are by {Blade of the Darkmoon} members can erase the sin of indictment.",
+            "id": "89c0338c-d797-486f-8ba3-7f35eab32f9d"
+          },
+          {
+            "labels": [
+              "info"
+            ],
+            "title": "Request Absolution",
+            "content": "If you have angered any NPCs or betrayed a covenant, paying for absolution makes them non-hostile again. The only exceptions are NPCs who are angered by you killing someone they are personally close to. Absolution will also reset sin counters for killing NPCs (but not other sins).",
+            "id": "1561674f-f8df-4aba-bb93-8df6ca2b78ba"
+          },
+          {
+            "labels": [
+              "gesture"
+            ],
+            "title": "Well! What is it!",
+            "id": "442e88fd-2d46-48fc-8e32-084cd4c3644d"
+          },
+          {
+            "labels": [
+              "buy",
+              "info"
+            ],
+            "title": "Indictment ($200)",
+            "content": "The game (and Oswald) acts as if the {Indictment} item is a consumable (you can buy any amount), but it doesn't actually get used up so you only need one.",
+            "id": "88ac5f5b-eb6d-47f8-b6a6-5067a7fe859a"
+          },
+          {
+            "labels": [
+              "buy"
+            ],
+            "title": "Book of the Guilty ($1000)",
+            "id": "f2c38fee-c9c5-4912-b99d-ad1fb34aca00"
+          },
+          {
+            "labels": [
+              "buy"
+            ],
+            "title": "Karmic Justice ($40000)",
+            "id": "9044eef7-2524-4823-9ac9-c95fcd7e1a14"
+          },
+          {
+            "labels": [
+              "buy"
+            ],
+            "title": "Velka's Talisman ($5000)",
+            "id": "b20d164a-7e30-4f39-a8cb-57dc0209dfad"
+          },
+          {
+            "labels": [
+              "buy"
+            ],
+            "title": "Bloodbite Ring ($10000)",
+            "id": "01fc22e0-a001-40a1-8838-7e3ff3caa22d"
+          },
+          {
+            "labels": [
+              "buy"
+            ],
+            "title": "Poisonbite Ring ($15000)",
+            "id": "d356690c-8b8d-49ee-bd6e-deb39d257cfb"
+          },
+          {
+            "labels": [
+              "buy"
+            ],
+            "title": "Purging Stone (5, $3000)",
+            "id": "530fd5b5-6e09-480b-83c6-3b494c3b921f"
+          },
+          {
+            "labels": [
+              "buy"
+            ],
+            "title": "Ring of Sacrifice (10, $5000)",
+            "id": "d6894ddd-d975-4551-82b3-59dc0c1d8543"
+          },
+          {
+            "labels": [
+              "spoiler"
+            ],
+            "title": "Killing Oswald",
+            "content": "No effect on the rest of the game.",
+            "id": "83ffd809-1ee8-42c3-b0a4-a060e0f40833"
+          }
+        ],
+        "id": "983a820f-b6b2-4b34-b3cd-de8d3a73bb61"
+      }
+    ],
+    "id": "9aab9762-1c67-4776-896b-343b1b4ba1fb"
+  },
+  {
+    "title": "Talk",
+    "labels": [
+      "talk"
+    ],
+    "children": [
+      {
+        "title": "Male Undead Merchant",
+        "id": "746ef24c-4cfe-474d-ba4b-cb487d2496f7"
+      },
+      {
+        "title": "Crestfallen Warrior (Firelink Shrine)",
+        "id": "ba565b73-5b5b-41f2-bfd9-5a185fbece73"
+      },
+      {
+        "title": "Knight Lautrec of Carim (Firelink Shrine)",
+        "id": "45d0c3fe-9561-4fc0-994b-f70dcd483601"
+      }
+    ],
+    "id": "fd1b1681-363f-4642-b05c-f4e418420d7f"
+  },
+  {
+    "title": "The old church",
+    "children": [
+      {
+        "labels": "item",
+        "title": "Demon Titanite (Titanite Demon)",
+        "id": "ba07d9b1-fdd8-4dcf-a054-e30487fbd908"
+      }
+    ],
+    "id": "6fa0daa3-1a4e-4c94-aa03-ebac491883db"
+  }
+]

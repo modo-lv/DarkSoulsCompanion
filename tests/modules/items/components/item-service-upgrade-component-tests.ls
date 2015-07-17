@@ -1,12 +1,13 @@
 _ <-! describe "item-service-upgrade-component"
 
-var svc, edSvc, itemModels, upModels, itemSvc, inventorySvc, storageSvc, itemIndexSvc
+var svc, edSvc, itemModels, upModels, itemSvc, inventorySvc, storageSvc, itemIndexSvc, notifySvc
 
 beforeEach !->
 	edSvc := new MockExternalDataService
 	storageSvc := new MockStorageService
+	notifySvc := new (testRequire 'app/services/notification-service') {}
 	itemIndexSvc := new (testRequire "modules/items/item-index-service") edSvc
-	inventorySvc := new (testRequire "modules/pc/inventory-service") storageSvc, itemIndexSvc, $q
+	inventorySvc := new (testRequire "modules/pc/inventory-service") storageSvc, itemIndexSvc, notifySvc, $q
 	itemSvc := new (testRequire "modules/items/item-service") edSvc, itemIndexSvc, inventorySvc, $q
 	svc := itemSvc.upgradeComp
 	itemModels := testRequire 'modules/items/models/item-models'

@@ -1,0 +1,239 @@
+[
+  {
+    "title": "Fog gate",
+    "labels": [
+      "info"
+    ],
+    "content": "{Quelaag} boss fight.",
+    "children": [
+      {
+        "labels": [
+          "help"
+        ],
+        "title": "Weaknesses",
+        "content": "Lightning. Direct (ranged) attacks to the human part cause stagger.",
+        "id": "c8e161d4-635e-4482-b8e5-cb10f60730ce"
+      }
+    ],
+    "id": "1c4fce9e-86ad-485b-96b8-ef7e68771d7b"
+  },
+  {
+    "title": "Talk",
+    "labels": [
+      "talk"
+    ],
+    "children": [
+      {
+        "title": "Quelana of Izalith (Blighttown)",
+        "id": "ced35c24-fd24-4d8d-80f3-60651ddaca30"
+      },
+      {
+        "title": "Domnhand of Zena (The Depths)",
+        "id": "4bdb705e-946f-4215-a87f-f7129900b1b6"
+      }
+    ],
+    "id": "fb433b7f-2042-4ba6-b945-b490eeb384ee"
+  },
+  {
+    "title": "Firelink Shrine",
+    "children": [
+      {
+        "labels": [
+          "talk"
+        ],
+        "title": "Laurentius of The Great Swamp",
+        "children": [
+          {
+            "labels": [
+              "spoiler"
+            ],
+            "title": "If you've purchased anything from Quelana of Izalith",
+            "content": "Answering \"Yes\" to Laurentius' question will make him disappear for the rest of the game once you leave Firelink Shrine.",
+            "id": "6f238984-c85d-454c-850b-99def48960dc"
+          }
+        ],
+        "id": "b5d2521b-ed9c-422b-9124-30e07fb3674e"
+      },
+      {
+        "labels": [
+          "item"
+        ],
+        "title": "If you freed Lautrec of Carim",
+        "children": [
+          {
+            "labels": [
+              "item"
+            ],
+            "title": "Dingy Hood, Dingy Robe, Dingy Gloves, Blood-Stained Shirt, Black Eye Orb",
+            "id": "d74d5756-2c53-4e0c-b508-f1b168abd546"
+          }
+        ],
+        "id": "f96c8aa1-c607-4b92-afcd-058f29d1d7bc"
+      }
+    ],
+    "id": "34f35d6c-5f63-4915-a8bb-7094767b8754"
+  },
+  {
+    "title": "Quelaag's domain",
+    "children": [
+      {
+        "title": "Hidden bonfire",
+        "labels": [
+          "secret"
+        ],
+        "children": [
+          {
+            "title": "Engyi",
+            "children": [
+              {
+                "title": "Getting past him",
+                "labels": [
+                  "help"
+                ],
+                "content": "If you answer \"no\", Engyi will not let you pass, but you can leave the area (or reload the game) and he will ask you again.",
+                "id": "e194a3df-82ae-4d25-8d07-d80906b155ad"
+              },
+              {
+                "title": "Unlocking his shop",
+                "labels": [
+                  "help"
+                ],
+                "content": "In order for Engyi to give you access to all of his wares, you must get infected with {Egghead} and talk to him when it's hatched.",
+                "id": "1328d475-0690-44ad-9189-3e403719fab9"
+              },
+              {
+                "title": "Egghead infection",
+                "labels": [
+                  "info"
+                ],
+                "content": "Egghead infection has a chance to occur every time one of the {Egg Burdened} use their grab attack on you. Successful infection will manifest as the character scratching his head while standing still, and eventually blossom into a full egg covering the player's head. This will prevent the player from wearing helmets and will absorb half of all the souls acquired from then on. After absorbing 100000 souls the egg will grow bigger and kick attack will be replaced with a larva biting attack",
+                "id": "0d63811f-9d72-46b9-858a-4ea6f4c636d9"
+              }
+            ],
+            "id": "fa79e9f0-e121-4b17-98ba-47f6f4e69608"
+          },
+          {
+            "title": "Quelaag's Sister",
+            "children": [
+              {
+                "title": "Talk [Old Witch's Ring]",
+                "labels": [
+                  "talk"
+                ],
+                "id": "22570063-7445-49b1-bbed-239be0d8a8ae"
+              },
+              {
+                "title": "Reinforce Estus Flask",
+                "labels": [
+                  "estus"
+                ],
+                "id": "b540cbf0-1679-409c-862e-c3fb44b98ea5"
+              },
+              {
+                "title": "Chaos Servant covenant",
+                "labels": [
+                  "info"
+                ],
+                "content": "This covenant has no special rules, abilities or requirements.",
+                "children": [
+                  {
+                    "labels": [
+                      "pyromancy"
+                    ],
+                    "title": "Pyromany: Great Chaos Fireball",
+                    "id": "1531e453-3080-463f-a0af-8a17af361b43"
+                  },
+                  {
+                    "labels": [
+                      "spoiler"
+                    ],
+                    "title": "Chaos Servant +2",
+                    "content": "Having rank +2 in this covenant is required for opening a shortcut much later in the game.",
+                    "id": "a19f286d-5693-41b3-9228-b0adbffcd7d1"
+                  },
+                  {
+                    "labels": [
+                      "pyromany"
+                    ],
+                    "title": "Pyromancy: Chaos Storm [Chaos Servant +2]",
+                    "id": "2c985646-6450-4b9f-9b8e-67002cf58ce4"
+                  }
+                ],
+                "id": "cdcef082-dfa8-4d3e-9f28-4fb7fa437a6f"
+              }
+            ],
+            "id": "49e3cbf8-f0a9-49d5-a633-57a3f3ee8540"
+          }
+        ],
+        "id": "4bfc63ff-3010-4074-8232-7513f4abbff2"
+      }
+    ],
+    "id": "0ac6dc8e-c5f4-444b-83a4-29afceb3add2"
+  },
+  {
+    "title": "Blighttown",
+    "children": [
+      {
+        "labels": [
+          "item"
+        ],
+        "title": "Key to New Londo Ruins",
+        "id": "22ce586d-f4e7-49e2-9bd7-f5b82b07df46"
+      }
+    ],
+    "id": "3ef9900c-e931-41d7-aa15-a14a626a292a"
+  },
+  {
+    "title": "Valley of the Drakes",
+    "children": [
+      {
+        "labels": [
+          "item"
+        ],
+        "title": "Dragon Scale (Undead Dragon)",
+        "id": "8fadb549-33a2-4358-9298-d02ea1296385"
+      },
+      {
+        "labels": [
+          "item"
+        ],
+        "title": "Astora's Straight Sword",
+        "id": "1921a601-4108-4ed5-9505-8325850440c7"
+      },
+      {
+        "labels": [
+          "item"
+        ],
+        "title": "Dragon Crest Shield",
+        "id": "57cede33-34bc-4d52-b9e5-73360bb3789d"
+      },
+      {
+        "labels": [
+          "item"
+        ],
+        "title": "Soul of a Proud Knight",
+        "id": "a3abffbf-452f-4faf-9f94-37b3614ba659"
+      },
+      {
+        "labels": [
+          "item"
+        ],
+        "title": "Large Soul of a Nameless Soldier",
+        "id": "e7867c5b-1ebf-4653-a78f-08110e2d40c3"
+      },
+      {
+        "labels": [
+          "shortcut"
+        ],
+        "title": "Gate to New Londo Ruins [Key to New Londo Ruins]",
+        "id": "f977c4b6-e482-4b9f-b133-f081efd882f8"
+      }
+    ],
+    "id": "4b64f6d8-236a-4bac-ae70-598c7d6de20c"
+  },
+  {
+    "title": "Firelink Shrine",
+    "children": [],
+    "id": "1036bb80-fe45-47e1-adb3-bbba7029a6dc"
+  }
+]

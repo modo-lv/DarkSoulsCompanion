@@ -19,11 +19,12 @@ require './app/routes'
 require './app/services/storage-service'
 require './app/services/external-data-service'
 require './app/services/data-export-service'
+require './app/services/notification-service'
 
 require './app/main-controller'
 
 !-> require "./modules/**/main.js", mode : \expand
 
-for module in [\guide \items \pc \weapon-finder \armor-calc]
-	require "./modules/#{module }/main.js"
+for module in [\tracker \items \pc \weapon-finder \armor-calc]
+	require "./modules/#{module}/main.js"
 

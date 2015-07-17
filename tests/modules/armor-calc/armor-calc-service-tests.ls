@@ -1,12 +1,13 @@
 _ <-! describe "armor-calc-service"
 
-var svc, edSvc, inventorySvc, itemUpSvc, itemSvc, storageSvc, itemIndexSvc
+var svc, edSvc, inventorySvc, itemUpSvc, itemSvc, storageSvc, itemIndexSvc, notifySvc
 
 beforeEach (done) !->
 	edSvc := new MockExternalDataService
 	storageSvc := new MockStorageService
+	notifySvc := new (testRequire 'app/services/notification-service') {}
 	itemIndexSvc := new (testRequire 'modules/items/item-index-service') edSvc
-	inventorySvc := new (testRequire 'modules/pc/inventory-service') storageSvc, itemIndexSvc, $q
+	inventorySvc := new (testRequire 'modules/pc/inventory-service') storageSvc, itemIndexSvc, notifySvc, $q
 	itemSvc := new (testRequire 'modules/items/item-service') edSvc, itemIndexSvc, inventorySvc, $q
 	itemUpSvc := itemSvc.upgradeComp
 	svc := new (testRequire 'modules/armor-calc/armor-calc-service') inventorySvc, itemSvc, $q

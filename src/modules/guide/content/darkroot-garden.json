@@ -76,5 +76,57 @@
       }
     ],
     "id": "45ae334b-ed71-46ca-836c-8d99ff71d781"
+  },
+  {
+    "title": "Main forest",
+    "children": [
+      {
+        "labels": "item",
+        "title": "Eastern Helm, Eastern Armor, Eastern Gauntlets, Eastern Leggings.",
+        "id": "2e238f27-dcba-4ce4-9478-733c9ce9670c"
+      },
+      {
+        "labels": "item",
+        "title": "Twin Humanities, Black Bow of Pharis, Pharis's Hat (Forest Hunter archer).",
+        "id": "8c820e7e-b38f-43c5-8fea-e83a36c103e1"
+      },
+      {
+        "labels": "Alvina of the Darkroot Woods",
+        "children": [
+          {
+            "labels": "warning",
+            "title": "Answering \"no\".",
+            "content": "Answering \"no\" to her first question will make her ignore the player for the rest of the playthrough.",
+            "setFlags": "alvina_dead",
+            "id": "4305947e-86db-4b20-ad6c-b62c0a79f773"
+          },
+          {
+            "labels": "covenant",
+            "title": "Forest Hunter covenant",
+            "setFlags": "forest_hunter_covenant",
+            "id": "24a85ceb-a6c3-49e5-affd-684d64055f6c"
+          },
+          {
+            "labels": "item",
+            "title": "Cat Covenant Ring",
+            "reqNot": "alvina_dead",
+            "id": "85e9c382-8ed6-4dd2-b863-5241c0f9e6b8"
+          }
+        ]
+      },
+      {
+        "title": "Shiva of the East",
+        "req": "forest_hunter_covenant",
+        "setFlags": "shiva_spawned",
+        "children": [
+          {
+            "title": "Dark Wood Grain Ring (Shiva's BodyGuard)",
+            "id": "697a781e-7b45-4c04-80f4-5b33b16fb2b3"
+          }
+        ],
+        "id": "83ebb787-a8b8-4c31-82c1-83fbbc0058af"
+      }
+    ],
+    "id": "e7ba0f4d-54db-427a-a29e-6e406bc6c00d"
   }
 ]

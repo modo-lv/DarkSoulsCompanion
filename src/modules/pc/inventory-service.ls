@@ -1,9 +1,9 @@
-angular? .module "dsc" .service "inventorySvc" (storageSvc, itemIndexSvc, $q) ->
+angular? .module "dsc" .service "inventorySvc" (storageSvc, itemIndexSvc, notificationSvc, $q) ->
 	new InventorySvc ...
 
 class InventorySvc
 
-	(@_storageSvc, @_itemIndexSvc, @$q) ->
+	(@_storageSvc, @_itemIndexSvc, @_notificationSvc, @$q) ->
 		@_inventory = []
 		@_models = require './models/inventory-models'
 
@@ -50,7 +50,47 @@ class InventorySvc
 			..amount = amount
 
 
-	add : (item, amount = 1) ~>
+	addAll : (items) ~>
+		invEntries = items |> map ~> if not it.amount? then { item : it, amount : 1 } else it
+
+		promises = []
+
+		for entry in invEntries
+			promises.push @add entry.item, entry.amount, false
+		@$q.all promises .then !~>
+			itemList = invEntries
+				|> map ~> "#{if it.amount > 1 then it.amount + " of " else ""}<strong>#{it.item.name}</strong>"
+				|> join ', '
+
+			@_notificationSvc.addInfo "Added #{itemList} to the inventory."
+
+
+	addAllByName : (namesAndAmounts) ~>
+		promises = []
+		for entry in namesAndAmounts
+			let entry = entry
+				promises.push @addByName entry.name, entry.amount, false
+
+		@$q.all promises .then (items) !~>
+			itemList = items
+				|> filter ~> it?
+				|> map ~> "<strong>#{it.name}</strong>"
+				|> join ', '
+
+			if itemList.length > 0
+				@_notificationSvc.addInfo "Added #{itemList} to the inventory."
+
+
+	addByName : (itemName, amount = 1, notify = true) ~>
+		@_itemIndexSvc.findEntryByName itemName
+		.then (item) ~>
+			if not item? then
+				@_notificationSvc.addError "Could not find item named '<strong>#{itemName}</strong>', cannot add to inventory."
+				return null
+			@add item, amount, notify
+
+
+	add : (item, amount = 1, notify = true) ~>
 		@findItemByUid item.uid
 		.then (invItem) !~>
 			if invItem?
@@ -58,6 +98,9 @@ class InventorySvc
 			else
 				invItem = @createInventoryItemFrom item, amount
 					.. |> @_inventory.push
+
+			if notify
+				@_notificationSvc.addInfo "Added #{if amount > 1 then amount + " of " else ""}<strong>#{invItem.name}</strong> to the inventory."
 
 			@save!
 			return invItem

@@ -32,6 +32,12 @@ class ItemIndexService
 			return entry
 
 
+	findEntryByName : (name) !~>
+		return @loadAllEntries!
+		.then (entries) ~>
+			entries |> find (.name == name)
+
+
 	findEntries : (byFilter) !~>
 		if typeof byFilter != \function
 			throw new Error "[byFilter] is not a function."

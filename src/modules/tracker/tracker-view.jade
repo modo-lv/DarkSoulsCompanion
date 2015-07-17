@@ -1,0 +1,46 @@
+#Tracker
+	h3 {{currentArea.name}}
+		angucomplete-alt#AreaSelector(
+			local-data="allAreas"
+			selected-object="selectedArea"
+			title-field="name"
+			search-fields="name"
+			clear-selected=true
+			placeholder="Go to..."
+			minlength=0
+		)
+
+	div(ng-include="'GuideEntry'")
+
+script#GuideEntry(type="text/ng-template")
+	.header(ng-if="entry.title")
+		.buttons
+			button(ng-click="entry.meta.isHidden = true")
+				| hide
+			button(
+				ng-if="entry.action && entry.meta.isAvailable"
+				ng-click="performActionOn(entry)"
+			)
+				| {{entry.action}}
+
+		.title(
+			ng-click="expandOrCollapse($event, entry)"
+		)
+			| {{entry.title}}
+		span.label(ng-repeat="label in entry.labels")
+			| {{label}}
+	.content(ng-hide="entry.meta.isCollapsed")
+		div(ng-if="entry.content" ng-bind-html="entry.content")
+		ul(
+			ng-if="entry.children"
+			ng-init="depth = depth + 1"
+			ng-class="depth == 1 ? 'root' : ''"
+		)
+			li.entry(
+				ng-repeat="entry in entry.children"
+				ng-include="'GuideEntry'"
+				ng-class="entry.meta.additionalClasses"
+				ng-if="!entry.meta.isHidden"
+				data-id="{{entry.id}}"
+				data-labels="{{entry.labels}}"
+			)

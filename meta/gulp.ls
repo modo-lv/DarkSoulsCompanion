@@ -28,7 +28,7 @@ global.cfg = require "./gulp-config"
 #
 requireDir "./modules"
 
-gulp.task "build-modules", ["guide/build"]
+gulp.task "build-modules", ["tracker/build"]
 
 
 #
@@ -72,8 +72,13 @@ gulp.task "copy-require-files", ->
 
 
 gulp.task "copy-static-files", ->
-	gulp.src cfg.src.staticFiles
+	gulp.src [cfg.src.staticFiles, cfg.src.staticModuleFiles]
 		.pipe gulp.dest cfg.dst.dir
+
+
+gulp.task "copy-e2e-static-files", ->
+	gulp.src cfg.src.e2eStaticFiles
+		.pipe gulp.dest cfg.dst.e2eDir
 
 
 

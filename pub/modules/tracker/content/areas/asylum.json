@@ -1,0 +1,191 @@
+[
+  {
+    "title": "Fog gates",
+    "labels": "spoiler",
+    "children": [
+      {
+        "title": "First",
+        "content": "Passing through.",
+        "id": "d67ac8ce-8748-42f9-aaf4-590ca3226aa2"
+      },
+      {
+        "title": "Second",
+        "content": "{Asylum Demon} boss battle.",
+        "id": "6d17265a-510c-4bf5-b0aa-bd39e2ee0f90"
+      }
+    ],
+    "id": "0343b294-21ab-4cca-96e6-b11ece3998f0"
+  },
+  {
+    "title": "Starting class and equipment",
+    "if": "global|pc-class-chosen|not",
+    "content": "Player character's starting class and equipment, including items picked up after leaving the cell.",
+    "children": [
+      {
+        "labels": "item",
+        "title": "Warrior",
+        "action": "choose",
+        "items": "Longsword, Heater Shield, Standard Helm, Hard Leather Armor, Hard Leather Gauntlets, Hard Leather Boots",
+        "setVar": "global|pc-class-chosen",
+        "id": "5a8fe55d-15c1-4d47-ba52-5b79f5e05c4c"
+      },
+      {
+        "labels": "item",
+        "title": "Knight",
+        "action": "choose",
+        "items": "Broadsword, Tower Kite Shield, Knight Helm, Knight Armor, Knight Gauntlets, Knight Leggings",
+        "setVar": "global|pc-class-chosen",
+        "id": "9c4f5504-f6f1-4e5d-8eca-e3e9fb960fae"
+      },
+      {
+        "labels": "item",
+        "title": "Wanderer",
+        "action": "choose",
+        "items": "Scimitar, Leather Shield, Wanderer Hood, Wanderer Coat, Wanderer Manchette, Wanderer Boots",
+        "setVar": "global|pc-class-chosen",
+        "id": "abe08535-2e8e-4756-9aaf-e3e65ef61589"
+      },
+      {
+        "labels": "item",
+        "title": "Thief",
+        "action": "choose",
+        "items": "Bandit's Knife, Target Shield, Master Key, Thief Mask, Black Leather Armor, Black Leather Gloves, Black Leather Boots",
+        "setVar": "global|pc-class-chosen",
+        "id": "54612391-9897-41e8-bfe4-e8cd5a639c9d"
+      },
+      {
+        "labels": "item",
+        "title": "Bandit",
+        "action": "choose",
+        "items": "Battle Axe, Spider Shield, Brigand Hood, Brigand Armor, Brigand Gauntlets, Brigand Trousers",
+        "setVar": "global|pc-class-chosen",
+        "id": "f8707b0f-1b01-422a-8de3-7341b4bf64bd"
+      },
+      {
+        "labels": "item",
+        "setVar": "global|pc-class-chosen",
+        "title": "Hunter",
+        "action": "choose",
+        "items": "Shortsword, Short Bow, Large Leather Shield, Standard Arrow (30), Leather Armor, Leather Gloves, Leather Boots",
+        "id": "4c3b55d5-a376-418e-8e7a-2c9fea4c5aab"
+      },
+      {
+        "labels": "item",
+        "items": "Sorcery: Soul Arrow, Dagger, Small Leather Shield, Sorcerer's Catalyst, Sorcerer Hat, Sorcerer Cloak, Sorcerer Gauntlets, Sorcerer Boots",
+        "action": "choose",
+        "title": "Sorcerer",
+        "setVar": "global|pc-class-chosen",
+        "id": "b60541a0-501b-47f2-8937-55d219b2b088"
+      },
+      {
+        "labels": "item",
+        "title": "Pyromancer",
+        "items": "Pyromancy: Fireball, Hand Axe, Cracked Round Shield, Pyromancy Flame, Tattered Cloth Hood, Tattered Cloth Robe, Tattered Cloth Manchette, Heavy Boots",
+        "action": "choose",
+        "setVar": "global|pc-class-chosen",
+        "id": "75465b05-591b-4583-806f-f32fadb0c3b4"
+      },
+      {
+        "labels": "item",
+        "title": "Cleric",
+        "items": "Miracle: Heal, Mace, East-West Shield, Canvas Talisman, Holy Robe, Traveling Gloves, Holy Trousers",
+        "setVar": "global|pc-class-chosen",
+        "action": "choose",
+        "id": "cdfffc55-ad58-429c-813f-7b4bafb350e2"
+      },
+      {
+        "labels": "item",
+        "title": "Deprived",
+        "items": "Club, Plank Shield",
+        "action": "choose",
+        "setVar": "global|pc-class-chosen",
+        "id": "7701b579-c296-4e7f-a5f6-ad6277341982"
+      }
+    ],
+    "id": "8ae22ec6-47de-49fa-a99a-8ae8f4163fa8"
+  },
+  {
+    "title": "Dungeon Cell Key",
+    "labels": "item",
+    "id": "17acde8d-2189-427c-9c2f-409d57941678"
+  },
+  {
+    "title": "First (ground) floor",
+    "children": [
+      {
+        "title": "Asylum Courtyard",
+        "labels": "bonfire",
+        "id": "22e149fe-aed3-40d0-9d31-96298e060696"
+      },
+      {
+        "title": "Asylum Demon",
+        "labels": "enemy",
+        "if": "enemy|Asylum Demon",
+        "items": "Demon's Great Hammer, Humanity",
+        "id": "24cd3200-ce6a-4525-b622-63a466a4f4c8"
+      },
+      {
+        "title": "Class-specific shield",
+        "id": "a7197514-6efd-4c4c-96e0-f03c7b0c55bc"
+      },
+      {
+        "title": "Class-specific weapon",
+        "id": "57c41b06-26f5-4cdb-975b-5f41f9f01b5b"
+      }
+    ],
+    "id": "9ad41a81-65d7-4d62-9aa0-1c486bde0032"
+  },
+  {
+    "title": "Second floor",
+    "children": [
+      {
+        "title": "Gate back to courtyard",
+        "labels": "shortcut",
+        "id": "8254abad-dd1c-4d78-9156-9920810784ea"
+      },
+      {
+        "title": "Oscar, Knight of Astora",
+        "labels": "npc",
+        "children": [
+          {
+            "title": "Answering \"no\"",
+            "labels": "warning",
+            "content": "Answering \"no\" will permanently skip the rest of Oscar's dialog.",
+            "id": "05c8f1c1-73ee-4668-bfed-095d19949bdc"
+          },
+          {
+            "labels": "item",
+            "title": "Estus Flask, Undead Asylum F2 East Key",
+            "id": "f6e3a0ee-253b-41e1-8592-79f12a24bd4c"
+          },
+          {
+            "labels": "item",
+            "title": "Big Pilgrim's Key",
+            "if": "enemy|Asylum Demon|dead",
+            "id": "9ea2a34f-ddf8-4b62-a0be-1fd2c2a14a52"
+          }
+        ],
+        "id": "9fc65ae9-3120-4595-a434-35f3edb4b303"
+      }
+    ],
+    "id": "3926dff5-d2f1-4106-b164-9fe402651cbb"
+  },
+  {
+    "title": "Third floor",
+    "if": "item|Undead Asylum F2 East Key",
+    "children": [
+      {
+        "title": "Class-specific secondary weapon (catalyst, bow, pyromancy flame or talisman), if applicable",
+        "id": "f4791e45-08d5-4ac7-9325-bf56f75c0f0f"
+      },
+      {
+        "title": "Asylum Demon",
+        "labels": "enemy",
+        "if": "enemy|Asylum Demon",
+        "items": "Big Pilgrim's Key, Humanity",
+        "id": "5908c483-d1bd-4b86-ae6f-48c031ffc2f8"
+      }
+    ],
+    "id": "e710824b-6f65-4ed1-9014-cb67c87354db"
+  }
+]

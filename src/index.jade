@@ -25,6 +25,17 @@ html(ng-app="dsc")
 		script(src="app.js")
 
 body(ng-controller="mainController")
+	#Notifications(ng-if="$root.notificationLog.length > 0")
+		button(
+			ng-click="dismissNotifications()"
+		)
+			| Dismiss all
+		br
+		ul: li(
+			ng-repeat="message in $root.notificationLog"
+			ng-class="message.type"
+			ng-bind-html="message.text"
+		)
 	header
 		h1 Dark Souls Companion
 		h2

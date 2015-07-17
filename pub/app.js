@@ -1326,11 +1326,12 @@ function curry$(f, bound){
   require('./app/services/storage-service');
   require('./app/services/external-data-service');
   require('./app/services/data-export-service');
+  require('./app/services/notification-service');
   require('./app/main-controller');
   (function(){
-    require('./modules/armor-calc/main.js');require('./modules/guide/main.js');require('./modules/items/main.js');require('./modules/pc/main.js');require('./modules/weapon-finder/main.js');
+    require('./modules/armor-calc/main.js');require('./modules/guide/main.js');require('./modules/items/main.js');require('./modules/pc/main.js');require('./modules/tracker/main.js');require('./modules/weapon-finder/main.js');
   });
-  for (i$ = 0, len$ = (ref$ = ['guide', 'items', 'pc', 'weapon-finder', 'armor-calc']).length; i$ < len$; ++i$) {
+  for (i$ = 0, len$ = (ref$ = ['tracker', 'items', 'pc', 'weapon-finder', 'armor-calc']).length; i$ < len$; ++i$) {
     module = ref$[i$];
     require("./modules/" + module + "/main.js");
   }
@@ -1342,11 +1343,11 @@ function curry$(f, bound){
 }).call(this);
 
 }).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
-},{"./app/main-controller":8,"./app/routes":9,"./app/services/data-export-service":10,"./app/services/external-data-service":11,"./app/services/storage-service":12,"./modules/armor-calc/main.js":16,"./modules/guide/main.js":19,"./modules/items/main.js":25,"./modules/pc/main.js":30,"./modules/weapon-finder/main.js":36,"prelude-ls":6}],8:[function(require,module,exports){
+},{"./app/main-controller":8,"./app/routes":9,"./app/services/data-export-service":10,"./app/services/external-data-service":11,"./app/services/notification-service":12,"./app/services/storage-service":13,"./modules/armor-calc/main.js":17,"./modules/guide/main.js":20,"./modules/items/main.js":26,"./modules/pc/main.js":31,"./modules/tracker/main.js":35,"./modules/weapon-finder/main.js":40,"prelude-ls":6}],8:[function(require,module,exports){
 (function(){
   var MainController;
   if (typeof angular != 'undefined' && angular !== null) {
-    angular.module("dsc").controller("mainController", function($scope, $location, storageSvc, inventorySvc, $route){
+    angular.module("dsc").controller("mainController", function($scope, $location, storageSvc, inventorySvc, notificationSvc, $route){
       return (function(func, args, ctor) {
         ctor.prototype = func.prototype;
         var child = new ctor, result = func.apply(child, args), t;
@@ -1357,20 +1358,22 @@ function curry$(f, bound){
   MainController = (function(){
     MainController.displayName = 'MainController';
     var prototype = MainController.prototype, constructor = MainController;
-    function MainController($scope, $location, _storageSvc, _inventorySvc, $route){
+    function MainController($scope, $location, _storageSvc, _inventorySvc, _notificationSvc, $route){
       var this$ = this;
       this.$scope = $scope;
       this.$location = $location;
       this._storageSvc = _storageSvc;
       this._inventorySvc = _inventorySvc;
+      this._notificationSvc = _notificationSvc;
       this.$route = $route;
+      this.dismissNotifications = bind$(this, 'dismissNotifications', prototype);
       this.resetProfile = bind$(this, 'resetProfile', prototype);
       this.resetProfileEditStatus = bind$(this, 'resetProfileEditStatus', prototype);
       this.deleteProfile = bind$(this, 'deleteProfile', prototype);
       this.switchProfile = bind$(this, 'switchProfile', prototype);
       this.addNewProfile = bind$(this, 'addNewProfile', prototype);
       this.profilesUpdated = bind$(this, 'profilesUpdated', prototype);
-      this.setupEventHandlers = bind$(this, 'setupEventHandlers', prototype);
+      this.wireUp = bind$(this, 'wireUp', prototype);
       this.loadAndInit = bind$(this, 'loadAndInit', prototype);
       this.setup = bind$(this, 'setup', prototype);
       this.$scope.profileEditStatus = null;
@@ -1383,13 +1386,13 @@ function curry$(f, bound){
       });
       this.setup();
       this.loadAndInit();
-      this.setupEventHandlers();
+      this.wireUp();
     }
     prototype.setup = function(){
       this.$scope.menu = [
         {
-          path: "/guide",
-          name: "Game info & checklist"
+          path: "/tracker",
+          name: "Game state tracker"
         }, {
           path: "/pc",
           name: "Stats & inventory"
@@ -1409,9 +1412,9 @@ function curry$(f, bound){
       this._storageSvc.switchToCurrentProfile();
       this.profilesUpdated();
     };
-    prototype.setupEventHandlers = function(){
+    prototype.wireUp = function(){
       var i$, ref$, len$, func;
-      for (i$ = 0, len$ = (ref$ = ['addNewProfile', 'switchProfile', 'deleteProfile', 'resetProfile', 'resetProfileEditStatus']).length; i$ < len$; ++i$) {
+      for (i$ = 0, len$ = (ref$ = ['addNewProfile', 'switchProfile', 'deleteProfile', 'resetProfile', 'resetProfileEditStatus', 'dismissNotifications']).length; i$ < len$; ++i$) {
         func = ref$[i$];
         this.$scope[func] = this[func];
       }
@@ -1450,6 +1453,9 @@ function curry$(f, bound){
       this._storageSvc.clearProfile();
       this.switchProfile();
     };
+    prototype.dismissNotifications = function(){
+      this._notificationSvc.clear();
+    };
     return MainController;
   }());
   if (typeof module != 'undefined' && module !== null) {
@@ -1463,9 +1469,9 @@ function curry$(f, bound){
 },{}],9:[function(require,module,exports){
 (function(){
   angular.module("dsc").config(function($routeProvider){
-    $routeProvider.when('/guide/:section', {
-      templateUrl: 'modules/guide/guide-view.html',
-      controller: 'GuideController'
+    $routeProvider.when('/tracker/:section', {
+      templateUrl: 'modules/tracker/tracker-view.html',
+      controller: 'trackerController'
     }).when('/items', {
       templateUrl: 'modules/items/view.html',
       controller: 'ItemsController'
@@ -1479,7 +1485,7 @@ function curry$(f, bound){
       templateUrl: 'modules/armor-calc/armor-calc-view.html',
       controller: 'ArmorCalcController'
     }).otherwise({
-      redirectTo: '/guide/intro'
+      redirectTo: '/tracker/intro'
     });
   });
 }).call(this);
@@ -1571,6 +1577,55 @@ function curry$(f, bound){
 }).call(this);
 
 },{}],12:[function(require,module,exports){
+(function(){
+  var NotificationService;
+  if (typeof angular != 'undefined' && angular !== null) {
+    angular.module("dsc").service("notificationSvc", function($rootScope, $sce){
+      return (function(func, args, ctor) {
+        ctor.prototype = func.prototype;
+        var child = new ctor, result = func.apply(child, args), t;
+        return (t = typeof result)  == "object" || t == "function" ? result || child : child;
+  })(NotificationService, arguments, function(){});
+    });
+  }
+  NotificationService = (function(){
+    NotificationService.displayName = 'NotificationService';
+    var prototype = NotificationService.prototype, constructor = NotificationService;
+    function NotificationService($rootScope, $sce){
+      var ref$;
+      this.$rootScope = $rootScope;
+      this.$sce = $sce;
+      this.addError = bind$(this, 'addError', prototype);
+      this.addInfo = bind$(this, 'addInfo', prototype);
+      this.clear = bind$(this, 'clear', prototype);
+      this.log = (ref$ = this.$rootScope).notificationLog || (ref$.notificationLog = []);
+    }
+    prototype.clear = function(){
+      this.log.length = 0;
+    };
+    prototype.addInfo = function(text){
+      return this.log.push({
+        type: 'info',
+        text: this.$sce != null ? this.$sce.trustAsHtml(text) : text
+      });
+    };
+    prototype.addError = function(text){
+      return this.log.push({
+        type: 'error',
+        text: this.$sce != null ? this.$sce.trustAsHtml(text) : text
+      });
+    };
+    return NotificationService;
+  }());
+  if (typeof module != 'undefined' && module !== null) {
+    module.exports = NotificationService;
+  }
+  function bind$(obj, key, target){
+    return function(){ return (target || obj)[key].apply(obj, arguments) };
+  }
+}).call(this);
+
+},{}],13:[function(require,module,exports){
 (function(){
   var StorageService;
   if (typeof angular != 'undefined' && angular !== null) {
@@ -1714,7 +1769,7 @@ function curry$(f, bound){
   }
 }).call(this);
 
-},{}],13:[function(require,module,exports){
+},{}],14:[function(require,module,exports){
 (function(){
   angular.module("dsc").controller("ArmorCalcController", function($q, $scope, storageSvc, itemSvc, armorCalcSvc, statSvc, uiGridConstants){
     var ref$, x$;
@@ -1815,7 +1870,7 @@ function curry$(f, bound){
   });
 }).call(this);
 
-},{"./controller/gridOptions":15}],14:[function(require,module,exports){
+},{"./controller/gridOptions":16}],15:[function(require,module,exports){
 (function(){
   var ArmorCalcSvc;
   if (typeof angular != 'undefined' && angular !== null) {
@@ -2223,7 +2278,7 @@ function curry$(f, bound){
   }
 }).call(this);
 
-},{}],15:[function(require,module,exports){
+},{}],16:[function(require,module,exports){
 (function(){
   if (typeof module != 'undefined' && module !== null) {
     module.exports = function(uiGridConstants){
@@ -2307,14 +2362,14 @@ function curry$(f, bound){
   }
 }).call(this);
 
-},{}],16:[function(require,module,exports){
+},{}],17:[function(require,module,exports){
 (function(){
   angular.module("dsc");
   require('./armor-calc-service');
   require('./armor-calc-controller');
 }).call(this);
 
-},{"./armor-calc-controller":13,"./armor-calc-service":14}],17:[function(require,module,exports){
+},{"./armor-calc-controller":14,"./armor-calc-service":15}],18:[function(require,module,exports){
 (function(){
   var GuideController;
   if (typeof angular != 'undefined' && angular !== null) {
@@ -2550,7 +2605,7 @@ function curry$(f, bound){
   }
 }).call(this);
 
-},{}],18:[function(require,module,exports){
+},{}],19:[function(require,module,exports){
 (function(){
   angular.module("dsc").service("guideSvc", function($resource){
     var svc;
@@ -2562,13 +2617,13 @@ function curry$(f, bound){
   });
 }).call(this);
 
-},{}],19:[function(require,module,exports){
+},{}],20:[function(require,module,exports){
 (function(){
   require('./guide-controller');
   require('./guide-service');
 }).call(this);
 
-},{"./guide-controller":17,"./guide-service":18}],20:[function(require,module,exports){
+},{"./guide-controller":18,"./guide-service":19}],21:[function(require,module,exports){
 (function(){
   var ItemServiceUpgradeComponent;
   ItemServiceUpgradeComponent = (function(){
@@ -2922,7 +2977,7 @@ function curry$(f, bound){
   }
 }).call(this);
 
-},{}],21:[function(require,module,exports){
+},{}],22:[function(require,module,exports){
 (function(){
   if (typeof module != 'undefined' && module !== null) {
     module.exports = function($scope, uiGridConstants){
@@ -3147,7 +3202,7 @@ function curry$(f, bound){
   }
 }).call(this);
 
-},{}],22:[function(require,module,exports){
+},{}],23:[function(require,module,exports){
 (function(){
   var ItemIndexService;
   if (typeof angular != 'undefined' && angular !== null) {
@@ -3166,6 +3221,7 @@ function curry$(f, bound){
       this.findByArmorSet = bind$(this, 'findByArmorSet', prototype);
       this.findArmorSetFor = bind$(this, 'findArmorSetFor', prototype);
       this.findEntries = bind$(this, 'findEntries', prototype);
+      this.findEntryByName = bind$(this, 'findEntryByName', prototype);
       this.findEntryByUid = bind$(this, 'findEntryByUid', prototype);
       this.clear = bind$(this, 'clear', prototype);
       this._index = [];
@@ -3193,6 +3249,15 @@ function curry$(f, bound){
         })(
         entries);
         return entry;
+      });
+    };
+    prototype.findEntryByName = function(name){
+      var this$ = this;
+      return this.loadAllEntries().then(function(entries){
+        return find(function(it){
+          return it.name === name;
+        })(
+        entries);
       });
     };
     prototype.findEntries = function(byFilter){
@@ -3277,7 +3342,7 @@ function curry$(f, bound){
   }
 }).call(this);
 
-},{}],23:[function(require,module,exports){
+},{}],24:[function(require,module,exports){
 (function(){
   var ItemService;
   if (typeof angular != 'undefined' && angular !== null) {
@@ -3479,7 +3544,7 @@ function curry$(f, bound){
   }
 }).call(this);
 
-},{"./components/item-service-upgrade-component":20,"./models/item-models":26}],24:[function(require,module,exports){
+},{"./components/item-service-upgrade-component":21,"./models/item-models":27}],25:[function(require,module,exports){
 (function(){
   angular.module("dsc").controller("ItemsController", function($scope, dataExportSvc, itemSvc, uiGridConstants){
     var i$, ref$, len$, itemType;
@@ -3539,14 +3604,14 @@ function curry$(f, bound){
   }
 }).call(this);
 
-},{"./config/items-grid-options":21}],25:[function(require,module,exports){
+},{"./config/items-grid-options":22}],26:[function(require,module,exports){
 (function(){
   require('./items-controller');
   require('./item-service');
   require('./item-index-service');
 }).call(this);
 
-},{"./item-index-service":22,"./item-service":23,"./items-controller":24}],26:[function(require,module,exports){
+},{"./item-index-service":23,"./item-service":24,"./items-controller":25}],27:[function(require,module,exports){
 (function(){
   var ItemModel, EquipmentModel, WeaponModel, ArmorModel;
   if (typeof module != 'undefined' && module !== null) {
@@ -3726,7 +3791,7 @@ function curry$(f, bound){
   }
 }).call(this);
 
-},{}],27:[function(require,module,exports){
+},{}],28:[function(require,module,exports){
 (function(){
   if (typeof module != 'undefined' && module !== null) {
     module.exports = function(uiGridConstants){
@@ -3766,7 +3831,7 @@ function curry$(f, bound){
   }
 }).call(this);
 
-},{}],28:[function(require,module,exports){
+},{}],29:[function(require,module,exports){
 (function(){
   angular.module("dsc").filter("toStatArray", function(statSvc){
     var output;
@@ -3786,11 +3851,11 @@ function curry$(f, bound){
   });
 }).call(this);
 
-},{}],29:[function(require,module,exports){
+},{}],30:[function(require,module,exports){
 (function(){
   var InventorySvc;
   if (typeof angular != 'undefined' && angular !== null) {
-    angular.module("dsc").service("inventorySvc", function(storageSvc, itemIndexSvc, $q){
+    angular.module("dsc").service("inventorySvc", function(storageSvc, itemIndexSvc, notificationSvc, $q){
       return (function(func, args, ctor) {
         ctor.prototype = func.prototype;
         var child = new ctor, result = func.apply(child, args), t;
@@ -3801,13 +3866,17 @@ function curry$(f, bound){
   InventorySvc = (function(){
     InventorySvc.displayName = 'InventorySvc';
     var prototype = InventorySvc.prototype, constructor = InventorySvc;
-    function InventorySvc(_storageSvc, _itemIndexSvc, $q){
+    function InventorySvc(_storageSvc, _itemIndexSvc, _notificationSvc, $q){
       this._storageSvc = _storageSvc;
       this._itemIndexSvc = _itemIndexSvc;
+      this._notificationSvc = _notificationSvc;
       this.$q = $q;
       this.clear = bind$(this, 'clear', prototype);
       this.remove = bind$(this, 'remove', prototype);
       this.add = bind$(this, 'add', prototype);
+      this.addByName = bind$(this, 'addByName', prototype);
+      this.addAllByName = bind$(this, 'addAllByName', prototype);
+      this.addAll = bind$(this, 'addAll', prototype);
       this.createInventoryItemFrom = bind$(this, 'createInventoryItemFrom', prototype);
       this.findItemByUid = bind$(this, 'findItemByUid', prototype);
       this.load = bind$(this, 'load', prototype);
@@ -3874,9 +3943,75 @@ function curry$(f, bound){
       x$.amount = amount;
       return x$;
     };
-    prototype.add = function(item, amount){
+    prototype.addAll = function(items){
+      var invEntries, promises, i$, len$, entry, this$ = this;
+      invEntries = map(function(it){
+        if (it.amount == null) {
+          return {
+            item: it,
+            amount: 1
+          };
+        } else {
+          return it;
+        }
+      })(
+      items);
+      promises = [];
+      for (i$ = 0, len$ = invEntries.length; i$ < len$; ++i$) {
+        entry = invEntries[i$];
+        promises.push(this.add(entry.item, entry.amount, false));
+      }
+      return this.$q.all(promises).then(function(){
+        var itemList;
+        itemList = join(', ')(
+        map(function(it){
+          return (it.amount > 1 ? it.amount + " of " : "") + "<strong>" + it.item.name + "</strong>";
+        })(
+        invEntries));
+        this$._notificationSvc.addInfo("Added " + itemList + " to the inventory.");
+      });
+    };
+    prototype.addAllByName = function(namesAndAmounts){
+      var promises, i$, len$, entry, this$ = this;
+      promises = [];
+      for (i$ = 0, len$ = namesAndAmounts.length; i$ < len$; ++i$) {
+        entry = namesAndAmounts[i$];
+        (fn$.call(this, entry));
+      }
+      return this.$q.all(promises).then(function(items){
+        var itemList;
+        itemList = join(', ')(
+        map(function(it){
+          return "<strong>" + it.name + "</strong>";
+        })(
+        filter(function(it){
+          return it != null;
+        })(
+        items)));
+        if (itemList.length > 0) {
+          this$._notificationSvc.addInfo("Added " + itemList + " to the inventory.");
+        }
+      });
+      function fn$(entry){
+        promises.push(this.addByName(entry.name, entry.amount, false));
+      }
+    };
+    prototype.addByName = function(itemName, amount, notify){
       var this$ = this;
       amount == null && (amount = 1);
+      notify == null && (notify = true);
+      return this._itemIndexSvc.findEntryByName(itemName).then(function(item){
+        if (item == null) {
+          this$._notificationSvc.addError("Could not find item named '<strong>" + itemName + "</strong>', cannot add to inventory.");
+          return null;
+        }
+        return this$.add(item, amount, notify);
+      });
+    };
+    prototype.add = function(item, amount, notify){
+      var this$ = this;
+      amount == null && (amount = 1);
+      notify == null && (notify = true);
       return this.findItemByUid(item.uid).then(function(invItem){
         var x$;
         if (invItem != null) {
@@ -3885,6 +4020,9 @@ function curry$(f, bound){
           x$ = invItem = this$.createInventoryItemFrom(item, amount);
           this$._inventory.push(
           x$);
+        }
+        if (notify) {
+          this$._notificationSvc.addInfo("Added " + (amount > 1 ? amount + " of " : "") + "<strong>" + invItem.name + "</strong> to the inventory.");
         }
         this$.save();
         return invItem;
@@ -3922,7 +4060,7 @@ function curry$(f, bound){
   }
 }).call(this);
 
-},{"./models/inventory-models":31}],30:[function(require,module,exports){
+},{"./models/inventory-models":32}],31:[function(require,module,exports){
 (function(){
   angular.module("dsc");
   require("./inventory-service");
@@ -3931,7 +4069,7 @@ function curry$(f, bound){
   require("./pc-controller");
 }).call(this);
 
-},{"./filters/stat-filters":28,"./inventory-service":29,"./pc-controller":32,"./stat-service":33}],31:[function(require,module,exports){
+},{"./filters/stat-filters":29,"./inventory-service":30,"./pc-controller":33,"./stat-service":34}],32:[function(require,module,exports){
 (function(){
   var InventoryItemModel;
   InventoryItemModel = (function(){
@@ -3971,7 +4109,7 @@ function curry$(f, bound){
   }
 }).call(this);
 
-},{}],32:[function(require,module,exports){
+},{}],33:[function(require,module,exports){
 (function(){
   var PcController;
   if (typeof angular != 'undefined' && angular !== null) {
@@ -4077,8 +4215,7 @@ function curry$(f, bound){
       var armorSet, this$ = this;
       armorSet = selection.originalObject;
       this._itemIndexSvc.findByArmorSet(armorSet).then(function(armors){
-        each(this$.$scope.add)(
-        armors);
+        this$._inventorySvc.addAll(armors);
       });
     };
     prototype.upgrade = function(invEntry){
@@ -4127,7 +4264,7 @@ function curry$(f, bound){
   }
 }).call(this);
 
-},{"./config/inventory-grid-opts":27}],33:[function(require,module,exports){
+},{"./config/inventory-grid-opts":28}],34:[function(require,module,exports){
 (function(){
   var StatService;
   if (typeof angular != 'undefined' && angular !== null) {
@@ -4224,7 +4361,300 @@ function curry$(f, bound){
   }
 }).call(this);
 
-},{}],34:[function(require,module,exports){
+},{}],35:[function(require,module,exports){
+(function(){
+  require('./tracker-service');
+  require('./tracker-controller');
+}).call(this);
+
+},{"./tracker-controller":36,"./tracker-service":37}],36:[function(require,module,exports){
+(function(){
+  var TrackerController;
+  if (typeof angular != 'undefined' && angular !== null) {
+    angular.module("dsc").controller("trackerController", function($sce, $scope, trackerSvc, notificationSvc, inventorySvc){
+      return (function(func, args, ctor) {
+        ctor.prototype = func.prototype;
+        var child = new ctor, result = func.apply(child, args), t;
+        return (t = typeof result)  == "object" || t == "function" ? result || child : child;
+  })(TrackerController, arguments, function(){});
+    });
+  }
+  TrackerController = (function(){
+    TrackerController.displayName = 'TrackerController';
+    var prototype = TrackerController.prototype, constructor = TrackerController;
+    function TrackerController($sce, $scope, _trackerSvc, _notificationSvc, _inventorySvc){
+      this.$sce = $sce;
+      this.$scope = $scope;
+      this._trackerSvc = _trackerSvc;
+      this._notificationSvc = _notificationSvc;
+      this._inventorySvc = _inventorySvc;
+      this.addItemsFrom = bind$(this, 'addItemsFrom', prototype);
+      this.set = bind$(this, 'set', prototype);
+      this.checkAvailability = bind$(this, 'checkAvailability', prototype);
+      this.process = bind$(this, 'process', prototype);
+      this.expandOrCollapse = bind$(this, 'expandOrCollapse', prototype);
+      this.performActionOn = bind$(this, 'performActionOn', prototype);
+      this.wireUp = bind$(this, 'wireUp', prototype);
+      this.loadUp = bind$(this, 'loadUp', prototype);
+      this.setUp = bind$(this, 'setUp', prototype);
+      this.setUp();
+      this.wireUp();
+      this.loadUp();
+    }
+    prototype.setUp = function(){
+      this.$scope.allAreas = [{
+        key: 'asylum',
+        name: "Northern Undead Asylum"
+      }];
+      this.$scope.areaContent = [];
+      this.$scope.selectedArea = {
+        originalObject: this.$scope.allAreas[0]
+      };
+      this.$scope.currentArea = this.$scope.allAreas[0];
+      this.$scope.entryIndex = {};
+      this.$scope.globals = {
+        "enemies": {},
+        "npcs": [],
+        "vars": {
+          "asylum-done": false,
+          "pc-class": null
+        }
+      };
+    };
+    prototype.loadUp = function(){
+      var this$ = this;
+      this._trackerSvc.loadAreaContent(this.$scope.currentArea.key).then(function(content){
+        each(function(it){
+          return this$.process(it);
+        })(
+        content);
+        this$.checkAvailability(content);
+        this$.$scope.areaContent = content;
+        return this$.$scope.entry = {
+          children: content
+        };
+      });
+    };
+    prototype.wireUp = function(){
+      var i$, ref$, len$, func;
+      for (i$ = 0, len$ = (ref$ = ['performActionOn', 'expandOrCollapse']).length; i$ < len$; ++i$) {
+        func = ref$[i$];
+        this.$scope[func] = this[func];
+      }
+    };
+    prototype.performActionOn = function(entry){
+      var ref$, key$, ref1$, parts, name, value;
+      switch (entry.action) {
+      case 'kill':
+        ((ref$ = (ref1$ = this.$scope.globals).enemies || (ref1$.enemies = {}))[key$ = entry.title] || (ref$[key$] = {})).isDead = true;
+        break;
+      case 'pick-up':
+        this.addItemsFrom(entry['title']);
+      }
+      if (entry['setVar'] != null) {
+        parts = entry['setVar'].split('|');
+        switch (parts[0]) {
+        case 'global':
+          parts = parts[1].split(':');
+          name = parts[0];
+          value = (ref$ = parts[1]) != null ? ref$ : true;
+          this.$scope.globals['vars'][name] = value;
+        }
+      }
+      if (entry['items'] != null) {
+        this.addItemsFrom(entry['items']);
+      }
+      entry.meta.isHidden = true;
+      return this.checkAvailability();
+    };
+    prototype.expandOrCollapse = function($event, entry){
+      $event.stopPropagation();
+      return entry.meta.isCollapsed = !entry.meta.isCollapsed;
+    };
+    prototype.process = function(entry){
+      var x$, ref$, this$ = this;
+      x$ = entry.meta || (entry.meta = {});
+      x$.isCollapsed = (ref$ = (x$.userData || (x$.userData = {})).isCollapsed) != null
+        ? ref$
+        : in$('spoiler', entry.labels);
+      x$.isHidden = (ref$ = (x$.userData || (x$.userData = {})).isHidden) != null ? ref$ : false;
+      x$.isExpandable = entry.children != null || entry.content != null;
+      if (in$('enemy', entry.labels)) {
+        entry.action == null && (entry.action = 'kill');
+      }
+      if (in$('item', entry.labels)) {
+        entry.action == null && (entry.action = 'pick-up');
+      }
+      if (entry.children != null) {
+        each(function(it){
+          return this$.process(it);
+        })(
+        entry.children);
+      }
+      entry.content = this.$sce.trustAsHtml(entry.content);
+      ((ref$ = this.$scope).entryIndex || (ref$.entryIndex = {}))[entry.id] = entry;
+    };
+    prototype.checkAvailability = function(entries){
+      var i$, len$, entry, ref$, this$ = this;
+      entries == null && (entries = this.$scope.areaContent);
+      for (i$ = 0, len$ = entries.length; i$ < len$; ++i$) {
+        entry = entries[i$];
+        entry.meta.isAvailable = true;
+        if (((ref$ = entry.parent) != null ? ref$.meta : void 8) != null && entry.parent.meta.isAvailable === false) {
+          entry.meta.isAvailable = false;
+          continue;
+        }
+        if (entry['if'] != null) {
+          if (typeof entry['if'] === 'string') {
+            entry['if'] = [entry['if']];
+          }
+          if (entry['if'].constructor !== Array) {
+            console.log(entry);
+            throw new Error("Can't process the above entry's [.if] property");
+          }
+          each(fn$)(
+          entry['if']);
+        }
+        if (entry.children != null) {
+          this.checkAvailability(entry.children);
+        }
+      }
+      function fn$(requirement){
+        return this$.set(entry).availabilityAccordingTo(requirement);
+      }
+    };
+    prototype.set = function(entry){
+      var this$ = this;
+      return {
+        availabilityAccordingTo: function(req){
+          var parts, inverse, name, value, ref$, shouldBeDead, ref1$;
+          parts = req.split('|');
+          inverse = parts[parts.length - 1] === 'not';
+          switch (parts[0]) {
+          case 'global':
+            parts = parts[1].split(':');
+            name = parts[0];
+            value = (ref$ = parts[1]) != null ? ref$ : true;
+            entry.meta.isAvailable = (this$.$scope.globals['vars'][name] === value) !== inverse;
+            break;
+          case 'enemy':
+            name = parts[1];
+            shouldBeDead = ((ref$ = parts[2]) != null ? ref$ : 'alive') === 'dead';
+            if (inverse) {
+              shouldBeDead = !shouldBeDead;
+            }
+            entry.meta.isAvailable = ((ref$ = (ref1$ = this$.$scope.globals['enemies'][name]) != null ? ref1$.isDead : void 8) != null ? ref$ : false) === shouldBeDead;
+          }
+        }
+      };
+    };
+    prototype.addItemsFrom = function(itemText){
+      var itemTexts, i$, len$, text, potentials, batch, j$, len1$, potential, result, ref$, results$ = [];
+      itemTexts = [].concat(itemText);
+      for (i$ = 0, len$ = itemTexts.length; i$ < len$; ++i$) {
+        text = itemTexts[i$];
+        potentials = map(fn$)(
+        text.split(','));
+        batch = [];
+        for (j$ = 0, len1$ = potentials.length; j$ < len1$; ++j$) {
+          potential = potentials[j$];
+          result = /([^()]+)(?:\s+\((\d+)\)|$)/.exec(potential);
+          batch.push({
+            name: result[1],
+            amount: (ref$ = result[2]) != null ? ref$ : 1
+          });
+        }
+        results$.push(this._inventorySvc.addAllByName(batch));
+      }
+      return results$;
+      function fn$(it){
+        return it.trim();
+      }
+    };
+    return TrackerController;
+  }());
+  if (typeof module != 'undefined' && module !== null) {
+    module.exports = TrackerController;
+  }
+  function bind$(obj, key, target){
+    return function(){ return (target || obj)[key].apply(obj, arguments) };
+  }
+  function in$(x, xs){
+    var i = -1, l = xs.length >>> 0;
+    while (++i < l) if (x === xs[i]) return true;
+    return false;
+  }
+}).call(this);
+
+},{}],37:[function(require,module,exports){
+(function(){
+  var TrackerService;
+  if (typeof angular != 'undefined' && angular !== null) {
+    angular.module("dsc").service("trackerSvc", function(externalDataSvc){
+      return (function(func, args, ctor) {
+        ctor.prototype = func.prototype;
+        var child = new ctor, result = func.apply(child, args), t;
+        return (t = typeof result)  == "object" || t == "function" ? result || child : child;
+  })(TrackerService, arguments, function(){});
+    });
+  }
+  TrackerService = (function(){
+    TrackerService.displayName = 'TrackerService';
+    var prototype = TrackerService.prototype, constructor = TrackerService;
+    function TrackerService(_externalDataSvc){
+      this._externalDataSvc = _externalDataSvc;
+      this.process = bind$(this, 'process', prototype);
+      this.loadAreaContent = bind$(this, 'loadAreaContent', prototype);
+    }
+    prototype.loadAreaContent = function(area){
+      var this$ = this;
+      return this._externalDataSvc.loadJson("/modules/tracker/content/areas/" + area + ".json").then(function(it){
+        return this$.process(it);
+      });
+    };
+    prototype.process = function(entry, parent){
+      var output, text, ref$, this$ = this;
+      if (entry.constructor === Array) {
+        output = map(function(it){
+          return this$.process(it);
+        })(
+        entry);
+      } else {
+        output = import$({}, entry);
+        if (typeof (output.labels || (output.labels = [])) === 'string') {
+          output.labels = [output.labels];
+        }
+        if (output['items'] != null) {
+          text = "<strong>Items:</strong> " + join(', ')(
+          [].concat(output['items'])) + "<br />";
+          output.content = text + ((ref$ = output.content) != null ? ref$ : "");
+        }
+        if (output.children != null) {
+          output.children = map(function(it){
+            return this$.process(it, output);
+          })(
+          output.children);
+        }
+        output.parent = parent;
+      }
+      return output;
+    };
+    return TrackerService;
+  }());
+  if (typeof module != 'undefined' && module !== null) {
+    module.exports = TrackerService;
+  }
+  function bind$(obj, key, target){
+    return function(){ return (target || obj)[key].apply(obj, arguments) };
+  }
+  function import$(obj, src){
+    var own = {}.hasOwnProperty;
+    for (var key in src) if (own.call(src, key)) obj[key] = src[key];
+    return obj;
+  }
+}).call(this);
+
+},{}],38:[function(require,module,exports){
 (function(){
   if (typeof module != 'undefined' && module !== null) {
     module.exports = function(uiGridConstants){
@@ -4366,7 +4796,7 @@ function curry$(f, bound){
   }
 }).call(this);
 
-},{}],35:[function(require,module,exports){
+},{}],39:[function(require,module,exports){
 (function(){
   angular.module("dsc").filter("statName", function(statSvc){
     return function(name){
@@ -4378,14 +4808,14 @@ function curry$(f, bound){
   });
 }).call(this);
 
-},{}],36:[function(require,module,exports){
+},{}],40:[function(require,module,exports){
 (function(){
   require('./weapon-finder-service');
   require('./filters/weapon-finder-filters');
   require('./weapon-finder-controller');
 }).call(this);
 
-},{"./filters/weapon-finder-filters":35,"./weapon-finder-controller":37,"./weapon-finder-service":38}],37:[function(require,module,exports){
+},{"./filters/weapon-finder-filters":39,"./weapon-finder-controller":41,"./weapon-finder-service":42}],41:[function(require,module,exports){
 (function(){
   var WeaponFinderController;
   if (typeof angular != 'undefined' && angular !== null) {
@@ -4479,7 +4909,7 @@ function curry$(f, bound){
   }
 }).call(this);
 
-},{"./config/weapon-finder-grid-options":34}],38:[function(require,module,exports){
+},{"./config/weapon-finder-grid-options":38}],42:[function(require,module,exports){
 (function(){
   var WeaponFinderService;
   if (typeof angular != 'undefined' && angular !== null) {

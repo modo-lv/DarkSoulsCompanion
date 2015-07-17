@@ -13,8 +13,9 @@ global.createServiceStack = !->
 	global
 		..edSvc := new MockExternalDataService
 		..storageSvc := new MockStorageService
+		..notifySvc := new (testRequire 'app/services/notification-service') {}
 		..itemIndexSvc := new (testRequire "modules/items/item-index-service") edSvc
-		..inventorySvc := new (testRequire "modules/pc/inventory-service") storageSvc, itemIndexSvc, $q
+		..inventorySvc := new (testRequire "modules/pc/inventory-service") storageSvc, itemIndexSvc, notifySvc, $q
 		..itemSvc := new (testRequire "modules/items/item-service") edSvc, itemIndexSvc, inventorySvc, $q
 		..statSvc := new (testRequire "modules/pc/stat-service") storageSvc
 
@@ -38,5 +39,3 @@ class global.MockStorageService
 	load : !-> return @loadReturnValue
 
 	save : !->
-
-

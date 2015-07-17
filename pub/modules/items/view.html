@@ -1,9 +1,0 @@
-<div id="Items" ng-controller="ItemsController">
-    <select ng-change="selectedItemTypeChanged()" ng-model="selectedItemType"
-            ng-options="itemType as 'Show '+itemType+'s' for itemType in itemTypes">
-    </select>
-    <button ng-click="exportAsJson()">Export as JSON</button>
-    <button ng-click="exportAsCsv()">Export as CSV</button>
-
-    <div ui-grid-auto-resize ui-grid="gridOptions"></div>
-</div>

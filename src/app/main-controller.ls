@@ -1,8 +1,8 @@
-angular?.module "dsc" .controller "mainController" ($scope, $location, storageSvc, inventorySvc, $route) ->
+angular?.module "dsc" .controller "mainController" ($scope, $location, storageSvc, inventorySvc, notificationSvc, $route) ->
 	new MainController ...
 
 class MainController
-	(@$scope, @$location, @_storageSvc, @_inventorySvc, @$route) ->
+	(@$scope, @$location, @_storageSvc, @_inventorySvc, @_notificationSvc, @$route) ->
 		@$scope.profileEditStatus = null
 		@$scope.newProfileName = ''
 		@$scope.currentProfile = ''
@@ -13,12 +13,12 @@ class MainController
 
 		@loadAndInit!
 
-		@setupEventHandlers!
+		@wireUp!
 
 
 	setup : !~>
 		@$scope.menu = [
-			{ path : "/guide" name : "Game info & checklist" }
+			{ path : "/tracker" name : "Game state tracker" }
 			{ path : "/pc" name : "Stats & inventory" }
 			{ path : "/armor-calc" name : "Armor finder" }
 			{ path : "/weapon-finder" name : "Weapon & shield finder" }
@@ -31,13 +31,16 @@ class MainController
 		@profilesUpdated!
 
 
-	setupEventHandlers : !~>
+	wireUp : !~>
 		for func in [
 			\addNewProfile \switchProfile \deleteProfile \resetProfile
 			\resetProfileEditStatus
+			\dismissNotifications
 		]
 			@$scope.[func] = @.[func]
 
+
+	### EVENT HANDLERS
 
 	profilesUpdated : !~>
 		@$scope.profileList = @_storageSvc.loadProfileList!
@@ -75,6 +78,10 @@ class MainController
 	resetProfile : !~>
 		@_storageSvc.clearProfile!
 		@switchProfile!
+
+
+	dismissNotifications : !~>
+		@_notificationSvc.clear!
 
 
 module?.exports = MainController

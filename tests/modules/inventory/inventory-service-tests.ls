@@ -1,12 +1,13 @@
 _ <-! describe "inventory-service"
 
-var svc, storageSvc, itemIndexSvc, edSvc, itemUpgradeSvc, itemSvc
+var svc, storageSvc, itemIndexSvc, edSvc, itemUpgradeSvc, itemSvc, notifySvc
 
 beforeEach !->
 	edSvc := new MockExternalDataService
 	storageSvc := new MockStorageService
+	notifySvc := new (testRequire 'app/services/notification-service') {}
 	itemIndexSvc := new (testRequire "modules/items/item-index-service") edSvc
-	svc := new (testRequire "modules/pc/inventory-service") storageSvc, itemIndexSvc, $q
+	svc := new (testRequire "modules/pc/inventory-service") storageSvc, itemIndexSvc, notifySvc, $q
 	itemSvc := new (testRequire "modules/items/item-service") edSvc, itemIndexSvc, svc, $q
 	itemUpgradeSvc := itemSvc.upgradeComp
 
