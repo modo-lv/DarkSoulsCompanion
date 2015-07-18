@@ -13,7 +13,7 @@ module?.exports = (uiGridConstants) ->
 			type : \number
 		}
 		{
-			field : 'weapon.name'
+			field : 'name'
 			minWidth : 210
 			displayName : 'Name'
 		}
@@ -29,14 +29,13 @@ module?.exports = (uiGridConstants) ->
 		}
 		{
 			field : 'atk',
-			displayName : 'Attack'
+			displayName : 'ATK'
 			minWidth : 50
 		}
 		{
-			field : 'weapon.atkStaCost'
-			displayName : \AS
-			type : \number
-			cellFilter : "number:0"
+			field : 'def',
+			displayName : 'DEF'
+			minWidth : 50
 		}
 #		{
 #			field : 'weapon.bonusStr'

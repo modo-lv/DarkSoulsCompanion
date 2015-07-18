@@ -355,10 +355,12 @@ processWeapons = (folder = '.')!->
 			..range = +rawWeapon.\BowDistRate
 
 			# Attack costs
-			..atkCost11 = +raw.behavior["#{rawWeapon.[\BehaviorVariationId]}0"]?.[\Stamina]
-			..atkCost12 = +raw.behavior["#{rawWeapon.[\BehaviorVariationId]}100"]?.[\Stamina]
-			..atkCost21 = +raw.behavior["#{rawWeapon.[\BehaviorVariationId]}200"]?.[\Stamina]
-			..atkCost22 = +raw.behavior["#{rawWeapon.[\BehaviorVariationId]}300"]?.[\Stamina]
+			..atkCosts = [
+				+raw.behavior["#{rawWeapon.[\BehaviorVariationId]}0"]?.[\Stamina]
+				+raw.behavior["#{rawWeapon.[\BehaviorVariationId]}100"]?.[\Stamina]
+				+raw.behavior["#{rawWeapon.[\BehaviorVariationId]}200"]?.[\Stamina]
+				+raw.behavior["#{rawWeapon.[\BehaviorVariationId]}300"]?.[\Stamina]
+			]
 
 
 		# Bleed & poison

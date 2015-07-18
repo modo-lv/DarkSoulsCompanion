@@ -14,6 +14,9 @@ class StatService
 		\hum
 	]
 
+	@weaponStats = [ \str \dex \int \fai ]
+
+
 	(@_storageSvc) ->
 		@data = {}
 

@@ -6,7 +6,9 @@ class ItemService
 	@WeaponBonus = [\bonusStr \bonusDex \bonusInt \bonusFai]
 	@WeaponReqs = [\reqStr \reqDex \reqInt \reqFai]
 	@AttackTypes = [\atkPhy \atkMag \atkFir \atkLit]
-	@DefenceTypes = [\defPhy \defMag \defFir \defLit \defBlo \defTox \defCur \defPoise]
+	@DpsTypes = [\dpsPhy \dpsMag \dpsFir \dpsLit]
+	@DefenceTypes = [\defPhy \defMag \defFir \defLit \defBlo \defTox \defCur]
+	@StaminaTypes = [\atkSta \defSta]
 	@EffectTypes = [\blo \tox \cur]
 
 	(@_externalDataSvc, @_itemIndexSvc, @$q) ->

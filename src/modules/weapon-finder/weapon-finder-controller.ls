@@ -1,9 +1,8 @@
-angular? .module "dsc" .controller "weaponFinderController" ($scope, storageSvc, weaponFinderSvc, uiGridConstants, statSvc) ->
+angular? .module "dsc" .controller "weaponFinderController" ($scope, storageSvc, weaponFinderSvc, uiGridConstants, statSvc, itemSvc) ->
 	new WeaponFinderController ...
 
 class WeaponFinderController
-	(@$scope, @_storageSvc, @_weaponFinderSvc, @$uiGridConstants, @_statSvc) ->
-
+	(@$scope, @_storageSvc, @_weaponFinderSvc, @$uiGridConstants, @_statSvc, @_itemSvc) ->
 		@setup!
 		@load!
 		@wireUp!
@@ -12,27 +11,34 @@ class WeaponFinderController
 	setup : !~>
 		@$scope.results = []
 
-		@$scope.params = {
-			statBonus : 0
-			reqLimits : {
-				\str : 20
-				\dex : 20
-				\int : 20
-				\fai : 20
-			}
-			searchType : \offence
-			includeUpgrades : true
-			modifiers : {
-				\atkPhy : 0
-				\atkMag : 0
-			}
-		}
+		@$scope.paramSetNames = [ \weapon \shield ]
+
+		@$scope.statArray = @_weaponFinderSvc.statArray
+		@$scope.reqLimitArray = @_statSvc.@@weaponStats
+
+		@$scope.dpsCalcOptions = [
+			"One-hand light"
+			"One-hand heavy"
+			"Two-hand light"
+			"Two-hand heavy"
+		]
+
+		# Set default params
+		for a from 0 to 1
+			@$scope.[]paramSets.{}[a] <<< @_weaponFinderSvc.params
 
 		@$scope.gridOptions = (require './config/weapon-finder-grid-options') @$uiGridConstants
 
 
 	load : !~>
-		@$scope.params <<< (@_storageSvc.load 'weapon-finder.params')
+		# Load user's params
+		userSets = (@_storageSvc.load 'weapon-finder.param-sets') ? []
+		console.log userSets
+
+		for set, a in @$scope.paramSets
+			@$scope.paramSets[a] <<< userSets[a]
+
+		@$scope.params = @$scope.paramSets.0
 
 
 	wireUp : !~>
@@ -42,8 +48,8 @@ class WeaponFinderController
 		]
 			@$scope.[func] = @.[func]
 
-		@$scope.$watch "params", (!~>
-			@_storageSvc.save "weapon-finder.params", @$scope.params
+		@$scope.$watch "paramSets", (!~>
+			@_storageSvc.save "weapon-finder.param-sets", @$scope.paramSets
 		), true
 
 
@@ -59,13 +65,12 @@ class WeaponFinderController
 
 		@_weaponFinderSvc.findBestWeapons!
 		.then (results) !~>
-			@$scope.results = results |> map (result) ~> {
-				weapon : result
-
+			@$scope.results = results |> map (result) ~> result <<< {
 				statReqs : [\reqStr \reqDex \reqInt \reqFai] |> (map ~> result.[it]) |> join '/'
 				atk : [\atkPhy \atkMag \atkFir \atkLit] |> (map ~> Math.floor result.[it]) |> join '/'
-				dps : [\dpsPhy \dpsMag \dpsFir \dpsLit] |> (map ~> Math.floor result.[it]) |> join '/'
-			} <<< result
+				def : @_itemSvc.@@DefenceTypes |> (map ~> Math.floor result.[it]) |> join '/'
+				dps : "#{(result.dps |> join '/')} (#{result.atkCost})"
+			}
 
 			@$scope.gridOptions.data = @$scope.results
 

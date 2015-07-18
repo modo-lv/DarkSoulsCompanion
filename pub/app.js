@@ -3200,7 +3200,9 @@ function curry$(f, bound){
     ItemService.WeaponBonus = ['bonusStr', 'bonusDex', 'bonusInt', 'bonusFai'];
     ItemService.WeaponReqs = ['reqStr', 'reqDex', 'reqInt', 'reqFai'];
     ItemService.AttackTypes = ['atkPhy', 'atkMag', 'atkFir', 'atkLit'];
-    ItemService.DefenceTypes = ['defPhy', 'defMag', 'defFir', 'defLit', 'defBlo', 'defTox', 'defCur', 'defPoise'];
+    ItemService.DpsTypes = ['dpsPhy', 'dpsMag', 'dpsFir', 'dpsLit'];
+    ItemService.DefenceTypes = ['defPhy', 'defMag', 'defFir', 'defLit', 'defBlo', 'defTox', 'defCur'];
+    ItemService.StaminaTypes = ['atkSta', 'defSta'];
     ItemService.EffectTypes = ['blo', 'tox', 'cur'];
     function ItemService(_externalDataSvc, _itemIndexSvc, $q){
       this._externalDataSvc = _externalDataSvc;
@@ -3491,7 +3493,6 @@ function curry$(f, bound){
       'Weapon': WeaponModel = (function(superclass){
         var prototype = extend$((import$(WeaponModel, superclass).displayName = 'WeaponModel', WeaponModel), superclass).prototype, constructor = WeaponModel;
         function WeaponModel(){
-          this._dpsFor = bind$(this, '_dpsFor', prototype);
           WeaponModel.superclass.call(this);
           this.itemType = 'weapon';
           this.weaponType = '';
@@ -3528,14 +3529,8 @@ function curry$(f, bound){
           this.atkTox = 0;
           this.dmgTox = 0;
           this.atkHeal = 0;
+          this.atkCosts = [];
         }
-        prototype._dpsFor = function(stat){
-          if (this.atkStaCost > 1) {
-            return stat / (this.atkStaCost * 1.8);
-          } else {
-            return 0;
-          }
-        };
         Object.defineProperty(prototype, 'dpsPhy', {
           get: function(){
             return this._dpsFor(this.atkPhy);
@@ -4288,6 +4283,7 @@ function curry$(f, bound){
     StatService.displayName = 'StatService';
     var prototype = StatService.prototype, constructor = StatService;
     StatService.allStats = ['vit', 'att', 'end', 'str', 'dex', 'res', 'int', 'fai', 'hum'];
+    StatService.weaponStats = ['str', 'dex', 'int', 'fai'];
     function StatService(_storageSvc){
       this._storageSvc = _storageSvc;
       this.statScalingFactorOf = bind$(this, 'statScalingFactorOf', prototype);
@@ -4727,7 +4723,7 @@ function curry$(f, bound){
             },
             type: 'number'
           }, {
-            field: 'weapon.name',
+            field: 'name',
             minWidth: 210,
             displayName: 'Name'
           }, {
@@ -4740,13 +4736,12 @@ function curry$(f, bound){
             minWidth: 50
           }, {
             field: 'atk',
-            displayName: 'Attack',
+            displayName: 'ATK',
             minWidth: 50
           }, {
-            field: 'weapon.atkStaCost',
-            displayName: 'AS',
-            type: 'number',
-            cellFilter: "number:0"
+            field: 'def',
+            displayName: 'DEF',
+            minWidth: 50
           }
         ]
       };
@@ -4777,7 +4772,7 @@ function curry$(f, bound){
 (function(){
   var WeaponFinderController;
   if (typeof angular != 'undefined' && angular !== null) {
-    angular.module("dsc").controller("weaponFinderController", function($scope, storageSvc, weaponFinderSvc, uiGridConstants, statSvc){
+    angular.module("dsc").controller("weaponFinderController", function($scope, storageSvc, weaponFinderSvc, uiGridConstants, statSvc, itemSvc){
       return (function(func, args, ctor) {
         ctor.prototype = func.prototype;
         var child = new ctor, result = func.apply(child, args), t;
@@ -4788,12 +4783,13 @@ function curry$(f, bound){
   WeaponFinderController = (function(){
     WeaponFinderController.displayName = 'WeaponFinderController';
     var prototype = WeaponFinderController.prototype, constructor = WeaponFinderController;
-    function WeaponFinderController($scope, _storageSvc, _weaponFinderSvc, $uiGridConstants, _statSvc){
+    function WeaponFinderController($scope, _storageSvc, _weaponFinderSvc, $uiGridConstants, _statSvc, _itemSvc){
       this.$scope = $scope;
       this._storageSvc = _storageSvc;
       this._weaponFinderSvc = _weaponFinderSvc;
       this.$uiGridConstants = $uiGridConstants;
       this._statSvc = _statSvc;
+      this._itemSvc = _itemSvc;
       this.findWeapons = bind$(this, 'findWeapons', prototype);
       this.copyStatsToReqs = bind$(this, 'copyStatsToReqs', prototype);
       this.wireUp = bind$(this, 'wireUp', prototype);
@@ -4804,26 +4800,30 @@ function curry$(f, bound){
       this.wireUp();
     }
     prototype.setup = function(){
+      var i$, a, ref$, ref1$;
       this.$scope.results = [];
-      this.$scope.params = {
-        statBonus: 0,
-        reqLimits: {
-          'str': 20,
-          'dex': 20,
-          'int': 20,
-          'fai': 20
-        },
-        searchType: 'offence',
-        includeUpgrades: true,
-        modifiers: {
-          'atkPhy': 0,
-          'atkMag': 0
-        }
-      };
+      this.$scope.paramSetNames = ['weapon', 'shield'];
+      this.$scope.statArray = this._weaponFinderSvc.statArray;
+      this.$scope.reqLimitArray = this._statSvc.constructor.weaponStats;
+      this.$scope.dpsCalcOptions = ["One-hand light", "One-hand heavy", "Two-hand light", "Two-hand heavy"];
+      for (i$ = 0; i$ <= 1; ++i$) {
+        a = i$;
+        import$((ref$ = (ref1$ = this.$scope).paramSets || (ref1$.paramSets = []))[a] || (ref$[a] = {}), this._weaponFinderSvc.params);
+      }
       this.$scope.gridOptions = require('./config/weapon-finder-grid-options')(this.$uiGridConstants);
     };
     prototype.load = function(){
-      import$(this.$scope.params, this._storageSvc.load('weapon-finder.params'));
+      var userSets, ref$, i$, len$, a, set;
+      userSets = (ref$ = this._storageSvc.load('weapon-finder.param-sets')) != null
+        ? ref$
+        : [];
+      console.log(userSets);
+      for (i$ = 0, len$ = (ref$ = this.$scope.paramSets).length; i$ < len$; ++i$) {
+        a = i$;
+        set = ref$[i$];
+        import$(this.$scope.paramSets[a], userSets[a]);
+      }
+      this.$scope.params = this.$scope.paramSets[0];
     };
     prototype.wireUp = function(){
       var i$, ref$, len$, func, this$ = this;
@@ -4831,8 +4831,8 @@ function curry$(f, bound){
         func = ref$[i$];
         this.$scope[func] = this[func];
       }
-      this.$scope.$watch("params", function(){
-        this$._storageSvc.save("weapon-finder.params", this$.$scope.params);
+      this.$scope.$watch("paramSets", function(){
+        this$._storageSvc.save("weapon-finder.param-sets", this$.$scope.paramSets);
       }, true);
     };
     prototype.copyStatsToReqs = function(){
@@ -4847,24 +4847,20 @@ function curry$(f, bound){
       import$(this._weaponFinderSvc.params, this.$scope.params);
       this._weaponFinderSvc.findBestWeapons().then(function(results){
         this$.$scope.results = map(function(result){
-          return import$({
-            weapon: result,
-            statReqs: join('/')(
-            map(function(it){
-              return result[it];
-            })(
-            ['reqStr', 'reqDex', 'reqInt', 'reqFai'])),
-            atk: join('/')(
-            map(function(it){
-              return Math.floor(result[it]);
-            })(
-            ['atkPhy', 'atkMag', 'atkFir', 'atkLit'])),
-            dps: join('/')(
-            map(function(it){
-              return Math.floor(result[it]);
-            })(
-            ['dpsPhy', 'dpsMag', 'dpsFir', 'dpsLit']))
-          }, result);
+          return result.statReqs = join('/')(
+          map(function(it){
+            return result[it];
+          })(
+          ['reqStr', 'reqDex', 'reqInt', 'reqFai'])), result.atk = join('/')(
+          map(function(it){
+            return Math.floor(result[it]);
+          })(
+          ['atkPhy', 'atkMag', 'atkFir', 'atkLit'])), result.def = join('/')(
+          map(function(it){
+            return Math.floor(result[it]);
+          })(
+          this$._itemSvc.constructor.DefenceTypes)), result.dps = join('/')(
+          result.dps) + " (" + result.atkCost + ")", result;
         })(
         results);
         this$.$scope.gridOptions.data = this$.$scope.results;
@@ -4911,10 +4907,13 @@ function curry$(f, bound){
       this.findFittingWeapons = bind$(this, 'findFittingWeapons', prototype);
       this.findBestWeapons = bind$(this, 'findBestWeapons', prototype);
       this.params = {
+        useDps: false,
+        dpsCalcMove: 0,
         includeUpgrades: true,
         modifiers: {},
         reqLimits: {}
       };
+      this.statArray = this._itemSvc.constructor.AttackTypes.concat(this._itemSvc.constructor.DefenceTypes);
       each(function(it){
         this$.params.reqLimits[it] = 20;
       })(
@@ -4922,12 +4921,31 @@ function curry$(f, bound){
       each(function(it){
         this$.params.modifiers[it] = 0;
       })(
-      this._itemSvc.constructor.AttackTypes.concat(this._itemSvc.constructor.DefenceTypes));
+      this.statArray);
+      this.params.modifiers['atkPhy'] = 1;
     }
     prototype.findBestWeapons = function(){
-      var allWeapons;
+      var allWeapons, this$ = this;
       allWeapons = [];
-      return this.findFittingWeapons();
+      return this.findFittingWeapons().then(function(weapons){
+        allWeapons = allWeapons.concat(weapons);
+        if (!this$.params.includeUpgrades) {
+          return [];
+        }
+        return this$.$q.all(map(function(it){
+          return this$._inventorySvc.findAllAvailableUpgradesFor(it);
+        })(
+        weapons));
+      }).then(function(upWeapons){
+        allWeapons = allWeapons.concat(flatten(
+        reject(function(it){
+          return empty(
+          it);
+        })(
+        upWeapons)));
+        return map(this$.calculateScoreFor)(
+        allWeapons);
+      });
     };
     prototype.findFittingWeapons = function(){
       var this$ = this;
@@ -4961,7 +4979,44 @@ function curry$(f, bound){
       }
       return this.$q.when(fitWeapons);
     };
-    prototype.calculateScoreFor = function(weapon){};
+    prototype.calculateScoreFor = function(weapon){
+      var result, scS, scD, scI, scF, x$, i$, ref$, len$, index, statName, stat, this$ = this;
+      result = import$({}, weapon);
+      scS = this._statSvc.statScalingFactorOf('str');
+      scD = this._statSvc.statScalingFactorOf('dex');
+      scI = this._statSvc.statScalingFactorOf('int');
+      scF = this._statSvc.statScalingFactorOf('fai');
+      x$ = result;
+      x$.atkPhy *= 1 + (weapon.bonusStr * scS + weapon.bonusDex * scD);
+      x$.atkMag *= 1 + (weapon.bonusInt * scI + weapon.bonusFai * scF);
+      x$.atkCost = result.atkCosts[this.params.dpsCalcMove];
+      x$.dps = map(function(it){
+        var ref$;
+        if (result[it] < 1) {
+          return 0;
+        } else {
+          return Math.floor(result[it] / ((ref$ = x$.atkCost) != null
+            ? ref$
+            : result[it]));
+        }
+      })(
+      this._itemSvc.constructor.AttackTypes);
+      if (result.weaponType === 'Magic') {
+        x$.dps[0] = x$.dps[1] = 0;
+      }
+      x$.score = 0;
+      for (i$ = 0, len$ = (ref$ = this.statArray).length; i$ < len$; ++i$) {
+        index = i$;
+        statName = ref$[i$];
+        if (this.params.useDps && this._itemSvc.constructor.DpsTypes[index] != null) {
+          stat = result.dps[index];
+        } else {
+          stat = result[statName];
+        }
+        result.score += stat * this.params.modifiers[statName];
+      }
+      return result;
+    };
     return WeaponFinderService;
   }());
   if (typeof module != 'undefined' && module !== null) {
@@ -4969,6 +5024,11 @@ function curry$(f, bound){
   }
   function bind$(obj, key, target){
     return function(){ return (target || obj)[key].apply(obj, arguments) };
+  }
+  function import$(obj, src){
+    var own = {}.hasOwnProperty;
+    for (var key in src) if (own.call(src, key)) obj[key] = src[key];
+    return obj;
   }
 }).call(this);
 
