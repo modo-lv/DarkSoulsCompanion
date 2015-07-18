@@ -12,6 +12,8 @@ class TrackerController
 	setUp : !~>
 		@$scope.allAreas = [
 			{ key : \asylum , name : "Northern Undead Asylum" }
+			{ key : \blighttown , name : "Blighttown" }
+			{ key : \darkroot-garden , name : "Darkroot Garden" }
 		]
 		@$scope.areaContent = []
 

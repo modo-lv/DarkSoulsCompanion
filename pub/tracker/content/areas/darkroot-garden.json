@@ -1,0 +1,45 @@
+[
+  {
+    "labels": "item",
+    "title": "Soul of a Brave Warrior",
+    "id": "8a72d83b-8e25-4198-9b87-c00202fe5375"
+  },
+  {
+    "title": "Mushroom forest",
+    "children": [
+      {
+        "labels": "item",
+        "title": "Stone Helm, Stone Armor, Stone Gauntlets, Stone Leggings",
+        "id": "cb4a8874-9252-45ea-9328-821b5f4e8bbb"
+      },
+      {
+        "labels": "item",
+        "title": "Enchanted Ember",
+        "id": "0faea779-a52e-498e-9d53-d422f5cf1226"
+      },
+      {
+        "labels": "item",
+        "title": "Large Soul of a Brave Warrior",
+        "id": "d1e718c9-a6cd-4a10-9a3b-7cae6ca0a185"
+      }
+    ],
+    "id": "749b377a-dd91-4db0-967b-80228e48bac3"
+  },
+  {
+    "title": "Graveyard",
+    "children": [
+      {
+        "labels": "item",
+        "title": "Hornet Ring",
+        "id": "4ffb5e3f-fde9-4a3d-88d6-95e4c6018200"
+      },
+      {
+        "title": "Gray Wolf Sif",
+        "labels": "enemy",
+        "items": "Soul of Sif, Covenant of Artorias",
+        "id": "04faceee-b42c-42e0-9d22-57b1ddb56c91"
+      }
+    ],
+    "id": "92ab56a4-17ab-4052-b77d-b2b412ac8dec"
+  }
+]

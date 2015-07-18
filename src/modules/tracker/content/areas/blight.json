@@ -1,0 +1,25 @@
+[
+  {
+    "title": "Around the swamp",
+    "children": [
+      {
+        "title": "Shiva of the East",
+        "if": "global|shiva-talked-to",
+        "children": [
+          {
+            "title": "Talk",
+            "labels": "talk",
+            "id": "551c8791-9588-4fd0-98e5-3212e3c338fd"
+          },
+          {
+            "title": "Look Skyward",
+            "labels": "gesture",
+            "id": "c7963ed2-0f2c-4419-b5d7-731f972da3d6"
+          }
+        ],
+        "id": "4800def2-a9e3-44d8-b970-2b240db2c9dd"
+      }
+    ],
+    "id": "3b93fe7e-3394-4290-b8cb-8a06517c8ce8"
+  }
+]

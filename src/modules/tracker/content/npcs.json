@@ -1,0 +1,67 @@
+[
+  {
+    "title": "Shiva of the East",
+    "items": "Murakumo, Iron Round Shield",
+    "children": [
+      {
+        "title": "Shop",
+        "if": "global|shiva-talked-to",
+        "shop": [
+          {
+            "name": "Flamberge",
+            "price": 10000
+          },
+          {
+            "name": "Stone Greatsword",
+            "price": 15000
+          },
+          {
+            "name": "Demon Great Machete",
+            "price": 10000
+          },
+          {
+            "name": "Shotel",
+            "price": 10000
+          },
+          {
+            "name": "Uchigatana",
+            "price": 5000
+          },
+          {
+            "name": "Washing Pole",
+            "price": 20000
+          },
+          {
+            "name": "Demon's Greataxe",
+            "price": 10000
+          },
+          {
+            "name": "Claw",
+            "price": 5000
+          },
+          {
+            "name": "Demon's Spear",
+            "price": 15000
+          },
+          {
+            "name": "East Wood Grain Ring",
+            "price": 10000
+          }
+        ],
+        "id": "e8549289-febc-44bf-9394-6fc967d67951"
+      }
+    ],
+    "id": "7195f4e4-e9f9-4c99-9de4-c2559ebb4977"
+  },
+  {
+    "title": "Shiva's bodyguard",
+    "items": "Dark Wood Grain Ring",
+    "if": "global|shiva-talked-to",
+    "hostile-if": [
+      "npc|Shiva|hostile",
+      "npc|Shiva|dead"
+    ],
+    "content": "Depending on how the bodyguard is killed, the {Dark Wood Grain Ring} might not appear after his death. Leave the area / reload the game should fix that.",
+    "id": "c63303a6-2815-4ad2-9d4a-e38854f6cd0d"
+  }
+]
