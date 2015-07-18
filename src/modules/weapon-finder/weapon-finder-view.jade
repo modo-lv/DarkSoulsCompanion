@@ -5,7 +5,6 @@
 			th.left Limits:
 
 			td
-				| Stat requirements:
 				label(ng-repeat="(name,value) in params.reqLimits")
 					| {{name | statName}}:
 					input(type="number" ng-model="$parent.params.reqLimits[name]" min=0 max=99)

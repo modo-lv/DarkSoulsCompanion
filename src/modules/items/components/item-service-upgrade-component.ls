@@ -1,5 +1,5 @@
 class ItemServiceUpgradeComponent
-	(@_itemSvc, @_externalDataSvc, @_itemIndexSvc, @_inventorySvc, @$q) ->
+	(@_itemSvc, @_externalDataSvc, @_itemIndexSvc, @$q) ->
 		# Holds the upgrade data for weapons and armor
 		@_upgrades = {}
 
@@ -64,41 +64,6 @@ class ItemServiceUpgradeComponent
 			@_materialSets |> find ~> (it.id == @getBaseIdFrom(item.matSetId) + upgrade.matSetId)
 
 
-	are : (materials) ~>
-		#if @_debugLog
-		#	console.log "Materials:", materials
-		enoughToUpgrade : (item, level) ~>
-			@findUpgradeFor item, level
-			.then (upgrade) ~>
-				if not upgrade?
-					return false
-				@findUpgradeMaterialsFor item, upgrade
-			.then (materialSet) ~>
-				if materialSet == null
-					return false
-				if not materialSet?
-					console.log "Failed to find material set for", {} <<< item, level
-
-				if materialSet.matId < 0 or materialSet.matCost < 0
-					return true
-
-				return materials |> any -> (it.id == materialSet.matId and it.amount >= materialSet.matCost)
-
-
-	deductFrom : (materials) ~>
-		costOfUpgrade : (item, level) ~>
-			@findUpgradeFor item, level
-			.then (upgrade) ~>
-				@findUpgradeMaterialsFor item, upgrade
-			.then (materialSet) ~>
-				if materialSet.matId >= 0 and materialSet.matCost >= 0
-					#console.log "Deducting #{materialSet.matId} x #{materialSet.matCost} from", {} <<< materials, "for item", item, "level", level
-					material = materials |> find (.id == materialSet.matId)
-					if not material?
-						console.log materialSet.matId, materials
-					material.amount -= materialSet.matCost
-
-				return { matCost : materialSet.matCost, matId : materialSet.matId }
 
 
 	/**
@@ -204,86 +169,5 @@ class ItemServiceUpgradeComponent
 			return item
 
 
-	/**
-	 * Find all upgrades that can be applied to a given item,
-	 * within the limits of what is available to the user
-	 */
-	findAllAvailableUpgradesFor : (item) ~>
-		item |> @ensureItCanBeUpgraded
-
-		if not item.id?
-			throw new Error "Can't find upgrades for an item with no ID."
-
-		if item.id < 0 or item.upgradeId < 0 then
-			@$q.defer!
-				..resolve []
-				return ..promise
-
-		upgradeList = []
-		maxUpgrades = if item.itemType == \weapon then 15 else 10
-
-		@_inventorySvc.load!
-		.then (inventory) ~>
-			materials = inventory |> filter (.itemType == \item ) |> map -> {} <<< it
-
-			promise = @$q (resolve, reject) !-> resolve!
-
-			canKeepUpgrading = true
-
-			if @_debugLog
-				console.log "Item's current upgrade level is #{@getUpgradeLevelFrom item.id}"
-
-			for level from (@getUpgradeLevelFrom item.id) + 1 to maxUpgrades
-				((materials, level) !~>
-					promise := promise
-					.then ~>
-						if not canKeepUpgrading then return null
-						if @_debugLog
-							console.log "Checking upgrade level #{level}"
-
-						@$q.all [
-							@.canBeUpgradedFurther item
-							@.are materials .enoughToUpgrade item, level
-						]
-					.then (canUpgrade) !~>
-						if @_debugLog and canUpgrade?
-							console.log "Can upgrade further: #{canUpgrade.0}"
-							console.log "Enough materials: #{canUpgrade.1}"
-
-						if not (canUpgrade?.0 and canUpgrade?.1)
-							materials.length = 0
-							canKeepUpgrading := false
-							return null
-
-						if canUpgrade := canUpgrade.0 + canUpgrade.1
-							return @$q.all [
-								@_itemSvc.getUpgraded item, level
-								@deductFrom materials .costOfUpgrade item, level
-							]
-					.then (result) !~>
-						upItem = result?.0
-						cost = result?.1
-						if upItem?
-							totalCost = materials.[]totalCost
-							costEntry = totalCost |> find (.matId == cost.matId)
-							if not costEntry?
-								costEntry = {
-									matId : cost.matId
-									matCost : 0
-								}
-								totalCost.push costEntry
-
-							costEntry.matCost += cost.matCost
-							upItem
-								..totalCost = totalCost |> map -> {} <<< it
-								# Upgrade level counting from the starting level as it's in the inventory
-								..upgradeLevel = level - @getUpgradeLevelFrom item.id
-
-							upgradeList.push upItem
-				) materials, level
-			return promise
-		.then ->
-			#console.log upgradeList
-			return upgradeList
 
 module?.exports = ItemServiceUpgradeComponent

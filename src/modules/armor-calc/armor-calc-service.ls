@@ -317,6 +317,7 @@ class ArmorCalcSvc
 			for mod in modSet
 				armor.detailScores[mod.0] = armor.[mod.1] ? 0
 				armor.score += (armor.[mod.1] ? 0) * (@params.{}modifiers[mod.0] ? 0)
+				#console.log "#{armor.name}: #{mod.1} is #{armor.[mod.1]}, times #{@params.modifiers[mod.0]} = #{armor.score}"
 
 
 		return armors

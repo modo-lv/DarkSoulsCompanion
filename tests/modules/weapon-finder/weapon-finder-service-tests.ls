@@ -4,7 +4,7 @@ var svc
 
 beforeEach !->
 	createServiceStack!
-	svc := new (testRequire 'modules/weapon-finder/weapon-finder-service') itemSvc, statSvc, $q
+	svc := new (testRequire 'modules/weapon-finder/weapon-finder-service') itemSvc, inventorySvc, statSvc, $q
 
 	weapons = [
 		{ id : 100 , uid : \weapon100 , itemType : \weapon , atkPhy : 1 , reqStr : 1 }
@@ -25,23 +25,20 @@ beforeEach !->
 	storageSvc.loadReturnValue = inventory
 
 
-it "should only find fitting weapons", (done) !->
+it "should only find weapons within stat requirement limits", (done) !->
 	svc.params.reqLimits = {
-		\str : 10
+		\str : 12
 	}
 
-	# At the moment there aren't any parameters yet,
-	# so the whole weapon set is returned
-	svc.findFittingWeapons!
+	weaponList = [
+		{ id : 100 , uid : \weapon100 , itemType : \weapon , reqStr : 1 }
+		{ id : 100 , uid : \weapon100 , itemType : \weapon , reqStr : 10 }
+		{ id : 200 , uid : \weapon200 , itemType : \weapon , reqStr : 15 }
+	]
+
+	svc.findFittingWeaponsIn weaponList
 	.then (weapons) !->
+		expect weapons .to.exist
 		expect weapons .to.have.length 2
-		done!
-	.catch done
-
-
-it "should find the best weapons", (done) !->
-	svc.findBestWeapons!
-	.then (weapons) !->
-		expect weapons .to.have.length 4
 		done!
 	.catch done

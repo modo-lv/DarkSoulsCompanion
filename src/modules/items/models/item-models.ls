@@ -22,6 +22,9 @@ module?.exports = {
 			@iconId = 0
 
 
+			@sortId = 0
+
+
 		/**
 		 * A unique ID that doesn't overlap between item types.
 		 */
@@ -78,9 +81,7 @@ module?.exports = {
 
 			@canBlock = false
 			@canParry = false
-			@castsMagic = false
-			@castsPyromancy = false
-			@castsMiracles = false
+			@casts = null
 
 			# Can this weapon attack and damage ghosts even when the player isn't cursed?
 			@damagesGhosts = false
@@ -89,16 +90,22 @@ module?.exports = {
 			@isAugmentable = false
 
 			# Damage types
-			@doesRegularDamage = false
-			@doesStrikeDamage = false
-			@doesSlashDamage = false
-			@doesThrustDamage = false
+			@dmgReg = false
+			@dmgStrike = false
+			@dmsSlash = false
+			@dmgThrust = false
 
 			# Wielding requirements
 			@reqStr = 0
 			@reqDex = 0
 			@reqInt = 0
 			@reqFai = 0
+
+			# Parameter bonuses (scaling values)
+			@bonusStr = 0
+			@bonusDex = 0
+			@bonusInt = 0
+			@bonusFai = 0
 
 			# Attack values
 			@atkPhy = 0
@@ -107,14 +114,7 @@ module?.exports = {
 			@atkLit = 0
 
 			# Attack stamina cost
-			@atkStaCost = 0
-
-			# Parameter bonuses (scaling values)
-			@bonusStr = 0
-			@bonusDex = 0
-			@bonusInt = 0
-			@bonusFai = 0
-
+			@atkSta = 0
 			# Stability (percentage of stamina kept when defending against attack)
 			@defSta = 0
 

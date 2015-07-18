@@ -22,7 +22,10 @@ class WeaponFinderController
 			}
 			searchType : \offence
 			includeUpgrades : true
-			modifiers : {}
+			modifiers : {
+				\atkPhy : 0
+				\atkMag : 0
+			}
 		}
 
 		@$scope.gridOptions = (require './config/weapon-finder-grid-options') @$uiGridConstants
@@ -58,6 +61,10 @@ class WeaponFinderController
 		.then (results) !~>
 			@$scope.results = results |> map (result) ~> {
 				weapon : result
+
+				statReqs : [\reqStr \reqDex \reqInt \reqFai] |> (map ~> result.[it]) |> join '/'
+				atk : [\atkPhy \atkMag \atkFir \atkLit] |> (map ~> Math.floor result.[it]) |> join '/'
+				dps : [\dpsPhy \dpsMag \dpsFir \dpsLit] |> (map ~> Math.floor result.[it]) |> join '/'
 			} <<< result
 
 			@$scope.gridOptions.data = @$scope.results

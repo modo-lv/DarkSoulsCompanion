@@ -11,13 +11,13 @@ global
 
 global.createServiceStack = !->
 	global
-		..edSvc := new MockExternalDataService
-		..storageSvc := new MockStorageService
-		..notifySvc := new (testRequire 'app/services/notification-service') {}
-		..itemIndexSvc := new (testRequire "modules/items/item-index-service") edSvc
-		..inventorySvc := new (testRequire "modules/pc/inventory-service") storageSvc, itemIndexSvc, notifySvc, $q
-		..itemSvc := new (testRequire "modules/items/item-service") edSvc, itemIndexSvc, inventorySvc, $q
-		..statSvc := new (testRequire "modules/pc/stat-service") storageSvc
+		..edSvc = new MockExternalDataService
+		..storageSvc = new MockStorageService
+		..notifySvc = new (testRequire 'app/services/notification-service') {}
+		..itemIndexSvc = new (testRequire "modules/items/item-index-service") edSvc
+		..itemSvc = new (testRequire "modules/items/item-service") edSvc, itemIndexSvc, $q
+		..inventorySvc = new (testRequire "modules/pc/inventory-service") itemSvc, storageSvc, itemIndexSvc, notifySvc, $q
+		..statSvc = new (testRequire "modules/pc/stat-service") storageSvc
 
 
 class global.MockExternalDataService

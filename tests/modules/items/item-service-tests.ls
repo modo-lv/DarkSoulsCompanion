@@ -1,13 +1,9 @@
 _ <-! describe "item-service"
 
-var svc, edSvc, upgradeSvc, itemIndexSvc, inventorySvc, storageSvc, notifySvc
+var svc, upgradeSvc
 
 beforeEach !->
-	edSvc := new MockExternalDataService
-	storageSvc := new MockStorageService
-	notifySvc := new (testRequire 'app/services/notification-service') {}
-	itemIndexSvc := new (testRequire "modules/items/item-index-service") edSvc
-	inventorySvc := new (testRequire "modules/pc/inventory-service") storageSvc, itemIndexSvc, notifySvc, $q
+	createServiceStack!
 	svc := new (testRequire "modules/items/item-service") edSvc, itemIndexSvc, inventorySvc, $q
 	upgradeSvc := svc.upgradeComp
 
@@ -143,14 +139,14 @@ it "should fetch real item data", (done) !->
 		{ itemType : \weapon , id : 200 , uid : \weapon200 , name : "Weapon Two" }
 	]
 
-	storageSvc.loadReturnValue = inventory
 	edSvc.loadJsonReturnValue = inventory
 	itemIndexSvc.clear!.loadAllEntries!
 
 	edSvc.loadJsonReturnValue = weapons
 	svc.clear!.loadAllItems \weapon
 
-	svc.findItemsFromInventory \weapon
+	storageSvc.loadReturnValue = inventory
+	inventorySvc.clear!.findItemsByType \weapon
 	.then (items) !->
 		expect items .to.have.length 2
 		for item, index in items |> sortBy (.id)

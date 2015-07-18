@@ -2623,13 +2623,11 @@ function curry$(f, bound){
   ItemServiceUpgradeComponent = (function(){
     ItemServiceUpgradeComponent.displayName = 'ItemServiceUpgradeComponent';
     var prototype = ItemServiceUpgradeComponent.prototype, constructor = ItemServiceUpgradeComponent;
-    function ItemServiceUpgradeComponent(_itemSvc, _externalDataSvc, _itemIndexSvc, _inventorySvc, $q){
+    function ItemServiceUpgradeComponent(_itemSvc, _externalDataSvc, _itemIndexSvc, $q){
       this._itemSvc = _itemSvc;
       this._externalDataSvc = _externalDataSvc;
       this._itemIndexSvc = _itemIndexSvc;
-      this._inventorySvc = _inventorySvc;
       this.$q = $q;
-      this.findAllAvailableUpgradesFor = bind$(this, 'findAllAvailableUpgradesFor', prototype);
       this.apply = bind$(this, 'apply', prototype);
       this.canBeUpgradedFurther = bind$(this, 'canBeUpgradedFurther', prototype);
       this.canBeUpgraded = bind$(this, 'canBeUpgraded', prototype);
@@ -2638,8 +2636,6 @@ function curry$(f, bound){
       this.ensureItCanBeUpgraded = bind$(this, 'ensureItCanBeUpgraded', prototype);
       this.loadAllUpgrades = bind$(this, 'loadAllUpgrades', prototype);
       this.loadAllMaterialSets = bind$(this, 'loadAllMaterialSets', prototype);
-      this.deductFrom = bind$(this, 'deductFrom', prototype);
-      this.are = bind$(this, 'are', prototype);
       this.findUpgradeMaterialsFor = bind$(this, 'findUpgradeMaterialsFor', prototype);
       this.findUpgradeFor = bind$(this, 'findUpgradeFor', prototype);
       this.findBaseItem = bind$(this, 'findBaseItem', prototype);
@@ -2716,59 +2712,6 @@ function curry$(f, bound){
         })(
         this$._materialSets);
       });
-    };
-    prototype.are = function(materials){
-      var this$ = this;
-      return {
-        enoughToUpgrade: function(item, level){
-          return this$.findUpgradeFor(item, level).then(function(upgrade){
-            if (upgrade == null) {
-              return false;
-            }
-            return this$.findUpgradeMaterialsFor(item, upgrade);
-          }).then(function(materialSet){
-            if (materialSet === null) {
-              return false;
-            }
-            if (materialSet == null) {
-              console.log("Failed to find material set for", import$({}, item), level);
-            }
-            if (materialSet.matId < 0 || materialSet.matCost < 0) {
-              return true;
-            }
-            return any(function(it){
-              return it.id === materialSet.matId && it.amount >= materialSet.matCost;
-            })(
-            materials);
-          });
-        }
-      };
-    };
-    prototype.deductFrom = function(materials){
-      var this$ = this;
-      return {
-        costOfUpgrade: function(item, level){
-          return this$.findUpgradeFor(item, level).then(function(upgrade){
-            return this$.findUpgradeMaterialsFor(item, upgrade);
-          }).then(function(materialSet){
-            var material;
-            if (materialSet.matId >= 0 && materialSet.matCost >= 0) {
-              material = find(function(it){
-                return it.id === materialSet.matId;
-              })(
-              materials);
-              if (material == null) {
-                console.log(materialSet.matId, materials);
-              }
-              material.amount -= materialSet.matCost;
-            }
-            return {
-              matCost: materialSet.matCost,
-              matId: materialSet.matId
-            };
-          });
-        }
-      };
     };
     /**
      * Asynchronously loads all information on material sets required for upgrades
@@ -2863,99 +2806,6 @@ function curry$(f, bound){
         }
       };
     };
-    /**
-     * Find all upgrades that can be applied to a given item,
-     * within the limits of what is available to the user
-     */
-    prototype.findAllAvailableUpgradesFor = function(item){
-      var x$, upgradeList, maxUpgrades, this$ = this;
-      this.ensureItCanBeUpgraded(
-      item);
-      if (item.id == null) {
-        throw new Error("Can't find upgrades for an item with no ID.");
-      }
-      if (item.id < 0 || item.upgradeId < 0) {
-        x$ = this.$q.defer();
-        x$.resolve([]);
-        return x$.promise;
-      }
-      upgradeList = [];
-      maxUpgrades = item.itemType === 'weapon' ? 15 : 10;
-      return this._inventorySvc.load().then(function(inventory){
-        var materials, promise, canKeepUpgrading, i$, to$, level;
-        materials = map(function(it){
-          return import$({}, it);
-        })(
-        filter(function(it){
-          return it.itemType === 'item';
-        })(
-        inventory));
-        promise = this$.$q(function(resolve, reject){
-          resolve();
-        });
-        canKeepUpgrading = true;
-        if (this$._debugLog) {
-          console.log("Item's current upgrade level is " + this$.getUpgradeLevelFrom(item.id));
-        }
-        for (i$ = this$.getUpgradeLevelFrom(item.id) + 1, to$ = maxUpgrades; i$ <= to$; ++i$) {
-          level = i$;
-          fn$(materials, level);
-        }
-        return promise;
-        function fn$(materials, level){
-          promise = promise.then(function(){
-            if (!canKeepUpgrading) {
-              return null;
-            }
-            if (this$._debugLog) {
-              console.log("Checking upgrade level " + level);
-            }
-            return this$.$q.all([this$.canBeUpgradedFurther(item), this$.are(materials).enoughToUpgrade(item, level)]);
-          }).then(function(canUpgrade){
-            if (this$._debugLog && canUpgrade != null) {
-              console.log("Can upgrade further: " + canUpgrade[0]);
-              console.log("Enough materials: " + canUpgrade[1]);
-            }
-            if (!((canUpgrade != null && canUpgrade[0]) && (canUpgrade != null && canUpgrade[1]))) {
-              materials.length = 0;
-              canKeepUpgrading = false;
-              return null;
-            }
-            if (canUpgrade = canUpgrade[0] + canUpgrade[1]) {
-              return this$.$q.all([this$._itemSvc.getUpgraded(item, level), this$.deductFrom(materials).costOfUpgrade(item, level)]);
-            }
-          }).then(function(result){
-            var upItem, cost, totalCost, costEntry, x$;
-            upItem = result != null ? result[0] : void 8;
-            cost = result != null ? result[1] : void 8;
-            if (upItem != null) {
-              totalCost = materials.totalCost || (materials.totalCost = []);
-              costEntry = find(function(it){
-                return it.matId === cost.matId;
-              })(
-              totalCost);
-              if (costEntry == null) {
-                costEntry = {
-                  matId: cost.matId,
-                  matCost: 0
-                };
-                totalCost.push(costEntry);
-              }
-              costEntry.matCost += cost.matCost;
-              x$ = upItem;
-              x$.totalCost = map(function(it){
-                return import$({}, it);
-              })(
-              totalCost);
-              x$.upgradeLevel = level - this$.getUpgradeLevelFrom(item.id);
-              upgradeList.push(upItem);
-            }
-          });
-        }
-      }).then(function(){
-        return upgradeList;
-      });
-    };
     return ItemServiceUpgradeComponent;
   }());
   if (typeof module != 'undefined' && module !== null) {
@@ -2963,11 +2813,6 @@ function curry$(f, bound){
   }
   function bind$(obj, key, target){
     return function(){ return (target || obj)[key].apply(obj, arguments) };
-  }
-  function import$(obj, src){
-    var own = {}.hasOwnProperty;
-    for (var key in src) if (own.call(src, key)) obj[key] = src[key];
-    return obj;
   }
 }).call(this);
 
@@ -3340,7 +3185,7 @@ function curry$(f, bound){
 (function(){
   var ItemService;
   if (typeof angular != 'undefined' && angular !== null) {
-    angular.module("dsc").service("itemSvc", function(externalDataSvc, itemIndexSvc, inventorySvc, $q){
+    angular.module("dsc").service("itemSvc", function(externalDataSvc, itemIndexSvc, $q){
       return (function(func, args, ctor) {
         ctor.prototype = func.prototype;
         var child = new ctor, result = func.apply(child, args), t;
@@ -3351,15 +3196,20 @@ function curry$(f, bound){
   ItemService = (function(){
     ItemService.displayName = 'ItemService';
     var prototype = ItemService.prototype, constructor = ItemService;
-    function ItemService(_externalDataSvc, _itemIndexSvc, _inventorySvc, $q){
+    ItemService.WeaponStats = ['str', 'dex', 'int', 'fai'];
+    ItemService.WeaponBonus = ['bonusStr', 'bonusDex', 'bonusInt', 'bonusFai'];
+    ItemService.WeaponReqs = ['reqStr', 'reqDex', 'reqInt', 'reqFai'];
+    ItemService.AttackTypes = ['atkPhy', 'atkMag', 'atkFir', 'atkLit'];
+    ItemService.DefenceTypes = ['defPhy', 'defMag', 'defFir', 'defLit', 'defBlo', 'defTox', 'defCur', 'defPoise'];
+    ItemService.EffectTypes = ['blo', 'tox', 'cur'];
+    function ItemService(_externalDataSvc, _itemIndexSvc, $q){
       this._externalDataSvc = _externalDataSvc;
       this._itemIndexSvc = _itemIndexSvc;
-      this._inventorySvc = _inventorySvc;
       this.$q = $q;
       this.getUpgraded = bind$(this, 'getUpgraded', prototype);
+      this.loadAll = bind$(this, 'loadAll', prototype);
       this.loadAllItems = bind$(this, 'loadAllItems', prototype);
       this.createItemModelFrom = bind$(this, 'createItemModelFrom', prototype);
-      this.findItemsFromInventory = bind$(this, 'findItemsFromInventory', prototype);
       this.findAnyItemByUid = bind$(this, 'findAnyItemByUid', prototype);
       this.findItemById = bind$(this, 'findItemById', prototype);
       this.findItem = bind$(this, 'findItem', prototype);
@@ -3438,31 +3288,6 @@ function curry$(f, bound){
       });
     };
     /**
-     * Filter inventory entries by a given filter and then return the real item data
-     * for them.
-     */
-    prototype.findItemsFromInventory = function(typeOrFilter){
-      var this$ = this;
-      return this._inventorySvc.load().then(function(inventory){
-        var promises, i$, len$, itemEntry;
-        if (typeof typeOrFilter === 'string') {
-          inventory = filter(function(it){
-            return it.itemType === typeOrFilter;
-          })(
-          inventory);
-        } else {
-          inventory = filter(byFilter)(
-          inventory);
-        }
-        promises = [];
-        for (i$ = 0, len$ = inventory.length; i$ < len$; ++i$) {
-          itemEntry = inventory[i$];
-          promises.push(this$.findAnyItemByUid(itemEntry.uid));
-        }
-        return this$.$q.all(promises);
-      });
-    };
-    /**
      * Create a model from given item data
      */
     prototype.createItemModelFrom = function(data){
@@ -3483,22 +3308,28 @@ function curry$(f, bound){
      * Load item data of a given item type.
      * @returns Promise or populated array, depending on returnPromise setting.
      */
-    prototype.loadAllItems = function(itemType, returnPromise){
-      var ref$, test, this$ = this;
-      returnPromise == null && (returnPromise = true);
+    prototype.loadAllItems = function(itemType){
+      var ref$, this$ = this;
       if (((ref$ = this._storage)[itemType] || (ref$[itemType] = [])).$promise == null) {
-        this._storage[itemType].$promise = test = this._externalDataSvc.loadJson("/modules/items/content/" + itemType + "s.json").then(function(itemData){
+        this._storage[itemType].$promise = this._externalDataSvc.loadJson("/modules/items/content/" + itemType + "s.json").then(function(itemData){
+          return this$.loadAll(itemType).from(itemData);
+        });
+      }
+      return this._storage[itemType].$promise;
+    };
+    prototype.loadAll = function(itemType){
+      var this$ = this;
+      return {
+        'from': function(itemData){
+          var ref$;
+          (ref$ = this$._storage)[itemType] || (ref$[itemType] = []);
           each(function(it){
-            var ref$;
-            ((ref$ = this$._storage)[itemType] || (ref$[itemType] = [])).push(this$.createItemModelFrom(it));
+            this$._storage[itemType].push(this$.createItemModelFrom(it));
           })(
           itemData);
           return this$._storage[itemType];
-        });
-      }
-      return returnPromise
-        ? this._storage[itemType].$promise
-        : this._storage[itemType];
+        }
+      };
     };
     prototype.getUpgraded = function(item, level){
       var this$ = this;
@@ -3621,6 +3452,7 @@ function curry$(f, bound){
           this.name = '';
           this.sellValue = 0;
           this.iconId = 0;
+          this.sortId = 0;
         }
         /**
          * A unique ID that doesn't overlap between item types.
@@ -3667,28 +3499,26 @@ function curry$(f, bound){
           this.path = '';
           this.canBlock = false;
           this.canParry = false;
-          this.castsMagic = false;
-          this.castsPyromancy = false;
-          this.castsMiracles = false;
+          this.casts = null;
           this.damagesGhosts = false;
           this.isAugmentable = false;
-          this.doesRegularDamage = false;
-          this.doesStrikeDamage = false;
-          this.doesSlashDamage = false;
-          this.doesThrustDamage = false;
+          this.dmgReg = false;
+          this.dmgStrike = false;
+          this.dmsSlash = false;
+          this.dmgThrust = false;
           this.reqStr = 0;
           this.reqDex = 0;
           this.reqInt = 0;
           this.reqFai = 0;
-          this.atkPhy = 0;
-          this.atkMag = 0;
-          this.atkFir = 0;
-          this.atkLit = 0;
-          this.atkStaCost = 0;
           this.bonusStr = 0;
           this.bonusDex = 0;
           this.bonusInt = 0;
           this.bonusFai = 0;
+          this.atkPhy = 0;
+          this.atkMag = 0;
+          this.atkFir = 0;
+          this.atkLit = 0;
+          this.atkSta = 0;
           this.defSta = 0;
           this.divine = 0;
           this.occult = 0;
@@ -3849,7 +3679,7 @@ function curry$(f, bound){
 (function(){
   var InventorySvc;
   if (typeof angular != 'undefined' && angular !== null) {
-    angular.module("dsc").service("inventorySvc", function(storageSvc, itemIndexSvc, notificationSvc, $q){
+    angular.module("dsc").service("inventorySvc", function(itemSvc, storageSvc, itemIndexSvc, notificationSvc, $q){
       return (function(func, args, ctor) {
         ctor.prototype = func.prototype;
         var child = new ctor, result = func.apply(child, args), t;
@@ -3860,11 +3690,15 @@ function curry$(f, bound){
   InventorySvc = (function(){
     InventorySvc.displayName = 'InventorySvc';
     var prototype = InventorySvc.prototype, constructor = InventorySvc;
-    function InventorySvc(_storageSvc, _itemIndexSvc, _notificationSvc, $q){
+    function InventorySvc(_itemSvc, _storageSvc, _itemIndexSvc, _notificationSvc, $q){
+      this._itemSvc = _itemSvc;
       this._storageSvc = _storageSvc;
       this._itemIndexSvc = _itemIndexSvc;
       this._notificationSvc = _notificationSvc;
       this.$q = $q;
+      this.deductFrom = bind$(this, 'deductFrom', prototype);
+      this.are = bind$(this, 'are', prototype);
+      this.findAllAvailableUpgradesFor = bind$(this, 'findAllAvailableUpgradesFor', prototype);
       this.clear = bind$(this, 'clear', prototype);
       this.remove = bind$(this, 'remove', prototype);
       this.add = bind$(this, 'add', prototype);
@@ -3873,6 +3707,7 @@ function curry$(f, bound){
       this.hasItemWithName = bind$(this, 'hasItemWithName', prototype);
       this.addAll = bind$(this, 'addAll', prototype);
       this.createInventoryItemFrom = bind$(this, 'createInventoryItemFrom', prototype);
+      this.findItemsByType = bind$(this, 'findItemsByType', prototype);
       this.findItemByUid = bind$(this, 'findItemByUid', prototype);
       this.load = bind$(this, 'load', prototype);
       this.save = bind$(this, 'save', prototype);
@@ -3891,9 +3726,8 @@ function curry$(f, bound){
       }
       this._storageSvc.save('inventory', data);
     };
-    prototype.load = function(returnPromise){
+    prototype.load = function(){
       var promises, i$, ref$, ref1$, len$, data, promise, this$ = this;
-      returnPromise == null && (returnPromise = true);
       if (this._inventory.$promise == null) {
         this.clear();
         promises = [];
@@ -3901,20 +3735,18 @@ function curry$(f, bound){
           ? ref1$
           : []).length; i$ < len$; ++i$) {
           data = ref$[i$];
-          promise = fn$(data);
+          promise = (fn$.call(this, data));
           promises.push(promise);
         }
         this._inventory.$promise = this.$q.all(promises).then(function(){
           return this$._inventory;
         });
       }
-      return returnPromise
-        ? this._inventory.$promise
-        : this._inventory;
+      return this._inventory.$promise;
       function fn$(data){
-        var item;
-        item = new this$._models.InventoryItem(data);
-        return this$._itemIndexSvc.findEntryByUid(data.uid).then(function(indexEntry){
+        var item, this$ = this;
+        item = new this._models.InventoryItem(data);
+        return this._itemIndexSvc.findEntryByUid(data.uid).then(function(indexEntry){
           item.useDataFrom(indexEntry);
           this$._inventory.push(item);
           return item;
@@ -3928,6 +3760,24 @@ function curry$(f, bound){
           return it.uid === uid;
         })(
         inventory);
+      });
+    };
+    /**
+     * Return all items the inventory having a specific itemType
+     */
+    prototype.findItemsByType = function(type, subType){
+      var this$ = this;
+      subType == null && (subType = null);
+      return this.load().then(function(inventory){
+        return filter(function(it){
+          return it.itemType === type;
+        })(
+        inventory);
+      }).then(function(filtered){
+        return this$.$q.all(map(function(it){
+          return this$._itemSvc.findAnyItemByUid(it.uid);
+        })(
+        filtered));
       });
     };
     prototype.createInventoryItemFrom = function(item, amount){
@@ -4054,6 +3904,155 @@ function curry$(f, bound){
       delete this._inventory.$promise;
       return this;
     };
+    /**
+     * Find all upgrades that can be applied to a given item,
+     * within the limits of what is available to the user
+     */
+    prototype.findAllAvailableUpgradesFor = function(item){
+      var up, x$, upgradeList, maxUpgrades, this$ = this;
+      up = this._itemSvc.upgradeComp;
+      up.ensureItCanBeUpgraded(
+      item);
+      if (item.id == null) {
+        throw new Error("Can't find upgrades for an item with no ID.");
+      }
+      if (item.id < 0 || item.upgradeId < 0) {
+        x$ = this.$q.defer();
+        x$.resolve([]);
+        return x$.promise;
+      }
+      upgradeList = [];
+      maxUpgrades = item.itemType === 'weapon' ? 15 : 10;
+      return this.load().then(function(inventory){
+        var materials, promise, canKeepUpgrading, i$, to$, level;
+        materials = map(function(it){
+          return import$({}, it);
+        })(
+        filter(function(it){
+          return it.itemType === 'item';
+        })(
+        inventory));
+        promise = this$.$q(function(resolve, reject){
+          resolve();
+        });
+        canKeepUpgrading = true;
+        if (this$._debugLog) {
+          console.log("Item's current upgrade level is " + up.getUpgradeLevelFrom(item.id));
+        }
+        for (i$ = up.getUpgradeLevelFrom(item.id) + 1, to$ = maxUpgrades; i$ <= to$; ++i$) {
+          level = i$;
+          fn$(materials, level);
+        }
+        return promise;
+        function fn$(materials, level){
+          promise = promise.then(function(){
+            if (!canKeepUpgrading) {
+              return null;
+            }
+            if (this$._debugLog) {
+              console.log("Checking upgrade level " + level);
+            }
+            return this$.$q.all([up.canBeUpgradedFurther(item), this$.are(materials).enoughToUpgrade(item, level)]);
+          }).then(function(canUpgrade){
+            if (this$._debugLog && canUpgrade != null) {
+              console.log("Can upgrade further: " + canUpgrade[0]);
+              console.log("Enough materials: " + canUpgrade[1]);
+            }
+            if (!((canUpgrade != null && canUpgrade[0]) && (canUpgrade != null && canUpgrade[1]))) {
+              materials.length = 0;
+              canKeepUpgrading = false;
+              return null;
+            }
+            if (canUpgrade = canUpgrade[0] + canUpgrade[1]) {
+              return this$.$q.all([this$._itemSvc.getUpgraded(item, level), this$.deductFrom(materials).costOfUpgrade(item, level)]);
+            }
+          }).then(function(result){
+            var upItem, cost, totalCost, costEntry, x$;
+            upItem = result != null ? result[0] : void 8;
+            cost = result != null ? result[1] : void 8;
+            if (upItem != null) {
+              totalCost = materials.totalCost || (materials.totalCost = []);
+              costEntry = find(function(it){
+                return it.matId === cost.matId;
+              })(
+              totalCost);
+              if (costEntry == null) {
+                costEntry = {
+                  matId: cost.matId,
+                  matCost: 0
+                };
+                totalCost.push(costEntry);
+              }
+              costEntry.matCost += cost.matCost;
+              x$ = upItem;
+              x$.totalCost = map(function(it){
+                return import$({}, it);
+              })(
+              totalCost);
+              x$.upgradeLevel = level - up.getUpgradeLevelFrom(item.id);
+              upgradeList.push(upItem);
+            }
+          });
+        }
+      }).then(function(){
+        return upgradeList;
+      });
+    };
+    prototype.are = function(materials){
+      var up, this$ = this;
+      up = this._itemSvc.upgradeComp;
+      return {
+        enoughToUpgrade: function(item, level){
+          return up.findUpgradeFor(item, level).then(function(upgrade){
+            if (upgrade == null) {
+              return false;
+            }
+            return up.findUpgradeMaterialsFor(item, upgrade);
+          }).then(function(materialSet){
+            if (materialSet === null) {
+              return false;
+            }
+            if (materialSet == null) {
+              console.log("Failed to find material set for", import$({}, item), level);
+            }
+            if (materialSet.matId < 0 || materialSet.matCost < 0) {
+              return true;
+            }
+            return any(function(it){
+              return it.id === materialSet.matId && it.amount >= materialSet.matCost;
+            })(
+            materials);
+          });
+        }
+      };
+    };
+    prototype.deductFrom = function(materials){
+      var up, this$ = this;
+      up = this._itemSvc.upgradeComp;
+      return {
+        costOfUpgrade: function(item, level){
+          return up.findUpgradeFor(item, level).then(function(upgrade){
+            return up.findUpgradeMaterialsFor(item, upgrade);
+          }).then(function(materialSet){
+            var material;
+            if (materialSet.matId >= 0 && materialSet.matCost >= 0) {
+              material = find(function(it){
+                return it.id === materialSet.matId;
+              })(
+              materials);
+              if (material == null) {
+                console.log(materialSet.matId, materials);
+              }
+              material.amount -= materialSet.matCost;
+            }
+            return {
+              matCost: materialSet.matCost,
+              matId: materialSet.matId
+            };
+          });
+        }
+      };
+    };
     return InventorySvc;
   }());
   if (typeof module != 'undefined' && module !== null) {
@@ -4061,6 +4060,11 @@ function curry$(f, bound){
   }
   function bind$(obj, key, target){
     return function(){ return (target || obj)[key].apply(obj, arguments) };
+  }
+  function import$(obj, src){
+    var own = {}.hasOwnProperty;
+    for (var key in src) if (own.call(src, key)) obj[key] = src[key];
+    return obj;
   }
 }).call(this);
 
@@ -4724,122 +4728,25 @@ function curry$(f, bound){
             type: 'number'
           }, {
             field: 'weapon.name',
-            minWidth: 210
+            minWidth: 210,
+            displayName: 'Name'
           }, {
-            field: 'weapon.reqStr',
-            displayName: 'RS',
-            type: 'number'
+            field: 'statReqs',
+            displayName: 'Requirements',
+            minWidth: 50
           }, {
-            field: 'weapon.reqDex',
-            displayName: 'RD',
-            type: 'number'
+            field: 'dps',
+            displayName: 'DPS',
+            minWidth: 50
           }, {
-            field: 'weapon.reqInt',
-            displayName: 'RI',
-            type: 'number'
-          }, {
-            field: 'weapon.reqFai',
-            displayName: 'RF',
-            type: 'number'
-          }, {
-            field: 'atkPhy',
-            displayName: 'AP',
-            type: 'number',
-            cellFilter: "number:0"
-          }, {
-            field: 'atkMag',
-            displayName: 'AM',
-            type: 'number',
-            cellFilter: "number:0"
-          }, {
-            field: 'weapon.atkFir',
-            displayName: 'AF',
-            type: 'number',
-            cellFilter: "number:0"
-          }, {
-            field: 'weapon.atkLit',
-            displayName: 'AL',
-            type: 'number',
-            cellFilter: "number:0"
+            field: 'atk',
+            displayName: 'Attack',
+            minWidth: 50
           }, {
             field: 'weapon.atkStaCost',
             displayName: 'AS',
             type: 'number',
             cellFilter: "number:0"
-          }, {
-            field: 'weapon.bonusStr',
-            displayName: 'SS',
-            minWidth: percentFieldMinWidth,
-            cellFilter: 'percentage',
-            type: 'number'
-          }, {
-            field: 'weapon.bonusDex',
-            displayName: 'SD',
-            minWidth: percentFieldMinWidth,
-            cellFilter: 'percentage',
-            type: 'number'
-          }, {
-            field: 'weapon.bonusInt',
-            displayName: 'SI',
-            minWidth: percentFieldMinWidth,
-            cellFilter: 'percentage',
-            type: 'number'
-          }, {
-            field: 'weapon.bonusFai',
-            displayName: 'SF',
-            minWidth: percentFieldMinWidth,
-            cellFilter: 'percentage',
-            type: 'number'
-          }, {
-            field: 'weapon.defPhy',
-            displayName: 'DP',
-            type: 'number'
-          }, {
-            field: 'weapon.defMag',
-            displayName: 'DM',
-            type: 'number'
-          }, {
-            field: 'weapon.defFir',
-            displayName: 'DF',
-            type: 'number'
-          }, {
-            field: 'weapon.defLit',
-            displayName: 'DL',
-            type: 'number'
-          }, {
-            field: 'weapon.defTox',
-            displayName: 'DT',
-            type: 'number'
-          }, {
-            field: 'weapon.defBlo',
-            displayName: 'DB',
-            type: 'number'
-          }, {
-            field: 'weapon.defCur',
-            displayName: 'DC',
-            type: 'number'
-          }, {
-            field: 'weapon.defSta',
-            displayName: 'St',
-            type: 'number',
-            cellFilter: "number:0"
-          }, {
-            field: 'weapon.divine',
-            minWidth: percentFieldMinWidth,
-            displayName: 'Div',
-            cellFilter: 'percentage',
-            type: 'number'
-          }, {
-            field: 'weapon.occult',
-            minWidth: percentFieldMinWidth,
-            displayName: 'Occ',
-            cellFilter: 'percentage',
-            type: 'number'
-          }, {
-            field: 'weapon.weight',
-            displayName: 'Wt',
-            type: 'number',
-            cellFilter: "number:2"
           }
         ]
       };
@@ -4908,7 +4815,10 @@ function curry$(f, bound){
         },
         searchType: 'offence',
         includeUpgrades: true,
-        modifiers: {}
+        modifiers: {
+          'atkPhy': 0,
+          'atkMag': 0
+        }
       };
       this.$scope.gridOptions = require('./config/weapon-finder-grid-options')(this.$uiGridConstants);
     };
@@ -4938,7 +4848,22 @@ function curry$(f, bound){
       this._weaponFinderSvc.findBestWeapons().then(function(results){
         this$.$scope.results = map(function(result){
           return import$({
-            weapon: result
+            weapon: result,
+            statReqs: join('/')(
+            map(function(it){
+              return result[it];
+            })(
+            ['reqStr', 'reqDex', 'reqInt', 'reqFai'])),
+            atk: join('/')(
+            map(function(it){
+              return Math.floor(result[it]);
+            })(
+            ['atkPhy', 'atkMag', 'atkFir', 'atkLit'])),
+            dps: join('/')(
+            map(function(it){
+              return Math.floor(result[it]);
+            })(
+            ['dpsPhy', 'dpsMag', 'dpsFir', 'dpsLit']))
           }, result);
         })(
         results);
@@ -4964,7 +4889,7 @@ function curry$(f, bound){
 (function(){
   var WeaponFinderService;
   if (typeof angular != 'undefined' && angular !== null) {
-    angular.module("dsc").service("weaponFinderSvc", function(itemSvc, statSvc, $q){
+    angular.module("dsc").service("weaponFinderSvc", function(itemSvc, inventorySvc, statSvc, $q){
       return (function(func, args, ctor) {
         ctor.prototype = func.prototype;
         var child = new ctor, result = func.apply(child, args), t;
@@ -4975,96 +4900,68 @@ function curry$(f, bound){
   WeaponFinderService = (function(){
     WeaponFinderService.displayName = 'WeaponFinderService';
     var prototype = WeaponFinderService.prototype, constructor = WeaponFinderService;
-    function WeaponFinderService(_itemSvc, _statSvc, $q){
+    function WeaponFinderService(_itemSvc, _inventorySvc, _statSvc, $q){
+      var this$ = this;
       this._itemSvc = _itemSvc;
+      this._inventorySvc = _inventorySvc;
       this._statSvc = _statSvc;
       this.$q = $q;
       this.calculateScoreFor = bind$(this, 'calculateScoreFor', prototype);
+      this.findFittingWeaponsIn = bind$(this, 'findFittingWeaponsIn', prototype);
       this.findFittingWeapons = bind$(this, 'findFittingWeapons', prototype);
       this.findBestWeapons = bind$(this, 'findBestWeapons', prototype);
       this.params = {
-        statBonus: 0,
-        searchType: 'offence',
         includeUpgrades: true,
         modifiers: {},
-        reqLimits: {
-          'str': 20,
-          'dex': 20,
-          'int': 20,
-          'fai': 20
-        }
+        reqLimits: {}
       };
+      each(function(it){
+        this$.params.reqLimits[it] = 20;
+      })(
+      this._itemSvc.constructor.WeaponStats);
+      each(function(it){
+        this$.params.modifiers[it] = 0;
+      })(
+      this._itemSvc.constructor.AttackTypes.concat(this._itemSvc.constructor.DefenceTypes));
     }
     prototype.findBestWeapons = function(){
-      var allWeapons, this$ = this;
+      var allWeapons;
       allWeapons = [];
-      return this.findFittingWeapons().then(function(weapons){
-        allWeapons = allWeapons.concat(weapons);
-        if (!this$.params.includeUpgrades) {
-          return [];
-        }
-        return this$.$q.all(map(function(it){
-          return this$._itemSvc.upgradeComp.findAllAvailableUpgradesFor(it);
-        })(
-        weapons));
-      }).then(function(upWeapons){
-        allWeapons = allWeapons.concat(flatten(
-        reject(function(it){
-          return empty(
-          it);
-        })(
-        upWeapons)));
-        return map(this$.calculateScoreFor)(
-        allWeapons);
-      });
+      return this.findFittingWeapons();
     };
     prototype.findFittingWeapons = function(){
       var this$ = this;
-      return this._itemSvc.findItemsFromInventory('weapon').then(function(weapons){
-        var fitWeapons, statKeys, reqKeys, statValues, i$, len$, weapon, fit, j$, len1$, a, key;
-        fitWeapons = [];
-        statKeys = ['str', 'dex', 'int', 'fai'];
-        reqKeys = ['reqStr', 'reqDex', 'reqInt', 'reqFai'];
-        statValues = {};
-        for (i$ = 0, len$ = weapons.length; i$ < len$; ++i$) {
-          weapon = weapons[i$];
-          fit = true;
-          for (j$ = 0, len1$ = statKeys.length; j$ < len1$; ++j$) {
-            a = j$;
-            key = statKeys[j$];
-            if (this$.params.reqLimits[key] == null) {
-              continue;
-            }
-            if (weapon[reqKeys[a]] > this$.params.reqLimits[key]) {
-              fit = false;
-              break;
-            }
-          }
-          if (fit) {
-            fitWeapons.push(weapon);
-          }
-        }
-        return fitWeapons;
+      return this._inventorySvc.findItemsByType('weapon').then(function(list){
+        return this$.findFittingWeaponsIn(list);
       });
     };
-    prototype.calculateScoreFor = function(weapon){
-      var result, scS, scD, scI, scF, x$;
-      result = import$({}, weapon);
-      scS = this._statSvc.statScalingFactorOf('str');
-      scD = this._statSvc.statScalingFactorOf('dex');
-      scI = this._statSvc.statScalingFactorOf('int');
-      scF = this._statSvc.statScalingFactorOf('fai');
-      x$ = result;
-      x$.atkPhy *= 1 + (weapon.bonusStr * scS + weapon.bonusDex * scD);
-      x$.atkMag *= 1 + (weapon.bonusInt * scI + weapon.bonusFai * scF);
-      if (this.params.searchType === 'defence') {
-        result.score = average(
-        [result.defPhy * 4, result.defMag * 2, result.defFir, result.defLit, result.defSta * 3]);
-      } else {
-        result.score = result.atkPhy;
+    prototype.findFittingWeaponsIn = function(weaponList){
+      var fitWeapons, statKeys, reqKeys, statValues, i$, len$, weapon, fit, j$, len1$, a, key;
+      fitWeapons = [];
+      statKeys = ['str', 'dex', 'int', 'fai'];
+      reqKeys = ['reqStr', 'reqDex', 'reqInt', 'reqFai'];
+      statValues = {};
+      for (i$ = 0, len$ = weaponList.length; i$ < len$; ++i$) {
+        weapon = weaponList[i$];
+        fit = true;
+        for (j$ = 0, len1$ = statKeys.length; j$ < len1$; ++j$) {
+          a = j$;
+          key = statKeys[j$];
+          if (this.params.reqLimits[key] == null) {
+            continue;
+          }
+          if (weapon[reqKeys[a]] > this.params.reqLimits[key]) {
+            fit = false;
+            break;
+          }
+        }
+        if (fit) {
+          fitWeapons.push(weapon);
+        }
       }
-      return result;
+      return this.$q.when(fitWeapons);
     };
+    prototype.calculateScoreFor = function(weapon){};
     return WeaponFinderService;
   }());
   if (typeof module != 'undefined' && module !== null) {
@@ -5072,11 +4969,6 @@ function curry$(f, bound){
   }
   function bind$(obj, key, target){
     return function(){ return (target || obj)[key].apply(obj, arguments) };
-  }
-  function import$(obj, src){
-    var own = {}.hasOwnProperty;
-    for (var key in src) if (own.call(src, key)) obj[key] = src[key];
-    return obj;
   }
 }).call(this);
 

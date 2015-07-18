@@ -1,8 +1,15 @@
-angular? .module "dsc" .service "itemSvc" (externalDataSvc, itemIndexSvc, inventorySvc, $q) -> new ItemService ...
+angular? .module "dsc" .service "itemSvc" (externalDataSvc, itemIndexSvc, $q) -> new ItemService ...
 
 class ItemService
 
-	(@_externalDataSvc, @_itemIndexSvc, @_inventorySvc, @$q) ->
+	@WeaponStats = [\str \dex \int \fai]
+	@WeaponBonus = [\bonusStr \bonusDex \bonusInt \bonusFai]
+	@WeaponReqs = [\reqStr \reqDex \reqInt \reqFai]
+	@AttackTypes = [\atkPhy \atkMag \atkFir \atkLit]
+	@DefenceTypes = [\defPhy \defMag \defFir \defLit \defBlo \defTox \defCur \defPoise]
+	@EffectTypes = [\blo \tox \cur]
+
+	(@_externalDataSvc, @_itemIndexSvc, @$q) ->
 		@.upgradeComp = new (require './components/item-service-upgrade-component')
 
 		@.upgradeComp.@@.apply @.{}upgradeComp, [this] ++ (& |> map -> it)
@@ -68,25 +75,6 @@ class ItemService
 
 
 	/**
-	 * Filter inventory entries by a given filter and then return the real item data
-	 * for them.
-	 */
-	findItemsFromInventory : (typeOrFilter) ~>
-		@_inventorySvc.load!
-		.then (inventory) !~>
-			if typeof typeOrFilter == \string
-				inventory = inventory |> filter (.itemType == typeOrFilter)
-			else
-				inventory = inventory |> filter byFilter
-
-			promises = []
-			for itemEntry in inventory
-				promises.push @.findAnyItemByUid(itemEntry.uid)
-
-			return @$q.all promises
-
-
-	/**
 	 * Create a model from given item data
 	 */
 	createItemModelFrom : (data) ~>
@@ -102,16 +90,20 @@ class ItemService
 	 * Load item data of a given item type.
 	 * @returns Promise or populated array, depending on returnPromise setting.
 	 */
-	loadAllItems : (itemType, returnPromise = true) !~>
+	loadAllItems : (itemType) !~>
 		if not @_storage.[][itemType].$promise?
-			@_storage.[itemType].$promise =
-				test = @_externalDataSvc.loadJson "/modules/items/content/#{itemType}s.json"
-				.then (itemData) !~>
-					itemData |> each !~> @_storage.[][itemType].push @createItemModelFrom it
-					return @_storage.[itemType]
+			@_storage.[itemType].$promise = @_externalDataSvc.loadJson "/modules/items/content/#{itemType}s.json"
+			.then (itemData) ~>
+				@loadAll itemType .from itemData
 
-		return if returnPromise then @_storage.[itemType].$promise else @_storage.[itemType]
+		return @_storage.[itemType].$promise
 
+
+	loadAll : (itemType) ~>
+		\from : (itemData) ~>
+			@_storage.[][itemType]
+			itemData |> each !~> @_storage.[itemType].push @createItemModelFrom it
+			return @_storage.[itemType]
 
 
 	getUpgraded : (item, level = true) ~>

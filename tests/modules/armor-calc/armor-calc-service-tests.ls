@@ -1,15 +1,9 @@
 _ <-! describe "armor-calc-service"
 
-var svc, edSvc, inventorySvc, itemUpSvc, itemSvc, storageSvc, itemIndexSvc, notifySvc
+var svc
 
 beforeEach (done) !->
-	edSvc := new MockExternalDataService
-	storageSvc := new MockStorageService
-	notifySvc := new (testRequire 'app/services/notification-service') {}
-	itemIndexSvc := new (testRequire 'modules/items/item-index-service') edSvc
-	inventorySvc := new (testRequire 'modules/pc/inventory-service') storageSvc, itemIndexSvc, notifySvc, $q
-	itemSvc := new (testRequire 'modules/items/item-service') edSvc, itemIndexSvc, inventorySvc, $q
-	itemUpSvc := itemSvc.upgradeComp
+	createServiceStack!
 	svc := new (testRequire 'modules/armor-calc/armor-calc-service') inventorySvc, itemSvc, $q
 
 	# Setup default data
@@ -29,10 +23,10 @@ beforeEach (done) !->
 
 
 	edSvc.loadJsonReturnValue = materialSets
-	itemUpSvc.loadAllMaterialSets!
+	itemSvc.upgradeComp.loadAllMaterialSets!
 	.then ->
 		edSvc.loadJsonReturnValue = upgrades
-		itemUpSvc.loadAllUpgrades \armor
+		itemSvc.upgradeComp.loadAllUpgrades \armor
 	.then ->
 		edSvc.loadJsonReturnValue = armors
 		itemSvc.loadAllItems \armor
@@ -152,7 +146,7 @@ it "should correctly calculate scores for a set of combinations", !->
 it "should correctly find all available upgrades for a piece of armor", (done) !->
 	itemSvc.findItem \armor, (.id == 11000)
 	.then (armor) ->
-		itemSvc.upgradeComp.findAllAvailableUpgradesFor armor
+		inventorySvc.findAllAvailableUpgradesFor armor
 	.then (upgradeList) ->
 		expect upgradeList .to.have.length 5
 		done!
@@ -254,10 +248,10 @@ it "should not override combinations with better ones while there are still empt
 #	itemSvc.clear \armor .loadAllItems \armor
 #	.then ->
 #		edSvc.loadJsonReturnValue = upgrades
-#		itemUpSvc.clearUpgrades!.loadAllUpgrades \armor
+#		itemSvc.upgradeComp.clearUpgrades!.loadAllUpgrades \armor
 #	.then ->
 #		edSvc.loadJsonReturnValue = materialSets
-#		itemUpSvc.clearMaterialSets!.loadAllMaterialSets!
+#		itemSvc.upgradeComp.clearMaterialSets!.loadAllMaterialSets!
 #	.then ->
 #		edSvc.loadJsonReturnValue = index
 #		itemIndexSvc.clear!.loadAllEntries!

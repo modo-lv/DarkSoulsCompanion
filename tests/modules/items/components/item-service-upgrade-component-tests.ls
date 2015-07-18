@@ -1,14 +1,9 @@
 _ <-! describe "item-service-upgrade-component"
 
-var svc, edSvc, itemModels, upModels, itemSvc, inventorySvc, storageSvc, itemIndexSvc, notifySvc
+var svc, itemModels, upModels
 
 beforeEach !->
-	edSvc := new MockExternalDataService
-	storageSvc := new MockStorageService
-	notifySvc := new (testRequire 'app/services/notification-service') {}
-	itemIndexSvc := new (testRequire "modules/items/item-index-service") edSvc
-	inventorySvc := new (testRequire "modules/pc/inventory-service") storageSvc, itemIndexSvc, notifySvc, $q
-	itemSvc := new (testRequire "modules/items/item-service") edSvc, itemIndexSvc, inventorySvc, $q
+	createServiceStack!
 	svc := itemSvc.upgradeComp
 	itemModels := testRequire 'modules/items/models/item-models'
 	upModels := testRequire 'modules/items/models/item-upgrade-models'
@@ -117,7 +112,7 @@ it "should correctly tell when materials are enough for an upgrade", (done) !->
 			\matSetId : 0
 			\itemType : \armor
 		}
-		svc.are materials .enoughToUpgrade armor, 1
+		inventorySvc.are materials .enoughToUpgrade armor, 1
 	.then (result) ->
 		expect(result).to.be.true
 		done!
@@ -143,7 +138,7 @@ it "should correctly deduct upgrade cost from materials", (done) !->
 	svc.loadAllMaterialSets!
 	.then ->
 		edSvc.loadJsonReturnValue = upgrades
-		svc.deductFrom materials .costOfUpgrade armor, 9
+		inventorySvc.deductFrom materials .costOfUpgrade armor, 9
 	.then !->
 		expect(materials.0).to.have.property \amount, 3
 		done!
@@ -179,7 +174,7 @@ it "should correctly set total upgrade cost", (done) !->
 		storageSvc.loadReturnValue = inventory
 		inventorySvc.clear!.load!
 	.then (inventory) ->
-		svc.findAllAvailableUpgradesFor armor
+		inventorySvc.findAllAvailableUpgradesFor armor
 	.then (upgrades) !->
 		expect upgrades .to.exist
 		expect upgrades .to.have.length 1

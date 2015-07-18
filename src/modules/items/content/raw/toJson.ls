@@ -6,7 +6,7 @@ raw = {}
 	..effects = {}
 	..materialSets = {}
 	..upgrades = {}
-
+	..behavior = {}
 	..weapons = []
 	..items = {}
 
@@ -176,7 +176,18 @@ loadMaterialSets = !->
 		if err? then throw err
 		for row in data
 			raw.{}materialSets[row.\Id] = row
+		loadBehavior!
+
+
+loadBehavior = !->
+	console.log "Loading behavior data..."
+	content = fs.readFileSync \pc-behavior.csv , { \encoding : \utf8 }
+	csvParse content, { \columns : true }, (err, data) !->
+		if err? then throw err
+		for row in data
+			raw.{}behavior["#{row.\VariationId }#{row.\BehaviorJudgeId}"] = row
 		rawDataLoaded!
+
 
 setName = (item) !->
 	uid = item.itemType + item.id
@@ -305,16 +316,17 @@ processWeapons = (folder = '.')!->
 
 			..canBlock = rawWeapon.\EnableGuard .toLowerCase! == \true
 			..canParry = rawWeapon.\EnableParry .toLowerCase! == \true
-			..castsMagic = rawWeapon.\EnableMagic .toLowerCase! == \true
-			..castsPyromancy = rawWeapon.\EnableSorcery .toLowerCase! == \true
-			..castsMiracles = rawWeapon.\EnableMiracle .toLowerCase! == \true
+			..casts = if rawWeapon.\EnableMagic .toLowerCase! == \true then \pyromancy
+				else if rawWeapon.\EnableSorcery .toLowerCase! == \true then \sorcery
+				else if rawWeapon.\EnableMiracle .toLowerCase! == \true then \miracles
+				else null
 			..damagesGhosts = rawWeapon.\IsVersusGhostWep .toLowerCase! == \true
 			..isAugmentable = rawWeapon.\IsEnhance .toLowerCase! == \true
 
-			..doesRegularDamage = rawWeapon.\IsNormalAttackType .toLowerCase! == \true
-			..doesStrikeDamage = rawWeapon.\IsBlowAttackType .toLowerCase! == \true
-			..doesSlashDamage = rawWeapon.\IsSlashAttackType .toLowerCase! == \true
-			..doesThrustDamage = rawWeapon.\IsThrustAttackType .toLowerCase! == \true
+			..hasDmgReg = rawWeapon.\IsNormalAttackType .toLowerCase! == \true
+			..hasDmgStrike = rawWeapon.\IsBlowAttackType .toLowerCase! == \true
+			..hasDmgSlash = rawWeapon.\IsSlashAttackType .toLowerCase! == \true
+			..hasDmgThrust = rawWeapon.\IsThrustAttackType .toLowerCase! == \true
 
 			..reqStr = +rawWeapon.\ProperStrength
 			..reqDex = +rawWeapon.\ProperAgility
@@ -326,13 +338,15 @@ processWeapons = (folder = '.')!->
 			..atkFir = +rawWeapon.\AttackBaseFire
 			..atkLit = +rawWeapon.\AttackBaseThunder
 
-			..atkStaCost = +rawWeapon.\AttackBaseStamina
+			# Stamina damage
+			..atkSta = +rawWeapon.\AttackBaseStamina
 
 			..bonusStr = +rawWeapon.\CorrectStrength / 100
 			..bonusDex = +rawWeapon.\CorrectAgility / 100
 			..bonusInt = +rawWeapon.\CorrectMagic / 100
 			..bonusFai = +rawWeapon.\CorrectFaith / 100
 
+			# Stability
 			..defSta = +rawWeapon.\StaminaGuardDef
 
 			..divine = +rawWeapon.\AntSaintDamageRate
@@ -340,10 +354,16 @@ processWeapons = (folder = '.')!->
 
 			..range = +rawWeapon.\BowDistRate
 
+			# Attack costs
+			..atkCost11 = +raw.behavior["#{rawWeapon.[\BehaviorVariationId]}0"]?.[\Stamina]
+			..atkCost12 = +raw.behavior["#{rawWeapon.[\BehaviorVariationId]}100"]?.[\Stamina]
+			..atkCost21 = +raw.behavior["#{rawWeapon.[\BehaviorVariationId]}200"]?.[\Stamina]
+			..atkCost22 = +raw.behavior["#{rawWeapon.[\BehaviorVariationId]}300"]?.[\Stamina]
+
 
 		# Bleed & poison
 		for effectField in [\SpEffectBehaviorId0 \SpEffectBehaviorId1 \SpEffectBehaviorId2 ]
-			continue unless +rawWeapon[effectField] > 0
+			if +rawWeapon[effectField] < 1 then continue
 
 			effect = raw.effects[+rawWeapon[effectField]]
 
