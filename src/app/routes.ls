@@ -1,7 +1,7 @@
 $routeProvider <-! angular .module "dsc" .config
 
 $routeProvider
-	.when '/tracker/:section', {
+	.when '/tracker/:area', {
 		templateUrl : 'modules/tracker/tracker-view.html'
 		controller : 'trackerController'
 	}
@@ -22,5 +22,5 @@ $routeProvider
 		controller : 'ArmorCalcController'
 	}
 	.otherwise {
-		redirectTo : '/tracker/intro'
+		redirectTo : '/tracker/asylum'
 	}

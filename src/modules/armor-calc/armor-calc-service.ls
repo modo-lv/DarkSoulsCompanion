@@ -83,7 +83,7 @@ class ArmorCalcSvc
 		promises = []
 		for armor in dynamicArmors
 			promises.push(
-				@_itemSvc.upgradeComp.findAllAvailableUpgradesFor armor
+				@_inventorySvc.findAllAvailableUpgradesFor armor
 				.then (upgrades) ~>
 					for upgrade in upgrades
 						delete upgrade.score

@@ -200,7 +200,6 @@ processUpgrades = (folder = '.') !->
 	upgrades = []
 
 	for key, rawUp of raw.upgrades
-		matSet = raw.materialSets[+rawUp.\Id] ? raw.materialSets[+rawUp.\MaterialSetId]
 		#console.log rawUp
 		#console.log rawUp.\MaterialSetId
 		#console.log raw.materialSets[+rawUp.\MaterialSetId]
@@ -226,7 +225,6 @@ processUpgrades = (folder = '.') !->
 			..defModCur = +rawUp.\CurseGuardResistRate
 
 			..defModSta = +rawUp.\StaminaGuardDefRate
-
 
 			..matSetId = +rawUp.\MaterialSetId
 
@@ -386,7 +384,7 @@ processWeapons = (folder = '.')!->
 
 		weapon |> $addToIndex
 		# Also add to index all the upgrade versions
-		for a from 1 to 10
+		for a from 1 to 15
 			{
 				\id : weapon.id + a
 				\itemType : \weapon

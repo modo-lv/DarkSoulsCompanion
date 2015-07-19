@@ -1,0 +1,217 @@
+[
+  {
+    "title": "Fog gates",
+    "labels": "spoiler",
+    "children": [
+      {
+        "title": "First",
+        "content": "Passing through.",
+        "id": "179b2533-ccd9-4abb-a86c-fc9d4457e5f4"
+      },
+      {
+        "title": "Second",
+        "content": "Passing through.",
+        "id": "c182098e-80b8-458a-82f6-bfae2589ec55"
+      },
+      {
+        "title": "Third",
+        "content": "{Iron Golem} boss fight.",
+        "id": "ce76c0d2-03a5-435f-bfa1-9622ecef85cf"
+      }
+    ],
+    "id": "a9edb67a-99fb-45fe-91c7-4b27a6124cf7"
+  },
+  {
+    "title": "Indoors",
+    "children": [
+      {
+        "labels": "item",
+        "title": "Soul of a Brave Warrior",
+        "id": "9b1befa9-40f4-46c9-923d-c7f0ea047ca4"
+      },
+      {
+        "labels": "item",
+        "title": "Large Titanite Shard (2)",
+        "id": "ad6935f2-76e9-42b7-825d-aaed84c98b66"
+      },
+      {
+        "labels": "enemy",
+        "title": "Titanite Demon",
+        "items": "Demon Titanite",
+        "id": "21e8c927-4bec-4a18-b49d-c2611f7474df"
+      },
+      {
+        "labels": "enemy",
+        "title": "Titanite Demon",
+        "items": "Demon Titanite",
+        "id": "917a3176-1c5e-4775-a09e-ebb7b644c2fd"
+      },
+      {
+        "labels": "item",
+        "title": "Scythe",
+        "id": "e0e03467-c7ae-4696-b91e-9cc539f2184e"
+      },
+      {
+        "labels": "item",
+        "title": "Soul of a Brave Warrior",
+        "id": "d0b78599-a184-4144-b95d-1f21b2cbf838"
+      },
+      {
+        "labels": "enemy",
+        "title": "Titanite Demon",
+        "items": "Demon Titanite",
+        "id": "3099a884-7cfd-490f-850e-06f34b39a3c3"
+      },
+      {
+        "labels": "enemy",
+        "title": "Titanite Demon",
+        "items": "Demon Titanite",
+        "id": "8a1f50b3-36a8-4057-b06f-7fd9534884ba"
+      },
+      {
+        "labels": "item",
+        "title": "Large Soul of a Proud Knight",
+        "id": "e3af2747-8c5f-4cd6-a453-a25a2ac42281"
+      },
+      {
+        "title": "Giant Gatekeeper",
+        "labels": [
+          "enemy",
+          "secret"
+        ],
+        "items": "Titanite Chunk",
+        "id": "d8e4c137-26ae-42e8-ad4e-ed2232f7aa37"
+      },
+      {
+        "labels": "item",
+        "title": "Lightning spear",
+        "id": "af4b0093-e797-41f4-b068-6d5aa02b5ac2"
+      },
+      {
+        "labels": "item",
+        "title": "Covetous Gold Serpent Ring",
+        "id": "139014e5-63db-4e97-a0fc-1d49a1335ee9"
+      },
+      {
+        "labels": "item",
+        "title": "Soul of a Hero",
+        "if": [
+          "item|Cage Key",
+          "item|Master Key"
+        ],
+        "id": "76de6740-cef7-4c26-bb00-4159bd2272e3"
+      },
+      {
+        "title": "Big Hat Logan",
+        "action": "free",
+        "if": [
+          "item|Cage Key",
+          "item|Master Key"
+        ],
+        "setVar": "global|bighat-freed",
+        "id": "2fbca6ba-86e7-4aca-9dc0-e4fd7f9ebda7"
+      },
+      {
+        "labels": "talk",
+        "title": "Siegmeiyer of Catarina",
+        "id": "7c7fc36b-8833-422d-b2ea-fe1b1380d819"
+      },
+      {
+        "labels": "item",
+        "title": "Shotel",
+        "id": "90870679-67fb-4199-b759-1f62e04968f1"
+      },
+      {
+        "labels": "item",
+        "title": "Large Soul of a Proud Knight",
+        "id": "794c0f09-6cb8-4597-af8f-4b138facc546"
+      },
+      {
+        "labels": "item",
+        "title": "Black Sorcerer Hat, Black Sorcerer Cloak, Black Sorcerer Gauntlets, Black Sorcerer Boots, Sorcery: Hush",
+        "id": "9b8d0c20-c9a4-4e91-92f6-2dcc9684c100"
+      },
+      {
+        "labels": "item",
+        "title": "Slumbering Dragoncrest Ring",
+        "id": "3a631dd5-7977-46f8-9a48-81de8faa425b"
+      },
+      {
+        "labels": "item",
+        "title": "Large Titanite Shard (2)",
+        "id": "f41c511f-42a6-4891-a761-a3a9084171a4"
+      }
+    ],
+    "id": "e747d179-f99e-4963-b06c-d061dded8cdb"
+  },
+  {
+    "title": "Roof",
+    "children": [
+      {
+        "labels": "item",
+        "title": "Flame Stoneplate Ring",
+        "id": "4c72b0f9-9bb5-4fa9-8ced-8d555d60a2b4"
+      },
+      {
+        "labels": "bonfire",
+        "title": "Tiny hidden balcony",
+        "id": "f5d03216-4585-4f50-acef-cf6f392404dd"
+      },
+      {
+        "labels": "item",
+        "title": "Large Soul of a Brave Warrior",
+        "id": "4b0f3620-a799-426c-9ffe-fd5b63010c24"
+      },
+      {
+        "labels": "item",
+        "title": "Large Titanite Shard (2)",
+        "id": "0eadb583-6664-4446-b5ef-3dc89f3fa2dd"
+      },
+      {
+        "labels": "enemy",
+        "title": "Undead Prince Ricard",
+        "items": "Ricard's Rapier",
+        "id": "91f1a149-e6e0-45c0-9a26-ac1108f4c89b"
+      },
+      {
+        "labels": "item",
+        "title": "Divine Blessing",
+        "id": "f0c824f5-ede0-481d-8e02-e22c206bdeb7"
+      },
+      {
+        "labels": "item",
+        "title": "Rare Ring of Sacrifice",
+        "id": "1f358ab2-9486-400a-ab90-c8fb0dd291e1"
+      },
+      {
+        "labels": "item",
+        "title": "Sniper Crossbow, Sniper Bolt (12)",
+        "id": "6279e34e-f2e9-47ed-ba58-655f4288916a"
+      },
+      {
+        "labels": "item",
+        "title": "Cage Key",
+        "id": "87cb2395-bd84-4346-9434-e8e755017a4a"
+      },
+      {
+        "labels": "shortcut",
+        "title": "Elevator back to the first walkway",
+        "if": "item|Cage Key",
+        "id": "941e5691-4fe2-4117-a653-67d7bf2e9435"
+      },
+      {
+        "labels": "enemy",
+        "title": "Giant Firebomber",
+        "items": "Titanite Chunk",
+        "id": "4acc2973-84f6-4a44-a1cf-36fcd829849d"
+      },
+      {
+        "labels": "enemy",
+        "title": "Iron Golem",
+        "items": "Core of an Iron Golem, Humanity",
+        "id": "68442775-50fd-4858-a60c-723cbb04f39d"
+      }
+    ],
+    "id": "dac61efa-2f32-4a45-b375-b7967af8a4ef"
+  }
+]

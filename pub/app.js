@@ -1463,7 +1463,7 @@ function curry$(f, bound){
 },{}],9:[function(require,module,exports){
 (function(){
   angular.module("dsc").config(function($routeProvider){
-    $routeProvider.when('/tracker/:section', {
+    $routeProvider.when('/tracker/:area', {
       templateUrl: 'modules/tracker/tracker-view.html',
       controller: 'trackerController'
     }).when('/items', {
@@ -1479,7 +1479,7 @@ function curry$(f, bound){
       templateUrl: 'modules/armor-calc/armor-calc-view.html',
       controller: 'ArmorCalcController'
     }).otherwise({
-      redirectTo: '/tracker/intro'
+      redirectTo: '/tracker/asylum'
     });
   });
 }).call(this);
@@ -1979,7 +1979,7 @@ function curry$(f, bound){
       promises = [];
       for (i$ = 0, len$ = dynamicArmors.length; i$ < len$; ++i$) {
         armor = dynamicArmors[i$];
-        promises.push(this._itemSvc.upgradeComp.findAllAvailableUpgradesFor(armor).then(fn$));
+        promises.push(this._inventorySvc.findAllAvailableUpgradesFor(armor).then(fn$));
       }
       return this.$q.all(promises).then(function(armors){
         var combs, end, time;
@@ -3350,6 +3350,10 @@ function curry$(f, bound){
           return this$.upgradeComp.apply(upgrade).to(newItem);
         }).then(function(newItem){
           return this$._itemIndexSvc.findEntryByUid(newItem.uid).then(function(entry){
+            if (entry == null) {
+              console.log(newItem);
+              throw new Error("Failed to find index entry for the above item");
+            }
             newItem.name = entry.name;
             return newItem;
           });
@@ -4375,7 +4379,7 @@ function curry$(f, bound){
 (function(){
   var TrackerController;
   if (typeof angular != 'undefined' && angular !== null) {
-    angular.module("dsc").controller("trackerController", function($sce, $scope, trackerSvc, notificationSvc, inventorySvc, $q){
+    angular.module("dsc").controller("trackerController", function($location, $routeParams, $sce, $scope, trackerSvc, notificationSvc, inventorySvc, $q){
       return (function(func, args, ctor) {
         ctor.prototype = func.prototype;
         var child = new ctor, result = func.apply(child, args), t;
@@ -4386,7 +4390,9 @@ function curry$(f, bound){
   TrackerController = (function(){
     TrackerController.displayName = 'TrackerController';
     var prototype = TrackerController.prototype, constructor = TrackerController;
-    function TrackerController($sce, $scope, _trackerSvc, _notificationSvc, _inventorySvc, $q){
+    function TrackerController($location, $routeParams, $sce, $scope, _trackerSvc, _notificationSvc, _inventorySvc, $q){
+      this.$location = $location;
+      this.$routeParams = $routeParams;
       this.$sce = $sce;
       this.$scope = $scope;
       this._trackerSvc = _trackerSvc;
@@ -4407,6 +4413,7 @@ function curry$(f, bound){
       this.loadUp();
     }
     prototype.setUp = function(){
+      var this$ = this;
       this.$scope.allAreas = [
         {
           key: 'asylum',
@@ -4417,13 +4424,20 @@ function curry$(f, bound){
         }, {
           key: 'darkroot-garden',
           name: "Darkroot Garden"
+        }, {
+          key: 'sen',
+          name: "Sen's Fortress"
         }
       ];
+      this.$scope.currentArea = Obj.find(function(it){
+        return it.key === this$.$routeParams['area'];
+      })(
+      this.$scope.allAreas);
+      if (this.$scope.currentArea == null) {
+        this.$location.path("/tracker");
+      }
       this.$scope.areaContent = [];
-      this.$scope.selectedArea = {
-        originalObject: this.$scope.allAreas[0]
-      };
-      this.$scope.currentArea = this.$scope.allAreas[0];
+      this.$scope.selectedArea = null;
       this.$scope.entryIndex = {};
       this.$scope.globals = {
         "enemies": {},
@@ -4449,11 +4463,17 @@ function curry$(f, bound){
       });
     };
     prototype.wireUp = function(){
-      var i$, ref$, len$, func;
+      var i$, ref$, len$, func, this$ = this;
       for (i$ = 0, len$ = (ref$ = ['performActionOn', 'expandOrCollapse']).length; i$ < len$; ++i$) {
         func = ref$[i$];
         this.$scope[func] = this[func];
       }
+      this.$scope.$watch("selectedArea", function(value){
+        if ((value != null ? value.originalObject : void 8) == null) {
+          return;
+        }
+        this$.$location.path("/tracker/" + value.originalObject.key);
+      });
     };
     prototype.performActionOn = function(entry){
       var def, ref$, key$, ref1$, this$ = this;

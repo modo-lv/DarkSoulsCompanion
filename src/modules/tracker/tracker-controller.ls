@@ -1,9 +1,9 @@
-angular? .module "dsc" .controller "trackerController", ($sce, $scope, trackerSvc, notificationSvc, inventorySvc, $q) ->
+angular? .module "dsc" .controller "trackerController", ($location, $routeParams, $sce, $scope, trackerSvc, notificationSvc, inventorySvc, $q) ->
 	new TrackerController ...
 
 
 class TrackerController
-	(@$sce, @$scope, @_trackerSvc, @_notificationSvc, @_inventorySvc, @$q) ->
+	(@$location, @$routeParams, @$sce, @$scope, @_trackerSvc, @_notificationSvc, @_inventorySvc, @$q) ->
 		@setUp!
 		@wireUp!
 		@loadUp!
@@ -14,14 +14,18 @@ class TrackerController
 			{ key : \asylum , name : "Northern Undead Asylum" }
 			{ key : \blighttown , name : "Blighttown" }
 			{ key : \darkroot-garden , name : "Darkroot Garden" }
+			{ key : \sen , name : "Sen's Fortress" }
 		]
+
+		@$scope.currentArea = @$scope.allAreas |> Obj.find ~> it.key == @$routeParams.[\area]
+
+		if not @$scope.currentArea?
+			@$location.path "/tracker"
+
 		@$scope.areaContent = []
 
 		# What the user has selected in the auto-complete
-		@$scope.selectedArea = {originalObject : @$scope.allAreas.0 }
-
-		# The currently selected area object
-		@$scope.currentArea = @$scope.allAreas.0
+		@$scope.selectedArea = null
 
 		# GUID-keyed index of entries for easy access
 		@$scope.entryIndex = {}
@@ -55,6 +59,11 @@ class TrackerController
 			\expandOrCollapse
 		]
 			@$scope.[func] = @.[func]
+
+		@$scope.$watch "selectedArea", (value) !~>
+			if not value?.originalObject? then return
+			@$location.path "/tracker/#{value.originalObject.key}"
+
 
 
 	### EVENT HANDLERS
