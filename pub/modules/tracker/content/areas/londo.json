@@ -1,0 +1,96 @@
+[
+  {
+    "title": "Fog gates",
+    "labels": "spoiler",
+    "children": [
+      {
+        "title": "First",
+        "content": "Passing through.",
+        "id": "58824c69-e0fd-4e1b-a66a-bab50c930979"
+      }
+    ],
+    "id": "626db7c1-9e77-473e-822d-4a44cc0d8277"
+  },
+  {
+    "labels": "item",
+    "title": "Demon Titanite",
+    "id": "cbfe1d48-7135-49a4-940b-74a55ae9f30a"
+  },
+  {
+    "labels": "item",
+    "title": "Twinkling Titanite",
+    "id": "295c35b9-7360-42e3-a873-85b1d0f1b965"
+  },
+  {
+    "labels": "item",
+    "title": "Crystal Halberd",
+    "id": "456f980b-b5fb-45a8-814c-10fb664a2bc0"
+  },
+  {
+    "labels": "enemy",
+    "title": "Gargoyle",
+    "tail": "Gargoyle Tail Axe",
+    "children": [
+      {
+        "labels": "item",
+        "title": "Gargoyle's Halberd",
+        "if": "item|not",
+        "id": "61c993e4-8f7f-4681-8033-817d354dfe78"
+      },
+      {
+        "labels": "item",
+        "title": "Gargoyle's Shield",
+        "if": "item|not",
+        "id": "4ad6b63a-62c8-48cc-93c9-5682d499bc75"
+      },
+      {
+        "labels": "item",
+        "title": "Gargoyle Helm",
+        "if": "item|not",
+        "id": "3a1d02e4-34e5-490b-9052-ecd79b78c247"
+      }
+    ],
+    "id": "b60e4b03-9e92-4042-9a0b-eb025f80725a"
+  },
+  {
+    "labels": "item",
+    "title": "Demon Titanite",
+    "id": "f14b148e-cc08-4383-8386-10efb1e0ad29"
+  },
+  {
+    "labels": "enemy",
+    "title": "Gargoyle",
+    "tail": "Gargoyle Tail Axe",
+    "children": [
+      {
+        "labels": "item",
+        "title": "Gargoyle's Halberd",
+        "if": "item|not",
+        "id": "61c993e4-8f7f-4681-8033-817d354dfe78"
+      },
+      {
+        "labels": "item",
+        "title": "Gargoyle's Shield",
+        "if": "item|not",
+        "id": "4ad6b63a-62c8-48cc-93c9-5682d499bc75"
+      },
+      {
+        "labels": "item",
+        "title": "Gargoyle Helm",
+        "if": "item|not",
+        "id": "3a1d02e4-34e5-490b-9052-ecd79b78c247"
+      }
+    ],
+    "id": "b60e4b03-9e92-4042-9a0b-eb025f80725a"
+  },
+  {
+    "labels": "item",
+    "title": "Sorcery: Great Magic Weapon",
+    "id": "79043508-6164-44da-8fbe-7dcc06b75763"
+  },
+  {
+    "labels": "item",
+    "title": "Black Iron Helm, Black Iron Armor, Black Iron Gauntlets, Black Iron Leggings, Black Iron Greatshield",
+    "id": "d0dcfbfd-8ef8-4df4-8d4e-7de34b2e9e21"
+  }
+]

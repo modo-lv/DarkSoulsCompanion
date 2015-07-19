@@ -1945,12 +1945,9 @@ function curry$(f, bound){
       });
     };
     prototype.findCombinationsWithUpgrades = function(armors){
-      var start, staticArmors, dynamicArmors, combinations, end, time, best, i$, len$, comb, j$, ref$, len1$, armor, promises, this$ = this;
+      var start, staticArmors, dynamicArmors, combinations, end, time, best, i$, len$, comb, j$, ref$, len1$, armor, upgradedArmors, promises, this$ = this;
       start = new Date().getTime();
-      staticArmors = filter(function(it){
-        return it.matSetId < 0;
-      })(
-      armors);
+      staticArmors = armors;
       dynamicArmors = reject(function(it){
         return it.matSetId < 0;
       })(
@@ -1976,13 +1973,15 @@ function curry$(f, bound){
       }
       dynamicArmors = unique(
       dynamicArmors);
+      upgradedArmors = [];
       promises = [];
       for (i$ = 0, len$ = dynamicArmors.length; i$ < len$; ++i$) {
         armor = dynamicArmors[i$];
         promises.push(this._inventorySvc.findAllAvailableUpgradesFor(armor).then(fn$));
       }
-      return this.$q.all(promises).then(function(armors){
-        var combs, end, time;
+      return this.$q.all(promises).then(function(upgradedArmors){
+        var dynamicArmors, combs, end, time;
+        dynamicArmors = upgradedArmors;
         start = new Date().getTime();
         combs = this$.findAllCombinationsOf(dynamicArmors);
         end = new Date().getTime();
@@ -2044,7 +2043,7 @@ function curry$(f, bound){
           upgrade = upgrades[i$];
           delete upgrade.score;
         }
-        return dynamicArmors = dynamicArmors.concat(upgrades);
+        return upgradedArmors = upgradedArmors.concat(upgrades);
       }
     };
     /**
@@ -2145,7 +2144,7 @@ function curry$(f, bound){
      * @returns Promise that will be resolved with an array of combinations.
      */
     prototype.findAllCombinationsOf = function(armors){
-      var combinations, empties, i$, ref$, len$, index, type, empty, groupOf, lengths, combCount, pieces, a, b, c, d, weight, upgradeLevel;
+      var combinations, empties, i$, ref$, len$, index, type, empty, groupOf, lengths, pieces, a, b, c, d, weight, upgradeLevel;
       combinations = [];
       empties = [];
       for (i$ = 0, len$ = (ref$ = this.armorTypes).length; i$ < len$; ++i$) {
@@ -2175,8 +2174,6 @@ function curry$(f, bound){
         return (it != null ? it.length : void 8) || 0;
       })(
       [groupOf['head'], groupOf['chest'], groupOf['hands'], groupOf['legs']]);
-      combCount = product(
-      lengths);
       if (this._debugLog) {
         console.log("Lengths:", lengths);
       }
@@ -2196,7 +2193,6 @@ function curry$(f, bound){
             d = lengths[3] - 1;
             do {
               pieces[3] = groupOf['legs'][d];
-              weight = 0;
               weight = pieces[0].weight + pieces[1].weight + pieces[2].weight + pieces[3].weight;
               upgradeLevel = pieces[0].upgradeLevel + pieces[1].upgradeLevel + pieces[2].upgradeLevel + pieces[3].upgradeLevel;
               if (weight <= this.freeWeight) {
@@ -2257,10 +2253,7 @@ function curry$(f, bound){
           }
         }
       }
-      return filter((function(it){
-        return it !== -1;
-      }))(
-      best);
+      return best;
     };
     return ArmorCalcSvc;
   }());
@@ -4433,7 +4426,7 @@ function curry$(f, bound){
           key: 'asylum',
           name: "Northern Undead Asylum"
         }, {
-          key: 'blighttown',
+          key: 'blight',
           name: "Blighttown"
         }, {
           key: 'darkroot-garden',
@@ -4441,6 +4434,9 @@ function curry$(f, bound){
         }, {
           key: 'sen',
           name: "Sen's Fortress"
+        }, {
+          key: 'londo',
+          name: "Anor Londo"
         }
       ];
       this.$scope.currentArea = Obj.find(function(it){

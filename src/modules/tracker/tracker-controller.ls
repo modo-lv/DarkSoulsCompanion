@@ -12,9 +12,10 @@ class TrackerController
 	setUp : !~>
 		@$scope.allAreas = [
 			{ key : \asylum , name : "Northern Undead Asylum" }
-			{ key : \blighttown , name : "Blighttown" }
+			{ key : \blight , name : "Blighttown" }
 			{ key : \darkroot-garden , name : "Darkroot Garden" }
 			{ key : \sen , name : "Sen's Fortress" }
+			{ key : \londo , name : "Anor Londo" }
 		]
 
 		@$scope.currentArea = @$scope.allAreas |> Obj.find ~> it.key == @$routeParams.[\area]

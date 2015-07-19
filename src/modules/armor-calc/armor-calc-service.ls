@@ -54,7 +54,7 @@ class ArmorCalcSvc
 
 	findCombinationsWithUpgrades : (armors) ~>
 		start = new Date!.getTime!
-		staticArmors = armors |> filter (.matSetId < 0)
+		staticArmors = armors
 		dynamicArmors = armors |> reject (.matSetId < 0)
 
 		combinations = @findAllCombinationsOf dynamicArmors
@@ -80,6 +80,7 @@ class ArmorCalcSvc
 		dynamicArmors := dynamicArmors |> unique
 
 		# Find all upgradable versions for the best armors
+		upgradedArmors = []
 		promises = []
 		for armor in dynamicArmors
 			promises.push(
@@ -88,13 +89,14 @@ class ArmorCalcSvc
 					for upgrade in upgrades
 						delete upgrade.score
 					#console.log upgrades
-					dynamicArmors ++= upgrades
+					upgradedArmors ++= upgrades
 			)
 
 		@$q.all promises
 
 		# Find all combinations of the upgradable armors and their upgrades
-		.then (armors)~>
+		.then (upgradedArmors)~>
+			dynamicArmors = upgradedArmors
 			start := new Date!.getTime!
 			combs = @findAllCombinationsOf dynamicArmors
 
@@ -117,6 +119,7 @@ class ArmorCalcSvc
 			for comb in combs
 				for armor in comb.armors
 					allArmors.push armor
+
 			allArmors = (allArmors ++ staticArmors) |> unique
 			end = new Date!.getTime!
 			time = end - start
@@ -259,7 +262,6 @@ class ArmorCalcSvc
 		groupOf = armors |> groupBy (.armorType)
 		lengths = [ groupOf.[\head], groupOf.[\chest], groupOf.[\hands], groupOf.[\legs] ]
 			|> map -> it?.length or 0
-		combCount = lengths |> product
 
 		if @_debugLog
 			console.log "Lengths:", lengths
@@ -280,7 +282,6 @@ class ArmorCalcSvc
 					d = lengths.3 - 1
 					do
 						pieces.3 = groupOf.[\legs].[d]
-						weight = 0
 						weight = pieces[0].weight + pieces[1].weight + pieces[2].weight + pieces[3].weight
 						upgradeLevel =
 							pieces[0].upgradeLevel + pieces[1].upgradeLevel + pieces[2].upgradeLevel + pieces[3].upgradeLevel
@@ -328,6 +329,7 @@ class ArmorCalcSvc
 		for a from 0 til limit
 			if not (comb = combinations[a])? then break
 			comb.score = comb.armors.0.score + comb.armors.1.score + comb.armors.2.score + comb.armors.3.score
+
 			best.push comb
 
 		for a from limit til combinations.length
@@ -339,7 +341,7 @@ class ArmorCalcSvc
 					best.[a] = comb
 					break
 
-		return best |> filter (!= -1)
+		return best
 
 
 module?.exports = ArmorCalcSvc
