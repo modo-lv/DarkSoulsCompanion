@@ -14,12 +14,27 @@ class StatService
 		\hum
 	]
 
+	@statNames = [
+		\Vitality
+		\Attunement
+		\Endurance
+		\Strength
+		\Dexterity
+		\Resistance
+		\Intelligence
+		\Faith
+		\Humanity
+	]
+
 	@weaponStats = [ \str \dex \int \fai ]
 
 
 	(@_storageSvc) ->
 		@data = {}
 
+
+	fullStatNameOf : (shortName) ~>
+		@@statNames.[@@allStats.indexOf shortName]
 
 	statValueOf : (name) ~>
 		@loadUserData!
@@ -28,8 +43,8 @@ class StatService
 
 	forEachStat : (func, model = @data) !~>
 		for statName in @@allStats
-			statValue = model.{}stats[statName]
-			model.stats[statName] = (func statName, statValue) ? statValue
+			statValue = model.[statName]
+			model[statName] = (func statName, statValue) ? statValue
 
 
 	loadUserData : !~>
@@ -37,7 +52,7 @@ class StatService
 
 		model = {}
 		for name in @@allStats
-			model[name] = data.[name] ? 8
+			model[name] = +(data.[name] ? 8)
 
 		return @data = model
 

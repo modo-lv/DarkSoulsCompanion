@@ -2,6 +2,8 @@ doctype html
 html(ng-app="dsc")
 	head
 		meta(charset="UTF-8")
+		link(rel="icon" type="image/png" href="/app/content/main-icon.png")
+		title Dark Souls Companion
 
 		// Angular core modules
 
@@ -18,6 +20,8 @@ html(ng-app="dsc")
 
 		script(src="libs/angucomplete-alt/angucomplete-alt.min.js")
 		link(rel="stylesheet" href="libs/angucomplete-alt/angucomplete-alt.css")
+
+		script(src="libs/angular-mask/ngMask.js")
 
 		// My stuff
 
@@ -68,11 +72,16 @@ body(ng-controller="mainController")
 			) Cancel
 
 	.page
-		nav
-			ul
-				li(ng-repeat="item in menu" ng-class="{current: $parent.thisLocation.indexOf(item.path)==0}")
-					a(href="#{{item.path}}")
-						img(ng-src="/app/content/menu-icons/{{item.path}}.png")
-						| {{item.name}}
+		.stretcher
+			nav
+				ul
+					li(ng-repeat="item in menu" ng-class="{current: $parent.thisLocation.indexOf(item.path)==0}")
+						a(href="#{{item.path}}")
+							img(ng-src="/app/content/menu-icons/{{item.path}}.png")
+							| {{item.name}}
 
-		.main-content(ng-view)
+			.main-content(ng-view)
+
+	footer
+		| v0.1, made by&nbsp;
+		a(href="http://modo.lv") MoDo.lv

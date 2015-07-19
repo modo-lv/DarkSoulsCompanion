@@ -9,6 +9,7 @@ angular.module "dsc", [
 	"LocalStorageModule"
 	"angucomplete-alt"
 	"ui.grid", "ui.grid.autoResize", "ui.grid.saveState"
+	"ngMask"
 ]
 .filter 'percentage', ($filter) -> (input, decimals = 0) ->
 	$filter('number')(input * 100, decimals) + '%'

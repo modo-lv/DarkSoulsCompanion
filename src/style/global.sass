@@ -4,7 +4,7 @@
 	src: local('OptimusPrinceps'), url('/app/content/fonts/OptimusPrinceps.woff') format('woff'), url('/app/content/fonts/OptimusPrinceps.ttf') format('truetype')
 
 
-body, table, textarea, button
+body, table, textarea, button, input
 	font-family: 'Segoe WP', 'segoe ui', arial, sans-serif
 	//font-family: 'Times New Roman', sans-serif
 	font-size: medium
@@ -13,14 +13,38 @@ body, table, textarea, button
 angucomplete-alt
 	display: inline-block
 
+	input
+		padding: 0 0.25em
 
-input[type="number"]
-	width: 50px
+	.angucomplete-dropdown
+		overflow-y: auto
+		max-height: 300px
 
+$borderRadius : 8px
+
+@mixin rounded-corners
+	border-radius: $borderRadius
+
+input, button, select
+	@include rounded-corners
+	border-width: 1px
+	display: inline-block
+
+	&:focus
+		outline: 1px dashed silver
+		outline-offset: 2px
+
+input
+	&[type="number"]
+		width: 50px
+		text-align: right
+
+	//&::-webkit-inner-spin-button,
+	//&::-webkit-outer-spin-button
+	//	-webkit-appearance: none
+	//	margin: 0
 
 button
-	border-radius: 8px
-	border-width: 1px
 	padding: 0.2em
 	padding-top : 0
 	display: inline-block
@@ -31,8 +55,6 @@ button
 	background: rgb(206,220,231) /* Old browsers */
 	background: linear-gradient(to bottom, rgba(230,230,230,1) 0%,rgba(200,200,200,1) 100%) /* W3C */
 
-	&:focus
-		outline: 1px dashed silver
 
 img
 	vertical-align: middle
