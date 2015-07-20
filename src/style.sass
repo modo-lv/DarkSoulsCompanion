@@ -1,3 +1,16 @@
+@mixin stretch-grid($headerHeight)
+	.header
+		height: $headerHeight
+
+	.ui-grid
+		position: absolute
+		top: $headerHeight
+		bottom: 0
+		left: 0
+		right: 0
+
+
+
 @import "style/global"
 @import "style/layout"
 
@@ -5,6 +18,7 @@
 
 @import "style/_notifications"
 
+@import "modules/armor-finder/armor-finder-style"
 @import "modules/tracker/tracker-style"
 @import "modules/items/style"
 @import "modules/pc/pc-style"
