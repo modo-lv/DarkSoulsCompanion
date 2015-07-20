@@ -314,8 +314,8 @@ processWeapons = (folder = '.')!->
 
 			..canBlock = rawWeapon.\EnableGuard .toLowerCase! == \true
 			..canParry = rawWeapon.\EnableParry .toLowerCase! == \true
-			..casts = if rawWeapon.\EnableMagic .toLowerCase! == \true then \pyromancy
-				else if rawWeapon.\EnableSorcery .toLowerCase! == \true then \sorcery
+			..casts = if rawWeapon.\EnableMagic .toLowerCase! == \true then \sorcery
+				else if rawWeapon.\EnableSorcery .toLowerCase! == \true then \pyromancy
 				else if rawWeapon.\EnableMiracle .toLowerCase! == \true then \miracles
 				else null
 			..damagesGhosts = rawWeapon.\IsVersusGhostWep .toLowerCase! == \true
