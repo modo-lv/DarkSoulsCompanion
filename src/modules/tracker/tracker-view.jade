@@ -10,7 +10,7 @@
 			minlength=0
 		)
 
-	div(ng-include="'GuideEntry'")
+	div.content(ng-include="'GuideEntry'")
 
 script#GuideEntry(type="text/ng-template")
 	.header(ng-if="entry.title")
