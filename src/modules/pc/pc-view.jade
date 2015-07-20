@@ -1,42 +1,47 @@
-#Pc
-	.stats
-		h3 Stats
-		table: tr(ng-repeat="stat in userData.stats | toStatArray")
-			td {{stat.name | fullStatName}}:
-			td
-				input(type="number"
-					mask="99"
-					restrict="reject"
-					ng-model="$parent.userData.stats[stat.name]"
-					ng-change="saveUserData()"
-				)
+table#Pc
+	tr.content
+		td(rowspan=2).stats
+			h3 Stats
+			table: tr(ng-repeat="stat in userData.stats | toStatArray")
+				td {{stat.name | fullStatName}}:
+				td
+					input(type="number"
+						mask="99"
+						restrict="reject"
+						ng-model="$parent.userData.stats[stat.name]"
+						ng-change="saveUserData()"
+					)
 
-	.inventory
-		.header
-			h3 Inventory
+		td.inventory
+			table.content
+				tr.header
+					td.content
+						h3 Inventory
 
-			angucomplete-alt#AddToInventory(
-				local-data="allItems"
-				selected-object="addNewItem"
-				title-field="name"
-				search-fields="name"
-				clear-selected=true
-				placeholder="Add item..."
-				minlength=1
-			)
+						angucomplete-alt#AddToInventory(
+							local-data="allItems"
+							selected-object="addNewItem"
+							title-field="name"
+							search-fields="name"
+							clear-selected=true
+							placeholder="Add item..."
+							minlength=1
+						)
 
-			angucomplete-alt#AddArmorSet(
-				local-data="armorSets"
-				selected-object="addArmorSet"
-				title-field="name"
-				search-fields="name"
-				clear-selected="true"
-				placeholder="Add armor set..."
-				minlength=1
-			)
+						angucomplete-alt#AddArmorSet(
+							local-data="armorSets"
+							selected-object="addArmorSet"
+							title-field="name"
+							search-fields="name"
+							clear-selected="true"
+							placeholder="Add armor set..."
+							minlength=1
+						)
 
-		// Grid
-		div(ui-grid="gridOptions" ui-grid-auto-resize ui-grid-save-state)
+				tr.grid-row
+					td.content
+						// Grid
+						div(ui-grid="gridOptions" ui-grid-auto-resize ui-grid-save-state)
 
 // Grid action buttons
 script(id="GridRowHeader.html" type="text/ng-template")

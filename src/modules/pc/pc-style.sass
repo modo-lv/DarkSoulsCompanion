@@ -1,25 +1,13 @@
 #Pc
-	box-sizing: border-box
-
-	.stats
-		float: left
-		overflow-x: auto
-
-	.inventory
+	> tbody > .content
 		height: 100%
-		overflow: auto
-		position: relative
 
-		$headerHeight : 7em
-		.header
-			height: $headerHeight
+		> .inventory
+			width: 100%
 
-		.ui-grid
-			position: absolute
-			top: $headerHeight
-			bottom: 0
-			right: 0
-			left: 0
+			> .content
+				width: 100%
+				height: 100%
 
 
 	.ui-grid-row-header-cell

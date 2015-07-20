@@ -41,46 +41,48 @@ body(ng-controller="mainController")
 			ng-bind-html="message.text"
 		)
 	header
-		h1 Dark Souls Companion
-		h2
-			label
-				| Profile:
-				select(
-					ng-model="currentProfile"
-					ng-options="profile for profile in profileList"
-					ng-change="switchProfile()"
+		.content
+			h1 Dark Souls Companion
+			h2
+				label
+					| Profile:
+					select(
+						ng-model="currentProfile"
+						ng-options="profile for profile in profileList"
+						ng-change="switchProfile()"
+					)
+
+				input(
+					type="text"
+					ng-model="$parent.newProfileName"
+					ng-if="profileEditStatus === 'new'"
 				)
 
-			input(
-				type="text"
-				ng-model="$parent.newProfileName"
-				ng-if="profileEditStatus === 'new'"
-			)
+				button(
+					ng-click="addNewProfile()"
+					ng-if="profileEditStatus == null || profileEditStatus == 'new'"
+				) +
 
-			button(
-				ng-click="addNewProfile()"
-				ng-if="profileEditStatus == null || profileEditStatus == 'new'"
-			) +
+				button(ng-click="deleteProfile()"
+					ng-if="profileEditStatus == null || profileEditStatus == 'delete'"
+				) −
 
-			button(ng-click="deleteProfile()"
-				ng-if="profileEditStatus == null || profileEditStatus == 'delete'"
-			) −
+				button(
+					ng-click="resetProfileEditStatus()"
+					ng-if="profileEditStatus != null"
+				) Cancel
 
-			button(
-				ng-click="resetProfileEditStatus()"
-				ng-if="profileEditStatus != null"
-			) Cancel
-
-	.page
-		.stretcher
-			nav
+	nav
+		.content
+			.tab-strip
 				ul
 					li(ng-repeat="item in menu" ng-class="{current: $parent.thisLocation.indexOf(item.path)==0}")
 						a(href="#{{item.path}}")
 							img(ng-src="/app/content/menu-icons/{{item.path}}.png")
 							| {{item.name}}
 
-			.main-content(ng-view)
+	main
+		.content(ng-view)
 
 	footer
 		| v0.1, made by&nbsp;
