@@ -1,50 +1,46 @@
-table#ArmorFinder
-	tr.header
-		td.content
-			table.parameters
-				tr.weight
-					th.left Weight:
+#ArmorFinder
+	table.parameters
+		tr.weight
+			th.left Weight:
 
-					td
-						label Limit:
+			td
+				label Limit:
 
-							label(ng-repeat="wl in weightLimits")
-								input(type="radio" name="selectedWeightLimit" ng-model="$parent.params.selectedWeightLimit" value="{{wl}}")
-								| {{wl * 100}}%
+					label(ng-repeat="wl in weightLimits")
+						input(type="radio" name="selectedWeightLimit" ng-model="$parent.params.selectedWeightLimit" value="{{wl}}")
+						| {{wl * 100}}%
 
-						label
-							| Reserved (weapons):
-							input(ng-model="params.reservedWeight" type="number" min="0")
+				label
+					| Reserved (weapons):
+					input(ng-model="params.reservedWeight" type="number" min="0")
 
-						label
-							| Maximum:
-							input(type="number" ng-model="maxLoad" readonly)
+				label
+					| Maximum:
+					input(type="number" ng-model="maxLoad" readonly)
 
-						label
-							input(type="checkbox" ng-model="params.havelRing")
-							| Havel's Ring
+				label
+					input(type="checkbox" ng-model="params.havelRing")
+					| Havel's Ring
 
-				tr.modifiers
-					th.left Importance:
+		tr.modifiers
+			th.left Importance:
 
-					td
-						label(ng-repeat="mod in modifiers" title="{{mod.title}}")
-							| {{mod.title}}:
-							input(type="number" ng-model="$parent.params.modifiers[$index]")
+			td
+				label(ng-repeat="mod in modifiers" title="{{mod.title}}")
+					| {{mod.title}}:
+					input(type="number" ng-model="$parent.params.modifiers[$index]")
 
-				tr.misc
-					th.left Misc.:
+		tr.misc
+			th.left Misc.:
 
-					td
-						label
-							input(type="checkbox" ng-model="params.includeUpgrades")
-							| Include available upgrades
+			td
+				label
+					input(type="checkbox" ng-model="params.includeUpgrades")
+					| Include available upgrades
 
-			button(ng-click="calculate()" ng-disabled="availableLoad < 0")
-				| Find the
-				input(type="number" ng-model="params.resultLimit" ng-click="$event.stopPropagation();")
-				| best available armor combination for {{availableLoad}} weight
+	button(ng-click="calculate()" ng-disabled="availableLoad < 0")
+		| Find the
+		input(type="number" ng-model="params.resultLimit" ng-click="$event.stopPropagation();")
+		| best available armor combination for {{availableLoad}} weight
 
-	tr.grid-row
-		td.content
-			div(ui-grid-auto-resize ui-grid="gridOptions")
+	div(ui-grid-auto-resize ui-grid="gridOptions")
