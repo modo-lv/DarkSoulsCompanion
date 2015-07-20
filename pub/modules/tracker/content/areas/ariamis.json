@@ -223,12 +223,6 @@
     "if": "global|priscilla-unlocked",
     "children": [
       {
-        "labels": "enemy",
-        "title": "Tower Knight",
-        "items": "Large Titanite Shard",
-        "id": "7f389221-57a7-485e-8db2-d41c3aeaabd2"
-      },
-      {
         "labels": "npc",
         "title": "Crossbreed Priscilla",
         "tail": "Priscilla's Dagger",
