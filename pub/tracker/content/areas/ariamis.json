@@ -7,6 +7,11 @@
         "title": "First",
         "content": "Passing through.",
         "id": "e1ad47e6-b928-442d-b725-f9424899f87b"
+      },
+      {
+        "title": "Second",
+        "content": "Crossbreed Priscilla.",
+        "id": "46aacca3-733b-49e7-b872-6485817a6587"
       }
     ],
     "id": "15618e82-5db0-4de1-a8dc-e32ba47eebd4"
@@ -124,8 +129,130 @@
         "labels": "item",
         "title": "Soul of a Proud Knight",
         "id": "b7e01991-be43-401a-b127-e53cd0fd249d"
+      },
+      {
+        "labels": "item",
+        "title": "Pyromancy: Acid Surge",
+        "id": "570f7675-ca7f-4661-8112-76c8ff6ee2c9"
       }
     ],
     "id": "9fc5c8e7-9691-4577-8086-55bb20489eaf"
+  },
+  {
+    "title": "Tower",
+    "children": [
+      {
+        "labels": "item",
+        "title": "Soul of a Brave Warrior",
+        "id": "9492ee97-1f62-4ecc-a601-aa5d302a4fdc"
+      },
+      {
+        "labels": "item",
+        "title": "Soul of a Brave Warrior",
+        "id": "fe80bba2-cb23-41ab-8727-307a1006fdcb"
+      },
+      {
+        "labels": "item",
+        "title": "Red Sign Soapstone",
+        "id": "386354e9-cf6d-47bb-9fb1-c58568a2cf86"
+      }
+    ],
+    "id": "07018664-7c9a-4079-b01d-176b156a7816"
+  },
+  {
+    "title": "Basement",
+    "children": [
+      {
+        "labels": "item",
+        "title": "Soul of a Proud Knight",
+        "id": "ad9b44ad-694f-4ac9-a2f9-79e77dca017c"
+      },
+      {
+        "labels": "item",
+        "title": "Soul fo a Brave Warrior",
+        "id": "a4e5774a-25c7-4a4a-b7ff-cdc0654263fd"
+      },
+      {
+        "title": "Chain wheel",
+        "action": "turn",
+        "setVar": "global|priscilla-unlocked",
+        "id": "6aa1cb76-51ec-4f62-86d8-7e84049a4641"
+      },
+      {
+        "labels": "enemy",
+        "title": "Engorged Zombie",
+        "items": "Pyromancy: Fire Surge",
+        "id": "02aefff7-7dd7-41ef-ad14-6690442a8843"
+      },
+      {
+        "labels": "item",
+        "title": "Annex Key",
+        "id": "42b18bad-21d5-4566-865e-6827309de3e2"
+      }
+    ],
+    "id": "7a4e0c7d-d6e7-49f2-8aa3-3642e1013554"
+  },
+  {
+    "title": "Annex",
+    "children": [
+      {
+        "labels": "item",
+        "title": "Velka's Rapier",
+        "id": "3b73de41-9dcb-48c6-a514-f57949a03460"
+      },
+      {
+        "labels": "item",
+        "title": "Dark Ember",
+        "id": "b9f97c5c-f2cc-4486-a0bc-2d72bc9ca9e3"
+      },
+      {
+        "labels": "item",
+        "title": "Mask of Velka, Black Cleric Robe, Black Manchette, Black Tights",
+        "id": "1db60c7f-302e-4d81-ab58-29a3f18dbe55"
+      },
+      {
+        "labels": "item",
+        "title": "Miracle: Vow of Silence",
+        "id": "96640fc2-c8b0-4ded-853a-b8b5864e0125"
+      }
+    ],
+    "id": "3aeaeb83-0324-4e4b-9cf9-a69d0c1bfbda"
+  },
+  {
+    "title": "Bridge",
+    "if": "global|priscilla-unlocked",
+    "children": [
+      {
+        "labels": "enemy",
+        "title": "Tower Knight",
+        "items": "Large Titanite Shard",
+        "id": "7f389221-57a7-485e-8db2-d41c3aeaabd2"
+      },
+      {
+        "labels": "npc",
+        "title": "Crossbreed Priscilla",
+        "tail": "Priscilla's Dagger",
+        "items": "Soul of Priscilla, Twin Humanities",
+        "id": "d11b12da-8344-46d6-acd9-f373f113fe8f"
+      },
+      {
+        "labels": "item",
+        "title": "Xanthous Crown, Xanthous Overcoat, Xanthous Gloves, Xanthous Waistcloth",
+        "if": "enemy|King Jeremiah|dead",
+        "content": "If the armor does not appear, quitting and reloading the game should fix that.",
+        "id": "3c3c7f1b-9e01-40a8-89ab-5ac25a8622c9"
+      },
+      {
+        "title": "End of the walkway",
+        "labels": "warning",
+        "action": "approach",
+        "items": "Homeward Bone",
+        "if": "global|ariamis-done|not",
+        "setVar": "global|ariamis-done",
+        "content": "Approaching the lip of the broken-off walkway will trigger an automatic exit from Ariamis.",
+        "id": "644c023c-881c-4885-a05e-13fff8f96010"
+      }
+    ],
+    "id": "72d9b501-2caa-48f3-b506-e1123cf01fd2"
   }
 ]
