@@ -1,4 +1,4 @@
-$q, $scope, storageSvc, itemSvc, armorCalcSvc, statSvc, uiGridConstants <-! angular.module "dsc" .controller "ArmorCalcController"
+$q, $scope, storageSvc, itemSvc, armorFinderSvc, statSvc, uiGridConstants <-! angular.module "dsc" .controller "armorFinderController"
 
 # SETUP
 
@@ -7,7 +7,7 @@ $scope.results = []
 maxLoad : 0
 availableLoad : 0
 
-$scope.params = (storageSvc.load \armor-calc-params) ? {
+$scope.params = (storageSvc.load \armor-finder-params) ? {
 	reservedWeight : 15
 
 	selectedWeightLimit : 0.50
@@ -50,17 +50,17 @@ $scope.gridOptions = (require './controller/gridOptions') uiGridConstants
 	..data = $scope.results
 
 $scope.calculate = (type = 'offence') !->
-	armorCalcSvc.freeWeight = $scope.availableLoad
+	armorFinderSvc.freeWeight = $scope.availableLoad
 
-	armorCalcSvc.params = {}
+	armorFinderSvc.params = {}
 		..freeWeight = $scope.availableLoad
 		..includeUpgrades = $scope.params.includeUpgrades
 		..resultLimit = $scope.params.resultLimit
 
 	for mod, index in $scope.modifiers
-		armorCalcSvc.params.{}modifiers.[mod.key] = $scope.params.modifiers.[index]
+		armorFinderSvc.params.{}modifiers.[mod.key] = $scope.params.modifiers.[index]
 
-	armorCalcSvc.findBestCombinations!.then (results) !->
+	armorFinderSvc.findBestCombinations!.then (results) !->
 		$scope.results = []
 		for result in results
 			$scope.results.push {
@@ -79,5 +79,5 @@ $scope.$watch "params", (!->
 	if $scope.params.havelRing
 		max *= 1.5
 	$scope.availableLoad = (max * $scope.params.selectedWeightLimit) - $scope.params.reservedWeight
-	storageSvc.save "armor-calc-params", $scope.params
+	storageSvc.save "armor-finder-params", $scope.params
 ), true

@@ -1,18 +1,18 @@
 #Pc
-	.container
-		.stats
-			h3 Stats
-			table: tr(ng-repeat="stat in userData.stats | toStatArray")
-				td {{stat.name | fullStatName}}:
-				td
-					input(type="number"
-						mask="99"
-						restrict="reject"
-						ng-model="$parent.userData.stats[stat.name]"
-						ng-change="saveUserData()"
-					)
+	.stats
+		h3 Stats
+		table: tr(ng-repeat="stat in userData.stats | toStatArray")
+			td {{stat.name | fullStatName}}:
+			td
+				input(type="number"
+					mask="99"
+					restrict="reject"
+					ng-model="$parent.userData.stats[stat.name]"
+					ng-change="saveUserData()"
+				)
 
-		.inventory
+	.inventory
+		.header
 			h3 Inventory
 
 			angucomplete-alt#AddToInventory(
@@ -35,9 +35,8 @@
 				minlength=1
 			)
 
-			.stretcher
-				// Grid
-				div(ui-grid="gridOptions" ui-grid-auto-resize ui-grid-save-state)
+		// Grid
+		div(ui-grid="gridOptions" ui-grid-auto-resize ui-grid-save-state)
 
 // Grid action buttons
 script(id="GridRowHeader.html" type="text/ng-template")

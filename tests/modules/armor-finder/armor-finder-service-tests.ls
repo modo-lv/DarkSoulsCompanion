@@ -1,17 +1,17 @@
-_ <-! describe "armor-calc-service"
+_ <-! describe "armor-finder-service"
 
 var svc
 
 beforeEach (done) !->
 	createServiceStack!
-	svc := new (testRequire 'modules/armor-calc/armor-calc-service') inventorySvc, itemSvc, $q
+	svc := new (testRequire 'modules/armor-finder/armor-finder-service') inventorySvc, itemSvc, $q
 
 	# Setup default data
-	inventory = require './test-data/armor-calc-test-inventory.json'
-	armors = require './test-data/armor-calc-test-armors.json'
-	materialSets = require './test-data/armor-calc-material-sets.json'
-	upgrades = require './test-data/armor-calc-upgrades.json'
-	index = require './test-data/armor-calc-index.json'
+	inventory = require './test-data/armor-finder-test-inventory.json'
+	armors = require './test-data/armor-finder-test-armors.json'
+	materialSets = require './test-data/armor-finder-material-sets.json'
+	upgrades = require './test-data/armor-finder-upgrades.json'
+	index = require './test-data/armor-finder-index.json'
 
 #	inventory = require './test-data/temp-inventory.json'
 #	armors = testRequire './modules/items/content/armors.json'

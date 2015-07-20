@@ -1,29 +1,25 @@
 #Pc
 	box-sizing: border-box
 
-	.container
-		width: 100%
+	.stats
+		float: left
+		overflow-x: auto
+
+	.inventory
 		height: 100%
+		overflow: auto
+		position: relative
 
-		.stats
-			float: left
-			overflow-x: auto
+		$headerHeight : 7em
+		.header
+			height: $headerHeight
 
-		.inventory
-			height: 100%
-			overflow: hidden
-			position: relative
-
-			.stretcher
-				height: 100%
-				position: relative
-
-				.ui-grid
-					position: absolute
-					top: 0
-					bottom: 0
-					right: 0
-					left: 0
+		.ui-grid
+			position: absolute
+			top: $headerHeight
+			bottom: 0
+			right: 0
+			left: 0
 
 
 	.ui-grid-row-header-cell

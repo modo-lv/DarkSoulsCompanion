@@ -1,7 +1,7 @@
-angular? .module "dsc" .service "armorCalcSvc" (inventorySvc, itemSvc, $q) ->
-	new ArmorCalcSvc ...
+angular? .module "dsc" .service "armorFinderSvc" (inventorySvc, itemSvc, $q) ->
+	new ArmorFinderSvc ...
 
-class ArmorCalcSvc
+class ArmorFinderSvc
 	(@_inventorySvc, @_itemSvc, @$q) ->
 		# Weight limit that the armor combinations must not exceed
 		@freeWeight = 0
@@ -344,4 +344,4 @@ class ArmorCalcSvc
 		return best
 
 
-module?.exports = ArmorCalcSvc
+module?.exports = ArmorFinderSvc

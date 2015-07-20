@@ -1329,9 +1329,9 @@ function curry$(f, bound){
   require('./app/services/notification-service');
   require('./app/main-controller');
   (function(){
-    require('./modules/armor-calc/main.js');require('./modules/guide/main.js');require('./modules/items/main.js');require('./modules/pc/main.js');require('./modules/tracker/main.js');require('./modules/weapon-finder/main.js');
+    require('./modules/armor-finder/main.js');require('./modules/guide/main.js');require('./modules/items/main.js');require('./modules/pc/main.js');require('./modules/tracker/main.js');require('./modules/weapon-finder/main.js');
   });
-  for (i$ = 0, len$ = (ref$ = ['tracker', 'items', 'pc', 'weapon-finder', 'armor-calc']).length; i$ < len$; ++i$) {
+  for (i$ = 0, len$ = (ref$ = ['tracker', 'items', 'pc', 'weapon-finder', 'armor-finder']).length; i$ < len$; ++i$) {
     module = ref$[i$];
     require("./modules/" + module + "/main.js");
   }
@@ -1343,7 +1343,7 @@ function curry$(f, bound){
 }).call(this);
 
 }).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
-},{"./app/main-controller":8,"./app/routes":9,"./app/services/data-export-service":10,"./app/services/external-data-service":11,"./app/services/notification-service":12,"./app/services/storage-service":13,"./modules/armor-calc/main.js":17,"./modules/guide/main.js":20,"./modules/items/main.js":26,"./modules/pc/main.js":31,"./modules/tracker/main.js":35,"./modules/weapon-finder/main.js":40,"prelude-ls":6}],8:[function(require,module,exports){
+},{"./app/main-controller":8,"./app/routes":9,"./app/services/data-export-service":10,"./app/services/external-data-service":11,"./app/services/notification-service":12,"./app/services/storage-service":13,"./modules/armor-finder/main.js":17,"./modules/guide/main.js":20,"./modules/items/main.js":26,"./modules/pc/main.js":31,"./modules/tracker/main.js":35,"./modules/weapon-finder/main.js":40,"prelude-ls":6}],8:[function(require,module,exports){
 (function(){
   var MainController;
   if (typeof angular != 'undefined' && angular !== null) {
@@ -1394,7 +1394,7 @@ function curry$(f, bound){
           path: "/pc",
           name: "Stats & inventory"
         }, {
-          path: "/armor-calc",
+          path: "/armor-finder",
           name: "Armor finder"
         }, {
           path: "/weapon-finder",
@@ -1475,9 +1475,9 @@ function curry$(f, bound){
     }).when('/weapon-finder', {
       templateUrl: 'modules/weapon-finder/weapon-finder-view.html',
       controller: 'weaponFinderController'
-    }).when('/armor-calc', {
-      templateUrl: 'modules/armor-calc/armor-calc-view.html',
-      controller: 'ArmorCalcController'
+    }).when('/armor-finder', {
+      templateUrl: 'modules/armor-finder/armor-finder-view.html',
+      controller: 'armorFinderController'
     }).otherwise({
       redirectTo: '/tracker/asylum'
     });
@@ -1765,14 +1765,14 @@ function curry$(f, bound){
 
 },{}],14:[function(require,module,exports){
 (function(){
-  angular.module("dsc").controller("ArmorCalcController", function($q, $scope, storageSvc, itemSvc, armorCalcSvc, statSvc, uiGridConstants){
+  angular.module("dsc").controller("armorFinderController", function($q, $scope, storageSvc, itemSvc, armorFinderSvc, statSvc, uiGridConstants){
     var ref$, x$;
     $scope.results = [];
     ({
       maxLoad: 0,
       availableLoad: 0
     });
-    $scope.params = (ref$ = storageSvc.load('armor-calc-params')) != null
+    $scope.params = (ref$ = storageSvc.load('armor-finder-params')) != null
       ? ref$
       : {
         reservedWeight: 15,
@@ -1822,17 +1822,17 @@ function curry$(f, bound){
     $scope.calculate = function(type){
       var x$, i$, ref$, len$, index, mod, ref1$;
       type == null && (type = 'offence');
-      armorCalcSvc.freeWeight = $scope.availableLoad;
-      x$ = armorCalcSvc.params = {};
+      armorFinderSvc.freeWeight = $scope.availableLoad;
+      x$ = armorFinderSvc.params = {};
       x$.freeWeight = $scope.availableLoad;
       x$.includeUpgrades = $scope.params.includeUpgrades;
       x$.resultLimit = $scope.params.resultLimit;
       for (i$ = 0, len$ = (ref$ = $scope.modifiers).length; i$ < len$; ++i$) {
         index = i$;
         mod = ref$[i$];
-        ((ref1$ = armorCalcSvc.params).modifiers || (ref1$.modifiers = {}))[mod.key] = $scope.params.modifiers[index];
+        ((ref1$ = armorFinderSvc.params).modifiers || (ref1$.modifiers = {}))[mod.key] = $scope.params.modifiers[index];
       }
-      armorCalcSvc.findBestCombinations().then(function(results){
+      armorFinderSvc.findBestCombinations().then(function(results){
         var i$, len$, result;
         $scope.results = [];
         for (i$ = 0, len$ = results.length; i$ < len$; ++i$) {
@@ -1859,27 +1859,27 @@ function curry$(f, bound){
         max *= 1.5;
       }
       $scope.availableLoad = max * $scope.params.selectedWeightLimit - $scope.params.reservedWeight;
-      storageSvc.save("armor-calc-params", $scope.params);
+      storageSvc.save("armor-finder-params", $scope.params);
     }, true);
   });
 }).call(this);
 
 },{"./controller/gridOptions":16}],15:[function(require,module,exports){
 (function(){
-  var ArmorCalcSvc;
+  var ArmorFinderSvc;
   if (typeof angular != 'undefined' && angular !== null) {
-    angular.module("dsc").service("armorCalcSvc", function(inventorySvc, itemSvc, $q){
+    angular.module("dsc").service("armorFinderSvc", function(inventorySvc, itemSvc, $q){
       return (function(func, args, ctor) {
         ctor.prototype = func.prototype;
         var child = new ctor, result = func.apply(child, args), t;
         return (t = typeof result)  == "object" || t == "function" ? result || child : child;
-  })(ArmorCalcSvc, arguments, function(){});
+  })(ArmorFinderSvc, arguments, function(){});
     });
   }
-  ArmorCalcSvc = (function(){
-    ArmorCalcSvc.displayName = 'ArmorCalcSvc';
-    var prototype = ArmorCalcSvc.prototype, constructor = ArmorCalcSvc;
-    function ArmorCalcSvc(_inventorySvc, _itemSvc, $q){
+  ArmorFinderSvc = (function(){
+    ArmorFinderSvc.displayName = 'ArmorFinderSvc';
+    var prototype = ArmorFinderSvc.prototype, constructor = ArmorFinderSvc;
+    function ArmorFinderSvc(_inventorySvc, _itemSvc, $q){
       this._inventorySvc = _inventorySvc;
       this._itemSvc = _itemSvc;
       this.$q = $q;
@@ -2255,10 +2255,10 @@ function curry$(f, bound){
       }
       return best;
     };
-    return ArmorCalcSvc;
+    return ArmorFinderSvc;
   }());
   if (typeof module != 'undefined' && module !== null) {
-    module.exports = ArmorCalcSvc;
+    module.exports = ArmorFinderSvc;
   }
   function bind$(obj, key, target){
     return function(){ return (target || obj)[key].apply(obj, arguments) };
@@ -2352,11 +2352,11 @@ function curry$(f, bound){
 },{}],17:[function(require,module,exports){
 (function(){
   angular.module("dsc");
-  require('./armor-calc-service');
-  require('./armor-calc-controller');
+  require('./armor-finder-service');
+  require('./armor-finder-controller');
 }).call(this);
 
-},{"./armor-calc-controller":14,"./armor-calc-service":15}],18:[function(require,module,exports){
+},{"./armor-finder-controller":14,"./armor-finder-service":15}],18:[function(require,module,exports){
 (function(){
   var GuideController;
   if (typeof angular != 'undefined' && angular !== null) {
@@ -4437,6 +4437,9 @@ function curry$(f, bound){
         }, {
           key: 'londo',
           name: "Anor Londo"
+        }, {
+          key: 'ariamis',
+          name: "Painted World of Ariamis"
         }
       ];
       this.$scope.currentArea = Obj.find(function(it){

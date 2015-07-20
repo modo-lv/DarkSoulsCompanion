@@ -16,6 +16,7 @@ class TrackerController
 			{ key : \darkroot-garden , name : "Darkroot Garden" }
 			{ key : \sen , name : "Sen's Fortress" }
 			{ key : \londo , name : "Anor Londo" }
+			{ key : \ariamis , name : "Painted World of Ariamis" }
 		]
 
 		@$scope.currentArea = @$scope.allAreas |> Obj.find ~> it.key == @$routeParams.[\area]

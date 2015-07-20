@@ -17,9 +17,9 @@ $routeProvider
 		templateUrl : 'modules/weapon-finder/weapon-finder-view.html'
 		controller : 'weaponFinderController'
 	}
-	.when '/armor-calc', {
-		templateUrl : 'modules/armor-calc/armor-calc-view.html'
-		controller : 'ArmorCalcController'
+	.when '/armor-finder', {
+		templateUrl : 'modules/armor-finder/armor-finder-view.html'
+		controller : 'armorFinderController'
 	}
 	.otherwise {
 		redirectTo : '/tracker/asylum'

@@ -26,6 +26,6 @@ require './app/main-controller'
 
 !-> require "./modules/**/main.js", mode : \expand
 
-for module in [\tracker \items \pc \weapon-finder \armor-calc]
+for module in [\tracker \items \pc \weapon-finder \armor-finder]
 	require "./modules/#{module}/main.js"
 
