@@ -137,10 +137,10 @@ it "should correctly calculate scores for a set of combinations", !->
 		}
 	]
 
-	svc.calculateCombinationScores combinations
+	best = svc.calculateCombinationScores combinations
 
-	expect combinations.0.score .to.equal 40
-	expect combinations.1.score .to.equal 100
+	expect best.1.score .to.equal 40
+	expect best.0.score .to.equal 100
 
 
 it "should correctly find all available upgrades for a piece of armor", (done) !->

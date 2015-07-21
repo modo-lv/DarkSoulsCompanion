@@ -32,13 +32,15 @@ class ArmorFinderSvc
 				combs = @findAllCombinationsOf armors
 				end = new Date!.getTime!
 				time = end - start
-				#console.log "Permutated #{armors.length} armors into #{combs.length} combinations in #{time / 1000} seconds"
+				if @_debugLog
+					console.log "Permutated #{armors.length} armors into #{combs.length} combinations in #{time / 1000} seconds"
 
 				start := new Date!.getTime!
 				combs = @calculateCombinationScores combs
 				end = new Date!.getTime!
 				time = end - start
-				#console.log "Calculated scores and found the best #{combs.length} combinations in #{time / 1000} seconds"
+				if @_debugLog
+					console.log "Calculated scores and found the best #{combs.length} combinations in #{time / 1000} seconds"
 
 				return combs
 		.then (combs) ~>
@@ -97,6 +99,10 @@ class ArmorFinderSvc
 		# Find all combinations of the upgradable armors and their upgrades
 		.then (upgradedArmors)~>
 			dynamicArmors = upgradedArmors
+
+			# Clear out leftovers
+			upgradedArmors = null
+
 			start := new Date!.getTime!
 			combs = @findAllCombinationsOf dynamicArmors
 
@@ -115,40 +121,56 @@ class ArmorFinderSvc
 				console.log "Kept #{combs.length} affordable combinations in #{time / 1000} seconds"
 
 			start := new Date!.getTime!
-			allArmors = []
+			dynamicArmors = []
 			for comb in combs
 				for armor in comb.armors
-					allArmors.push armor
+					dynamicArmors.push armor
 
-			allArmors = (allArmors ++ staticArmors) |> unique
+			dynamicArmors = (dynamicArmors ++ staticArmors) |> unique
 			end = new Date!.getTime!
 			time = end - start
 			if @_debugLog
-				console.log "Extracted and merged #{allArmors.length} armors, upgrades and un-upgradable armors in #{time / 1000} seconds"
+				console.log "Extracted and merged #{dynamicArmors.length} armors, upgrades and un-upgradable armors in #{time / 1000} seconds"
 
 			start := new Date!.getTime!
-			combs = @findAllCombinationsOf allArmors
+
+			combs = @findAllCombinationsOf dynamicArmors
+
+			end = new Date!.getTime!
+			time = end - start
+			if @_debugLog
+				console.log "Permutated #{dynamicArmors.length} armors, upgrades and un-upgradable armors into #{combs.length} combinations in #{time / 1000} seconds"
+
+			dynamicArmors = null
+
+			start := new Date!.getTime!
 			@takeOnlyAffordable combs
+		.then (combs) !~>
+			end = new Date!.getTime!
+			time = end - start
+			if @_debugLog
+				console.log "Found and kept #{combs.length} affordable combinations in #{time / 1000} seconds"
 
-			.then (combs) !~>
-				end = new Date!.getTime!
-				time = end - start
-				if @_debugLog
-					console.log "Permutated #{allArmors.length} armors, upgrades and un-upgradable armors into #{combs.length} combinations in #{time / 1000} seconds"
+			start := new Date!.getTime!
 
-				for comb in combs
-					comb.armors = @calculateArmorScores comb.armors
+			for comb in combs
+				comb.armors = @calculateArmorScores comb.armors
 
-				start := new Date!.getTime!
+			end = new Date!.getTime!
+			time = end - start
+			if @_debugLog
+				console.log "Calculated armor scores for #{combs.length} combinations in #{time / 1000} seconds"
 
-				combs = @calculateCombinationScores combs
+			start := new Date!.getTime!
 
-				end = new Date!.getTime!
-				time = end - start
-				if @_debugLog
-					console.log "Calculated scores and found the best #{combs.length} combinations in #{time / 1000} seconds"
+			combs = @calculateCombinationScores combs
 
-				return combs
+			end = new Date!.getTime!
+			time = end - start
+			if @_debugLog
+				console.log "Calculated scores and found the best #{combs.length} combinations in #{time / 1000} seconds"
+
+			return combs
 
 
 	/**
@@ -162,9 +184,12 @@ class ArmorFinderSvc
 			for comb in combinations
 				comb.totalCost = []
 
+				unUpgraded = 0
 				# Find the total cost of the combination
 				for armor in comb.armors
-					if not armor.totalCost? then continue
+					if not armor.totalCost?
+						unUpgraded++
+						continue
 
 					for aCost in armor.totalCost
 						# Find the existing combination cost record
@@ -186,24 +211,25 @@ class ArmorFinderSvc
 						# Add the armor upgrade cost to the total cost of the combination
 						cCost.matCost += aCost.matCost
 
-
-				materials = []
-				for item in inventory
-					if item.itemType == \item
-						materials.push item
-
-				#console.log comb.names, "has total price", comb.totalCost, ", user has", (materials |> map -> [it.id, it.amount])
-
 				can = true
-				for cost in comb.totalCost
-					material = null
-					for mat in materials
-						if mat.id == cost.matId
-							material = mat
-							break
 
-					if not (material? and material.amount >= cost.matCost)
-						can = false
+				if unUpgraded < 4
+					materials = []
+					for item in inventory
+						if item.itemType == \item
+							materials.push item
+
+					#console.log comb.names, "has total price", comb.totalCost, ", user has", (materials |> map -> [it.id, it.amount])
+
+					for cost in comb.totalCost
+						material = null
+						for mat in materials
+							if mat.id == cost.matId
+								material = mat
+								break
+
+						if not (material? and material.amount >= cost.matCost)
+							can = false
 
 				if can
 					canAfford.push comb
@@ -326,14 +352,14 @@ class ArmorFinderSvc
 
 	calculateCombinationScores : (combinations, limit = @params.resultLimit) ~>
 		best = []
-		for a from 0 til limit
-			if not (comb = combinations[a])? then break
-			comb.score = comb.armors.0.score + comb.armors.1.score + comb.armors.2.score + comb.armors.3.score
 
+		for a from 0 til limit
+			if not (comb = combinations.pop!)? then continue
+			comb.score = comb.armors.0.score + comb.armors.1.score + comb.armors.2.score + comb.armors.3.score
 			best.push comb
 
-		for a from limit til combinations.length
-			comb = combinations[a]
+		for a from 0 til combinations.length
+			comb = combinations.pop!
 			comb.score = comb.armors.0.score + comb.armors.1.score + comb.armors.2.score + comb.armors.3.score
 
 			for a from 0 til limit
