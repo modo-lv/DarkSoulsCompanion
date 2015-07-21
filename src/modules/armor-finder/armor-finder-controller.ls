@@ -17,6 +17,10 @@ $scope.params = (storageSvc.load \armor-finder-params) ? {
 	modifiers : [ 2 0 0 0 0 0 0 1 ]
 
 	resultLimit : 10
+
+	havelRing : false
+
+	favorRing : false
 }
 
 $scope.weightLimits = [ 0.25 0.50 0.75 1.00 ]
@@ -34,7 +38,7 @@ $scope.modifiers = [
 
 ### INIT
 
-$scope.maxLoad = 40 + statSvc.statValueOf \end
+
 $scope.typeNames = {
 	0 : \head
 	1 : \chest
@@ -75,9 +79,13 @@ $scope.calculate = (type = 'offence') !->
 ### EVENTS
 
 $scope.$watch "params", (!->
-	max = $scope.maxLoad
+	max = 40 + statSvc.statValueOf \end
 	if $scope.params.havelRing
 		max *= 1.5
+	if $scope.params.favorRing
+		max *= 1.2
+	$scope.maxLoad = max
+
 	$scope.availableLoad = (max * $scope.params.selectedWeightLimit) - $scope.params.reservedWeight
 	storageSvc.save "armor-finder-params", $scope.params
 ), true
