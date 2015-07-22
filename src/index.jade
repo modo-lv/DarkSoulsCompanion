@@ -16,6 +16,7 @@ html(ng-app="dsc")
 		script(src="libs/angular/angular-local-storage.min.js")
 
 		link(rel="stylesheet" href="libs/ui-grid/ui-grid-unstable.min.css")
+		link(rel="stylesheet" href="/style/ui-grid.css")
 		script(src="libs/ui-grid/ui-grid-unstable.min.js")
 
 		script(src="libs/angucomplete-alt/angucomplete-alt.min.js")
@@ -73,10 +74,10 @@ body(ng-controller="mainController")
 
 	nav
 		ul
-			li(ng-repeat="item in menu" ng-class="{current: $parent.thisLocation.indexOf(item.path)==0}")
+			li(ng-repeat="item in menu" ng-class="{current: $parent.thisLocation.indexOf('/' + item.path)==0}")
 				a(href="#{{item.path}}")
 					img(ng-src="/app/content/menu-icons/{{item.path}}.png")
-					| {{item.name}}
+					span {{item.name}}
 
 	main(ng-view)
 

@@ -1,48 +1,65 @@
 #ArmorFinder
-	table.parameters
-		tr.weight
-			th.left Weight:
+	.params
+		table.weight
+			caption: h4 Weight
+			tbody
+				tr(title="Endurance + 40.")
+					th.left Base maximum load:
+					td: input(type="number" ng-model="baseMaxLoad" readonly)
 
-			td
-				label Limit:
+				tr
+					th.left
+						label
+							input(type="checkbox" ng-model="params.havelRing")
+							| Havel's Ring:
+					td
+						input(type="number" ng-model="havelRingBonus" ng-disabled="!params.havelRing" readonly)
 
-					label(ng-repeat="wl in weightLimits")
-						input(type="radio" name="selectedWeightLimit" ng-model="$parent.params.selectedWeightLimit" value="{{wl}}")
-						| {{wl * 100}}%
+				tr
+					th.left
+						label
+							input(type="checkbox" ng-model="params.favorRing")
+							| Ring of Favor and Protection:
+					td
+						input(type="number" ng-model="favorRingBonus" ng-disabled="!params.favorRing" readonly)
 
-				label
-					| Reserved (weapons):
-					input(ng-model="params.reservedWeight" type="number" min="0")
+				tr
+					th.left Total maximum load:
+					td: input(type="number" ng-model="maxLoad" readonly)
 
-				label
-					| Maximum:
-					input(type="number" ng-model="maxLoad" readonly)
+				tr
+					th.left: label(for="ArmorFinderParamsReservedWeight") Reserved (weapons):
+					td: input(id="ArmorFinderParamsReservedWeight" ng-model="params.reservedWeight" type="number" min="0")
 
-				label
-					input(type="checkbox" ng-model="params.havelRing")
-					| Havel's Ring
+				tr.limits
+					td(colspan=2)
+						.row
+							strong Limit:&nbsp;
+							label(ng-repeat="wl in weightLimits")
+								input(type="radio" name="selectedWeightLimit" ng-model="$parent.params.selectedWeightLimit" value="{{wl}}")
+								| {{wl * 100}}%
 
-				label
-					input(type="checkbox" ng-model="params.favorRing")
-					| Ring of Favor and Protection
+		table.modifiers
+			caption: h4 Importance
 
-		tr.modifiers
-			th.left Importance:
+			tr(ng-repeat="mod in modifiers")
+				th.left: label(for="ArmorFinderParams_Modifier_{{mod.key}}") {{mod.title}}:
+				td: input(
+					id="ArmorFinderParams_Modifier_{{mod.key}}"
+					type="number"
+					ng-model="$parent.params.modifiers[$index]"
+				)
 
-			td
-				label(ng-repeat="mod in modifiers" title="{{mod.title}}")
-					| {{mod.title}}:
-					input(type="number" ng-model="$parent.params.modifiers[$index]")
 
-		tr.misc
-			th.left Misc.:
+		table.misc
+			caption: h4 Miscellaneous
 
-			td
-				label
-					input(type="checkbox" ng-model="params.includeUpgrades")
-					| Include available upgrades
+			tr: th.left: label
+				input(type="checkbox" ng-model="params.includeUpgrades")
+				| Include available upgrades
 
-	button(ng-click="calculate()" ng-disabled="availableLoad < 0")
+
+	button.row(ng-click="calculate()" ng-disabled="availableLoad < 0")
 		| Find the
 		input(type="number" ng-model="params.resultLimit" ng-click="$event.stopPropagation();")
 		| best available armor combination for {{availableLoad}} weight

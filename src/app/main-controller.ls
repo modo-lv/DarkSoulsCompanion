@@ -18,11 +18,11 @@ class MainController
 
 	setup : !~>
 		@$scope.menu = [
-			# { path : "/tracker" name : "Game state tracker" }
-			{ path : "/pc" name : "Stats & inventory" }
-			{ path : "/armor-finder" name : "Armor finder" }
-			{ path : "/weapon-finder" name : "Weapon & shield finder" }
-			#{ path : "/items" name : "Item data" }
+			#{ path : "tracker" name : "Game state tracker" }
+			{ path : "pc" name : "Stats & inventory" }
+			{ path : "armor-finder" name : "Armor finder" }
+			{ path : "weapon-finder" name : "Weapon & shield finder" }
+			#{ path : "items" name : "Item data" }
 		]
 
 

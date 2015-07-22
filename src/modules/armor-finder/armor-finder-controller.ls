@@ -23,6 +23,10 @@ $scope.params = (storageSvc.load \armor-finder-params) ? {
 	favorRing : false
 }
 
+$scope.baseMaxLoad = 0.0
+$scope.havelRingBonus = 0.0
+$scope.favorRingBonus = 0.0
+
 $scope.weightLimits = [ 0.25 0.50 0.75 1.00 ]
 
 $scope.modifiers = [
@@ -79,7 +83,13 @@ $scope.calculate = (type = 'offence') !->
 ### EVENTS
 
 $scope.$watch "params", (!->
-	max = 40 + statSvc.statValueOf \end
+	$scope.baseMaxLoad = max = 40 + statSvc.statValueOf \end
+	$scope.havelRingBonus = max * 0.5
+
+	$scope.favorRingBonus = if $scope.params.havelRing
+		then (max + $scope.havelRingBonus) * 0.2
+		else max * 0.2
+
 	if $scope.params.havelRing
 		max *= 1.5
 	if $scope.params.favorRing

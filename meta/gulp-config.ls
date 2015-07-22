@@ -13,7 +13,7 @@ module?.exports = cfg = {}
 		..dir = "#{cfg.baseDir }/src"
 		..e2eDir = "#{cfg.baseDir}/e2e"
 		..libs = "#{..dir }/#{cfg.common.libDir }/**"
-		..staticFiles = "#{..dir}/**/*.{woff,ttf,eot,png}"
+		..staticFiles = "#{..dir}/**/*.{woff,ttf,eot,png,jpg,css}"
 		..e2eStaticFiles = "#{..e2eDir}/*.{html,js}"
 		..e2eMain = "#{..e2eDir}/main.ls"
 		..staticModuleFiles = "#{..dir}/modules/**/*.json"

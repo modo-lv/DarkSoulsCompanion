@@ -1,0 +1,71 @@
+body
+	text-align: center
+	background-color: $color-black
+	background-image: url('/app/content/main-background.jpg')
+	background-repeat: no-repeat
+	background-position: top center
+	color: $color-white
+	padding: 0.5em
+
+main
+	border-radius: $border-radius
+	background-image: url('/app/content/content-background.png')
+	color: $color-black
+	text-align: justify
+	background-color: #f7f7f9
+	padding: $spacing * 2
+	border: $main-border
+
+	a
+		color: $color-black
+
+nav
+	ul
+		margin-bottom: $spacing
+
+	li
+		flex-grow: 1
+		flex-basis: 10px
+		border-radius: $border-radius
+		background-color: $color-blue
+		margin-left: $spacing
+		display: flex
+		border: $main-border
+
+		&:first-child
+			margin-left: 0
+
+		a
+			color: $color-white
+			padding: $spacing * 2
+			text-decoration: none
+			display: flex
+			align-self: stretch
+			flex-grow: 1
+
+			$icon-size: 24px
+			img
+				height: $icon-size
+				width: $icon-size
+				flex-shrink: 0
+				align-self: center
+
+			span
+				align-self: center
+				margin-right: $icon-size // Compensate for the icon
+				flex-grow: 1
+
+
+
+		&.current
+			font-weight: bold
+			background-color: $color-white
+			border-color: transparent
+			a
+				color: $color-black
+
+
+header
+	h1
+		font-family: 'OptimusPrinceps', sans-serif
+		font-size: 3em
