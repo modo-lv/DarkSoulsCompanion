@@ -71,10 +71,10 @@ class WeaponFinderService
 	calculateScoreFor : (weapon) ~>
 		result = {} <<< weapon
 
-		scS = @_statSvc.statScalingFactorOf \str
-		scD = @_statSvc.statScalingFactorOf \dex
-		scI = @_statSvc.statScalingFactorOf \int
-		scF = @_statSvc.statScalingFactorOf \fai
+		scS = @_statSvc.scalingFactorOf \str, @params.reqLimits.[\str]
+		scD = @_statSvc.scalingFactorOf \dex, @params.reqLimits.[\dex]
+		scI = @_statSvc.scalingFactorOf \int, @params.reqLimits.[\int]
+		scF = @_statSvc.scalingFactorOf \fai, @params.reqLimits.[\fai]
 
 		result
 			..atkPhy *= (1 + ((weapon.bonusStr * scS) + (weapon.bonusDex * scD)))

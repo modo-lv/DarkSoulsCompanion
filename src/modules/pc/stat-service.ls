@@ -61,9 +61,10 @@ class StatService
 		@_storageSvc.save 'pc.stats', model
 
 
-	statScalingFactorOf : (name) !~>
-		statValue = @statValueOf name
+	statScalingFactorOf : (name) ~>
+		@scalingFactorOf name, @statValueOf name
 
+	scalingFactorOf : (name, statValue) !~>
 		thresholds = switch name
 			when \str then fallthrough
 			when \dex then [[10, 0.5] [10, 3.5] [20, 2.25]]

@@ -4329,6 +4329,7 @@ function curry$(f, bound){
     StatService.weaponStats = ['str', 'dex', 'int', 'fai'];
     function StatService(_storageSvc){
       this._storageSvc = _storageSvc;
+      this.scalingFactorOf = bind$(this, 'scalingFactorOf', prototype);
       this.statScalingFactorOf = bind$(this, 'statScalingFactorOf', prototype);
       this.saveUserData = bind$(this, 'saveUserData', prototype);
       this.loadUserData = bind$(this, 'loadUserData', prototype);
@@ -4370,8 +4371,10 @@ function curry$(f, bound){
       this._storageSvc.save('pc.stats', model);
     };
     prototype.statScalingFactorOf = function(name){
-      var statValue, thresholds, result, i$, len$, threshold;
-      statValue = this.statValueOf(name);
+      return this.scalingFactorOf(name, this.statValueOf(name));
+    };
+    prototype.scalingFactorOf = function(name, statValue){
+      var thresholds, result, i$, len$, threshold;
       thresholds = (function(){
         switch (name) {
         case 'str':
@@ -5051,10 +5054,11 @@ function curry$(f, bound){
     prototype.calculateScoreFor = function(weapon){
       var result, scS, scD, scI, scF, x$, i$, ref$, len$, index, statName, stat, this$ = this;
       result = import$({}, weapon);
-      scS = this._statSvc.statScalingFactorOf('str');
-      scD = this._statSvc.statScalingFactorOf('dex');
-      scI = this._statSvc.statScalingFactorOf('int');
-      scF = this._statSvc.statScalingFactorOf('fai');
+      scS = this._statSvc.scalingFactorOf('str', this.params.reqLimits['str']);
+      scD = this._statSvc.scalingFactorOf('dex', this.params.reqLimits['dex']);
+      scI = this._statSvc.scalingFactorOf('int', this.params.reqLimits['int']);
+      scF = this._statSvc.scalingFactorOf('fai', this.params.reqLimits['fai']);
+      console.log(weapon.name + ": " + this._statSvc.statValueOf('dex'));
       x$ = result;
       x$.atkPhy *= 1 + (weapon.bonusStr * scS + weapon.bonusDex * scD);
       x$.atkMag *= 1 + (weapon.bonusInt * scI + weapon.bonusFai * scF);

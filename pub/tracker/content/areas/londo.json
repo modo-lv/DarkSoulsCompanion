@@ -7,6 +7,11 @@
         "title": "First",
         "content": "Passing through.",
         "id": "58824c69-e0fd-4e1b-a66a-bab50c930979"
+      },
+      {
+        "title": "Balcony",
+        "content": "Passing through",
+        "id": "31244aa2-db94-4644-bd52-b6fffd5efa70"
       }
     ],
     "id": "626db7c1-9e77-473e-822d-4a44cc0d8277"
@@ -15,6 +20,11 @@
     "labels": "item",
     "title": "Demon Titanite",
     "id": "cbfe1d48-7135-49a4-940b-74a55ae9f30a"
+  },
+  {
+    "labels": "bonfire",
+    "title": "Anor Londo entrance",
+    "id": "2974066c-66ea-46b7-9cc5-24aaf536e1a6"
   },
   {
     "labels": "item",
@@ -92,5 +102,130 @@
     "labels": "item",
     "title": "Black Iron Helm, Black Iron Armor, Black Iron Gauntlets, Black Iron Leggings, Black Iron Greatshield",
     "id": "d0dcfbfd-8ef8-4df4-8d4e-7de34b2e9e21"
+  },
+  {
+    "title": "Lord Gwyn's tomb",
+    "labels": "Bonfire",
+    "id": "d2c9b1d1-2206-48b9-8b15-0fb5b9236ef7"
+  },
+  {
+    "labels": "item",
+    "title": "Ring of the Sun's Firstborn",
+    "id": "2cc32975-32e1-4608-9aeb-718532c131e9"
+  },
+  {
+    "labels": "item",
+    "title": "Soul of a Hero",
+    "id": "69e2c517-0c5a-4ae5-a42e-0a321094d3fb"
+  },
+  {
+    "title": "Main building",
+    "children": [
+      {
+        "labels": "bonfire",
+        "title": "Main building",
+        "id": "f8fac948-127f-4759-b4cb-0237c22e997e"
+      },
+      {
+        "labels": "npc",
+        "title": "Solaire",
+        "id": "c2b22e31-997c-4d9d-978f-3351381b4515"
+      },
+      {
+        "labels": "item",
+        "title": "Sunlight Medal (3)",
+        "id": "5eb7c76e-6964-4a5e-81a6-ed5e8d1317cd"
+      },
+      {
+        "title": "Secret room",
+        "children": [
+          {
+            "labels": "item",
+            "title": "Havel's Gauntlets, Havel's Leggings",
+            "id": "2548c018-23f0-4bc8-8d57-c1f2cb8b18ba"
+          },
+          {
+            "labels": "item",
+            "title": "Havel's Helm, Havel's Armor",
+            "id": "8b69438a-f5b8-4508-86e8-321ccbf2648f"
+          },
+          {
+            "labels": "item",
+            "title": "Havel's Greatshield",
+            "id": "4eb7d067-d41c-441a-9b7a-16b1966fc33a"
+          },
+          {
+            "labels": "item",
+            "title": "Dragon Tooth",
+            "id": "e39ad7ab-09a3-4bf2-9046-94a38818b44a"
+          },
+          {
+            "labels": "item",
+            "title": "Occult Club",
+            "id": "498de5de-7042-4a2f-a38f-30af55bf5fbe"
+          }
+        ],
+        "id": "06d84951-a409-411f-a0ae-4bf5907021c7"
+      },
+      {
+        "labels": "item",
+        "title": "Silver Coin (5)",
+        "id": "e5b4f6f2-261c-4c51-a151-cafdea1a4646"
+      },
+      {
+        "labels": "item",
+        "title": "Gold Coin",
+        "id": "1b341308-cae4-4099-be94-40fb7d2ee81d"
+      },
+      {
+        "labels": "item",
+        "title": "Soul of a Hero",
+        "id": "a6804f16-42b4-4587-a457-fd06f397c1f6"
+      },
+      {
+        "labels": "npc",
+        "title": "Siegmeiyer of Catarina",
+        "children": [
+          {
+            "labels": "item",
+            "title": "Tiny Being's Ring",
+            "if": "global|siegmeiyer-londo",
+            "id": "e006c5bf-f22a-4e87-a3c1-169294ff149a"
+          }
+        ],
+        "id": "f2f722a7-57fe-44d8-8ccd-6d72e59d9ed2"
+      },
+      {
+        "labels": "enemy",
+        "setVar": "global|siegmeiyer-londo"
+      },
+      {
+        "labels": "item",
+        "title": "Demon Titanite (2)",
+        "id": "6dff6bb0-b095-41c7-86f5-a155264e8250"
+      },
+      {
+        "labels": "enemy",
+        "title": "Titanite Demon",
+        "items": "Demon Titanite",
+        "id": "63213ca3-a2ca-458a-874f-48516de602eb"
+      },
+      {
+        "labels": "item",
+        "title": "Silver Knight Helm, Silver Knight Armor",
+        "id": "b0e1efda-ecad-4162-9b95-2c2f2fba352f"
+      },
+      {
+        "labels": "item",
+        "title": "Silver Knight Gauntlets, Silver Knight Leggings",
+        "id": "2da60ec8-14e3-43d9-b1c0-1aa9f1326985"
+      },
+      {
+        "labels": "shortcut",
+        "title": "Door between trophy room and bonfire.",
+        "id": "f7f81e60-8b29-46ef-b4c6-b2f203bd4396"
+      }
+    ],
+    "id": "dfd4e6fd-fc12-4c44-b101-a7b10f3256b4"
   }
 ]
