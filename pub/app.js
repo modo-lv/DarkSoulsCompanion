@@ -1778,7 +1778,16 @@ function curry$(f, bound){
         reservedWeight: 15,
         selectedWeightLimit: 0.50,
         includeUpgrades: true,
-        modifiers: [2, 0, 0, 0, 0, 0, 0, 1],
+        modifiers: {
+          'phy': 1,
+          'mag': 1,
+          'fir': 1,
+          'lit': 1,
+          'blo': 1,
+          'tox': 1,
+          'cur': 1,
+          'poise': 1
+        },
         resultLimit: 10,
         havelRing: false,
         favorRing: false
@@ -1787,33 +1796,16 @@ function curry$(f, bound){
     $scope.havelRingBonus = 0.0;
     $scope.favorRingBonus = 0.0;
     $scope.weightLimits = [0.25, 0.50, 0.75, 1.00];
-    $scope.modifiers = [
-      {
-        key: 'phy',
-        title: "Physical"
-      }, {
-        key: 'mag',
-        title: "Magic"
-      }, {
-        key: 'fir',
-        title: "Fire"
-      }, {
-        key: 'lit',
-        title: "Lightning"
-      }, {
-        key: 'blo',
-        title: "Bleed"
-      }, {
-        key: 'tox',
-        title: "Poison"
-      }, {
-        key: 'cur',
-        title: "Curse"
-      }, {
-        key: 'poise',
-        title: "Poise"
-      }
-    ];
+    $scope.modifierNames = {
+      'phy': "Physical",
+      'mag': "Magic",
+      'fir': "Fire",
+      'lit': "Lightning",
+      'blo': "Bleed",
+      'tox': "Poison",
+      'cur': "Curse",
+      'poise': "Poise"
+    };
     $scope.typeNames = {
       0: 'head',
       1: 'chest',
@@ -1824,18 +1816,18 @@ function curry$(f, bound){
     x$ = $scope.gridOptions = require('./controller/gridOptions')(uiGridConstants);
     x$.data = $scope.results;
     $scope.calculate = function(type){
-      var x$, i$, ref$, len$, index, mod, ref1$;
+      var x$, key, ref$, value, ref1$;
       type == null && (type = 'offence');
       armorFinderSvc.freeWeight = $scope.availableLoad;
       x$ = armorFinderSvc.params = {};
       x$.freeWeight = $scope.availableLoad;
       x$.includeUpgrades = $scope.params.includeUpgrades;
       x$.resultLimit = $scope.params.resultLimit;
-      for (i$ = 0, len$ = (ref$ = $scope.modifiers).length; i$ < len$; ++i$) {
-        index = i$;
-        mod = ref$[i$];
-        ((ref1$ = armorFinderSvc.params).modifiers || (ref1$.modifiers = {}))[mod.key] = $scope.params.modifiers[index];
+      for (key in ref$ = $scope.modifierNames) {
+        value = ref$[key];
+        ((ref1$ = armorFinderSvc.params).modifiers || (ref1$.modifiers = {}))[key] = $scope.params.modifiers[key];
       }
+      console.log(armorFinderSvc.params);
       armorFinderSvc.findBestCombinations().then(function(results){
         var i$, len$, result;
         $scope.results = [];
@@ -5058,7 +5050,6 @@ function curry$(f, bound){
       scD = this._statSvc.scalingFactorOf('dex', this.params.reqLimits['dex']);
       scI = this._statSvc.scalingFactorOf('int', this.params.reqLimits['int']);
       scF = this._statSvc.scalingFactorOf('fai', this.params.reqLimits['fai']);
-      console.log(weapon.name + ": " + this._statSvc.statValueOf('dex'));
       x$ = result;
       x$.atkPhy *= 1 + (weapon.bonusStr * scS + weapon.bonusDex * scD);
       x$.atkMag *= 1 + (weapon.bonusInt * scI + weapon.bonusFai * scF);

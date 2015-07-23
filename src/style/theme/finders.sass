@@ -1,0 +1,32 @@
+#ArmorFinder, #WeaponFinder
+	.params
+		display: flex
+		align-items: flex-start
+
+		> fieldset
+			border: $main-border
+			border-style: solid
+			border-radius: $border-radius
+
+			> div
+				display: flex
+				flex-direction: column
+
+		.row
+			display: flex
+			align-items: baseline
+
+			> label
+				font-weight: bold
+				display: flex
+				flex-grow: 1
+				align-items: center
+
+				span
+					flex-grow: 1
+
+				label
+					font-weight: normal
+
+				input
+					flex-shrink: 0

@@ -27,6 +27,8 @@ nav
 		flex-grow: 1
 		flex-basis: 10px
 		border-radius: $border-radius
+		background-image: url('/app/content/menu-background.jpg')
+		background-position: center center
 		background-color: $color-blue
 		margin-left: $spacing
 		display: flex
@@ -60,7 +62,9 @@ nav
 		&.current
 			font-weight: bold
 			background-color: $color-white
-			border-color: transparent
+			background-image: url('/app/content/content-background.png')
+			//border-color: $color-blue
+			//border-style: inset
 			a
 				color: $color-black
 

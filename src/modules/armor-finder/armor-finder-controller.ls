@@ -14,7 +14,16 @@ $scope.params = (storageSvc.load \armor-finder-params) ? {
 
 	includeUpgrades : true
 	
-	modifiers : [ 2 0 0 0 0 0 0 1 ]
+	modifiers : {
+		\phy : 1
+		\mag : 1
+		\fir : 1
+		\lit : 1
+		\blo : 1
+		\tox : 1
+		\cur : 1
+		\poise : 1
+	}
 
 	resultLimit : 10
 
@@ -29,16 +38,16 @@ $scope.favorRingBonus = 0.0
 
 $scope.weightLimits = [ 0.25 0.50 0.75 1.00 ]
 
-$scope.modifiers = [
-	{ key : \phy title : "Physical" }
-	{ key : \mag title : "Magic" }
-	{ key : \fir title : "Fire" }
-	{ key : \lit title : "Lightning" }
-	{ key : \blo title : "Bleed" }
-	{ key : \tox title : "Poison" }
-	{ key : \cur title : "Curse" }
-	{ key : \poise title : "Poise" }
-]
+$scope.modifierNames = {
+	\phy : "Physical"
+	\mag : "Magic"
+	\fir : "Fire"
+	\lit : "Lightning"
+	\blo : "Bleed"
+	\tox : "Poison"
+	\cur : "Curse"
+	\poise : "Poise"
+}
 
 ### INIT
 
@@ -65,8 +74,10 @@ $scope.calculate = (type = 'offence') !->
 		..includeUpgrades = $scope.params.includeUpgrades
 		..resultLimit = $scope.params.resultLimit
 
-	for mod, index in $scope.modifiers
-		armorFinderSvc.params.{}modifiers.[mod.key] = $scope.params.modifiers.[index]
+	for key, value of $scope.modifierNames
+		armorFinderSvc.params.{}modifiers.[key] = $scope.params.modifiers[key]
+
+	console.log armorFinderSvc.params
 
 	armorFinderSvc.findBestCombinations!.then (results) !->
 		$scope.results = []
