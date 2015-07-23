@@ -63,11 +63,12 @@ class ArmorFinderSvc
 
 		end = new Date!.getTime!
 		time = end - start
-		console.log "Permutated #{dynamicArmors.length} upgradeable armors into #{combinations.length} combinations in #{time / 1000} seconds"
+		if @_debugLog
+			console.log "Permutated #{dynamicArmors.length} upgradeable armors into #{combinations.length} combinations in #{time / 1000} seconds"
 
 		start := new Date!.getTime!
 
-		best = @calculateCombinationScores combinations, 40
+		best = @calculateCombinationScores combinations, 3
 
 		end = new Date!.getTime!
 		time = end - start
@@ -98,12 +99,13 @@ class ArmorFinderSvc
 
 		# Find all combinations of the upgradable armors and their upgrades
 		.then (upgradedArmors)~>
-			dynamicArmors = upgradedArmors
+			dynamicArmors = upgradedArmors |> flatten
 
 			# Clear out leftovers
 			upgradedArmors = null
 
 			start := new Date!.getTime!
+
 			combs = @findAllCombinationsOf dynamicArmors
 
 			end = new Date!.getTime!
@@ -112,6 +114,7 @@ class ArmorFinderSvc
 				console.log "Permutated #{dynamicArmors.length} armors & upgrades into #{combs.length} combinations in #{time / 1000} seconds"
 
 			start := new Date!.getTime!
+
 			@takeOnlyAffordable combs
 
 		.then (combs) ~>
@@ -181,8 +184,10 @@ class ArmorFinderSvc
 
 		@_inventorySvc.load!
 		.then (inventory) !~>
-			for comb in combinations
+			for a from combinations.length - 1 to 0 by -1
+				comb = combinations.pop!
 				comb.totalCost = []
+
 
 				unUpgraded = 0
 				# Find the total cost of the combination

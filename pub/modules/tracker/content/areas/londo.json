@@ -227,5 +227,112 @@
       }
     ],
     "id": "dfd4e6fd-fc12-4c44-b101-a7b10f3256b4"
+  },
+  {
+    "title": "In and around the main hall",
+    "children": [
+      {
+        "labels": "item",
+        "title": "Dragonslayer Greatbow, Dragonslayer Arrow (1)",
+        "id": "339ff8cf-6372-49b4-a9f4-058d978f4404"
+      },
+      {
+        "labels": "item",
+        "title": "Titanite Chunk",
+        "id": "09bef373-eb3e-4084-9669-242304d2ac71"
+      },
+      {
+        "labels": "npc",
+        "title": "Giant Blacksmith",
+        "id": "de0da8b3-25c1-41bf-bf0f-884e8b6cceae"
+      },
+      {
+        "labels": "shortcut",
+        "title": "Giant Blacksmith's gate",
+        "id": "485d53dd-7807-4100-97c4-b72165b08487"
+      },
+      {
+        "labels": "item",
+        "title": "Hawk Ring",
+        "id": "c47ca350-40b1-40c7-a1f9-5bf205573549"
+      },
+      {
+        "labels": "enemy",
+        "title": "Lautrec",
+        "if": "item|Black Eye Orb",
+        "items": "Fire Keeper Soul, Ring of Favor and Protection, Humanity (5)",
+        "setVar": "global|keeper-avenged",
+        "id": "8ea389b9-be78-4853-b1c2-637e357ad66f"
+      },
+      {
+        "labels": "shortcut",
+        "title": "Main hall gate",
+        "id": "aa4b7d91-f92b-4a11-9043-cb9d1ee9ca1b"
+      },
+      {
+        "labels": "enemy",
+        "title": "Dragon Slayer Ornstein",
+        "weak": "Magic, Fire.",
+        "if": "enemy|Executioner Smough|alive",
+        "immune": "Lightning.",
+        "id": "21f1d67e-88fe-4e99-8d6d-ab03aae878fb"
+      },
+      {
+        "labels": "enemy",
+        "title": "Executioner Smough",
+        "if": "enemy|Dragon Slayer Ornstein|alive",
+        "weak": "Magic, Fire, Lightning.",
+        "id": "6f695e73-22c5-4cf4-ab36-86eb17f10bac"
+      },
+      {
+        "labels": "enemy",
+        "title": "Giant Dragon Slayer Ornstein",
+        "weak": "Magic, Fire.",
+        "if": "enemy|Executioner Smough|dead",
+        "setVar": "global|londo-boss-done",
+        "immune": "Lightning.",
+        "items": "Soul of Ornstein, Humanity, Leo Ring",
+        "id": "d87bd229-57c1-4354-8b82-8c3e1328ae9e"
+      },
+      {
+        "labels": "enemy",
+        "title": "Giant Executioner Smough",
+        "weak": "Magic, Fire.",
+        "setVar": "global|londo-boss-done",
+        "if": "enemy|Dragon Slayer Ornstein|dead",
+        "items": "Soul of Smough, Humanity",
+        "id": "dd40404f-f645-4ddb-bd36-1527bcd00ddf"
+      },
+      {
+        "labels": "bonfire",
+        "title": "Main hall",
+        "id": "352616ab-3edf-4d0c-bb85-516ee1a13e47"
+      },
+      {
+        "labels": "item",
+        "title": "Helm of Favor, Embraced Armor of Favor, Gauntlets of Favor, Leggings of Favor",
+        "if": "global|keeper-avenged",
+        "id": "8a1ec533-427e-4448-8cfa-533864b0a270"
+      },
+      {
+        "labels": "npc",
+        "title": "Gwynevere",
+        "children": [
+          {
+            "labels": "item",
+            "title": "Lordvessel",
+            "id": "60fd6273-5673-4f2d-b43d-0bbe649bc81b"
+          },
+          {
+            "labels": "covenant",
+            "title": "Princess Guard",
+            "items": "Ring of the Sun Princess",
+            "id": "22169f8f-0e74-4b98-ba86-26bc41ef0dff"
+          }
+        ],
+        "id": "284937ad-ab85-4405-a72c-f01ea6715f4a"
+      }
+    ],
+    "id": "b5839103-bff5-4bad-a285-99d9127a5712"
   }
 ]

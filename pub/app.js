@@ -1827,7 +1827,6 @@ function curry$(f, bound){
         value = ref$[key];
         ((ref1$ = armorFinderSvc.params).modifiers || (ref1$.modifiers = {}))[key] = $scope.params.modifiers[key];
       }
-      console.log(armorFinderSvc.params);
       armorFinderSvc.findBestCombinations().then(function(results){
         var i$, len$, result;
         $scope.results = [];
@@ -1965,9 +1964,11 @@ function curry$(f, bound){
       combinations = this.findAllCombinationsOf(dynamicArmors);
       end = new Date().getTime();
       time = end - start;
-      console.log("Permutated " + dynamicArmors.length + " upgradeable armors into " + combinations.length + " combinations in " + time / 1000 + " seconds");
+      if (this._debugLog) {
+        console.log("Permutated " + dynamicArmors.length + " upgradeable armors into " + combinations.length + " combinations in " + time / 1000 + " seconds");
+      }
       start = new Date().getTime();
-      best = this.calculateCombinationScores(combinations, 40);
+      best = this.calculateCombinationScores(combinations, 3);
       end = new Date().getTime();
       time = end - start;
       if (this._debugLog) {
@@ -1991,7 +1992,8 @@ function curry$(f, bound){
       }
       return this.$q.all(promises).then(function(upgradedArmors){
         var dynamicArmors, combs, end, time;
-        dynamicArmors = upgradedArmors;
+        dynamicArmors = flatten(
+        upgradedArmors);
         upgradedArmors = null;
         start = new Date().getTime();
         combs = this$.findAllCombinationsOf(dynamicArmors);
@@ -2077,22 +2079,23 @@ function curry$(f, bound){
       var canAfford, this$ = this;
       canAfford = [];
       return this._inventorySvc.load().then(function(inventory){
-        var i$, ref$, len$, comb, unUpgraded, j$, ref1$, len1$, armor, k$, ref2$, len2$, aCost, cCost, l$, ref3$, len3$, x, can, materials, item, cost, material, mat;
-        for (i$ = 0, len$ = (ref$ = combinations).length; i$ < len$; ++i$) {
-          comb = ref$[i$];
+        var i$, a, comb, unUpgraded, j$, ref$, len$, armor, k$, ref1$, len1$, aCost, cCost, l$, ref2$, len2$, x, can, materials, item, cost, material, mat;
+        for (i$ = combinations.length - 1; i$ >= 0; --i$) {
+          a = i$;
+          comb = combinations.pop();
           comb.totalCost = [];
           unUpgraded = 0;
-          for (j$ = 0, len1$ = (ref1$ = comb.armors).length; j$ < len1$; ++j$) {
-            armor = ref1$[j$];
+          for (j$ = 0, len$ = (ref$ = comb.armors).length; j$ < len$; ++j$) {
+            armor = ref$[j$];
             if (armor.totalCost == null) {
               unUpgraded++;
               continue;
             }
-            for (k$ = 0, len2$ = (ref2$ = armor.totalCost).length; k$ < len2$; ++k$) {
-              aCost = ref2$[k$];
+            for (k$ = 0, len1$ = (ref1$ = armor.totalCost).length; k$ < len1$; ++k$) {
+              aCost = ref1$[k$];
               cCost = null;
-              for (l$ = 0, len3$ = (ref3$ = comb.totalCost).length; l$ < len3$; ++l$) {
-                x = ref3$[l$];
+              for (l$ = 0, len2$ = (ref2$ = comb.totalCost).length; l$ < len2$; ++l$) {
+                x = ref2$[l$];
                 if (x.matId === aCost.matId) {
                   cCost = x;
                   break;
@@ -2111,16 +2114,16 @@ function curry$(f, bound){
           can = true;
           if (unUpgraded < 4) {
             materials = [];
-            for (j$ = 0, len1$ = inventory.length; j$ < len1$; ++j$) {
+            for (j$ = 0, len$ = inventory.length; j$ < len$; ++j$) {
               item = inventory[j$];
               if (item.itemType === 'item') {
                 materials.push(item);
               }
             }
-            for (j$ = 0, len1$ = (ref1$ = comb.totalCost).length; j$ < len1$; ++j$) {
-              cost = ref1$[j$];
+            for (j$ = 0, len$ = (ref$ = comb.totalCost).length; j$ < len$; ++j$) {
+              cost = ref$[j$];
               material = null;
-              for (k$ = 0, len2$ = materials.length; k$ < len2$; ++k$) {
+              for (k$ = 0, len1$ = materials.length; k$ < len1$; ++k$) {
                 mat = materials[k$];
                 if (mat.id === cost.matId) {
                   material = mat;
