@@ -133,38 +133,21 @@ class ItemServiceUpgradeComponent
 				..upgradeId = upgrade.\id
 				..matSetId += upgrade.\matSetId
 
-			for field in [
-				[\defPhy	\defModPhy]
-				[\defMag	\defModMag]
-				[\defFir	\defModFir]
-				[\defLit	\defModLit]
-				[\defTox	\defModTox]
-				[\defBlo	\defModBlo]
-				[\defCur	\defModCur]
-			]
-				item.[field.0] *= (upgrade.[field.1] ? 1)
+			if item.def? then for value, index in item.def
+				item.def[index] *= (upgrade.defMod[index] ? 1)
 
 			switch item.\itemType
 			| \weapon =>
-				for field in [
-					[ \atkPhy \atkModPhy ]
-					[ \atkMag \atkModMag ]
-					[ \atkFir \atkModFir ]
-					[ \atkLit \atkModLit ]
-					[ \bonusStr \bonusModStr ]
-					[ \bonusDex \bonusModDex ]
-					[ \bonusInt \bonusModInt ]
-					[ \bonusFai \bonusModFai ]
-					[ \defSta \defModSta ]
-				]
-					item.[field.0] *= (upgrade.[field.1] ? 1)
+				console.log item.atk, upgrade.atkMod
+				if item.atk? then for value, index in item.atk
+					item.atk[index] *= upgrade.atkMod[index] ? 1
+
+				if item.bonus? then for value, index in item.bonus
+					item.bonus[index] *= upgrade.bonusMod[index] ? 1
+
 			| \armor =>
-				for field in [
-					[\defStrike \defModStrike]
-					[\defSlash \defModSlash]
-					[\defThrust \defModThrust]
-				]
-					item.[field.0] *= (upgrade.[field.1] ? 1)
+				if item.defPhy? then for value, index in item.defPhy
+					item.defPhy[index] *= (upgrade.defPhyMod[index] ? 1)
 
 			return item
 

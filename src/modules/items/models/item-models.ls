@@ -31,8 +31,14 @@ module?.exports = {
 		uid :~ -> @itemType + @id
 
 
-		useDataFrom : (itemData) ~>
+		useDataFrom : (itemData) !~>
 			@ <<< itemData
+
+			# Re-copy arrays to make sure there are no references left
+			for key in [\def \dmgTypes \atk \req \atkCost \dmg \bonus \defPhy]
+				if @.[key]? and itemData.[key]? then @.[key] = itemData.[key].slice!
+
+			return this
 
 
 	\Equipment : class EquipmentModel extends ItemModel
@@ -46,13 +52,7 @@ module?.exports = {
 			@durability = 0
 
 			# Defense values common to weapons and armor.
-			@defPhy = 0
-			@defMag = 0
-			@defFir = 0
-			@defLit = 0
-			@defTox = 0
-			@defBlo = 0
-			@defCur = 0
+			@def = []
 
 			# Material set ID (for finding required upgrade materials)
 			@matSetId = 0
@@ -90,60 +90,28 @@ module?.exports = {
 			@isAugmentable = false
 
 			# Damage types
-			@dmgReg = false
-			@dmgStrike = false
-			@dmsSlash = false
-			@dmgThrust = false
-
-			# Wielding requirements
-			@reqStr = 0
-			@reqDex = 0
-			@reqInt = 0
-			@reqFai = 0
-
-			# Parameter bonuses (scaling values)
-			@bonusStr = 0
-			@bonusDex = 0
-			@bonusInt = 0
-			@bonusFai = 0
+			@dmgTypes = []
 
 			# Attack values
-			@atkPhy = 0
-			@atkMag = 0
-			@atkFir = 0
-			@atkLit = 0
+			@atk = []
 
-			# Attack stamina cost
-			@atkSta = 0
-			# Stability (percentage of stamina kept when defending against attack)
-			@defSta = 0
+			# Wielding requirements
+			@req = []
 
-			# Divine attack modifier
-			@divine = 0
-
-			# Occult attack modifier
-			@occult = 0
+			# Parameter bonuses (scaling values)
+			@bonus = []
 
 			# Range for bows & crossbows
 			@range = 0
 
-			# Bleed effect
-			@atkBlo = 0
-			@dmgBlo = 0
-
-			# Poison effect
-			@atkTox = 0
-			@dmgTox = 0
-
-			# HP recovery-on-hit effect
-			@atkHeal = 0
+			@def = []
 
 			@atkCosts = []
-			
-		dpsPhy :~ -> @_dpsFor @atkPhy
-		dpsMag :~ -> @_dpsFor @atkMag
-		dpsFir :~ -> @_dpsFor @atkFir
-		dpsLit :~ -> @_dpsFor @atkLit
+
+		dpsPhy :~ -> @_dpsFor @atk.0
+		dpsMag :~ -> @_dpsFor @atk.1
+		dpsFir :~ -> @_dpsFor @atk.2
+		dpsLit :~ -> @_dpsFor @atk.3
 
 
 	\Armor : class ArmorModel extends EquipmentModel
@@ -159,12 +127,7 @@ module?.exports = {
 			@armorSet = ''
 
 			# Specific attack type defenses
-			@defSlash = 0
-			@defStrike = 0
-			@defThrust = 0
-
-			# Poise
-			@defPoise = 0
+			@defPhy = []
 
 			# Stamina recovery speed modifier
 			@staRegenMod = 0

@@ -22,5 +22,5 @@ $routeProvider
 		controller : 'armorFinderController'
 	}
 	.otherwise {
-		redirectTo : '/tracker/asylum'
+		redirectTo : '/pc'
 	}

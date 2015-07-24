@@ -32,31 +32,31 @@ it "should find the correct upgrade for an item", (done) !->
 
 it "should apply a weapon upgrade correctly", !->
 	upgrade = {
-		atkModPhy : 1.5
+		atkMod : [1.5]
 	}
 
 	itemModel = new itemModels.Weapon
 		..useDataFrom {
-			atkPhy : 100
+			atk : [100]
 		}
 
 	svc.apply upgrade .to itemModel
 
-	expect itemModel.atkPhy .to.equal 150
+	expect itemModel.atk.0 .to.equal 150
 
 
 it "should apply an armor upgrade correctly", !->
 	upgrade = {
-		"defModPhy" : 1.08
+		defMod : [1.08]
 	}
 	armor = new itemModels.Armor
 		..useDataFrom {
-			"defPhy" : 29
+			def : [29]
 		}
 
 	svc.apply upgrade .to armor
 
-	expect armor.defPhy .to.equal 31.32
+	expect armor.def.0 .to.equal 31.32
 
 
 

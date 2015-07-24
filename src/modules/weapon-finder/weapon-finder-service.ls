@@ -7,14 +7,17 @@ class WeaponFinderService
 			useDps : false
 			dpsCalcMove : 0
 			includeUpgrades : true
-			modifiers : {}
+			modifiers : {
+				atk : []
+				def : []
+			}
 			reqLimits : {}
 		}
 
-		@statArray = @_itemSvc.@@AttackTypes ++ @_itemSvc.@@DefenceTypes
+		@statArray = @_itemSvc.@@AttackTypes ++ @_itemSvc.@@DefenseTypes
 
 		(@_itemSvc.@@WeaponStats) |> each !~>
-			@params.reqLimits[it] = 20
+			@params.reqLimits[it] = 99
 		@statArray |> each !~>
 			@params.modifiers[it] = 0
 		@params.modifiers[\atkPhy] = 1

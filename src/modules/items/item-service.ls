@@ -1,15 +1,11 @@
 angular? .module "dsc" .service "itemSvc" (externalDataSvc, itemIndexSvc, $q) -> new ItemService ...
 
 class ItemService
-
 	@WeaponStats = [\str \dex \int \fai]
-	@WeaponBonus = [\bonusStr \bonusDex \bonusInt \bonusFai]
-	@WeaponReqs = [\reqStr \reqDex \reqInt \reqFai]
-	@AttackTypes = [\atkPhy \atkMag \atkFir \atkLit]
-	@DpsTypes = [\dpsPhy \dpsMag \dpsFir \dpsLit]
-	@DefenceTypes = [\defPhy \defMag \defFir \defLit \defBlo \defTox \defCur]
-	@StaminaTypes = [\atkSta \defSta]
-	@EffectTypes = [\blo \tox \cur]
+	@AttackTypes = [\phy \mag \fir \lit]
+	@AllAttackTypes = @AttackTypes ++ [\blo \tox]
+	@DefenseTypes = @AttackTypes ++ [\cur \sta]
+	@DefPhyTypes = [\sla \str \thr]
 
 	(@_externalDataSvc, @_itemIndexSvc, @$q) ->
 		@.upgradeComp = new (require './components/item-service-upgrade-component')

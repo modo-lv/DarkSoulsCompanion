@@ -24,7 +24,17 @@ class StatService
 		\Intelligence
 		\Faith
 		\Humanity
-	]
+	] <<< {
+		\vit : \Vitality
+		\att : \Attunement
+		\end : \Endurance
+		\str : \Strength
+		\dex : \Dexterity
+		\res : \Resistance
+		\int : \Intelligence
+		\fai : \Faith
+		\hum : \Humanity
+	}
 
 	@weaponStats = [ \str \dex \int \fai ]
 

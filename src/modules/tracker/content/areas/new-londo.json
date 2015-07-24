@@ -1,7 +1,150 @@
 [
   {
+    "title" : "Fog gates",
+    "labels" : "spoiler",
+    "children" : [
+      {
+        "title" : "First",
+        "content" : "Passing through."
+      },
+      {
+        "title" : "Second",
+        "content" : "Passing through."
+      }
+    ]
+  },
+  {
     "labels": "item",
     "title": "Soul of a Nameless Soldier",
     "id": "f220545f-842a-4897-bac2-5c1545962ec6"
+  },
+  {
+    "labels": "item",
+    "title": "Estoc"
+  },
+  {
+    "labels": "enemy",
+    "title": "Crestfallen Warrior"
+  },
+  {
+    "labels": "item",
+    "title": "Transient Curse (2)"
+  },
+  {
+    "labels": "item",
+    "title": "Fire Keeper Soul"
+  },
+  {
+    "labels": "item",
+    "title": "Transient Curse (2)"
+  },
+  {
+    "title": "First building and walkways",
+    "children" : [
+      {
+        "labels": "item",
+        "title": "Parrying Dagger"
+      },
+      {
+        "labels": "item",
+        "title": "Transient Curse (2)"
+      },
+      {
+        "labels": "shortcut",
+        "title": "Ladder down."
+      },
+      {
+        "labels": "item",
+        "title": "Large Soul of a Nameless Soldier"
+      }
+    ]
+  },
+  {
+    "title" : "Second building",
+    "children" : [
+      {
+        "labels": "item",
+        "title": "Green Titanite Shard"
+      },
+      {
+        "labels": "item",
+        "title": "Soul of a Nameless Soldier"
+      },
+      {
+        "labels": "item",
+        "title": "Composite Bow, Large Arrow (16)"
+      },
+      {
+        "labels": "item",
+        "title": "Humanity"
+      },
+      {
+        "labels": "item",
+        "title": "Rare Ring of Sacrifice"
+      },
+      {
+        "labels": "npc",
+        "title": "Ingward",
+        "children" : [
+          {
+            "labels": "item",
+            "title": "Key of the Seal",
+            "if" : "item|Lordvessel"
+          }
+        ]
+      },
+      {
+        "labels": "item",
+        "title": "Soul of a Proud Knight"
+      },
+      {
+        "labels": "item",
+        "title": "Cursebite Ring"
+      },
+      {
+        "title": "Drainage lever",
+        "action" : "pull",
+        "setVar" : "global|londo-drained"
+      }
+    ]
+  },
+  {
+    "title" : "On the ground",
+    "if" : "global|londo-drained",
+    "children" : [
+      {
+        "labels": "item",
+        "title": "Large Soul of a Proud Knight"
+      },
+      {
+        "labels": "item",
+        "title": "Humanity"
+      },
+      {
+        "labels": "item",
+        "title": "Large Soul of a Proud Knight"
+      },
+      {
+        "labels": ["item", "secret"],
+        "title": "Titanite Chunk",
+        "content" : "Behind an illusory wall"
+      },
+      {
+        "labels": "item",
+        "title": "Cracked Red Eye Orb (6)"
+      },
+      {
+        "labels": "item",
+        "title": "Large Soul of a Proud Knight"
+      },
+      {
+        "labels": "item",
+        "title": "Large Soul of a Proud Knight"
+      },
+      {
+        "labels": "item",
+        "title": "Titanite Chunk"
+      }
+    ]
   }
 ]

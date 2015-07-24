@@ -16,6 +16,8 @@ class WeaponFinderController
 		@$scope.statArray = @_weaponFinderSvc.statArray
 		@$scope.reqLimitArray = @_statSvc.@@weaponStats
 
+		@$scope.statNames = @_statSvc.@@statNames
+
 		@$scope.dpsCalcOptions = [
 			"One-hand light"
 			"One-hand heavy"
@@ -68,7 +70,7 @@ class WeaponFinderController
 			@$scope.results = results |> map (result) ~> result <<< {
 				statReqs : [\reqStr \reqDex \reqInt \reqFai] |> (map ~> result.[it]) |> join '/'
 				atk : [\atkPhy \atkMag \atkFir \atkLit] |> (map ~> Math.floor result.[it]) |> join '/'
-				def : @_itemSvc.@@DefenceTypes |> (map ~> Math.floor result.[it]) |> join '/'
+				def : @_itemSvc.@@DefenseTypes |> (map ~> Math.floor result.[it]) |> join '/'
 				dps : "#{(result.dps |> join '/')} (#{result.atkCost})"
 			}
 

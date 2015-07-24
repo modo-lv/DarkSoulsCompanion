@@ -105,3 +105,6 @@ gulp.task "build", ["compile-html", "copy-static-files", "copy-libs", "compile-a
 
 
 gulp.task "build-everything", ["build-modules", "build"]
+
+
+gulp.task "compile-statics", ["compile-html", "compile-stylesheets"]

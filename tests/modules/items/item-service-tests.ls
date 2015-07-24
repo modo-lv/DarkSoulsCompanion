@@ -11,7 +11,7 @@ beforeEach !->
 		\id : 500
 		\name : "Test weapon"
 		\itemType : \weapon
-		\atkPhy : 100
+		\atk : [ 100 ]
 		\matSetId : 7200
 		\upgradeId : 0
 	}]
@@ -22,12 +22,12 @@ beforeEach !->
 	upgrades = [
 	{
 		\id : 1
-		\atkModPhy : 1.5
+		\atkMod : [ 1.5 ]
 		\matSetId : 1
 	}
 	{
 		\id : 2
-		\atkModPhy : 2
+		\atkMod : [ 2 ]
 		\matSetId : 2
 	}
 	]
@@ -83,7 +83,7 @@ it "should get the upgraded version of a given item", (done) !->
 	weapon =
 		\id : 500
 		\upgradeId : 0
-		\atkPhy : 100
+		\atk : [ 100 ]
 		\itemType : \weapon
 		\matSetId : 7200
 
@@ -94,7 +94,7 @@ it "should get the upgraded version of a given item", (done) !->
 			\id : 501
 			\matSetId : 7201
 			\upgradeId : 1
-			\atkPhy : 150
+			\atk : [ 150 ]
 			\itemType : \weapon
 		}
 		done!
@@ -107,7 +107,7 @@ it "should generate an item's upgraded version when seaching for it", (done) !->
 		expect item .to.have.properties {
 			\id : 501
 			\itemType : \weapon
-			\atkPhy : 150
+			\atk : [ 150 ]
 		}
 		done!
 	.catch done
@@ -116,12 +116,16 @@ it "should generate an item's upgraded version when seaching for it", (done) !->
 it "should correctly upgrade given an already upgraded item", (done) !->
 	svc.findAnyItemByUid(\weapon501)
 	.then (upItem) ->
-		expect upItem .to.have.property \id, 501
-		expect upItem .to.have.property \atkPhy, 150
+		expect upItem .to.have.properties {
+			\id : 501
+			\atk : [ 150 ]
+		}
 		svc.getUpgraded upItem
 	.then (nextItem) ->
-		expect nextItem .to.have.property \id, 502
-		expect nextItem .to.have.property \atkPhy, 200
+		expect nextItem .to.have.properties {
+			\id : 502
+			\atk : [ 200 ]
+		}
 		done!
 	.catch done
 
