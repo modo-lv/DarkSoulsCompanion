@@ -101,14 +101,14 @@ it "should correctly generate armor combinations", !->
 
 
 it "should correctly calculate score for a set of armors", !->
-	svc.{}params.{}modifiers.fir = 0.5
+	svc.{}params.{}modifiers.def = [0 0 0.5]
 
 	armors = [
 		{
-			"defFir" : 100
+			\def : [0 0 100]
 		},
 		{
-			"defFir" : 200
+			\def : [0 0 200]
 		},
 	]
 
@@ -117,7 +117,7 @@ it "should correctly calculate score for a set of armors", !->
 	expect armors.0.score .to.equal 50
 	expect armors.1.score .to.equal 100
 
-it "should correctly calculate scores for a set of combinations", !->
+it "should correctly calculate scores for a set of combinations", (done) !->
 	combinations = [
 		{
 			armors : [
@@ -137,10 +137,12 @@ it "should correctly calculate scores for a set of combinations", !->
 		}
 	]
 
-	best = svc.calculateCombinationScores combinations
-
-	expect best.1.score .to.equal 40
-	expect best.0.score .to.equal 100
+	svc.calculateCombinationScores combinations
+	.then (best) !->
+		expect best.1.score .to.equal 40
+		expect best.0.score .to.equal 100
+		done!
+	.catch done
 
 
 it "should correctly find all available upgrades for a piece of armor", (done) !->
@@ -187,13 +189,15 @@ it "should not give unoffordable combinations", (done) !->
 	.catch done
 
 
-it "should not override combinations with better ones while there are still empty slots in the 'best' array", !->
+it "should not override combinations with better ones while there are still empty slots in the 'best' array", (done) !->
 	combs = [
 		{armors : [{score : 1}, {score : 2}, {score : 3}, {score : 4}]}
 		{armors : [{score : 10}, {score : 20}, {score : 30}, {score : 40}]}
 		{armors : [{score : 1}, {score : 2}, {score : 3}, {score : 4}]}
 	]
 
-	best = svc.calculateCombinationScores combs
-
-	expect best .to.have.length 3
+	svc.calculateCombinationScores combs
+	.then (best) !->
+		expect best .to.have.length 3
+		done!
+	.catch done

@@ -7,6 +7,10 @@ class ArmorFinderSvc
 		@freeWeight = 0
 		@params = {
 			resultLimit : 20
+
+			modifiers : {
+				def : 0
+			}
 		}
 		@_debugLog = true
 
@@ -36,13 +40,13 @@ class ArmorFinderSvc
 					console.log "Permutated #{armors.length} armors into #{combs.length} combinations in #{time / 1000} seconds"
 
 				start := new Date!.getTime!
-				combs = @calculateCombinationScores combs
-				end = new Date!.getTime!
-				time = end - start
-				if @_debugLog
-					console.log "Calculated scores and found the best #{combs.length} combinations in #{time / 1000} seconds"
-
-				return combs
+				@calculateCombinationScores combs
+				.then (combs) ~>
+					end = new Date!.getTime!
+					time = end - start
+					if @_debugLog
+						console.log "Calculated scores and found the best #{combs.length} combinations in #{time / 1000} seconds"
+					return combs
 		.then (combs) ~>
 			for comb in combs
 				comb.detailScores = {}
@@ -68,34 +72,35 @@ class ArmorFinderSvc
 
 		start := new Date!.getTime!
 
-		best = @calculateCombinationScores combinations, 3
+		@calculateCombinationScores combinations, 3
+		.then (best) ~>
 
-		end = new Date!.getTime!
-		time = end - start
-		if @_debugLog
-			console.log "Scored and found the #{best.length} best combinations in #{time / 1000} seconds"
+			end = new Date!.getTime!
+			time = end - start
+			if @_debugLog
+				console.log "Scored and found the #{best.length} best combinations in #{time / 1000} seconds"
 
-		dynamicArmors.length = 0
-		for comb in best
-			for armor in comb.armors
-				dynamicArmors.push armor
+			dynamicArmors.length = 0
+			for comb in best
+				for armor in comb.armors
+					dynamicArmors.push armor
 
-		dynamicArmors := dynamicArmors |> unique
+			dynamicArmors := dynamicArmors |> unique
 
-		# Find all upgradable versions for the best armors
-		upgradedArmors = []
-		promises = []
-		for armor in dynamicArmors
-			promises.push(
-				@_inventorySvc.findAllAvailableUpgradesFor armor
-				.then (upgrades) ~>
-					for upgrade in upgrades
-						delete upgrade.score
-					#console.log upgrades
-					upgradedArmors ++= upgrades
-			)
+			# Find all upgradable versions for the best armors
+			upgradedArmors = []
+			promises = []
+			for armor in dynamicArmors
+				promises.push(
+					@_inventorySvc.findAllAvailableUpgradesFor armor
+					.then (upgrades) ~>
+						for upgrade in upgrades
+							delete upgrade.score
+						#console.log upgrades
+						upgradedArmors ++= upgrades
+				)
 
-		@$q.all promises
+			@$q.all promises
 
 		# Find all combinations of the upgradable armors and their upgrades
 		.then (upgradedArmors)~>
@@ -166,8 +171,8 @@ class ArmorFinderSvc
 
 			start := new Date!.getTime!
 
-			combs = @calculateCombinationScores combs
-
+			return @calculateCombinationScores combs
+		.then (combs) ~>
 			end = new Date!.getTime!
 			time = end - start
 			if @_debugLog
@@ -175,68 +180,66 @@ class ArmorFinderSvc
 
 			return combs
 
+	canAfford : (comb) ~>
+		having : (inventory) ~>
+			unUpgraded = 0
+			# Find the total cost of the combination
+			for armor in comb.armors
+				if not armor.totalCost?
+					unUpgraded++
+					continue
+
+				for aCost in armor.totalCost
+					# Find the existing combination cost record
+					# if it exists
+					cCost = null
+					for x in comb.totalCost
+						if x.matId == aCost.matId
+							cCost = x
+							break
+
+					# Insert a new cost record if it doesn't exist
+					if not cCost?
+						cCost = {
+							matId : aCost.matId
+							matCost : 0
+						}
+						comb.totalCost.push cCost
+
+					# Add the armor upgrade cost to the total cost of the combination
+					cCost.matCost += aCost.matCost
+
+			can = true
+
+			if unUpgraded < 4
+				#console.log comb.names, "has total price", comb.totalCost, ", user has", (materials |> map -> [it.id, it.amount])
+
+				for cost in comb.totalCost
+					material = null
+					for mat in inventory
+						if mat.id == cost.matId
+							material = mat
+							break
+
+					if not (material? and material.amount >= cost.matCost)
+						can = false
+
+			return can
+
 
 	/**
 	 * Given a list of combinations, only take those that the user can afford.
 	 */
 	takeOnlyAffordable : (combinations) ~>
-		canAfford = []
-
 		@_inventorySvc.load!
 		.then (inventory) !~>
+			canAfford = []
+
 			for a from combinations.length - 1 to 0 by -1
 				comb = combinations.pop!
 				comb.totalCost = []
 
-
-				unUpgraded = 0
-				# Find the total cost of the combination
-				for armor in comb.armors
-					if not armor.totalCost?
-						unUpgraded++
-						continue
-
-					for aCost in armor.totalCost
-						# Find the existing combination cost record
-						# if it exists
-						cCost = null
-						for x in comb.totalCost
-							if x.matId == aCost.matId
-								cCost = x
-								break
-
-						# Insert a new cost record if it doesn't exist
-						if not cCost?
-							cCost = {
-								matId : aCost.matId
-								matCost : 0
-							}
-							comb.totalCost.push cCost
-
-						# Add the armor upgrade cost to the total cost of the combination
-						cCost.matCost += aCost.matCost
-
-				can = true
-
-				if unUpgraded < 4
-					materials = []
-					for item in inventory
-						if item.itemType == \item
-							materials.push item
-
-					#console.log comb.names, "has total price", comb.totalCost, ", user has", (materials |> map -> [it.id, it.amount])
-
-					for cost in comb.totalCost
-						material = null
-						for mat in materials
-							if mat.id == cost.matId
-								material = mat
-								break
-
-						if not (material? and material.amount >= cost.matCost)
-							can = false
-
-				if can
+				if @canAfford comb .having inventory
 					canAfford.push comb
 
 			return canAfford
@@ -331,48 +334,41 @@ class ArmorFinderSvc
 
 
 	calculateArmorScores : (armors) !~>
-		modSet = [
-			[\phy \defPhy]
-			[\mag \defMag]
-			[\fir \defFir]
-			[\lit \defLit]
-			[\blo \defBlo]
-			[\tox \defTox]
-			[\cur \defCur]
-			[\poise \defPoise]
-		]
-
 		for armor in armors
 			if armor.score? then continue
 			armor.score = 0
 			armor.detailScores = {}
-			for mod in modSet
-				armor.detailScores[mod.0] = armor.[mod.1] ? 0
-				armor.score += (armor.[mod.1] ? 0) * (@params.{}modifiers[mod.0] ? 0)
-				#console.log "#{armor.name}: #{mod.1} is #{armor.[mod.1]}, times #{@params.modifiers[mod.0]} = #{armor.score}"
+			for name, index in @_itemSvc.@@DefenseTypes
+				armor.detailScores[name] = armor.def[index] ? 0
+				armor.score += (armor.def[index] ? 0) * (@params.{}modifiers.def[index] ? 0)
 
 
 		return armors
 
 
-	calculateCombinationScores : (combinations, limit = @params.resultLimit) ~>
-		best = []
-
-		for a from 0 til limit
-			if not (comb = combinations.pop!)? then continue
-			comb.score = comb.armors.0.score + comb.armors.1.score + comb.armors.2.score + comb.armors.3.score
-			best.push comb
-
-		for a from 0 til combinations.length
-			comb = combinations.pop!
-			comb.score = comb.armors.0.score + comb.armors.1.score + comb.armors.2.score + comb.armors.3.score
+	calculateCombinationScores : (combinations, limit = @params.resultLimit, checkAffordability = false) ~>
+		@_inventorySvc.load!
+		.then (inventory) !~>
+			best = []
 
 			for a from 0 til limit
-				if comb.score > best.[a].score
-					best.[a] = comb
-					break
+				if not (comb = combinations.pop!)? then continue
+				comb.score = comb.armors.0.score + comb.armors.1.score + comb.armors.2.score + comb.armors.3.score
+				if isNaN(comb.score)
+					console.log comb
+					throw new Error "Combination above does not have a score."
+				best.push comb
 
-		return best
+			for a from limit til combinations.length
+				comb = combinations.pop!
+				comb.score = comb.armors.0.score + comb.armors.1.score + comb.armors.2.score + comb.armors.3.score
+
+				for a from 0 til limit
+					if comb.score > best.[a].score and ((not checkAffordability) or @canAfford comb .having inventory)
+						best.[a] = comb
+						break
+
+			return best
 
 
 module?.exports = ArmorFinderSvc

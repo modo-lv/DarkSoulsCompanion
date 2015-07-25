@@ -1,7 +1,186 @@
 [
   {
+    "title": "Fog gates",
+    "labels": "spoiler",
+    "children": [
+      {
+        "title": "First",
+        "content": "Passing through.",
+        "id": "215453cb-9917-4126-b6ed-12e675b86a35"
+      },
+      {
+        "title": "Second",
+        "content": "Passing through.",
+        "id": "4060c751-36d7-4e57-b1db-6b43bf0ae750"
+      }
+    ],
+    "id": "941b6357-8f0d-42a7-b60f-0fd9cca48296"
+  },
+  {
     "labels": "item",
     "title": "Soul of a Nameless Soldier",
     "id": "f220545f-842a-4897-bac2-5c1545962ec6"
+  },
+  {
+    "labels": "item",
+    "title": "Estoc",
+    "id": "ccfd50e3-b940-4460-8c2b-151f6f8cc8b4"
+  },
+  {
+    "labels": "enemy",
+    "title": "Crestfallen Warrior",
+    "id": "cf217200-1f9d-4afb-89f4-790b12cf002e"
+  },
+  {
+    "labels": "item",
+    "title": "Transient Curse (2)",
+    "id": "77983371-9eed-4616-8fab-f60df16d638a"
+  },
+  {
+    "labels": "item",
+    "title": "Fire Keeper Soul",
+    "id": "c40867e8-6916-4cc6-8346-e8c5df73488c"
+  },
+  {
+    "labels": "item",
+    "title": "Transient Curse (2)",
+    "id": "f51d7656-da5a-43a3-90f4-0eb00f68fbc4"
+  },
+  {
+    "title": "First building and walkways",
+    "children": [
+      {
+        "labels": "item",
+        "title": "Parrying Dagger",
+        "id": "a82cf977-b602-4d98-9795-8045b666eeff"
+      },
+      {
+        "labels": "item",
+        "title": "Transient Curse (2)",
+        "id": "9a4c4775-6146-432a-bf98-16b94a581e47"
+      },
+      {
+        "labels": "shortcut",
+        "title": "Ladder down.",
+        "id": "5a795513-bee0-48fd-a252-cbe1f9689221"
+      },
+      {
+        "labels": "item",
+        "title": "Large Soul of a Nameless Soldier",
+        "id": "578754c2-ff87-4825-af83-0775bed93453"
+      }
+    ],
+    "id": "f8a73171-6b9f-4db1-a3f1-ec0ac825e9c8"
+  },
+  {
+    "title": "Second building",
+    "children": [
+      {
+        "labels": "item",
+        "title": "Green Titanite Shard",
+        "id": "8843efe1-d545-4c02-b59a-1b806151f507"
+      },
+      {
+        "labels": "item",
+        "title": "Soul of a Nameless Soldier",
+        "id": "53ee9af1-cdf6-4750-8510-c40fc621ca6b"
+      },
+      {
+        "labels": "item",
+        "title": "Composite Bow, Large Arrow (16)",
+        "id": "417baf81-2d4d-4bad-bc3c-d372e5ee5637"
+      },
+      {
+        "labels": "item",
+        "title": "Humanity",
+        "id": "219b804e-febb-4853-b052-1b263c546f04"
+      },
+      {
+        "labels": "item",
+        "title": "Rare Ring of Sacrifice",
+        "id": "b61c5128-ad8a-42c4-a741-cfdc39f74f4a"
+      },
+      {
+        "labels": "npc",
+        "title": "Ingward",
+        "children": [
+          {
+            "labels": "item",
+            "title": "Key of the Seal",
+            "if": "item|Lordvessel",
+            "id": "ef34c217-08b4-48ea-a475-77ea52b19119"
+          }
+        ],
+        "id": "a4d8966a-c959-4f0d-a65d-27c2bcfba065"
+      },
+      {
+        "labels": "item",
+        "title": "Soul of a Proud Knight",
+        "id": "fb36108f-42f3-48b6-9505-fbced66ee03c"
+      },
+      {
+        "labels": "item",
+        "title": "Cursebite Ring",
+        "id": "b2f47965-4ea6-4631-86a0-f11d4660173d"
+      },
+      {
+        "title": "Drainage lever",
+        "action": "pull",
+        "setVar": "global|londo-drained",
+        "id": "22f86a41-d418-4652-adfa-53cf36498baa"
+      }
+    ],
+    "id": "2cd58e0e-fc68-4a2d-9c47-f9c6355af07f"
+  },
+  {
+    "title": "On the ground",
+    "if": "global|londo-drained",
+    "children": [
+      {
+        "labels": "item",
+        "title": "Large Soul of a Proud Knight",
+        "id": "d590e832-7261-49a3-b569-aac9f547e3bc"
+      },
+      {
+        "labels": "item",
+        "title": "Humanity",
+        "id": "fe6e1890-c5dc-4484-a99b-01989a4a4604"
+      },
+      {
+        "labels": "item",
+        "title": "Large Soul of a Proud Knight",
+        "id": "9d21d1b5-fa97-47f5-8008-b8bf3bd224f1"
+      },
+      {
+        "labels": [
+          "item",
+          "secret"
+        ],
+        "title": "Titanite Chunk",
+        "content": "Behind an illusory wall",
+        "id": "f05d2c03-9c93-4e9f-b97f-90eb65e0035e"
+      },
+      {
+        "labels": "item",
+        "title": "Cracked Red Eye Orb (6)",
+        "id": "b1ef9efd-c02b-4b1a-b678-f2a79415f9c7"
+      },
+      {
+        "labels": "item",
+        "title": "Large Soul of a Proud Knight",
+        "id": "5bcd1f21-4192-4d62-8000-990501876fa9"
+      },
+      {
+        "labels": "item",
+        "title": "Large Soul of a Proud Knight",
+        "id": "6a915f64-57a3-4278-b640-0e71ca46dad9"
+      },
+      {
+        "labels": "item",
+        "title": "Titanite Chunk",
+        "id": "0ca69005-1e3e-4e0f-b9b7-3b5c2ba8a853"
+      }
+    ],
+    "id": "ea478d1a-e24c-452c-83d1-ecb4d9afde0d"
   }
 ]

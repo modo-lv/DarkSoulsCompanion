@@ -39,18 +39,18 @@
 							span {{wl * 100}}%
 
 		fieldset
-			legend Importance
+			legend Defense importance
 
 			.modifiers
 				.column
-					label.row(ng-repeat="mod in ['phy','mag','fir','lit']")
+					label.row(ng-repeat="mod in [0, 1, 2, 3]")
 						span {{modifierNames[mod]}}:
-						input(type="number" ng-model="$parent.params.modifiers[mod]")
+						input(type="number" ng-model="$parent.params.modifiers.def[mod]")
 
 				.column
-					label.row(ng-repeat="mod in ['blo','tox','cur', 'poise']")
+					label.row(ng-repeat="mod in [4, 5, 6, 7]")
 						span {{modifierNames[mod]}}:
-						input(type="number" ng-model="$parent.params.modifiers[mod]")
+						input(type="number" ng-model="$parent.params.modifiers.def[mod]")
 
 
 		fieldset

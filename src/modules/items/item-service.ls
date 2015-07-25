@@ -4,7 +4,7 @@ class ItemService
 	@WeaponStats = [\str \dex \int \fai]
 	@AttackTypes = [\phy \mag \fir \lit]
 	@AllAttackTypes = @AttackTypes ++ [\blo \tox]
-	@DefenseTypes = @AttackTypes ++ [\cur \sta]
+	@DefenseTypes = @AllAttackTypes ++ [\cur \sta]
 	@DefPhyTypes = [\sla \str \thr]
 
 	(@_externalDataSvc, @_itemIndexSvc, @$q) ->
