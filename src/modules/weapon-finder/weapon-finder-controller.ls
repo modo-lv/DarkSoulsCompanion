@@ -13,7 +13,7 @@ class WeaponFinderController
 
 		@$scope.paramSetNames = [ \weapons \shields ]
 
-		@$scope.statArray = @_itemSvc.@@WeaponStats
+		@$scope.statArray = @_itemSvc.@@WeaponStats ++ \hum
 
 		@$scope.atkNames = @_itemSvc.@@AllAttackTypeNames
 
@@ -56,7 +56,7 @@ class WeaponFinderController
 	wireUp : !~>
 		for func in [
 			\findWeapons
-			\copyStatsToReqs
+			\copyPlayerStats
 		]
 			@$scope.[func] = @.[func]
 
@@ -67,8 +67,8 @@ class WeaponFinderController
 
 	### EVENT HANDLERS
 
-	copyStatsToReqs : !~>
-		for key in [\str \dex \int \fai]
+	copyPlayerStats : !~>
+		for key in @$scope.statArray
 			@$scope.params.stats[key] = @_statSvc.statValueOf key
 
 
@@ -76,7 +76,7 @@ class WeaponFinderController
 		@_weaponFinderSvc.params <<< @$scope.params
 
 		if @$scope.params.usePlayers
-			@_weaponFinderSvc.params.stats = [\str \dex \int \fai] |> map ~> @_statSvc.statValueOf it
+			@_weaponFinderSvc.params.stats = @$scope.statArray |> map ~> @_statSvc.statValueOf it
 
 		@_weaponFinderSvc.findBestWeapons!
 		.then (results) !~>

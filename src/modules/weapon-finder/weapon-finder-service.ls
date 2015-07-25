@@ -11,7 +11,7 @@ class WeaponFinderService
 				atk : [1 1 1 1 0 0 0 0]
 				def : [1 1 1 1 0 0 0 0]
 			}
-			stats : [99 99 99 99]
+			stats : [99 99 99 99 99]
 		}
 
 		for a in @_itemSvc.@@WeaponStats.length
@@ -78,6 +78,12 @@ class WeaponFinderService
 		# Adjust ATK values according to scaling
 			..atk.0 *= (1 + ((weapon.bonus.0 * scaling.0) + (weapon.bonus.1 * scaling.1)))
 			..atk.1 *= (1 + ((weapon.bonus.2 * scaling.2) + (weapon.bonus.3 * scaling.3)))
+
+		if result.path == \Chaos || (result.path == null and result.name.indexOf('Chaos') == 0)
+			#console.log "Chaos weapon with scaled ATK #{result.atk.0}", scaling
+			result.atk.0 *= (1 + (scaling.4 * 0.21))
+			#console.log "has ATK #{result.atk.0} with Humanity scaled in"
+
 
 		# Calculate DPS if required
 		if (@params.useDps) then result

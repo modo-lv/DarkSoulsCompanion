@@ -77,7 +77,7 @@ class StatService
 
 	allScalingFactorsOf : (stats) ~>
 		result = []
-		for stat, index in [\str \dex \int \fai]
+		for stat, index in [\str \dex \int \fai \hum]
 			result.push @scalingFactorOf stat, stats[index]
 		return result
 
@@ -87,7 +87,23 @@ class StatService
 			when \dex then [[10, 0.5] [10, 3.5] [20, 2.25]]
 			when \int then fallthrough
 			when \fai then [[10, 0.5] [20, 2.25] [20, 1.5]]
+			when \hum then [
+				0
+				0.24
+				0.36
+				0.48
+				0.56
+				0.62
+				0.70
+				0.76
+				0.84
+				0.92
+				1.00
+			]
 			default ...
+
+		if name == \hum
+			return thresholds[Math.min(10, statValue)]
 
 		result = 0
 		for threshold in thresholds

@@ -4368,7 +4368,7 @@ function curry$(f, bound){
     prototype.allScalingFactorsOf = function(stats){
       var result, i$, ref$, len$, index, stat;
       result = [];
-      for (i$ = 0, len$ = (ref$ = ['str', 'dex', 'int', 'fai']).length; i$ < len$; ++i$) {
+      for (i$ = 0, len$ = (ref$ = ['str', 'dex', 'int', 'fai', 'hum']).length; i$ < len$; ++i$) {
         index = i$;
         stat = ref$[i$];
         result.push(this.scalingFactorOf(stat, stats[index]));
@@ -4387,10 +4387,15 @@ function curry$(f, bound){
           // fallthrough
         case 'fai':
           return [[10, 0.5], [20, 2.25], [20, 1.5]];
+        case 'hum':
+          return [0, 0.24, 0.36, 0.48, 0.56, 0.62, 0.70, 0.76, 0.84, 0.92, 1.00];
         default:
           throw Error('unimplemented');
         }
       }());
+      if (name === 'hum') {
+        return thresholds[Math.min(10, statValue)];
+      }
       result = 0;
       for (i$ = 0, len$ = thresholds.length; i$ < len$; ++i$) {
         threshold = thresholds[i$];
@@ -4862,7 +4867,7 @@ function curry$(f, bound){
       this._statSvc = _statSvc;
       this._itemSvc = _itemSvc;
       this.findWeapons = bind$(this, 'findWeapons', prototype);
-      this.copyStatsToReqs = bind$(this, 'copyStatsToReqs', prototype);
+      this.copyPlayerStats = bind$(this, 'copyPlayerStats', prototype);
       this.wireUp = bind$(this, 'wireUp', prototype);
       this.load = bind$(this, 'load', prototype);
       this.setup = bind$(this, 'setup', prototype);
@@ -4874,7 +4879,7 @@ function curry$(f, bound){
       var ref$, i$, a, ref1$, j$, len$, array;
       this.$scope.results = [];
       this.$scope.paramSetNames = ['weapons', 'shields'];
-      this.$scope.statArray = this._itemSvc.constructor.WeaponStats;
+      this.$scope.statArray = this._itemSvc.constructor.WeaponStats.concat('hum');
       this.$scope.atkNames = this._itemSvc.constructor.AllAttackTypeNames;
       this.$scope.defNames = this._itemSvc.constructor.DefenseTypeNames;
       this.$scope.statNames = this._statSvc.constructor.statNames;
@@ -4905,7 +4910,7 @@ function curry$(f, bound){
     };
     prototype.wireUp = function(){
       var i$, ref$, len$, func, this$ = this;
-      for (i$ = 0, len$ = (ref$ = ['findWeapons', 'copyStatsToReqs']).length; i$ < len$; ++i$) {
+      for (i$ = 0, len$ = (ref$ = ['findWeapons', 'copyPlayerStats']).length; i$ < len$; ++i$) {
         func = ref$[i$];
         this.$scope[func] = this[func];
       }
@@ -4913,9 +4918,9 @@ function curry$(f, bound){
         this$._storageSvc.save("weapon-finder.param-sets", this$.$scope.paramSets);
       }, true);
     };
-    prototype.copyStatsToReqs = function(){
+    prototype.copyPlayerStats = function(){
       var i$, ref$, len$, key;
-      for (i$ = 0, len$ = (ref$ = ['str', 'dex', 'int', 'fai']).length; i$ < len$; ++i$) {
+      for (i$ = 0, len$ = (ref$ = this.$scope.statArray).length; i$ < len$; ++i$) {
         key = ref$[i$];
         this.$scope.params.stats[key] = this._statSvc.statValueOf(key);
       }
@@ -4927,7 +4932,7 @@ function curry$(f, bound){
         this._weaponFinderSvc.params.stats = map(function(it){
           return this$._statSvc.statValueOf(it);
         })(
-        ['str', 'dex', 'int', 'fai']);
+        this.$scope.statArray);
       }
       this._weaponFinderSvc.findBestWeapons().then(function(results){
         this$.$scope.results = map(function(result){
@@ -4992,7 +4997,7 @@ function curry$(f, bound){
           atk: [1, 1, 1, 1, 0, 0, 0, 0],
           def: [1, 1, 1, 1, 0, 0, 0, 0]
         },
-        stats: [99, 99, 99, 99]
+        stats: [99, 99, 99, 99, 99]
       };
       for (i$ = 0, len$ = (ref$ = this._itemSvc.constructor.WeaponStats.length).length; i$ < len$; ++i$) {
         a = ref$[i$];
@@ -5063,6 +5068,9 @@ function curry$(f, bound){
       x$.dps = ['-', '-', '-', '-'];
       x$.atk[0] *= 1 + (weapon.bonus[0] * scaling[0] + weapon.bonus[1] * scaling[1]);
       x$.atk[1] *= 1 + (weapon.bonus[2] * scaling[2] + weapon.bonus[3] * scaling[3]);
+      if (result.path === 'Chaos' || (result.path === null && result.name.indexOf('Chaos') === 0)) {
+        result.atk[0] *= 1 + scaling[4] * 0.21;
+      }
       if (this.params.useDps) {
         y$ = result;
         y$.atkCost = result.atkCosts[this.params.dpsCalcMove];

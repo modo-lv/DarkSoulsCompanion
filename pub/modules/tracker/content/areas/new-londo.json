@@ -179,6 +179,25 @@
         "labels": "item",
         "title": "Titanite Chunk",
         "id": "0ca69005-1e3e-4e0f-b9b7-3b5c2ba8a853"
+      },
+      {
+        "labels": "enemy",
+        "title": "Four Kings",
+        "items": "Bequeathed Lord Soul Shard, Humanity (4)",
+        "id": "f8b4173d-8ebe-4dcd-936e-d5d2895b1f2f"
+      },
+      {
+        "labels": "npc",
+        "title": "Darkstalker Kaathe",
+        "if": "enemy|Four Kings|dead",
+        "children": [
+          {
+            "labels": "covenant",
+            "title": "Darkwraith",
+            "id": "343d3a32-4d82-4c42-9be4-fda2930866ff"
+          }
+        ],
+        "id": "d373ef5d-6686-49f2-acc1-f912dc46f082"
       }
     ],
     "id": "ea478d1a-e24c-452c-83d1-ecb4d9afde0d"
