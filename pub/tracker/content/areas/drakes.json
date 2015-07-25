@@ -3,5 +3,10 @@
     "labels": "item",
     "title": "Red Tearstone Ring",
     "id": "fa8e3dbf-216d-4795-b0a3-b9263f2cdc24"
+  },
+  {
+    "labels": "item",
+    "title": "Witch Hat, Witch Cloak, Witch Gloves, Witch Skirt, Beatrice's Catalyst",
+    "if" : "enemy|Four Kings|dead"
   }
 ]

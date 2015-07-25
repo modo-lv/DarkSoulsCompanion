@@ -1964,7 +1964,7 @@ function curry$(f, bound){
         console.log("Permutated " + dynamicArmors.length + " upgradeable armors into " + combinations.length + " combinations in " + time / 1000 + " seconds");
       }
       start = new Date().getTime();
-      return this.calculateCombinationScores(combinations, 3).then(function(best){
+      return this.calculateCombinationScores(combinations, 40).then(function(best){
         var end, time, i$, len$, comb, j$, ref$, len1$, armor, upgradedArmors, promises;
         end = new Date().getTime();
         time = end - start;
