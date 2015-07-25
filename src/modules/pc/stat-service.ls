@@ -74,6 +74,13 @@ class StatService
 	statScalingFactorOf : (name) ~>
 		@scalingFactorOf name, @statValueOf name
 
+
+	allScalingFactorsOf : (stats) ~>
+		result = []
+		for stat, index in [\str \dex \int \fai]
+			result.push @scalingFactorOf stat, stats[index]
+		return result
+
 	scalingFactorOf : (name, statValue) !~>
 		thresholds = switch name
 			when \str then fallthrough

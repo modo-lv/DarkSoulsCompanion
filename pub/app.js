@@ -1813,7 +1813,6 @@ function curry$(f, bound){
         name = ref$[i$];
         ((ref1$ = armorFinderSvc.params).modifiers || (ref1$.modifiers = {})).def.push($scope.params.modifiers.def[index]);
       }
-      console.log((ref$ = armorFinderSvc.params).modifiers || (ref$.modifiers = {}));
       armorFinderSvc.findBestCombinations().then(function(results){
         var i$, len$, result;
         $scope.results = [];
@@ -3240,9 +3239,12 @@ function curry$(f, bound){
     var prototype = ItemService.prototype, constructor = ItemService;
     ItemService.WeaponStats = ['str', 'dex', 'int', 'fai'];
     ItemService.AttackTypes = ['phy', 'mag', 'fir', 'lit'];
-    ItemService.AllAttackTypes = ItemService.AttackTypes.concat(['blo', 'tox']);
-    ItemService.DefenseTypes = ItemService.AllAttackTypes.concat(['cur', 'sta']);
+    ItemService.AllAttackTypes = ItemService.AttackTypes.concat(['blo', 'tox', 'div', 'occ']);
+    ItemService.DefenseTypes = ItemService.AllDefenseTypes = ItemService.AttackTypes.concat(['blo', 'tox', 'cur', 'sta']);
     ItemService.DefPhyTypes = ['sla', 'str', 'thr'];
+    ItemService.AttackTypeNames = ['Physical', 'Magic', 'Fire', 'Lightning'];
+    ItemService.AllAttackTypeNames = ItemService.AttackTypeNames.concat(['Bleed', 'Poison', 'Divine', 'Occult']);
+    ItemService.DefenseTypeNames = ItemService.AttackTypeNames.concat(['Bleed', 'Poison', 'Curse', 'Poise']);
     function ItemService(_externalDataSvc, _itemIndexSvc, $q){
       this._externalDataSvc = _externalDataSvc;
       this._itemIndexSvc = _itemIndexSvc;
@@ -4319,6 +4321,7 @@ function curry$(f, bound){
     function StatService(_storageSvc){
       this._storageSvc = _storageSvc;
       this.scalingFactorOf = bind$(this, 'scalingFactorOf', prototype);
+      this.allScalingFactorsOf = bind$(this, 'allScalingFactorsOf', prototype);
       this.statScalingFactorOf = bind$(this, 'statScalingFactorOf', prototype);
       this.saveUserData = bind$(this, 'saveUserData', prototype);
       this.loadUserData = bind$(this, 'loadUserData', prototype);
@@ -4361,6 +4364,16 @@ function curry$(f, bound){
     };
     prototype.statScalingFactorOf = function(name){
       return this.scalingFactorOf(name, this.statValueOf(name));
+    };
+    prototype.allScalingFactorsOf = function(stats){
+      var result, i$, ref$, len$, index, stat;
+      result = [];
+      for (i$ = 0, len$ = (ref$ = ['str', 'dex', 'int', 'fai']).length; i$ < len$; ++i$) {
+        index = i$;
+        stat = ref$[i$];
+        result.push(this.scalingFactorOf(stat, stats[index]));
+      }
+      return result;
     };
     prototype.scalingFactorOf = function(name, statValue){
       var thresholds, result, i$, len$, threshold;
@@ -4814,10 +4827,7 @@ function curry$(f, bound){
 (function(){
   angular.module("dsc").filter("statName", function(statSvc){
     return function(name){
-      if (name.indexOf('req') === 0) {
-        name = statSvc.statName[name.substr(3)];
-      }
-      return name;
+      return statSvc.constructor.statNames[name];
     };
   });
 }).call(this);
@@ -4861,16 +4871,22 @@ function curry$(f, bound){
       this.wireUp();
     }
     prototype.setup = function(){
-      var i$, a, ref$, ref1$;
+      var ref$, i$, a, ref1$, j$, len$, array;
       this.$scope.results = [];
-      this.$scope.paramSetNames = ['weapon', 'shield'];
-      this.$scope.statArray = this._weaponFinderSvc.statArray;
-      this.$scope.reqLimitArray = this._statSvc.constructor.weaponStats;
+      this.$scope.paramSetNames = ['weapons', 'shields'];
+      this.$scope.statArray = this._itemSvc.constructor.WeaponStats;
+      this.$scope.atkNames = this._itemSvc.constructor.AllAttackTypeNames;
+      this.$scope.defNames = this._itemSvc.constructor.DefenseTypeNames;
       this.$scope.statNames = this._statSvc.constructor.statNames;
       this.$scope.dpsCalcOptions = ["One-hand light", "One-hand heavy", "Two-hand light", "Two-hand heavy"];
+      this.$scope.params = (ref$ = this._weaponFinderSvc.params, ref$.usePlayers = true, ref$);
       for (i$ = 0; i$ <= 1; ++i$) {
         a = i$;
-        import$((ref$ = (ref1$ = this.$scope).paramSets || (ref1$.paramSets = []))[a] || (ref$[a] = {}), this._weaponFinderSvc.params);
+        import$((ref$ = (ref1$ = this.$scope).paramSets || (ref1$.paramSets = []))[a] || (ref$[a] = {}), this.$scope.params);
+        for (j$ = 0, len$ = (ref$ = ['atk', 'def', 'stats']).length; j$ < len$; ++j$) {
+          array = ref$[j$];
+          this.$scope.paramSets[a][array] = ((ref1$ = this.$scope.paramSets[a])[array] || (ref1$[array] = [])).slice();
+        }
       }
       this.$scope.gridOptions = require('./config/weapon-finder-grid-options')(this.$uiGridConstants);
     };
@@ -4901,28 +4917,28 @@ function curry$(f, bound){
       var i$, ref$, len$, key;
       for (i$ = 0, len$ = (ref$ = ['str', 'dex', 'int', 'fai']).length; i$ < len$; ++i$) {
         key = ref$[i$];
-        this.$scope.params.reqLimits[key] = this._statSvc.statValueOf(key);
+        this.$scope.params.stats[key] = this._statSvc.statValueOf(key);
       }
     };
     prototype.findWeapons = function(){
       var this$ = this;
       import$(this._weaponFinderSvc.params, this.$scope.params);
+      if (this.$scope.params.usePlayers) {
+        this._weaponFinderSvc.params.stats = map(function(it){
+          return this$._statSvc.statValueOf(it);
+        })(
+        ['str', 'dex', 'int', 'fai']);
+      }
       this._weaponFinderSvc.findBestWeapons().then(function(results){
         this$.$scope.results = map(function(result){
-          return result.statReqs = join('/')(
-          map(function(it){
-            return result[it];
+          return result.statReqs = result.req.join('/'), result.atk = map(function(it){
+            return Math.floor(it);
           })(
-          ['reqStr', 'reqDex', 'reqInt', 'reqFai'])), result.atk = join('/')(
-          map(function(it){
-            return Math.floor(result[it]);
+          result.atk).join('/'), result.def = map(function(it){
+            return Math.floor(it);
           })(
-          ['atkPhy', 'atkMag', 'atkFir', 'atkLit'])), result.def = join('/')(
-          map(function(it){
-            return Math.floor(result[it]);
-          })(
-          this$._itemSvc.constructor.DefenseTypes)), result.dps = join('/')(
-          result.dps) + " (" + result.atkCost + ")", result;
+          result.def).join('/'), result.dps = join('/')(
+          result.dps) + "" + (result.atkCost ? ' (' + result.atkCost + ')' : ''), result;
         })(
         results);
         this$.$scope.gridOptions.data = this$.$scope.results;
@@ -4959,7 +4975,7 @@ function curry$(f, bound){
     WeaponFinderService.displayName = 'WeaponFinderService';
     var prototype = WeaponFinderService.prototype, constructor = WeaponFinderService;
     function WeaponFinderService(_itemSvc, _inventorySvc, _statSvc, $q){
-      var this$ = this;
+      var i$, ref$, len$, a;
       this._itemSvc = _itemSvc;
       this._inventorySvc = _inventorySvc;
       this._statSvc = _statSvc;
@@ -4973,21 +4989,15 @@ function curry$(f, bound){
         dpsCalcMove: 0,
         includeUpgrades: true,
         modifiers: {
-          atk: [],
-          def: []
+          atk: [1, 1, 1, 1, 0, 0, 0, 0],
+          def: [1, 1, 1, 1, 0, 0, 0, 0]
         },
-        reqLimits: {}
+        stats: [99, 99, 99, 99]
       };
-      this.statArray = this._itemSvc.constructor.AttackTypes.concat(this._itemSvc.constructor.DefenseTypes);
-      each(function(it){
-        this$.params.reqLimits[it] = 99;
-      })(
-      this._itemSvc.constructor.WeaponStats);
-      each(function(it){
-        this$.params.modifiers[it] = 0;
-      })(
-      this.statArray);
-      this.params.modifiers['atkPhy'] = 1;
+      for (i$ = 0, len$ = (ref$ = this._itemSvc.constructor.WeaponStats.length).length; i$ < len$; ++i$) {
+        a = ref$[i$];
+        this.params.stats[a] = 99;
+      }
     }
     prototype.findBestWeapons = function(){
       var allWeapons, this$ = this;
@@ -5019,21 +5029,19 @@ function curry$(f, bound){
       });
     };
     prototype.findFittingWeaponsIn = function(weaponList){
-      var fitWeapons, statKeys, reqKeys, statValues, i$, len$, weapon, fit, j$, len1$, a, key;
+      var fitWeapons, statValues, i$, len$, weapon, fit, j$, ref$, len1$, index, name;
       fitWeapons = [];
-      statKeys = ['str', 'dex', 'int', 'fai'];
-      reqKeys = ['reqStr', 'reqDex', 'reqInt', 'reqFai'];
       statValues = {};
       for (i$ = 0, len$ = weaponList.length; i$ < len$; ++i$) {
         weapon = weaponList[i$];
         fit = true;
-        for (j$ = 0, len1$ = statKeys.length; j$ < len1$; ++j$) {
-          a = j$;
-          key = statKeys[j$];
-          if (this.params.reqLimits[key] == null) {
+        for (j$ = 0, len1$ = (ref$ = this._itemSvc.constructor.WeaponStats).length; j$ < len1$; ++j$) {
+          index = j$;
+          name = ref$[j$];
+          if (this.params.stats[index] == null) {
             continue;
           }
-          if (weapon[reqKeys[a]] > this.params.reqLimits[key]) {
+          if (weapon.req[index] > this.params.stats[index]) {
             fit = false;
             break;
           }
@@ -5045,40 +5053,47 @@ function curry$(f, bound){
       return this.$q.when(fitWeapons);
     };
     prototype.calculateScoreFor = function(weapon){
-      var result, scS, scD, scI, scF, x$, i$, ref$, len$, index, statName, stat, this$ = this;
+      var result, scaling, x$, y$, i$, ref$, len$, index, stat, score;
       result = import$({}, weapon);
-      scS = this._statSvc.scalingFactorOf('str', this.params.reqLimits['str']);
-      scD = this._statSvc.scalingFactorOf('dex', this.params.reqLimits['dex']);
-      scI = this._statSvc.scalingFactorOf('int', this.params.reqLimits['int']);
-      scF = this._statSvc.scalingFactorOf('fai', this.params.reqLimits['fai']);
+      scaling = this._statSvc.allScalingFactorsOf(this.params.stats);
       x$ = result;
-      x$.atkPhy *= 1 + (weapon.bonusStr * scS + weapon.bonusDex * scD);
-      x$.atkMag *= 1 + (weapon.bonusInt * scI + weapon.bonusFai * scF);
-      x$.atkCost = result.atkCosts[this.params.dpsCalcMove];
-      x$.dps = map(function(it){
-        var ref$;
-        if (result[it] < 1) {
-          return 0;
-        } else {
-          return Math.floor(result[it] / ((ref$ = x$.atkCost) != null
-            ? ref$
-            : result[it]));
-        }
-      })(
-      this._itemSvc.constructor.AttackTypes);
-      if (result.weaponType === 'Magic') {
-        x$.dps[0] = x$.dps[1] = 0;
-      }
       x$.score = 0;
-      for (i$ = 0, len$ = (ref$ = this.statArray).length; i$ < len$; ++i$) {
-        index = i$;
-        statName = ref$[i$];
-        if (this.params.useDps && this._itemSvc.constructor.DpsTypes[index] != null) {
-          stat = result.dps[index];
-        } else {
-          stat = result[statName];
+      x$.atk = x$.atk.slice();
+      x$.def = x$.def.slice();
+      x$.dps = ['-', '-', '-', '-'];
+      x$.atk[0] *= 1 + (weapon.bonus[0] * scaling[0] + weapon.bonus[1] * scaling[1]);
+      x$.atk[1] *= 1 + (weapon.bonus[2] * scaling[2] + weapon.bonus[3] * scaling[3]);
+      if (this.params.useDps) {
+        y$ = result;
+        y$.atkCost = result.atkCosts[this.params.dpsCalcMove];
+        y$.dps = map(function(it){
+          var ref$;
+          if (result.atk[it] < 1) {
+            return 0;
+          } else {
+            return Math.floor(result.atk[it] / ((ref$ = y$.atkCost) != null
+              ? ref$
+              : result.atk[it]));
+          }
+        })(
+        [0, 1, 2, 3]);
+        if (result.weaponType === 'Magic') {
+          y$.dps[0] = y$.dps[2] = 0;
         }
-        result.score += stat * this.params.modifiers[statName];
+      }
+      for (i$ = 0, len$ = (ref$ = this._itemSvc.constructor.AllAttackTypes).length; i$ < len$; ++i$) {
+        index = i$;
+        stat = ref$[i$];
+        score = result.atk[index] * this.params.modifiers.atk[index];
+        if (this.params.useDps) {
+          score *= result.dps[index > 3 ? 0 : index];
+        }
+        result.score += score;
+      }
+      for (i$ = 0, len$ = (ref$ = this._itemSvc.constructor.AllDefenseTypes).length; i$ < len$; ++i$) {
+        index = i$;
+        stat = ref$[i$];
+        result.score += result.def[index] * this.params.modifiers.def[index];
       }
       return result;
     };

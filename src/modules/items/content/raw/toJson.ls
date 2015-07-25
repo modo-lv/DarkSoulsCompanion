@@ -397,7 +397,7 @@ processWeapons = (folder = '.')!->
 			| effectMap.\heal =>
 				values.2 = -1 * effect.\ChangeHpPoint
 
-		weapon.atk ++= values ++ weapon.atk.push +rawWeapon.\AttackBaseStamina
+		weapon.atk ++= values ++ +rawWeapon.\AttackBaseStamina
 		weapon.dmg = dmgValues ++ weapon.dmg
 
 		#if (not weapon.name?) or weapon.name.indexOf(\Dagger) < 0 then continue

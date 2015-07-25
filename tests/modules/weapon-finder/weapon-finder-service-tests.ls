@@ -26,14 +26,12 @@ beforeEach !->
 
 
 it "should only find weapons within stat requirement limits", (done) !->
-	svc.params.reqLimits = {
-		\str : 12
-	}
+	svc.params.stats = [ 12 ]
 
 	weaponList = [
-		{ id : 100 , uid : \weapon100 , itemType : \weapon , reqStr : 1 }
-		{ id : 100 , uid : \weapon100 , itemType : \weapon , reqStr : 10 }
-		{ id : 200 , uid : \weapon200 , itemType : \weapon , reqStr : 15 }
+		{ id : 100 , uid : \weapon100 , itemType : \weapon , req : [1] }
+		{ id : 100 , uid : \weapon100 , itemType : \weapon , req : [10] }
+		{ id : 200 , uid : \weapon200 , itemType : \weapon , req : [15] }
 	]
 
 	svc.findFittingWeaponsIn weaponList

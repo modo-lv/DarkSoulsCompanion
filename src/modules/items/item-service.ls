@@ -3,9 +3,21 @@ angular? .module "dsc" .service "itemSvc" (externalDataSvc, itemIndexSvc, $q) ->
 class ItemService
 	@WeaponStats = [\str \dex \int \fai]
 	@AttackTypes = [\phy \mag \fir \lit]
-	@AllAttackTypes = @AttackTypes ++ [\blo \tox]
-	@DefenseTypes = @AllAttackTypes ++ [\cur \sta]
+	@AllAttackTypes = @AttackTypes ++ [\blo \tox \div \occ]
+	@DefenseTypes = @AllDefenseTypes = @AttackTypes ++ [\blo \tox \cur \sta]
 	@DefPhyTypes = [\sla \str \thr]
+
+	@AttackTypeNames = [
+		\Physical \Magic \Fire \Lightning
+	]
+
+	@AllAttackTypeNames = @AttackTypeNames ++ [
+		\Bleed \Poison \Divine \Occult
+	]
+
+	@DefenseTypeNames = @AttackTypeNames ++ [
+		\Bleed \Poison \Curse \Poise
+	]
 
 	(@_externalDataSvc, @_itemIndexSvc, @$q) ->
 		@.upgradeComp = new (require './components/item-service-upgrade-component')

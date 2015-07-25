@@ -11,21 +11,26 @@
 			border-style: solid
 			border-radius: $border-radius
 
+			legend
+				font-weight: bold
+
+				label, input
+					font-weight: normal
+
 			> div
 				display: flex
 				flex-direction: column
 
 		.row
 			display: flex
-			align-items: baseline
+			align-items: center
 
 			> label
-				font-weight: bold
 				display: flex
 				flex-grow: 1
 				align-items: center
 
-				span
+				span, strong
 					flex-grow: 1
 
 				label
@@ -33,3 +38,31 @@
 
 				input
 					flex-shrink: 0
+
+		.column
+			> label
+				span, strong
+					flex-grow: 1
+
+
+	@each $row in (".params", "button")
+		> #{$row}
+			flex-grow: 0
+			flex-shrink: 0
+
+	> .ui-grid
+		flex-grow: 1
+
+	.params
+		.limits
+			> label span
+				flex-grow: 1
+
+		.modifiers
+			flex-wrap: wrap
+			flex-direction: row
+
+			.column
+				flex-grow: 1
+				display: flex
+				flex-direction: column

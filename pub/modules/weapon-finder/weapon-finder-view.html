@@ -1,42 +1,9 @@
-<div id="WeaponFinder"><div class="params"><fieldset><legend>Limits</legend><div class="limits"><div class="row"><label ng-repeat="name in reqLimitArray"><span>{{name | statName}}:</span><input type="number" ng-model="$parent.params.reqLimits[name]" min="8" max="99"/></label></div></div></fieldset></div><!--table.params
-	tr.limits
-		th.left Limits:
-
-		td
-			button(ng-click="copyStatsToReqs()" title="Use current player stats.")
-				img(src="/app/content/menu-icons/pc.png")
-
-	tr.importance
-		th.left Importance:
-
-		td
-			label
-				input(type="checkbox" ng-model="params.useDps" title="Look at DPS instead of ATK when calculating scores.")
-				| Use DPS
-
-			label(ng-repeat="name in statArray")
-				| {{name}}:
-				input(type="number" ng-model="$parent.params.modifiers[name]")
-
-	tr.misc
-		th.left Misc.:
-		td
-			label
-				input(type="checkbox" ng-model="params.includeUpgrades")
-				| Include available upgrades
-
-			label(title="Attack type to use for calculating damage-per-stamina.")
-				| DPS attack:
-				select(
-					ng-model="params.dpsCalcMove"
-					ng-options="dpsCalcOptions.indexOf(label) as label for label in dpsCalcOptions"
-				)
-
-button(ng-click="findWeapons()")
-	| Find
-	select(
-		ng-click="$event.stopPropagation()"
-		ng-model="params"
-		ng-options="paramSet as paramSetNames[paramSets.indexOf(paramSet)] for paramSet in paramSets"
-	)
---><div ui-grid-auto-resize="ui-grid-auto-resize" ui-grid="gridOptions"></div></div>
+<div id="WeaponFinder"><div class="params"><fieldset><legend><span title="Stats to use when looking at weapon requirements and calculating ATK bonuses.">Stats</span><label><span>&nbsp;(</span><input type="checkbox" ng-model="params.usePlayers"/><span>use player's)</span></label></legend><div class="limits"><label ng-repeat="name in statArray" class="row"><span>{{name | statName}}:</span><input type="number" ng-model="$parent.params.reqLimits[$index]" min="8" max="99" ng-disabled="params.usePlayers"/></label></div></fieldset><fieldset><legend>Offense importance</legend><div class="modifiers atk"><div class="column"><label ng-repeat="mod in [0, 1, 2, 3]" class="row"><span>{{atkNames[mod]}}:</span><input type="number" ng-model="$parent.params.modifiers.atk[mod]"/></label></div><!--.column
+	label.row(ng-repeat="mod in [4, 5, 6, 7]")
+		span {{atkNames[mod]}}:
+		input(type="number" ng-model="$parent.params.modifiers.atk[mod]")
+--></div></fieldset><fieldset><legend>Defense importance</legend><div class="modifiers def"><div class="column"><label ng-repeat="mod in [0, 1, 2, 3]" class="row"><span>{{defNames[mod]}}:</span><input type="number" ng-model="$parent.params.modifiers.def[mod]"/></label></div><!--.column
+	label.row(ng-repeat="mod in [4, 5, 6, 7]")
+		span {{defNames[mod]}}:
+		input(type="number" ng-model="$parent.params.modifiers.def[mod]")
+--></div></fieldset><fieldset><legend>Miscellaneous</legend><div class="misc"><div class="row"><label><input type="checkbox" ng-model="params.includeUpgrades"/><span>Include available upgrades</span></label></div><div class="row"><label title="Check to sort by damage-per-stamina before sorting by ATK, and choose which attack's DPS to use."><input type="checkbox" ng-model="params.useDps"/><span>DPS attack:</span></label><select ng-model="params.dpsCalcMove" ng-options="dpsCalcOptions.indexOf(label) as label for label in dpsCalcOptions" ng-disabled="!params.useDps"></select></div></div></fieldset></div><button ng-click="findWeapons()" class="row">Find and sort<select ng-click="$event.stopPropagation()" ng-model="params" ng-options="paramSet as paramSetNames[paramSets.indexOf(paramSet)] for paramSet in paramSets"></select></button><div ui-grid-auto-resize="ui-grid-auto-resize" ui-grid="gridOptions"></div></div>

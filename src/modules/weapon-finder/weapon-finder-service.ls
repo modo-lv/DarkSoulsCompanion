@@ -8,19 +8,14 @@ class WeaponFinderService
 			dpsCalcMove : 0
 			includeUpgrades : true
 			modifiers : {
-				atk : []
-				def : []
+				atk : [1 1 1 1 0 0 0 0]
+				def : [1 1 1 1 0 0 0 0]
 			}
-			reqLimits : {}
+			stats : [99 99 99 99]
 		}
 
-		@statArray = @_itemSvc.@@AttackTypes ++ @_itemSvc.@@DefenseTypes
-
-		(@_itemSvc.@@WeaponStats) |> each !~>
-			@params.reqLimits[it] = 99
-		@statArray |> each !~>
-			@params.modifiers[it] = 0
-		@params.modifiers[\atkPhy] = 1
+		for a in @_itemSvc.@@WeaponStats.length
+			@params.stats[a] = 99
 
 
 	findBestWeapons : ~>
@@ -54,16 +49,14 @@ class WeaponFinderService
 	findFittingWeaponsIn : (weaponList) ~>
 		# Discard any that don't meet requirements
 		fitWeapons = []
-		statKeys = [\str \dex \int \fai]
-		reqKeys = [\reqStr \reqDex \reqInt \reqFai]
 		statValues = {}
 
 		for weapon in weaponList
 			fit = true
-			for key, a in statKeys
-				#console.log "#{key} : #{weapon[reqKeys.[a]]} > #{@params.reqLimits[key]}"
-				if not @params.reqLimits[key]? then continue
-				if weapon[reqKeys.[a]] > @params.reqLimits[key]
+			for name, index in @_itemSvc.@@WeaponStats
+				#console.log "#{key} : #{weapon[reqKeys.[a]]} > #{@params.stats[key]}"
+				if not @params.stats[index]? then continue
+				if weapon.req[index] > @params.stats[index]
 					fit = false
 					break
 			if fit then fitWeapons.push weapon
@@ -74,32 +67,40 @@ class WeaponFinderService
 	calculateScoreFor : (weapon) ~>
 		result = {} <<< weapon
 
-		scS = @_statSvc.scalingFactorOf \str, @params.reqLimits.[\str]
-		scD = @_statSvc.scalingFactorOf \dex, @params.reqLimits.[\dex]
-		scI = @_statSvc.scalingFactorOf \int, @params.reqLimits.[\int]
-		scF = @_statSvc.scalingFactorOf \fai, @params.reqLimits.[\fai]
+		scaling = @_statSvc.allScalingFactorsOf @params.stats
 
 		result
-			..atkPhy *= (1 + ((weapon.bonusStr * scS) + (weapon.bonusDex * scD)))
-			..atkMag *= (1 + ((weapon.bonusInt * scI) + (weapon.bonusFai * scF)))
-
-			..atkCost = result.atkCosts[@params.dpsCalcMove]
-			..dps = @_itemSvc.@@AttackTypes |> map ~> if result.[it] < 1 then 0 else Math.floor(result.[it] / (..atkCost ? result.[it]))
-
-			..dps[0] = ..dps[1] = 0 if result.weaponType == \Magic
-
-		# Score
 			..score = 0
+			..atk = ..atk.slice!
+			..def = ..def.slice!
+			..dps = [\- \- \- \-]
 
-		for statName, index in @statArray
-			#console.log "result.score += (#{result[statName]} * #{@params.modifiers[statName]})"
-			
-			if @params.useDps and @_itemSvc.@@DpsTypes.[index]?
-				stat = result.dps[index]
-			else
-				stat = result[statName]
+		# Adjust ATK values according to scaling
+			..atk.0 *= (1 + ((weapon.bonus.0 * scaling.0) + (weapon.bonus.1 * scaling.1)))
+			..atk.1 *= (1 + ((weapon.bonus.2 * scaling.2) + (weapon.bonus.3 * scaling.3)))
 
-			result.score += (stat * @params.modifiers[statName])
+		# Calculate DPS if required
+		if (@params.useDps) then result
+			..atkCost = result.atkCosts[@params.dpsCalcMove]
+			..dps = [0 to 3] |> map ->
+				if result.atk[it] < 1
+					then 0
+					else Math.floor(result.atk[it] / (..atkCost ? result.atk[it]))
+
+			# Magic weapons only have heavy attack so nullify light ones
+			..dps[0] = ..dps[2] = 0 if result.weaponType == \Magic
+
+
+		# Apply modifiers to ATK
+		for stat, index in @_itemSvc.@@AllAttackTypes
+			score = result.atk[index] * @params.modifiers.atk[index]
+			if @params.useDps
+				score *= result.dps[if index > 3 then 0 else index]
+			result.score += score
+
+		# Apply modifiers to DEF
+		for stat, index in @_itemSvc.@@AllDefenseTypes
+			result.score += result.def[index] * @params.modifiers.def[index]
 
 		return result
 

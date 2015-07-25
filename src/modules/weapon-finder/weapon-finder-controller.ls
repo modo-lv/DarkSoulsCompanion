@@ -11,10 +11,13 @@ class WeaponFinderController
 	setup : !~>
 		@$scope.results = []
 
-		@$scope.paramSetNames = [ \weapon \shield ]
+		@$scope.paramSetNames = [ \weapons \shields ]
 
-		@$scope.statArray = @_weaponFinderSvc.statArray
-		@$scope.reqLimitArray = @_statSvc.@@weaponStats
+		@$scope.statArray = @_itemSvc.@@WeaponStats
+
+		@$scope.atkNames = @_itemSvc.@@AllAttackTypeNames
+
+		@$scope.defNames = @_itemSvc.@@DefenseTypeNames
 
 		@$scope.statNames = @_statSvc.@@statNames
 
@@ -25,9 +28,16 @@ class WeaponFinderController
 			"Two-hand heavy"
 		]
 
+		@$scope.params = @_weaponFinderSvc.params <<< {
+			usePlayers : true
+		}
+
 		# Set default params
 		for a from 0 to 1
-			@$scope.[]paramSets.{}[a] <<< @_weaponFinderSvc.params
+			@$scope.[]paramSets.{}[a] <<< @$scope.params
+			for array in [\atk \def \stats]
+				@$scope.paramSets[a].[array] = @$scope.paramSets[a].[][array].slice!
+
 
 		@$scope.gridOptions = (require './config/weapon-finder-grid-options') @$uiGridConstants
 
@@ -59,19 +69,22 @@ class WeaponFinderController
 
 	copyStatsToReqs : !~>
 		for key in [\str \dex \int \fai]
-			@$scope.params.reqLimits[key] = @_statSvc.statValueOf key
+			@$scope.params.stats[key] = @_statSvc.statValueOf key
 
 
 	findWeapons : !~>
 		@_weaponFinderSvc.params <<< @$scope.params
 
+		if @$scope.params.usePlayers
+			@_weaponFinderSvc.params.stats = [\str \dex \int \fai] |> map ~> @_statSvc.statValueOf it
+
 		@_weaponFinderSvc.findBestWeapons!
 		.then (results) !~>
 			@$scope.results = results |> map (result) ~> result <<< {
-				statReqs : [\reqStr \reqDex \reqInt \reqFai] |> (map ~> result.[it]) |> join '/'
-				atk : [\atkPhy \atkMag \atkFir \atkLit] |> (map ~> Math.floor result.[it]) |> join '/'
-				def : @_itemSvc.@@DefenseTypes |> (map ~> Math.floor result.[it]) |> join '/'
-				dps : "#{(result.dps |> join '/')} (#{result.atkCost})"
+				statReqs : result.req.join '/'
+				atk : (result.atk |> map -> Math.floor it).join '/'
+				def : (result.def |> map -> Math.floor it).join '/'
+				dps : "#{(result.dps |> join '/')}#{if result.atkCost then ' ('+result.atkCost+')' else ''}"
 			}
 
 			@$scope.gridOptions.data = @$scope.results
