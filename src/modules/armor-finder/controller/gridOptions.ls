@@ -78,7 +78,7 @@ module?.exports = (uiGridConstants) ->
 			displayName : \Curse
 		}
 		{
-			field : 'detailScores.poise'
+			field : 'detailScores.sta'
 			minWidth : 50
 			cellFilter : 'number:0'
 			type : \number

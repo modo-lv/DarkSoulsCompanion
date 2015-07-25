@@ -71,6 +71,8 @@ $scope.calculate = (type = 'offence') !->
 	for name, index in $scope.modifierNames
 		armorFinderSvc.params.{}modifiers.def.push $scope.params.modifiers.def[index]
 
+	#console.log armorFinderSvc.params.{}modifiers
+
 	armorFinderSvc.findBestCombinations!.then (results) !->
 		$scope.results = []
 		for result in results

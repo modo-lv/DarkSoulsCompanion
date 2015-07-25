@@ -27,6 +27,10 @@ class ArmorFinderSvc
 		@findUsableArmors!
 
 		.then (armors) ~>
+			# Clear out any old scores
+			for armor in armors
+				delete armor.score
+
 			@calculateArmorScores armors
 
 			if @params.includeUpgrades
@@ -152,14 +156,6 @@ class ArmorFinderSvc
 			dynamicArmors = null
 
 			start := new Date!.getTime!
-			@takeOnlyAffordable combs
-		.then (combs) !~>
-			end = new Date!.getTime!
-			time = end - start
-			if @_debugLog
-				console.log "Found and kept #{combs.length} affordable combinations in #{time / 1000} seconds"
-
-			start := new Date!.getTime!
 
 			for comb in combs
 				comb.armors = @calculateArmorScores comb.armors
@@ -171,17 +167,18 @@ class ArmorFinderSvc
 
 			start := new Date!.getTime!
 
-			return @calculateCombinationScores combs
+			return @calculateCombinationScores combs, @params.resultLimit, true
 		.then (combs) ~>
 			end = new Date!.getTime!
 			time = end - start
 			if @_debugLog
-				console.log "Calculated scores and found the best #{combs.length} combinations in #{time / 1000} seconds"
+				console.log "Calculated scores and found the best #{combs.length} affordable combinations in #{time / 1000} seconds"
 
 			return combs
 
 	canAfford : (comb) ~>
 		having : (inventory) ~>
+			comb.totalCost = []
 			unUpgraded = 0
 			# Find the total cost of the combination
 			for armor in comb.armors
@@ -237,7 +234,6 @@ class ArmorFinderSvc
 
 			for a from combinations.length - 1 to 0 by -1
 				comb = combinations.pop!
-				comb.totalCost = []
 
 				if @canAfford comb .having inventory
 					canAfford.push comb

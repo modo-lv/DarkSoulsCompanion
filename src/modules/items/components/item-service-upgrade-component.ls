@@ -138,7 +138,6 @@ class ItemServiceUpgradeComponent
 
 			switch item.\itemType
 			| \weapon =>
-				console.log item.atk, upgrade.atkMod
 				if item.atk? then for value, index in item.atk
 					item.atk[index] *= upgrade.atkMod[index] ? 1
 
