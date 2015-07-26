@@ -1,0 +1,72 @@
+[
+  {
+    "labels": "spoiler",
+    "title": "Fog gates",
+    "children": [
+      {
+        "title": "First",
+        "content": "{Ceaseless Discharge} boss fight."
+      }
+    ]
+  },
+  {
+    "labels": "Bonfire",
+    "title": "Demon Ruins entrance"
+  },
+  {
+    "title": "Upper ruins",
+    "children": [
+      {
+        "labels": "item",
+        "title": "Gold-Hemmed Black Hood, Gold-Hemmed Black Cloak, Gold-Hemmed Black Gloves, Gold-Hemmed Black Skirt"
+      },
+      {
+        "labels": "enemy",
+        "title": "Ceaseless Discharge",
+        "items": "Humanity, Homeward Bone"
+      }
+    ]
+  },
+  {
+    "title": "Around the main building",
+    "if": "enemy|Ceaseless Discharge|dead",
+    "children": [
+      {
+        "labels": "item",
+        "title": "Chaos Flame Ember"
+      },
+      {
+        "labels": "item",
+        "title": "Large Soul of a Proud Knight"
+      },
+      {
+        "labels": "item",
+        "title": "Soul of a Proud Knight"
+      },
+      {
+        "labels": "bonfire",
+        "title": "Main stairway"
+      },
+      {
+        "labels": "item",
+        "title": "Soul of a Proud Knight"
+      },
+      {
+        "labels": "item",
+        "title": "Soul of a Proud Knight"
+      },
+      {
+        "labels": "item",
+        "title": "Large Flame Ember"
+      },
+      {
+        "labels": "item",
+        "title": "Soul of a Brave Warrior"
+      }
+    ]
+  },
+  {
+    "title": "Main Building",
+    "if": ["global|lordvessel", "enemy|Ceaseless Discharge|dead"]
+  }
+]

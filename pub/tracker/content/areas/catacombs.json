@@ -1,0 +1,139 @@
+[
+  {
+    "labels": "spoiler",
+    "title": "Fog gates",
+    "children": [
+      {
+        "title": "End of the bridge",
+        "content": "Passing through"
+      }
+    ]
+  },
+  {
+    "labels": "bonfire",
+    "title": "Catacombs Entrance"
+  },
+  {
+    "labels": "switch",
+    "title": "First lever",
+    "setVar" : "global|catacombs-switch1"
+  },
+  {
+    "title": "First section",
+    "if" : "global|catacombs-switch1",
+    "children": [
+      {
+        "labels": "item",
+        "title": "Lucerne"
+      },
+      {
+        "labels": "item",
+        "title": "Large Soul of a Nameless Soldier"
+      },
+      {
+        "labels": "item",
+        "title": "Soul of a Proud Knight"
+      },
+      {
+        "labels": "switch",
+        "title": "Second lever",
+        "setVar": "global|catacombs-switch2"
+      }
+    ]
+  },
+  {
+    "title": "Second section",
+    "if" : "global|catacombs-switch2",
+    "children": [
+      {
+        "labels": "enemy",
+        "title": "Crystal Lizard"
+      },
+      {
+        "labels": "enemy",
+        "title": "Crystal Lizard"
+      },
+      {
+        "labels": "item",
+        "title": "Soul of a Proud Knight"
+      },
+      {
+        "labels": "item",
+        "title": "Soul of a Proud Knight"
+      },
+      {
+        "labels": "switch",
+        "title": "Third lever",
+        "setVar" : "global|catacombs-switch3"
+      },
+      {
+        "labels": "item",
+        "title": "Green Titanite Shard"
+      }
+    ]
+  },
+  {
+    "title": "Third section",
+    "if": "global|catacombs-switch3",
+    "children": [
+      {
+        "labels": ["bonfire", "secret"],
+        "title": "Catacombs waterfall",
+        "content": "Behind an illusiory wall"
+      },
+      {
+        "labels": "switch",
+        "title": "Fourth lever",
+        "setVar": "global|catacombs-switch4"
+      }
+    ]
+  },
+  {
+    "title": "Fourth section",
+    "if": "global|catacombs-switch4",
+    "children": [
+      {
+        "labels": "item",
+        "title": "Great Scythe"
+      },
+      {
+        "labels": "item",
+        "title": "Darkmoon Seance Ring"
+      }
+    ]
+  },
+  {
+    "title": "Mausoleum",
+    "children": [
+      {
+        "labels": "enemy",
+        "title": "Titanite Demon",
+        "items": "Demon Titanite"
+      },
+      {
+        "title": "Tomb of the Giants",
+        "if": "item|Eye of Death",
+        "children": [
+          {
+            "labels": "covenant",
+            "title": "Gravelord Servant"
+          }
+        ]
+      },
+      {
+        "labels": "item",
+        "title": "Eye of Death (3)"
+      },
+      {
+        "labels": "npc",
+        "title": "Blacksmith Vamos"
+      },
+      {
+        "labels": "enemy",
+        "title": "Black Knight",
+        "items": "White Titanite Chunk"
+      }
+    ]
+  }
+
+]

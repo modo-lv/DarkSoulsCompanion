@@ -13,7 +13,7 @@
 				label.row(ng-repeat="name in statArray")
 					span {{name | statName}}:
 					input(
-						type="number" ng-model="$parent.params.reqLimits[$index]" min=8 max=99
+						type="number" ng-model="$parent.params.stats[$index]" min=8 max=99
 						ng-disabled="params.usePlayers"
 					)
 
