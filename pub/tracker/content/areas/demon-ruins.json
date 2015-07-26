@@ -5,27 +5,33 @@
     "children": [
       {
         "title": "First",
-        "content": "{Ceaseless Discharge} boss fight."
+        "content": "{Ceaseless Discharge} boss fight.",
+        "id": "e07059a7-50b9-4a21-bc41-c3c765042fcf"
       }
-    ]
+    ],
+    "id": "808ff399-0f24-46f6-9a8b-320d01c28b22"
   },
   {
     "labels": "Bonfire",
-    "title": "Demon Ruins entrance"
+    "title": "Demon Ruins entrance",
+    "id": "5ec281c1-089b-4552-ac83-79494033e47c"
   },
   {
     "title": "Upper ruins",
     "children": [
       {
         "labels": "item",
-        "title": "Gold-Hemmed Black Hood, Gold-Hemmed Black Cloak, Gold-Hemmed Black Gloves, Gold-Hemmed Black Skirt"
+        "title": "Gold-Hemmed Black Hood, Gold-Hemmed Black Cloak, Gold-Hemmed Black Gloves, Gold-Hemmed Black Skirt",
+        "id": "6c3a1c6b-e4b9-4394-b89f-f0f2145177c6"
       },
       {
         "labels": "enemy",
         "title": "Ceaseless Discharge",
-        "items": "Humanity, Homeward Bone"
+        "items": "Humanity, Homeward Bone",
+        "id": "d01d7797-2449-406d-9550-4bed5f06d3d4"
       }
-    ]
+    ],
+    "id": "ab4fe0a2-0cfa-42f9-9c7b-db27491a9a1c"
   },
   {
     "title": "Around the main building",
@@ -33,40 +39,53 @@
     "children": [
       {
         "labels": "item",
-        "title": "Chaos Flame Ember"
+        "title": "Chaos Flame Ember",
+        "id": "3ccb75e5-4d77-4e80-bab1-d8cd1694b40a"
       },
       {
         "labels": "item",
-        "title": "Large Soul of a Proud Knight"
+        "title": "Large Soul of a Proud Knight",
+        "id": "067a449f-3d9c-4254-9aa9-0a048ca27565"
       },
       {
         "labels": "item",
-        "title": "Soul of a Proud Knight"
+        "title": "Soul of a Proud Knight",
+        "id": "741239c7-702e-418d-9916-fd61b3543273"
       },
       {
         "labels": "bonfire",
-        "title": "Main stairway"
+        "title": "Main stairway",
+        "id": "39d44924-457a-4624-846e-146d9da4d0ea"
       },
       {
         "labels": "item",
-        "title": "Soul of a Proud Knight"
+        "title": "Soul of a Proud Knight",
+        "id": "99e87299-e5f6-40e6-a297-388b38a87888"
       },
       {
         "labels": "item",
-        "title": "Soul of a Proud Knight"
+        "title": "Soul of a Proud Knight",
+        "id": "19356f24-71e6-449d-8c32-7ca32ae3fd81"
       },
       {
         "labels": "item",
-        "title": "Large Flame Ember"
+        "title": "Large Flame Ember",
+        "id": "a047ab95-7a72-4637-b1bc-71e7ec1a4718"
       },
       {
         "labels": "item",
-        "title": "Soul of a Brave Warrior"
+        "title": "Soul of a Brave Warrior",
+        "id": "676bee59-5a7c-4133-80dd-343ca51f224a"
       }
-    ]
+    ],
+    "id": "29dbd377-8d21-4923-b68e-12bf53e1a86d"
   },
   {
     "title": "Main Building",
-    "if": ["global|lordvessel", "enemy|Ceaseless Discharge|dead"]
+    "if": [
+      "global|lordvessel",
+      "enemy|Ceaseless Discharge|dead"
+    ],
+    "id": "ff809933-20ac-45fe-a4e1-379c9c47edb8"
   }
 ]

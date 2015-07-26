@@ -5,92 +5,115 @@
     "children": [
       {
         "title": "End of the bridge",
-        "content": "Passing through"
+        "content": "Passing through",
+        "id": "d126f490-d0ee-44b9-b509-fed4741dd859"
       },
       {
         "title": "Mausoleum",
-        "content": "{Pinwheel} boss fight."
+        "content": "{Pinwheel} boss fight.",
+        "id": "2f68ec02-0160-4b99-ae2b-2b6d06cc0475"
       }
-    ]
+    ],
+    "id": "699e5bf8-7631-4a8b-8202-09ba795d2d23"
   },
   {
     "labels": "bonfire",
-    "title": "Catacombs Entrance"
+    "title": "Catacombs Entrance",
+    "id": "c6593b2e-d342-48fa-af4b-4bc6f96b3c35"
   },
   {
     "labels": "switch",
     "title": "First lever",
-    "setVar" : "global|catacombs-switch1"
+    "setVar": "global|catacombs-switch1",
+    "id": "8a830607-82d0-4e62-85ef-53812b83ce20"
   },
   {
     "title": "First section",
-    "if" : "global|catacombs-switch1",
+    "if": "global|catacombs-switch1",
     "children": [
       {
         "labels": "item",
-        "title": "Lucerne"
+        "title": "Lucerne",
+        "id": "e90af694-85a6-4fae-b422-f7cec3d9541d"
       },
       {
         "labels": "item",
-        "title": "Large Soul of a Nameless Soldier"
+        "title": "Large Soul of a Nameless Soldier",
+        "id": "79ff88a4-e5ec-4510-898a-653f5333e90c"
       },
       {
         "labels": "item",
-        "title": "Soul of a Proud Knight"
+        "title": "Soul of a Proud Knight",
+        "id": "68276cac-64b0-4960-beaf-ac74ee230004"
       },
       {
         "labels": "switch",
         "title": "Second lever",
-        "setVar": "global|catacombs-switch2"
+        "setVar": "global|catacombs-switch2",
+        "id": "4f71fb5a-efeb-4b37-b174-c9d9f00b9353"
       }
-    ]
+    ],
+    "id": "c0831db4-be53-4253-8083-1a207d040877"
   },
   {
     "title": "Second section",
-    "if" : "global|catacombs-switch2",
+    "if": "global|catacombs-switch2",
     "children": [
       {
         "labels": "enemy",
-        "title": "Crystal Lizard"
+        "title": "Crystal Lizard",
+        "id": "3b6a1b19-f929-4a33-8e83-3a5e6bb854d8"
       },
       {
         "labels": "enemy",
-        "title": "Crystal Lizard"
+        "title": "Crystal Lizard",
+        "id": "35f81e2a-f5ba-466c-800a-2490f7b7cbb7"
       },
       {
         "labels": "item",
-        "title": "Soul of a Proud Knight"
+        "title": "Soul of a Proud Knight",
+        "id": "6bb34934-3607-4822-9cba-dc03cd33eb83"
       },
       {
         "labels": "item",
-        "title": "Soul of a Proud Knight"
+        "title": "Soul of a Proud Knight",
+        "id": "0eaaa97c-a9de-455d-bec3-c7b008725f46"
       },
       {
         "labels": "switch",
         "title": "Third lever",
-        "setVar" : "global|catacombs-switch3"
+        "setVar": "global|catacombs-switch3",
+        "id": "15de2dc0-46fa-4e88-bc83-03918a6f1bed"
       },
       {
         "labels": "item",
-        "title": "Green Titanite Shard"
+        "title": "Green Titanite Shard",
+        "id": "b4c5438d-4174-431d-afae-2697db22a9d7"
       }
-    ]
+    ],
+    "id": "8e1489a2-15c9-469d-b555-a7cc2b341308"
   },
   {
     "title": "Third section",
     "if": "global|catacombs-switch3",
     "children": [
       {
-        "labels": ["bonfire", "secret"],
+        "labels": [
+          "bonfire",
+          "secret"
+        ],
         "title": "Catacombs waterfall",
-        "content": "Behind an illusiory wall"
+        "content": "Behind an illusiory wall",
+        "id": "b7738ea3-35b6-4a83-83cd-c45e032de868"
       },
       {
         "labels": "switch",
         "title": "Fourth lever",
-        "setVar": "global|catacombs-switch4"
+        "setVar": "global|catacombs-switch4",
+        "id": "20bef46d-ec31-4985-8ca5-f17a158ea791"
       }
-    ]
+    ],
+    "id": "d01d195e-58a2-4ad2-a926-c6fe2561cbad"
   },
   {
     "title": "Fourth section",
@@ -98,17 +121,21 @@
     "children": [
       {
         "labels": "item",
-        "title": "Great Scythe"
+        "title": "Great Scythe",
+        "id": "71a92785-179a-435a-8483-c3c590531f1d"
       },
       {
         "labels": "item",
-        "title": "Darkmoon Seance Ring"
+        "title": "Darkmoon Seance Ring",
+        "id": "5b6598b3-e9e1-4552-bdf1-d81df4f5f54d"
       },
       {
         "labels": "item",
-        "title": "Miracle: Tranquil Walk of Piece"
+        "title": "Miracle: Tranquil Walk of Piece",
+        "id": "d9f133b2-1563-4fc4-8afc-aef2fe37ae6c"
       }
-    ]
+    ],
+    "id": "e1995432-adc6-447b-8223-9c3ca53a6d5d"
   },
   {
     "title": "Mausoleum",
@@ -116,7 +143,8 @@
       {
         "labels": "enemy",
         "title": "Titanite Demon",
-        "items": "Demon Titanite"
+        "items": "Demon Titanite",
+        "id": "09499d82-3a58-4f3e-bdf8-1ad189a12782"
       },
       {
         "title": "Tomb of the Giants",
@@ -124,43 +152,53 @@
         "children": [
           {
             "labels": "covenant",
-            "title": "Gravelord Servant"
+            "title": "Gravelord Servant",
+            "id": "91ebb0af-845b-4979-864e-4501169423c0"
           }
-        ]
+        ],
+        "id": "1c8cfa7e-dd75-438f-aef6-1a4fda4fe256"
       },
       {
         "labels": "item",
-        "title": "Eye of Death (3)"
+        "title": "Eye of Death (3)",
+        "id": "c8067538-2063-42fa-b3ab-ff08956e7867"
       },
       {
         "labels": "item",
-        "title": "Large Soul of a Nameless Soldier"
+        "title": "Large Soul of a Nameless Soldier",
+        "id": "60ca5e33-d468-41bf-9db1-c32a0730297e"
       },
       {
         "labels": "enemy",
         "title": "Black Knight",
-        "items": "White Titanite Chunk"
+        "items": "White Titanite Chunk",
+        "id": "79a70b7f-4a03-4c53-9357-18db66b748c3"
       },
       {
         "labels": "item",
-        "title": "Soul of a Proud Knight"
+        "title": "Soul of a Proud Knight",
+        "id": "fd5cf220-1be6-48bb-87c5-a7592c768c7d"
       },
       {
         "labels": "enemy",
         "title": "Undead Mage",
-        "item": "Skull Lantern"
+        "item": "Skull Lantern",
+        "id": "c14733f9-2449-46d1-be68-5149b0ca2179"
       },
       {
         "labels": "item",
-        "title": "Large Soul of a Nameless Soldier"
+        "title": "Large Soul of a Nameless Soldier",
+        "id": "da87fb43-3ce0-4d99-be05-51e6ec847ce6"
       },
       {
         "labels": "item",
-        "title": "Priest's Hat, Holy Robe, Traveling Gloves (cleric's), Holy Trousers, Mace"
+        "title": "Priest's Hat, Holy Robe, Traveling Gloves (cleric's), Holy Trousers, Mace",
+        "id": "479ef614-a5e1-4a66-b5b5-12b0c6f064d1"
       },
       {
         "labels": "npc",
-        "title": "Blacksmith Vamos"
+        "title": "Blacksmith Vamos",
+        "id": "cf9c1bff-64ec-4d46-b88d-9e93910b8ed4"
       },
       {
         "labels": "enemy",
@@ -170,28 +208,34 @@
           {
             "labels": "item",
             "title": "Mask of the Mother",
-            "if" : "global|pinwheel-mask|not",
-            "setVar": "global|pinwheel-mask"
+            "if": "global|pinwheel-mask|not",
+            "setVar": "global|pinwheel-mask",
+            "id": "a9425c16-bbb5-4b04-8ddf-679b184d2774"
           },
           {
             "labels": "item",
             "title": "Mask of the Child",
-            "if" : "global|pinwheel-mask|not",
-            "setVar": "global|pinwheel-mask"
+            "if": "global|pinwheel-mask|not",
+            "setVar": "global|pinwheel-mask",
+            "id": "ce7f6b6f-74a7-4e27-ac36-0fe0028bc319"
           },
           {
             "labels": "item",
             "title": "Mask of the Father",
-            "if" : "global|pinwheel-mask|not",
-            "setVar": "global|pinwheel-mask"
+            "if": "global|pinwheel-mask|not",
+            "setVar": "global|pinwheel-mask",
+            "id": "8369936e-5826-4bdb-9d75-3f0306a304f1"
           }
-        ]
+        ],
+        "id": "379e49ad-7b61-4cf3-b384-fc87685449ae"
       },
       {
         "labels": "item",
         "title": "Soul of a Proud Knight",
-        "if" : "enemy|Pinwheel|dead"
+        "if": "enemy|Pinwheel|dead",
+        "id": "7058e2b6-ccaf-430a-8f0c-21d3d2f94b29"
       }
-    ]
+    ],
+    "id": "f88fe3d8-dbbb-412b-898e-fabaa9bbc03a"
   }
 ]

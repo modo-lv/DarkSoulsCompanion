@@ -2,23 +2,28 @@
   {
     "labels": "enemy",
     "title": "Black Hydra",
-    "items": "Dragon Scale (2)"
+    "items": "Dragon Scale (2)",
+    "id": "51cb1da5-1777-48dd-a03b-51fe4e836311"
   },
   {
     "labels": "item",
-    "title": "Dragon Scale"
+    "title": "Dragon Scale",
+    "id": "58dc6c52-292a-4533-9dd7-a057ada20fa2"
   },
   {
     "labels": "item",
-    "title": "Dragon Scale"
+    "title": "Dragon Scale",
+    "id": "4d821da9-591d-4c4c-8263-d33f60cc30c9"
   },
   {
     "labels": "item",
-    "title": "Dragon Scale"
+    "title": "Dragon Scale",
+    "id": "390bfb9c-ab1d-4350-b861-18b4f48a74fb"
   },
   {
     "labels": "item",
-    "title": "Miracle: Great Magic Barrier"
+    "title": "Miracle: Great Magic Barrier",
+    "id": "0f752aa5-89c1-4681-b9b3-53bb8dff6c23"
   },
   {
     "labels": "npc",
@@ -27,16 +32,20 @@
     "children": [
       {
         "labels": "covenant",
-        "title": "Path of the Dragon"
+        "title": "Path of the Dragon",
+        "id": "c2bccd73-0393-43ed-b566-dcfd2b439076"
       },
       {
         "labels": "item",
-        "title": "Dragon Head Stone"
+        "title": "Dragon Head Stone",
+        "id": "b2bb4061-114a-4fa5-9a5a-bcb9320d84b2"
       },
       {
         "labels": "item",
-        "title": "Dragon Eye"
+        "title": "Dragon Eye",
+        "id": "9ff36aa5-3bd1-4e42-a08a-6d17a751b82d"
       }
-    ]
+    ],
+    "id": "ee852794-c65e-47fd-838a-959671cf2ea8"
   }
 ]

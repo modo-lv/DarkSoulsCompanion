@@ -1,22 +1,26 @@
 [
   {
-    "title" : "Fog gates",
+    "title": "Fog gates",
     "labels": "spoiler",
     "children": [
       {
         "title": "First",
-        "content": "Passing through."
+        "content": "Passing through.",
+        "id": "ab8d4018-cb66-4e19-ada9-c17971ed4eb0"
       }
-    ]
+    ],
+    "id": "b6359a65-ec8f-4e7b-98e6-82130731d094"
   },
   {
     "labels": "info",
     "title": "Crystal lizard availability",
-    "content": "All Crystal Lizards in the Great Hollow appear at random every time the level is loaded. Lots of quitting and reloading required to get them all. The first 8 out of 10 appear in the area between the bonfire and the cave with the Basilisks."
+    "content": "All Crystal Lizards in the Great Hollow appear at random every time the level is loaded. Lots of quitting and reloading required to get them all. The first 8 out of 10 appear in the area between the bonfire and the cave with the Basilisks.",
+    "id": "c7528091-9069-48d2-827a-39921eb55571"
   },
   {
     "labels": "bonfire",
-    "title": "The Great Hollow"
+    "title": "The Great Hollow",
+    "id": "8d6efaac-000e-4300-9dfc-ae540ada0558"
   },
   {
     "title": "First lizard cave",
@@ -24,27 +28,32 @@
       {
         "labels": "enemy",
         "title": "Crystal Lizard",
-        "content": "At the caveentrance"
+        "content": "At the caveentrance",
+        "id": "387bd373-008d-417a-821a-7ca0dc4e3a55"
       },
       {
         "labels": "enemy",
         "title": "Crystal Lizard",
-        "content": "At the back of the cave"
+        "content": "At the back of the cave",
+        "id": "5372eb0b-b1c1-4bbc-9642-2d6349e8ac43"
       }
-    ]
+    ],
+    "id": "759c81d4-fc76-4b64-9ee5-cbf4ec50ea29"
   },
   {
-    "title" : "Second lizard cave",
-    "children" : [
+    "title": "Second lizard cave",
+    "children": [
       {
         "labels": "enemy",
         "title": "Crystal Lizard",
-        "content" : "At the entrance"
+        "content": "At the entrance",
+        "id": "017cb628-c1ba-4a08-9c6f-543fd5bb1f4d"
       },
       {
         "labels": "enemy",
         "title": "Crystal Lizard",
-        "content": "Just before the cave exits on to a platform."
+        "content": "Just before the cave exits on to a platform.",
+        "id": "3c46459a-eaac-45ce-98b3-a826e28a4f77"
       },
       {
         "title": "On the platform",
@@ -52,83 +61,103 @@
           {
             "labels": "enemy",
             "title": "Crystal Lizard",
-            "content": "On the platform"
+            "content": "On the platform",
+            "id": "863790a8-cd85-44d8-a750-03d5b93581c7"
           },
           {
             "labels": "enemy",
             "title": "Crystal Lizard",
-            "content": "On the platform"
+            "content": "On the platform",
+            "id": "1ce753f2-e001-4f01-bf47-60bfe6a9b423"
           },
           {
             "labels": "enemy",
             "title": "Crystal Lizard",
-            "content": "On the platform"
+            "content": "On the platform",
+            "id": "6eed0439-93b4-44e5-ba46-e9a2a7d34799"
           }
-        ]
+        ],
+        "id": "dd471253-d20e-447d-ac5c-cd7de8ca91a8"
       }
-    ]
+    ],
+    "id": "3027b98d-2c3f-4c19-a7bf-e0f7a17a1513"
   },
   {
     "labels": "item",
-    "title": "Coloranthy Ring"
+    "title": "Coloranthy Ring",
+    "id": "0a1967e3-0f4f-47d0-87eb-8eb3b79cf2a4"
   },
   {
     "labels": "item",
-    "title": "Titanite Chunk"
+    "title": "Titanite Chunk",
+    "id": "c7bbc2cf-064d-4fb4-a361-0cd70ecddf01"
   },
   {
     "labels": "item",
-    "title": "Red Titanite Chunk"
+    "title": "Red Titanite Chunk",
+    "id": "ad3175ca-a123-4a29-8f49-0d8a407b98f5"
   },
   {
     "labels": "item",
-    "title": "Large Soul of a Nameless Soldier"
+    "title": "Large Soul of a Nameless Soldier",
+    "id": "76b6155d-ec7b-4f5c-b9fa-03e9c82be838"
   },
   {
     "labels": "enemy",
     "title": "Crystal Lizard",
-    "content" : "At the spot where the two branch paths touch in front of the Basilisk cave."
+    "content": "At the spot where the two branch paths touch in front of the Basilisk cave.",
+    "id": "7702e028-820b-4eac-b6d9-633123b2ad5b"
   },
   {
     "title": "Second platform down after leaving basilisk cave",
     "children": [
       {
         "labels": "enemy",
-        "title": "Crystal Lizard"
+        "title": "Crystal Lizard",
+        "id": "ac19ed4c-365e-4b0a-a112-feb42e692509"
       },
       {
         "labels": "enemy",
-        "title": "Crystal Lizard"
+        "title": "Crystal Lizard",
+        "id": "df43557c-8470-42dd-ad8c-fc942d284395"
       }
-    ]
+    ],
+    "id": "2a3b52c5-b748-419b-afe4-05d68b4a49a6"
   },
   {
     "labels": "item",
-    "title": "White Titanite Chunk"
+    "title": "White Titanite Chunk",
+    "id": "600e7cec-b520-4801-9942-788ef458e543"
   },
   {
     "labels": "item",
-    "title": "Blue Titanite Chunk"
+    "title": "Blue Titanite Chunk",
+    "id": "81e17e64-1640-4c18-bb28-31295ad47239"
   },
   {
     "labels": "item",
-    "title": "Red Titanite Chunk"
+    "title": "Red Titanite Chunk",
+    "id": "9bcfae6d-5cce-42e0-98d8-467800e53e3b"
   },
   {
     "title": "'Ground floor'",
     "children": [
       {
         "labels": "item",
-        "title": "Large Soul of a Nameless Soldier"
+        "title": "Large Soul of a Nameless Soldier",
+        "id": "d01e7310-35ec-495b-9ec3-2f648c6c3e18"
       },
       {
         "labels": "item",
-        "title": "White Titanite Chunk"
+        "title": "White Titanite Chunk",
+        "id": "90178395-6c20-4037-9719-f0d8398157d2"
       },
       {
         "labels": "item",
-        "title": "Titanite Chunk"
+        "title": "Titanite Chunk",
+        "id": "721cad30-25cf-4490-b8d6-5693d1d1cfd5"
       }
-    ]
+    ],
+    "id": "526707c6-d001-4b0a-99f8-82fec6071780"
   }
 ]

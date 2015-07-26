@@ -7,6 +7,7 @@
   {
     "labels": "item",
     "title": "Witch Hat, Witch Cloak, Witch Gloves, Witch Skirt, Beatrice's Catalyst",
-    "if" : "enemy|Four Kings|dead"
+    "if": "enemy|Four Kings|dead",
+    "id": "9f1bd6d6-12c6-49d3-b66c-7f13a18004d7"
   }
 ]

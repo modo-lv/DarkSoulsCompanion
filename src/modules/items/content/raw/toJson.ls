@@ -10,6 +10,8 @@ raw = {}
 	..weapons = []
 	..items = {}
 
+usedNames = {}
+
 
 $index = []
 $armorSetIndex = []
@@ -192,6 +194,13 @@ loadBehavior = !->
 setName = (item) !->
 	uid = item.itemType + item.id
 	item.name = raw.names[uid]
+	if not item.name?
+		return
+	if usedNames[item.name]?
+		console.info "Item name already used, skipping item: #{item.name}."
+		item.name = ''
+	else
+		usedNames[item.name] = true
 
 
 processUpgrades = (folder = '.') !->
