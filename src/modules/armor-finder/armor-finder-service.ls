@@ -76,7 +76,7 @@ class ArmorFinderSvc
 
 		start := new Date!.getTime!
 
-		@calculateCombinationScores combinations, 40
+		@calculateCombinationScores combinations, 10
 		.then (best) ~>
 
 			end = new Date!.getTime!

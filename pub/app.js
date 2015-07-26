@@ -1964,7 +1964,7 @@ function curry$(f, bound){
         console.log("Permutated " + dynamicArmors.length + " upgradeable armors into " + combinations.length + " combinations in " + time / 1000 + " seconds");
       }
       start = new Date().getTime();
-      return this.calculateCombinationScores(combinations, 40).then(function(best){
+      return this.calculateCombinationScores(combinations, 10).then(function(best){
         var end, time, i$, len$, comb, j$, ref$, len1$, armor, upgradedArmors, promises;
         end = new Date().getTime();
         time = end - start;
@@ -2699,6 +2699,12 @@ function curry$(f, bound){
       var this$ = this;
       return this._itemSvc.findItem(item.itemType, function(it){
         return it.id === this$.getBaseIdFrom(item.id);
+      }).then(function(baseItem){
+        if (baseItem == null) {
+          console.log(baseItem);
+          throw new Error("Failed to find the base item for the above item.");
+        }
+        return baseItem;
       });
     };
     /**
@@ -5030,6 +5036,30 @@ function curry$(f, bound){
     prototype.findFittingWeapons = function(){
       var this$ = this;
       return this._inventorySvc.findItemsByType('weapon').then(function(list){
+        var promises, i$, len$, item;
+        promises = [];
+        for (i$ = 0, len$ = list.length; i$ < len$; ++i$) {
+          item = list[i$];
+          promises.push(this$.$q.all([this$.$q.when(item), this$._itemSvc.upgradeComp.findBaseItem(item)]));
+        }
+        return this$.$q.all(promises);
+      }).then(function(results){
+        var promises, i$, len$, result, item, baseItem;
+        promises = [];
+        for (i$ = 0, len$ = results.length; i$ < len$; ++i$) {
+          result = results[i$];
+          item = result[0];
+          baseItem = result[1];
+          promises.push(this$.$q.all([this$.$q.when(item), this$._itemSvc.getUpgraded(baseItem, this$._itemSvc.upgradeComp.upgradeLevelOf(item))]).then(fn$));
+        }
+        return this$.$q.all(promises);
+        function fn$(results){
+          var ref$;
+          return (ref$ = results[1]) != null
+            ? ref$
+            : results[0];
+        }
+      }).then(function(list){
         return this$.findFittingWeaponsIn(list);
       });
     };
@@ -5092,7 +5122,7 @@ function curry$(f, bound){
       for (i$ = 0, len$ = (ref$ = this._itemSvc.constructor.AllAttackTypes).length; i$ < len$; ++i$) {
         index = i$;
         stat = ref$[i$];
-        score = result.atk[index] * this.params.modifiers.atk[index];
+        score = result.atk[index] / 5 * this.params.modifiers.atk[index];
         if (this.params.useDps) {
           score *= result.dps[index > 3 ? 0 : index];
         }

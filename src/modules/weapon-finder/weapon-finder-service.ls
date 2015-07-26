@@ -43,7 +43,30 @@ class WeaponFinderService
 
 	findFittingWeapons : ~>
 		@_inventorySvc.findItemsByType \weapon
-		.then (list) ~> @findFittingWeaponsIn list
+		.then (list) ~>
+			promises = []
+			for item in list
+				promises.push @$q.all [
+					@$q.when item
+					@_itemSvc.upgradeComp.findBaseItem item
+				]
+			return @$q.all promises
+		.then (results) ~>
+			promises = []
+			for result in results
+				item = result.0
+				baseItem = result.1
+				promises.push(
+					@$q.all [
+						@$q.when item
+						@_itemSvc.getUpgraded baseItem, @_itemSvc.upgradeComp.upgradeLevelOf item
+					]
+					.then (results) ->
+						results.1 ? results.0
+				)
+			@$q.all promises
+		.then (list) ~>
+			@findFittingWeaponsIn list
 
 
 	findFittingWeaponsIn : (weaponList) ~>
@@ -75,7 +98,8 @@ class WeaponFinderService
 			..def = ..def.slice!
 			..dps = [\- \- \- \-]
 
-		# Adjust ATK values according to scaling
+			# Adjust ATK values according to scaling
+
 			..atk.0 *= (1 + ((weapon.bonus.0 * scaling.0) + (weapon.bonus.1 * scaling.1)))
 			..atk.1 *= (1 + ((weapon.bonus.2 * scaling.2) + (weapon.bonus.3 * scaling.3)))
 
@@ -99,7 +123,9 @@ class WeaponFinderService
 
 		# Apply modifiers to ATK
 		for stat, index in @_itemSvc.@@AllAttackTypes
-			score = result.atk[index] * @params.modifiers.atk[index]
+			# Divide ATK values by 5 to make their values comparable with defense.
+			# So that a weapon with 500 ATK would get the same score as a shield with 100 defense
+			score = result.atk[index] / 5 * @params.modifiers.atk[index]
 			if @params.useDps
 				score *= result.dps[if index > 3 then 0 else index]
 			result.score += score

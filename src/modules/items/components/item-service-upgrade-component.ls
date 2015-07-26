@@ -33,6 +33,12 @@ class ItemServiceUpgradeComponent
 
 	findBaseItem : (item) ~>
 		@_itemSvc.findItem item.itemType, ~> (it.id == @getBaseIdFrom item.id)
+		.then (baseItem) ~>
+			if not baseItem?
+				console.log baseItem
+				throw new Error "Failed to find the base item for the above item."
+
+			return baseItem
 
 
 	/**

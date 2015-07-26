@@ -18,6 +18,12 @@
           }
         ],
         "id": "4800def2-a9e3-44d8-b970-2b240db2c9dd"
+      },
+      {
+        "labels": "npc",
+        "title": "Siegmeiyer of Catarina",
+        "if" : [["global|siegmeiyer-sen","item|Purple Moss|3"]],
+        "items" : "Pierce Shield"
       }
     ],
     "id": "3b93fe7e-3394-4290-b8cb-8a06517c8ce8"

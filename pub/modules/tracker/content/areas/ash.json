@@ -1,0 +1,42 @@
+[
+  {
+    "labels": "enemy",
+    "title": "Black Hydra",
+    "items": "Dragon Scale (2)"
+  },
+  {
+    "labels": "item",
+    "title": "Dragon Scale"
+  },
+  {
+    "labels": "item",
+    "title": "Dragon Scale"
+  },
+  {
+    "labels": "item",
+    "title": "Dragon Scale"
+  },
+  {
+    "labels": "item",
+    "title": "Miracle: Great Magic Barrier"
+  },
+  {
+    "labels": "npc",
+    "title": "Everlasting Dragon",
+    "tail": "Dragon Greatsword",
+    "children": [
+      {
+        "labels": "covenant",
+        "title": "Path of the Dragon"
+      },
+      {
+        "labels": "item",
+        "title": "Dragon Head Stone"
+      },
+      {
+        "labels": "item",
+        "title": "Dragon Eye"
+      }
+    ]
+  }
+]

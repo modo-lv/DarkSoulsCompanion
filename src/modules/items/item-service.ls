@@ -119,6 +119,9 @@ class ItemService
 	getUpgraded : (item, level = true) ~>
 		if level == true
 			level = (@upgradeComp.getUpgradeLevelFrom item.id) + 1
+
+		#console.log item
+
 		@upgradeComp.findUpgradeFor item, level
 		.then (upgrade) !~>
 			if not upgrade?

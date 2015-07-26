@@ -1,1 +1,12196 @@
-[{"id":0,"atkMod":[1,1,1,1],"bonusMod":[1,1,1,1],"defMod":[1,1,1,1,1,1,1,1],"matSetId":0},{"id":1,"atkMod":[1.1,1,1,1],"bonusMod":[1.05,1.05,1,1],"defMod":[1,1,1,1,1,1,1,1],"matSetId":1},{"id":2,"atkMod":[1.2,1,1,1],"bonusMod":[1.05,1.05,1,1],"defMod":[1,1,1,1,1,1,1,1],"matSetId":2},{"id":3,"atkMod":[1.3,1,1,1],"bonusMod":[1.05,1.05,1,1],"defMod":[1,1,1,1,1,1,1,1],"matSetId":3},{"id":4,"atkMod":[1.4,1,1,1],"bonusMod":[1.05,1.05,1,1],"defMod":[1,1,1,1,1,1,1,1],"matSetId":4},{"id":5,"atkMod":[1.5,1,1,1],"bonusMod":[1.05,1.05,1,1],"defMod":[1,1,1,1,1,1,1,1],"matSetId":5},{"id":6,"atkMod":[1.6,1,1,1],"bonusMod":[1.1,1.1,1,1],"defMod":[1,1,1,1,1,1,1,1],"matSetId":6},{"id":7,"atkMod":[1.7,1,1,1],"bonusMod":[1.1,1.1,1,1],"defMod":[1,1,1,1,1,1,1,1],"matSetId":7},{"id":8,"atkMod":[1.8,1,1,1],"bonusMod":[1.1,1.1,1,1],"defMod":[1,1,1,1,1,1,1,1],"matSetId":8},{"id":9,"atkMod":[1.9,1,1,1],"bonusMod":[1.1,1.1,1,1],"defMod":[1,1,1,1,1,1,1,1],"matSetId":9},{"id":10,"atkMod":[2,1,1,1],"bonusMod":[1.1,1.1,1,1],"defMod":[1,1,1,1,1,1,1,1],"matSetId":10},{"id":11,"atkMod":[2.1,1,1,1],"bonusMod":[1.15,1.15,1,1],"defMod":[1,1,1,1,1,1,1,1],"matSetId":11},{"id":12,"atkMod":[2.2,1,1,1],"bonusMod":[1.15,1.15,1,1],"defMod":[1,1,1,1,1,1,1,1],"matSetId":12},{"id":13,"atkMod":[2.3,1,1,1],"bonusMod":[1.15,1.15,1,1],"defMod":[1,1,1,1,1,1,1,1],"matSetId":13},{"id":14,"atkMod":[2.4,1,1,1],"bonusMod":[1.2,1.2,1,1],"defMod":[1,1,1,1,1,1,1,1],"matSetId":14},{"id":15,"atkMod":[2.5,1,1,1],"bonusMod":[1.2,1.2,1,1],"defMod":[1,1,1,1,1,1,1,1],"matSetId":15},{"id":100,"atkMod":[2.2,1,1,1],"bonusMod":[1.15,1.15,1,1],"defMod":[1,1,1,1,1,1,1,1],"matSetId":0},{"id":101,"atkMod":[2.3,1,1,1],"bonusMod":[1.15,1.15,1,1],"defMod":[1,1,1,1,1,1,1,1],"matSetId":1},{"id":102,"atkMod":[2.4,1,1,1],"bonusMod":[1.15,1.15,1,1],"defMod":[1,1,1,1,1,1,1,1],"matSetId":2},{"id":103,"atkMod":[2.5,1,1,1],"bonusMod":[1.15,1.15,1,1],"defMod":[1,1,1,1,1,1,1,1],"matSetId":3},{"id":104,"atkMod":[2.6,1,1,1],"bonusMod":[1.2,1.2,1,1],"defMod":[1,1,1,1,1,1,1,1],"matSetId":4},{"id":105,"atkMod":[2.7,1,1,1],"bonusMod":[1.2,1.2,1,1],"defMod":[1,1,1,1,1,1,1,1],"matSetId":5},{"id":200,"atkMod":[1.8,1,1,1.8],"bonusMod":[1,1,1,1],"defMod":[1,1,1,1,1,1,1,1],"matSetId":0},{"id":201,"atkMod":[1.94,1,1,1.94],"bonusMod":[1,1,1,1],"defMod":[1,1,1,1.08,1,1,1,1],"matSetId":1},{"id":202,"atkMod":[2.08,1,1,2.08],"bonusMod":[1,1,1,1],"defMod":[1,1,1,1.16,1,1,1,1],"matSetId":2},{"id":203,"atkMod":[2.22,1,1,2.22],"bonusMod":[1,1,1,1],"defMod":[1,1,1,1.24,1,1,1,1],"matSetId":3},{"id":204,"atkMod":[2.36,1,1,2.36],"bonusMod":[1,1,1,1],"defMod":[1,1,1,1.32,1,1,1,1],"matSetId":4},{"id":205,"atkMod":[2.5,1,1,2.5],"bonusMod":[1,1,1,1],"defMod":[1,1,1,1.4,1,1,1,1],"matSetId":5},{"id":300,"atkMod":[1.5,1,1,1],"bonusMod":[1.1,1.1,1,1],"defMod":[1,1,1,1,1,1,1,1],"matSetId":0},{"id":301,"atkMod":[1.6,1,1,1],"bonusMod":[1.1,1.1,1,1],"defMod":[1,1,1,1,1,1,1,1],"matSetId":1},{"id":302,"atkMod":[1.7,1,1,1],"bonusMod":[1.1,1.1,1,1],"defMod":[1,1,1,1,1,1,1,1],"matSetId":2},{"id":303,"atkMod":[1.8,1,1,1],"bonusMod":[1.1,1.1,1,1],"defMod":[1,1,1,1,1,1,1,1],"matSetId":3},{"id":304,"atkMod":[1.9,1,1,1],"bonusMod":[1.1,1.1,1,1],"defMod":[1,1,1,1,1,1,1,1],"matSetId":4},{"id":305,"atkMod":[2,1,1,1],"bonusMod":[1.1,1.1,1,1],"defMod":[1,1,1,1,1,1,1,1],"matSetId":5},{"id":400,"atkMod":[1.5,1.5,1,1],"bonusMod":[1.1,1.1,1.1,1],"defMod":[1,1,1,1,1,1,1,1],"matSetId":0},{"id":401,"atkMod":[1.6,1.6,1,1],"bonusMod":[1.1,1.1,1.1,1],"defMod":[1,1,1,1,1,1,1,1],"matSetId":1},{"id":402,"atkMod":[1.7,1.7,1,1],"bonusMod":[1.1,1.1,1.1,1],"defMod":[1,1,1,1,1,1,1,1],"matSetId":2},{"id":403,"atkMod":[1.8,1.8,1,1],"bonusMod":[1.1,1.1,1.1,1],"defMod":[1,1,1,1,1,1,1,1],"matSetId":3},{"id":404,"atkMod":[1.9,1.9,1,1],"bonusMod":[1.1,1.1,1.1,1],"defMod":[1,1,1,1,1,1,1,1],"matSetId":4},{"id":405,"atkMod":[2,2,1,1],"bonusMod":[1.1,1.1,1.1,1],"defMod":[1,1,1,1,1,1,1,1],"matSetId":5},{"id":406,"atkMod":[2.1,2.1,1,1],"bonusMod":[1.15,1.15,1.15,1],"defMod":[1,1,1,1,1,1,1,1],"matSetId":6},{"id":407,"atkMod":[2.2,2.2,1,1],"bonusMod":[1.15,1.15,1.15,1],"defMod":[1,1,1,1,1,1,1,1],"matSetId":7},{"id":408,"atkMod":[2.3,2.3,1,1],"bonusMod":[1.15,1.15,1.15,1],"defMod":[1,1,1,1,1,1,1,1],"matSetId":8},{"id":409,"atkMod":[2.4,2.4,1,1],"bonusMod":[1.2,1.2,1.2,1],"defMod":[1,1,1,1,1,1,1,1],"matSetId":9},{"id":410,"atkMod":[2.5,2.5,1,1],"bonusMod":[1.2,1.2,1.2,1],"defMod":[1,1,1,1,1,1,1,1],"matSetId":10},{"id":500,"atkMod":[2,2,1,1],"bonusMod":[1.15,1.15,1.15,1],"defMod":[1,1,1,1,1,1,1,1],"matSetId":0},{"id":501,"atkMod":[2.08,2.06,1,1],"bonusMod":[1.15,1.15,1.28,1],"defMod":[1,1,1,1,1,1,1,1],"matSetId":1},{"id":502,"atkMod":[2.16,2.12,1,1],"bonusMod":[1.15,1.15,1.41,1],"defMod":[1,1,1,1,1,1,1,1],"matSetId":2},{"id":503,"atkMod":[2.24,2.18,1,1],"bonusMod":[1.15,1.15,1.54,1],"defMod":[1,1,1,1,1,1,1,1],"matSetId":3},{"id":504,"atkMod":[2.32,2.24,1,1],"bonusMod":[1.2,1.2,1.67,1],"defMod":[1,1,1,1,1,1,1,1],"matSetId":4},{"id":505,"atkMod":[2.4,2.32,1,1],"bonusMod":[1.2,1.2,1.8,1],"defMod":[1,1,1,1,1,1,1,1],"matSetId":5},{"id":600,"atkMod":[1.5,1.5,1,1],"bonusMod":[1.1,1.1,1,1.1],"defMod":[1,1,1,1,1,1,1,1],"matSetId":0},{"id":601,"atkMod":[1.6,1.6,1,1],"bonusMod":[1.1,1.1,1,1.1],"defMod":[1,1,1,1,1,1,1,1],"matSetId":1},{"id":602,"atkMod":[1.7,1.7,1,1],"bonusMod":[1.1,1.1,1,1.1],"defMod":[1,1,1,1,1,1,1,1],"matSetId":2},{"id":603,"atkMod":[1.8,1.8,1,1],"bonusMod":[1.1,1.1,1,1.1],"defMod":[1,1,1,1,1,1,1,1],"matSetId":3},{"id":604,"atkMod":[1.9,1.9,1,1],"bonusMod":[1.1,1.1,1,1.1],"defMod":[1,1,1,1,1,1,1,1],"matSetId":4},{"id":605,"atkMod":[2,2,1,1],"bonusMod":[1.1,1.1,1,1.1],"defMod":[1,1,1,1,1,1,1,1],"matSetId":5},{"id":606,"atkMod":[2.1,2.1,1,1],"bonusMod":[1.15,1.15,1,1.15],"defMod":[1,1,1,1,1,1,1,1],"matSetId":6},{"id":607,"atkMod":[2.2,2.2,1,1],"bonusMod":[1.15,1.15,1,1.15],"defMod":[1,1,1,1,1,1,1,1],"matSetId":7},{"id":608,"atkMod":[2.3,2.3,1,1],"bonusMod":[1.15,1.15,1,1.15],"defMod":[1,1,1,1,1,1,1,1],"matSetId":8},{"id":609,"atkMod":[2.4,2.4,1,1],"bonusMod":[1.2,1.2,1,1.2],"defMod":[1,1,1,1,1,1,1,1],"matSetId":9},{"id":610,"atkMod":[2.5,2.5,1,1],"bonusMod":[1.2,1.2,1,1.2],"defMod":[1,1,1,1,1,1,1,1],"matSetId":10},{"id":700,"atkMod":[2,2,1,1],"bonusMod":[1.15,1.15,1,1.15],"defMod":[1,1,1,1,1,1,1,1],"matSetId":0},{"id":701,"atkMod":[2.12,2.1,1,1],"bonusMod":[1.15,1.15,1,1.15],"defMod":[1,1,1,1,1,1,1,1],"matSetId":1},{"id":702,"atkMod":[2.24,2.2,1,1],"bonusMod":[1.15,1.15,1,1.15],"defMod":[1,1,1,1,1,1,1,1],"matSetId":2},{"id":703,"atkMod":[2.36,2.3,1,1],"bonusMod":[1.15,1.15,1,1.15],"defMod":[1,1,1,1,1,1,1,1],"matSetId":3},{"id":704,"atkMod":[2.48,2.4,1,1],"bonusMod":[1.2,1.2,1,1.2],"defMod":[1,1,1,1,1,1,1,1],"matSetId":4},{"id":705,"atkMod":[2.6,2.5,1,1],"bonusMod":[1.2,1.2,1,1.2],"defMod":[1,1,1,1,1,1,1,1],"matSetId":5},{"id":800,"atkMod":[1.3,1,1.3,1],"bonusMod":[1,1,1,1],"defMod":[1,1,1,1,1,1,1,1],"matSetId":0},{"id":801,"atkMod":[1.4,1,1.4,1],"bonusMod":[1,1,1,1],"defMod":[1,1,1.01,1,1,1,1,1],"matSetId":1},{"id":802,"atkMod":[1.5,1,1.5,1],"bonusMod":[1,1,1,1],"defMod":[1,1,1.02,1,1,1,1,1],"matSetId":2},{"id":803,"atkMod":[1.6,1,1.6,1],"bonusMod":[1,1,1,1],"defMod":[1,1,1.03,1,1,1,1,1],"matSetId":3},{"id":804,"atkMod":[1.7,1,1.7,1],"bonusMod":[1,1,1,1],"defMod":[1,1,1.04,1,1,1,1,1],"matSetId":4},{"id":805,"atkMod":[1.8,1,1.8,1],"bonusMod":[1,1,1,1],"defMod":[1,1,1.05,1,1,1,1,1],"matSetId":5},{"id":806,"atkMod":[1.92,1,1.92,1],"bonusMod":[1,1,1,1],"defMod":[1,1,1.06,1,1,1,1,1],"matSetId":6},{"id":807,"atkMod":[2.04,1,2.04,1],"bonusMod":[1,1,1,1],"defMod":[1,1,1.07,1,1,1,1,1],"matSetId":7},{"id":808,"atkMod":[2.16,1,2.16,1],"bonusMod":[1,1,1,1],"defMod":[1,1,1.08,1,1,1,1,1],"matSetId":8},{"id":809,"atkMod":[2.28,1,2.28,1],"bonusMod":[1,1,1,1],"defMod":[1,1,1.09,1,1,1,1,1],"matSetId":9},{"id":810,"atkMod":[2.4,1,2.4,1],"bonusMod":[1,1,1,1],"defMod":[1,1,1.1,1,1,1,1,1],"matSetId":10},{"id":900,"atkMod":[1.8,1,1.8,1],"bonusMod":[1,1,1,1],"defMod":[1,1,1,1,1,1,1,1],"matSetId":0},{"id":901,"atkMod":[1.9,1,1.9,1],"bonusMod":[1,1,1,1],"defMod":[1,1,1.02,1,1,1,1,1],"matSetId":1},{"id":902,"atkMod":[2,1,2,1],"bonusMod":[1,1,1,1],"defMod":[1,1,1.04,1,1,1,1,1],"matSetId":2},{"id":903,"atkMod":[2.1,1,2.1,1],"bonusMod":[1,1,1,1],"defMod":[1,1,1.06,1,1,1,1,1],"matSetId":3},{"id":904,"atkMod":[2.2,1,2.2,1],"bonusMod":[1,1,1,1],"defMod":[1,1,1.08,1,1,1,1,1],"matSetId":4},{"id":905,"atkMod":[2.3,1,2.3,1],"bonusMod":[1,1,1,1],"defMod":[1,1,1.1,1,1,1,1,1],"matSetId":5},{"id":1000,"atkMod":[1,1,1,1],"bonusMod":[1,1,1,1],"defMod":[1,1,1,1,1,1,1,1],"matSetId":0},{"id":1001,"atkMod":[1.1,1.1,1.1,1.1],"bonusMod":[1,1,1,1],"defMod":[1,1,1,1,1,1,1,1],"matSetId":1},{"id":1002,"atkMod":[1.2,1.2,1.2,1.2],"bonusMod":[1,1,1,1],"defMod":[1,1,1,1,1,1,1,1],"matSetId":2},{"id":1003,"atkMod":[1.3,1.3,1.3,1.3],"bonusMod":[1,1,1,1],"defMod":[1,1,1,1,1,1,1,1],"matSetId":3},{"id":1004,"atkMod":[1.4,1.4,1.4,1.4],"bonusMod":[1,1,1,1],"defMod":[1,1,1,1,1,1,1,1],"matSetId":4},{"id":1005,"atkMod":[1.5,1.5,1.5,1.5],"bonusMod":[1,1,1,1],"defMod":[1,1,1,1,1,1,1,1],"matSetId":5},{"id":1100,"atkMod":[1,1,1,1],"bonusMod":[1,1,1,1],"defMod":[1,1,1,1,1,1,1,1],"matSetId":0},{"id":1101,"atkMod":[1.1,1.1,1.1,1.1],"bonusMod":[1.05,1.05,1.05,1.05],"defMod":[1,1,1,1,1,1,1,1],"matSetId":1},{"id":1102,"atkMod":[1.2,1.2,1.2,1.2],"bonusMod":[1.1,1.1,1.1,1.1],"defMod":[1,1,1,1,1,1,1,1],"matSetId":2},{"id":1103,"atkMod":[1.3,1.3,1.3,1.3],"bonusMod":[1.1,1.1,1.1,1.1],"defMod":[1,1,1,1,1,1,1,1],"matSetId":3},{"id":1104,"atkMod":[1.4,1.4,1.4,1.4],"bonusMod":[1.15,1.15,1.15,1.15],"defMod":[1,1,1,1,1,1,1,1],"matSetId":4},{"id":1105,"atkMod":[1.5,1.5,1.5,1.5],"bonusMod":[1.2,1.2,1.2,1.2],"defMod":[1,1,1,1,1,1,1,1],"matSetId":5},{"id":1200,"atkMod":[1,1,1,1],"bonusMod":[1,1,1,1],"defMod":[1,1,1,1,1,1,1,1],"matSetId":0},{"id":1201,"atkMod":[1.1,1.1,1.1,1.1],"bonusMod":[1,1,1,1],"defMod":[1,1,1,1,1,1,1,1],"matSetId":1},{"id":1202,"atkMod":[1.2,1.2,1.2,1.2],"bonusMod":[1,1,1,1],"defMod":[1,1,1,1,1,1,1,1],"matSetId":2},{"id":1203,"atkMod":[1.3,1.3,1.3,1.3],"bonusMod":[1,1,1,1],"defMod":[1,1,1,1,1,1,1,1],"matSetId":3},{"id":1204,"atkMod":[1.4,1.4,1.4,1.4],"bonusMod":[1,1,1,1],"defMod":[1,1,1,1,1,1,1,1],"matSetId":4},{"id":1205,"atkMod":[1.5,1.5,1.5,1.5],"bonusMod":[1,1,1,1],"defMod":[1,1,1,1,1,1,1,1],"matSetId":5},{"id":1300,"atkMod":[1,1,1,1],"bonusMod":[1,1,1,1],"defMod":[1,1,1,1,1,1,1,1],"matSetId":0},{"id":1301,"atkMod":[1.05,1.05,1.05,1.05],"bonusMod":[1,1,1,1],"defMod":[1,1,1,1,1,1,1,1.05],"matSetId":1},{"id":1302,"atkMod":[1.1,1.1,1.1,1.1],"bonusMod":[1,1,1,1],"defMod":[1,1,1,1,1,1,1,1.1],"matSetId":2},{"id":1303,"atkMod":[1.15,1.15,1.15,1.15],"bonusMod":[1,1,1,1],"defMod":[1,1,1,1,1,1,1,1.15],"matSetId":3},{"id":1304,"atkMod":[1.2,1.2,1.2,1.2],"bonusMod":[1,1,1,1],"defMod":[1,1,1,1,1,1,1,1.2],"matSetId":4},{"id":1305,"atkMod":[1.25,1.25,1.25,1.25],"bonusMod":[1,1,1,1],"defMod":[1,1,1,1,1,1,1,1.3],"matSetId":5},{"id":1400,"atkMod":[1,1,1,1],"bonusMod":[1,1,1,1],"defMod":[1,1,1,1,1,1,1,1],"matSetId":0},{"id":1401,"atkMod":[1.05,1.05,1.05,1.05],"bonusMod":[1,1,1,1],"defMod":[1,1,1,1,1,1,1,1.04],"matSetId":1},{"id":1402,"atkMod":[1.1,1.1,1.1,1.1],"bonusMod":[1,1,1,1],"defMod":[1,1,1,1,1,1,1,1.08],"matSetId":2},{"id":1403,"atkMod":[1.15,1.15,1.15,1.15],"bonusMod":[1,1,1,1],"defMod":[1,1,1,1,1,1,1,1.12],"matSetId":3},{"id":1404,"atkMod":[1.2,1.2,1.2,1.2],"bonusMod":[1,1,1,1],"defMod":[1,1,1,1,1,1,1,1.16],"matSetId":4},{"id":1405,"atkMod":[1.25,1.25,1.25,1.25],"bonusMod":[1,1,1,1],"defMod":[1,1,1,1,1,1,1,1.2],"matSetId":5},{"id":1500,"atkMod":[1,1,1,1],"bonusMod":[1,1,1,1],"defMod":[1,1,1,1,1,1,1,1],"matSetId":0},{"id":1501,"atkMod":[1.05,1.05,1.05,1.05],"bonusMod":[1,1,1,1],"defMod":[1,1,1,1,1,1,1,1],"matSetId":1},{"id":1502,"atkMod":[1.1,1.1,1.1,1.1],"bonusMod":[1,1,1,1],"defMod":[1,1,1,1,1,1,1,1],"matSetId":2},{"id":1503,"atkMod":[1.15,1.15,1.15,1.15],"bonusMod":[1,1,1,1],"defMod":[1,1,1,1,1,1,1,1],"matSetId":3},{"id":1504,"atkMod":[1.2,1.2,1.2,1.2],"bonusMod":[1,1,1,1],"defMod":[1,1,1,1,1,1,1,1],"matSetId":4},{"id":1505,"atkMod":[1.25,1.25,1.25,1.25],"bonusMod":[1,1,1,1],"defMod":[1,1,1,1,1,1,1,1],"matSetId":5},{"id":2000,"atkMod":[1,1,1,1],"bonusMod":[1,1,1,1],"defMod":[1,1,1,1,1,1,1,1],"matSetId":0},{"id":2001,"atkMod":[1.1,1,1,1],"bonusMod":[1.05,1.05,1,1],"defMod":[1,1,1,1,1,1,1,1],"matSetId":1},{"id":2002,"atkMod":[1.2,1,1,1],"bonusMod":[1.05,1.05,1,1],"defMod":[1,1,1,1,1,1,1,1],"matSetId":2},{"id":2003,"atkMod":[1.3,1,1,1],"bonusMod":[1.05,1.05,1,1],"defMod":[1,1,1,1,1,1,1,1],"matSetId":3},{"id":2004,"atkMod":[1.4,1,1,1],"bonusMod":[1.05,1.05,1,1],"defMod":[1,1,1,1,1,1,1,1],"matSetId":4},{"id":2005,"atkMod":[1.5,1,1,1],"bonusMod":[1.05,1.05,1,1],"defMod":[1,1,1,1,1,1,1,1],"matSetId":5},{"id":2006,"atkMod":[1.57,1,1,1],"bonusMod":[1.1,1.1,1,1],"defMod":[1,1,1,1,1,1,1,1],"matSetId":6},{"id":2007,"atkMod":[1.64,1,1,1],"bonusMod":[1.1,1.1,1,1],"defMod":[1,1,1,1,1,1,1,1],"matSetId":7},{"id":2008,"atkMod":[1.71,1,1,1],"bonusMod":[1.1,1.1,1,1],"defMod":[1,1,1,1,1,1,1,1],"matSetId":8},{"id":2009,"atkMod":[1.78,1,1,1],"bonusMod":[1.1,1.1,1,1],"defMod":[1,1,1,1,1,1,1,1],"matSetId":9},{"id":2010,"atkMod":[1.85,1,1,1],"bonusMod":[1.1,1.1,1,1],"defMod":[1,1,1,1,1,1,1,1],"matSetId":10},{"id":2011,"atkMod":[1.9,1,1,1],"bonusMod":[1.15,1.15,1,1],"defMod":[1,1,1,1,1,1,1,1],"matSetId":11},{"id":2012,"atkMod":[1.95,1,1,1],"bonusMod":[1.15,1.15,1,1],"defMod":[1,1,1,1,1,1,1,1],"matSetId":12},{"id":2013,"atkMod":[2,1,1,1],"bonusMod":[1.15,1.15,1,1],"defMod":[1,1,1,1,1,1,1,1],"matSetId":13},{"id":2014,"atkMod":[2.05,1,1,1],"bonusMod":[1.2,1.2,1,1],"defMod":[1,1,1,1,1,1,1,1],"matSetId":14},{"id":2015,"atkMod":[2.1,1,1,1],"bonusMod":[1.2,1.2,1,1],"defMod":[1,1,1,1,1,1,1,1],"matSetId":15},{"id":2100,"atkMod":[2,1,1,1],"bonusMod":[1.15,1.15,1,1],"defMod":[1,1,1,1,1,1,1,1],"matSetId":0},{"id":2101,"atkMod":[2.05,1,1,1],"bonusMod":[1.15,1.15,1,1],"defMod":[1,1,1,1,1,1,1,1],"matSetId":1},{"id":2102,"atkMod":[2.1,1,1,1],"bonusMod":[1.15,1.15,1,1],"defMod":[1,1,1,1,1,1,1,1],"matSetId":2},{"id":2103,"atkMod":[2.15,1,1,1],"bonusMod":[1.15,1.15,1,1],"defMod":[1,1,1,1,1,1,1,1],"matSetId":3},{"id":2104,"atkMod":[2.2,1,1,1],"bonusMod":[1.2,1.2,1,1],"defMod":[1,1,1,1,1,1,1,1],"matSetId":4},{"id":2105,"atkMod":[2.25,1,1,1],"bonusMod":[1.2,1.2,1,1],"defMod":[1,1,1,1,1,1,1,1],"matSetId":5},{"id":2200,"atkMod":[1.71,1,1,1.71],"bonusMod":[1,1,1,1],"defMod":[1,1,1,1,1,1,1,1],"matSetId":0},{"id":2201,"atkMod":[1.77,1,1,1.77],"bonusMod":[1,1,1,1],"defMod":[1,1,1,1.08,1,1,1,1],"matSetId":1},{"id":2202,"atkMod":[1.83,1,1,1.83],"bonusMod":[1,1,1,1],"defMod":[1,1,1,1.16,1,1,1,1],"matSetId":2},{"id":2203,"atkMod":[1.89,1,1,1.89],"bonusMod":[1,1,1,1],"defMod":[1,1,1,1.24,1,1,1,1],"matSetId":3},{"id":2204,"atkMod":[1.95,1,1,1.95],"bonusMod":[1,1,1,1],"defMod":[1,1,1,1.32,1,1,1,1],"matSetId":4},{"id":2205,"atkMod":[2.04,1,1,2.04],"bonusMod":[1,1,1,1],"defMod":[1,1,1,1.4,1,1,1,1],"matSetId":5},{"id":2300,"atkMod":[1.5,1,1,1],"bonusMod":[1.1,1.1,1,1],"defMod":[1,1,1,1,1,1,1,1],"matSetId":0},{"id":2301,"atkMod":[1.57,1,1,1],"bonusMod":[1.1,1.1,1,1],"defMod":[1,1,1,1,1,1,1,1],"matSetId":1},{"id":2302,"atkMod":[1.64,1,1,1],"bonusMod":[1.1,1.1,1,1],"defMod":[1,1,1,1,1,1,1,1],"matSetId":2},{"id":2303,"atkMod":[1.71,1,1,1],"bonusMod":[1.1,1.1,1,1],"defMod":[1,1,1,1,1,1,1,1],"matSetId":3},{"id":2304,"atkMod":[1.78,1,1,1],"bonusMod":[1.1,1.1,1,1],"defMod":[1,1,1,1,1,1,1,1],"matSetId":4},{"id":2305,"atkMod":[1.85,1,1,1],"bonusMod":[1.1,1.1,1,1],"defMod":[1,1,1,1,1,1,1,1],"matSetId":5},{"id":2400,"atkMod":[1.5,1.5,1,1],"bonusMod":[1.1,1.1,1.1,1],"defMod":[1,1,1,1,1,1,1,1],"matSetId":0},{"id":2401,"atkMod":[1.57,1.57,1,1],"bonusMod":[1.1,1.1,1.1,1],"defMod":[1,1,1,1,1,1,1,1],"matSetId":1},{"id":2402,"atkMod":[1.64,1.64,1,1],"bonusMod":[1.1,1.1,1.1,1],"defMod":[1,1,1,1,1,1,1,1],"matSetId":2},{"id":2403,"atkMod":[1.71,1.71,1,1],"bonusMod":[1.1,1.1,1.1,1],"defMod":[1,1,1,1,1,1,1,1],"matSetId":3},{"id":2404,"atkMod":[1.78,1.78,1,1],"bonusMod":[1.1,1.1,1.1,1],"defMod":[1,1,1,1,1,1,1,1],"matSetId":4},{"id":2405,"atkMod":[1.85,1.85,1,1],"bonusMod":[1.1,1.1,1.1,1],"defMod":[1,1,1,1,1,1,1,1],"matSetId":5},{"id":2406,"atkMod":[1.9,1.9,1,1],"bonusMod":[1.15,1.15,1.15,1],"defMod":[1,1,1,1,1,1,1,1],"matSetId":6},{"id":2407,"atkMod":[1.95,1.95,1,1],"bonusMod":[1.15,1.15,1.15,1],"defMod":[1,1,1,1,1,1,1,1],"matSetId":7},{"id":2408,"atkMod":[2,2,1,1],"bonusMod":[1.15,1.15,1.15,1],"defMod":[1,1,1,1,1,1,1,1],"matSetId":8},{"id":2409,"atkMod":[2.05,2.05,1,1],"bonusMod":[1.2,1.2,1.2,1],"defMod":[1,1,1,1,1,1,1,1],"matSetId":9},{"id":2410,"atkMod":[2.1,2.1,1,1],"bonusMod":[1.2,1.2,1.2,1],"defMod":[1,1,1,1,1,1,1,1],"matSetId":10},{"id":2500,"atkMod":[1.8,1.8,1,1],"bonusMod":[1.15,1.15,1.15,1],"defMod":[1,1,1,1,1,1,1,1],"matSetId":0},{"id":2501,"atkMod":[1.74,1.73,1,1],"bonusMod":[1.15,1.15,1.28,1],"defMod":[1,1,1,1,1,1,1,1],"matSetId":1},{"id":2502,"atkMod":[1.79,1.78,1,1],"bonusMod":[1.15,1.15,1.41,1],"defMod":[1,1,1,1,1,1,1,1],"matSetId":2},{"id":2503,"atkMod":[1.84,1.83,1,1],"bonusMod":[1.15,1.15,1.54,1],"defMod":[1,1,1,1,1,1,1,1],"matSetId":3},{"id":2504,"atkMod":[1.89,1.88,1,1],"bonusMod":[1.2,1.2,1.67,1],"defMod":[1,1,1,1,1,1,1,1],"matSetId":4},{"id":2505,"atkMod":[1.94,1.93,1,1],"bonusMod":[1.2,1.2,1.8,1],"defMod":[1,1,1,1,1,1,1,1],"matSetId":5},{"id":2600,"atkMod":[1.5,1.5,1,1],"bonusMod":[1.1,1.1,1,1.1],"defMod":[1,1,1,1,1,1,1,1],"matSetId":0},{"id":2601,"atkMod":[1.57,1.57,1,1],"bonusMod":[1.1,1.1,1,1.1],"defMod":[1,1,1,1,1,1,1,1],"matSetId":1},{"id":2602,"atkMod":[1.64,1.64,1,1],"bonusMod":[1.1,1.1,1,1.1],"defMod":[1,1,1,1,1,1,1,1],"matSetId":2},{"id":2603,"atkMod":[1.71,1.71,1,1],"bonusMod":[1.1,1.1,1,1.1],"defMod":[1,1,1,1,1,1,1,1],"matSetId":3},{"id":2604,"atkMod":[1.78,1.78,1,1],"bonusMod":[1.1,1.1,1,1.1],"defMod":[1,1,1,1,1,1,1,1],"matSetId":4},{"id":2605,"atkMod":[1.85,1.85,1,1],"bonusMod":[1.1,1.1,1,1.1],"defMod":[1,1,1,1,1,1,1,1],"matSetId":5},{"id":2606,"atkMod":[1.9,1.9,1,1],"bonusMod":[1.15,1.15,1,1.15],"defMod":[1,1,1,1,1,1,1,1],"matSetId":6},{"id":2607,"atkMod":[1.95,1.95,1,1],"bonusMod":[1.15,1.15,1,1.15],"defMod":[1,1,1,1,1,1,1,1],"matSetId":7},{"id":2608,"atkMod":[2,2,1,1],"bonusMod":[1.15,1.15,1,1.15],"defMod":[1,1,1,1,1,1,1,1],"matSetId":8},{"id":2609,"atkMod":[2.05,2.05,1,1],"bonusMod":[1.2,1.2,1,1.2],"defMod":[1,1,1,1,1,1,1,1],"matSetId":9},{"id":2610,"atkMod":[2.1,2.1,1,1],"bonusMod":[1.2,1.2,1,1.2],"defMod":[1,1,1,1,1,1,1,1],"matSetId":10},{"id":2700,"atkMod":[1.85,1.85,1,1],"bonusMod":[1.15,1.15,1,1.15],"defMod":[1,1,1,1,1,1,1,1],"matSetId":0},{"id":2701,"atkMod":[1.91,1.9,1,1],"bonusMod":[1.15,1.15,1,1.15],"defMod":[1,1,1,1,1,1,1,1],"matSetId":1},{"id":2702,"atkMod":[1.97,1.95,1,1],"bonusMod":[1.15,1.15,1,1.15],"defMod":[1,1,1,1,1,1,1,1],"matSetId":2},{"id":2703,"atkMod":[2.03,2,1,1],"bonusMod":[1.15,1.15,1,1.15],"defMod":[1,1,1,1,1,1,1,1],"matSetId":3},{"id":2704,"atkMod":[2.09,2.05,1,1],"bonusMod":[1.2,1.2,1,1.2],"defMod":[1,1,1,1,1,1,1,1],"matSetId":4},{"id":2705,"atkMod":[2.15,2.1,1,1],"bonusMod":[1.2,1.2,1,1.2],"defMod":[1,1,1,1,1,1,1,1],"matSetId":5},{"id":2800,"atkMod":[1.34,1,1.34,1],"bonusMod":[1,1,1,1],"defMod":[1,1,1,1,1,1,1,1],"matSetId":0},{"id":2801,"atkMod":[1.41,1,1.41,1],"bonusMod":[1,1,1,1],"defMod":[1,1,1.01,1,1,1,1,1],"matSetId":1},{"id":2802,"atkMod":[1.48,1,1.48,1],"bonusMod":[1,1,1,1],"defMod":[1,1,1.02,1,1,1,1,1],"matSetId":2},{"id":2803,"atkMod":[1.55,1,1.55,1],"bonusMod":[1,1,1,1],"defMod":[1,1,1.03,1,1,1,1,1],"matSetId":3},{"id":2804,"atkMod":[1.62,1,1.62,1],"bonusMod":[1,1,1,1],"defMod":[1,1,1.04,1,1,1,1,1],"matSetId":4},{"id":2805,"atkMod":[1.71,1,1.71,1],"bonusMod":[1,1,1,1],"defMod":[1,1,1.05,1,1,1,1,1],"matSetId":5},{"id":2806,"atkMod":[1.75,1,1.75,1],"bonusMod":[1,1,1,1],"defMod":[1,1,1.06,1,1,1,1,1],"matSetId":6},{"id":2807,"atkMod":[1.79,1,1.79,1],"bonusMod":[1,1,1,1],"defMod":[1,1,1.07,1,1,1,1,1],"matSetId":7},{"id":2808,"atkMod":[1.83,1,1.83,1],"bonusMod":[1,1,1,1],"defMod":[1,1,1.08,1,1,1,1,1],"matSetId":8},{"id":2809,"atkMod":[1.87,1,1.87,1],"bonusMod":[1,1,1,1],"defMod":[1,1,1.09,1,1,1,1,1],"matSetId":9},{"id":2810,"atkMod":[1.95,1,1.95,1],"bonusMod":[1,1,1,1],"defMod":[1,1,1.1,1,1,1,1,1],"matSetId":10},{"id":2900,"atkMod":[1.71,1,1.71,1],"bonusMod":[1,1,1,1],"defMod":[1,1,1,1,1,1,1,1],"matSetId":0},{"id":2901,"atkMod":[1.74,1,1.74,1],"bonusMod":[1,1,1,1],"defMod":[1,1,1.02,1,1,1,1,1],"matSetId":1},{"id":2902,"atkMod":[1.77,1,1.77,1],"bonusMod":[1,1,1,1],"defMod":[1,1,1.04,1,1,1,1,1],"matSetId":2},{"id":2903,"atkMod":[1.8,1,1.8,1],"bonusMod":[1,1,1,1],"defMod":[1,1,1.06,1,1,1,1,1],"matSetId":3},{"id":2904,"atkMod":[1.83,1,1.83,1],"bonusMod":[1,1,1,1],"defMod":[1,1,1.08,1,1,1,1,1],"matSetId":4},{"id":2905,"atkMod":[1.88,1,1.88,1],"bonusMod":[1,1,1,1],"defMod":[1,1,1.1,1,1,1,1,1],"matSetId":5},{"id":3200,"atkMod":[2.4,1,1,2.8],"bonusMod":[1,1,1,1],"defMod":[1,1,1,1,1,1,1,1],"matSetId":0},{"id":3201,"atkMod":[2.58,1,1,2.98],"bonusMod":[1,1,1,1],"defMod":[1,1,1,1,1,1,1,1],"matSetId":1},{"id":3202,"atkMod":[2.76,1,1,3.16],"bonusMod":[1,1,1,1],"defMod":[1,1,1,1,1,1,1,1],"matSetId":2},{"id":3203,"atkMod":[2.94,1,1,3.34],"bonusMod":[1,1,1,1],"defMod":[1,1,1,1,1,1,1,1],"matSetId":3},{"id":3204,"atkMod":[3.12,1,1,3.52],"bonusMod":[1,1,1,1],"defMod":[1,1,1,1,1,1,1,1],"matSetId":4},{"id":3205,"atkMod":[3.3,1,1,3.7],"bonusMod":[1,1,1,1],"defMod":[1,1,1,1,1,1,1,1],"matSetId":5},{"id":3800,"atkMod":[1.5,1,1.5,1],"bonusMod":[1,1,1,1],"defMod":[1,1,1,1,1,1,1,1],"matSetId":0},{"id":3801,"atkMod":[1.68,1,1.68,1],"bonusMod":[1,1,1,1],"defMod":[1,1,1,1,1,1,1,1],"matSetId":1},{"id":3802,"atkMod":[1.86,1,1.86,1],"bonusMod":[1,1,1,1],"defMod":[1,1,1,1,1,1,1,1],"matSetId":2},{"id":3803,"atkMod":[2.04,1,2.04,1],"bonusMod":[1,1,1,1],"defMod":[1,1,1,1,1,1,1,1],"matSetId":3},{"id":3804,"atkMod":[2.22,1,2.22,1],"bonusMod":[1,1,1,1],"defMod":[1,1,1,1,1,1,1,1],"matSetId":4},{"id":3805,"atkMod":[2.4,1,2.4,1],"bonusMod":[1,1,1,1],"defMod":[1,1,1,1,1,1,1,1],"matSetId":5},{"id":3806,"atkMod":[2.58,1,2.58,1],"bonusMod":[1,1,1,1],"defMod":[1,1,1,1,1,1,1,1],"matSetId":6},{"id":3807,"atkMod":[2.76,1,2.76,1],"bonusMod":[1,1,1,1],"defMod":[1,1,1,1,1,1,1,1],"matSetId":7},{"id":3808,"atkMod":[2.94,1,2.94,1],"bonusMod":[1,1,1,1],"defMod":[1,1,1,1,1,1,1,1],"matSetId":8},{"id":3809,"atkMod":[3.12,1,3.12,1],"bonusMod":[1,1,1,1],"defMod":[1,1,1,1,1,1,1,1],"matSetId":9},{"id":3810,"atkMod":[3.3,1,3.3,1],"bonusMod":[1,1,1,1],"defMod":[1,1,1,1,1,1,1,1],"matSetId":10},{"id":3900,"atkMod":[1.9,1,2.1,1],"bonusMod":[1,1,1,1],"defMod":[1,1,1,1,1,1,1,1],"matSetId":0},{"id":3901,"atkMod":[2.05,1,2.29,1],"bonusMod":[1,1,1,1],"defMod":[1,1,1,1,1,1,1,1],"matSetId":1},{"id":3902,"atkMod":[2.2,1,2.48,1],"bonusMod":[1,1,1,1],"defMod":[1,1,1,1,1,1,1,1],"matSetId":2},{"id":3903,"atkMod":[2.35,1,2.67,1],"bonusMod":[1,1,1,1],"defMod":[1,1,1,1,1,1,1,1],"matSetId":3},{"id":3904,"atkMod":[2.5,1,2.86,1],"bonusMod":[1,1,1,1],"defMod":[1,1,1,1,1,1,1,1],"matSetId":4},{"id":3905,"atkMod":[2.65,1,3.05,1],"bonusMod":[1,1,1,1],"defMod":[1,1,1,1,1,1,1,1],"matSetId":5},{"id":5000,"atkMod":[1,1,1,1],"bonusMod":[1,1,1,1],"defMod":[1,1,1,1,1,1,1,1],"matSetId":0},{"id":5001,"atkMod":[1.05,1,1,1],"bonusMod":[1,1,1,1],"defMod":[1,1,1,1,1,1,1,1.01],"matSetId":1},{"id":5002,"atkMod":[1.1,1,1,1],"bonusMod":[1,1,1,1],"defMod":[1,1,1,1,1,1,1,1.02],"matSetId":2},{"id":5003,"atkMod":[1.15,1,1,1],"bonusMod":[1,1,1,1],"defMod":[1,1,1,1,1,1,1,1.03],"matSetId":3},{"id":5004,"atkMod":[1.2,1,1,1],"bonusMod":[1,1,1,1],"defMod":[1,1,1,1,1,1,1,1.04],"matSetId":4},{"id":5005,"atkMod":[1.25,1,1,1],"bonusMod":[1,1,1,1],"defMod":[1,1,1,1,1,1,1,1.05],"matSetId":5},{"id":5006,"atkMod":[1.31,1,1,1],"bonusMod":[1,1,1,1],"defMod":[1,1,1,1,1,1,1,1.08],"matSetId":6},{"id":5007,"atkMod":[1.37,1,1,1],"bonusMod":[1,1,1,1],"defMod":[1,1,1,1,1,1,1,1.09],"matSetId":7},{"id":5008,"atkMod":[1.43,1,1,1],"bonusMod":[1,1,1,1],"defMod":[1,1,1,1,1,1,1,1.1],"matSetId":8},{"id":5009,"atkMod":[1.49,1,1,1],"bonusMod":[1,1,1,1],"defMod":[1,1,1,1,1,1,1,1.11],"matSetId":9},{"id":5010,"atkMod":[1.55,1,1,1],"bonusMod":[1,1,1,1],"defMod":[1,1,1,1,1,1,1,1.12],"matSetId":10},{"id":5011,"atkMod":[1.62,1,1,1],"bonusMod":[1,1,1,1],"defMod":[1,1,1,1,1,1,1,1.14],"matSetId":11},{"id":5012,"atkMod":[1.69,1,1,1],"bonusMod":[1,1,1,1],"defMod":[1,1,1,1,1,1,1,1.15],"matSetId":12},{"id":5013,"atkMod":[1.76,1,1,1],"bonusMod":[1,1,1,1],"defMod":[1,1,1,1,1,1,1,1.16],"matSetId":13},{"id":5014,"atkMod":[1.83,1,1,1],"bonusMod":[1,1,1,1],"defMod":[1,1,1,1,1,1,1,1.18],"matSetId":14},{"id":5015,"atkMod":[2,1,1,1],"bonusMod":[1,1,1,1],"defMod":[1,1,1,1,1,1,1,1.2],"matSetId":15},{"id":5100,"atkMod":[1.55,1,1,1],"bonusMod":[1,1,1,1],"defMod":[1,1,1,1,1,1,1,1.2],"matSetId":0},{"id":5101,"atkMod":[1.62,1,1,1],"bonusMod":[1,1,1,1],"defMod":[1,1,1,1,1,1,1,1.21],"matSetId":1},{"id":5102,"atkMod":[1.69,1,1,1],"bonusMod":[1,1,1,1],"defMod":[1,1,1,1,1,1,1,1.22],"matSetId":2},{"id":5103,"atkMod":[1.76,1,1,1],"bonusMod":[1,1,1,1],"defMod":[1,1,1,1,1,1,1,1.23],"matSetId":3},{"id":5104,"atkMod":[1.83,1,1,1],"bonusMod":[1,1,1,1],"defMod":[1,1,1,1,1,1,1,1.24],"matSetId":4},{"id":5105,"atkMod":[2,1,1,1],"bonusMod":[1,1,1,1],"defMod":[1,1,1,1,1,1,1,1.25],"matSetId":5},{"id":5200,"atkMod":[1.2,1,1,1.2],"bonusMod":[1,1,1,1],"defMod":[1,1,1,1.12,1,1,1,1],"matSetId":0},{"id":5201,"atkMod":[1.28,1,1,1.28],"bonusMod":[1,1,1,1],"defMod":[1,1,1,1.14,1,1,1,1],"matSetId":1},{"id":5202,"atkMod":[1.36,1,1,1.36],"bonusMod":[1,1,1,1],"defMod":[1,1,1,1.15,1,1,1,1],"matSetId":2},{"id":5203,"atkMod":[1.44,1,1,1.44],"bonusMod":[1,1,1,1],"defMod":[1,1,1,1.16,1,1,1,1],"matSetId":3},{"id":5204,"atkMod":[1.52,1,1,1.52],"bonusMod":[1,1,1,1],"defMod":[1,1,1,1.18,1,1,1,1],"matSetId":4},{"id":5205,"atkMod":[1.6,1,1,1.6],"bonusMod":[1,1,1,1],"defMod":[1,1,1,1.2,1,1,1,1],"matSetId":5},{"id":5400,"atkMod":[1.25,1.25,1,1],"bonusMod":[1,1,1,1],"defMod":[1,1,1,1,1,1,1,1],"matSetId":0},{"id":5401,"atkMod":[1.31,1.31,1,1],"bonusMod":[1,1,1,1],"defMod":[1,1.02,1,1,1,1,1,1],"matSetId":1},{"id":5402,"atkMod":[1.37,1.37,1,1],"bonusMod":[1,1,1,1],"defMod":[1,1.04,1,1,1,1,1,1],"matSetId":2},{"id":5403,"atkMod":[1.43,1.43,1,1],"bonusMod":[1,1,1,1],"defMod":[1,1.06,1,1,1,1,1,1],"matSetId":3},{"id":5404,"atkMod":[1.49,1.49,1,1],"bonusMod":[1,1,1,1],"defMod":[1,1.08,1,1,1,1,1,1],"matSetId":4},{"id":5405,"atkMod":[1.55,1.55,1,1],"bonusMod":[1,1,1,1],"defMod":[1,1.1,1,1,1,1,1,1],"matSetId":5},{"id":5406,"atkMod":[1.62,1.62,1,1],"bonusMod":[1,1,1,1],"defMod":[1,1.12,1,1,1,1,1,1],"matSetId":6},{"id":5407,"atkMod":[1.69,1.69,1,1],"bonusMod":[1,1,1,1],"defMod":[1,1.14,1,1,1,1,1,1],"matSetId":7},{"id":5408,"atkMod":[1.76,1.76,1,1],"bonusMod":[1,1,1,1],"defMod":[1,1.16,1,1,1,1,1,1],"matSetId":8},{"id":5409,"atkMod":[1.83,1.83,1,1],"bonusMod":[1,1,1,1],"defMod":[1,1.18,1,1,1,1,1,1],"matSetId":9},{"id":5410,"atkMod":[2,2,1,1],"bonusMod":[1,1,1,1],"defMod":[1,1.2,1,1,1,1,1,1],"matSetId":10},{"id":5600,"atkMod":[1.25,1.25,1,1],"bonusMod":[1,1,1,1],"defMod":[1,1,1,1,1,1,1,1],"matSetId":0},{"id":5601,"atkMod":[1.31,1.31,1,1],"bonusMod":[1,1,1,1],"defMod":[1,1,1,1,1,1,1,1],"matSetId":1},{"id":5602,"atkMod":[1.37,1.37,1,1],"bonusMod":[1,1,1,1],"defMod":[1,1,1,1,1,1,1,1],"matSetId":2},{"id":5603,"atkMod":[1.43,1.43,1,1],"bonusMod":[1,1,1,1],"defMod":[1,1,1,1,1,1,1,1],"matSetId":3},{"id":5604,"atkMod":[1.49,1.49,1,1],"bonusMod":[1,1,1,1],"defMod":[1,1,1,1,1,1,1,1],"matSetId":4},{"id":5605,"atkMod":[1.55,1.55,1,1],"bonusMod":[1,1,1,1],"defMod":[1,1,1,1,1,1,1,1],"matSetId":5},{"id":5606,"atkMod":[1.62,1.62,1,1],"bonusMod":[1,1,1,1],"defMod":[1,1,1,1,1,1,1,1],"matSetId":6},{"id":5607,"atkMod":[1.69,1.69,1,1],"bonusMod":[1,1,1,1],"defMod":[1,1,1,1,1,1,1,1],"matSetId":7},{"id":5608,"atkMod":[1.76,1.76,1,1],"bonusMod":[1,1,1,1],"defMod":[1,1,1,1,1,1,1,1],"matSetId":8},{"id":5609,"atkMod":[1.83,1.83,1,1],"bonusMod":[1,1,1,1],"defMod":[1,1,1,1,1,1,1,1],"matSetId":9},{"id":5610,"atkMod":[2,2,1,1],"bonusMod":[1,1,1,1],"defMod":[1,1,1,1,1,1,1,1],"matSetId":10},{"id":5800,"atkMod":[1,1,1,1],"bonusMod":[1,1,1,1],"defMod":[1,1,1,1,1,1,1,1],"matSetId":0},{"id":5801,"atkMod":[1.04,1,1.04,1],"bonusMod":[1,1,1,1],"defMod":[1,1,1.02,1,1,1,1,1],"matSetId":1},{"id":5802,"atkMod":[1.08,1,1.08,1],"bonusMod":[1,1,1,1],"defMod":[1,1,1.04,1,1,1,1,1],"matSetId":2},{"id":5803,"atkMod":[1.12,1,1.12,1],"bonusMod":[1,1,1,1],"defMod":[1,1,1.06,1,1,1,1,1],"matSetId":3},{"id":5804,"atkMod":[1.16,1,1.16,1],"bonusMod":[1,1,1,1],"defMod":[1,1,1.08,1,1,1,1,1],"matSetId":4},{"id":5805,"atkMod":[1.2,1,1.2,1],"bonusMod":[1,1,1,1],"defMod":[1,1,1.1,1,1,1,1,1],"matSetId":5},{"id":5806,"atkMod":[1.27,1,1.27,1],"bonusMod":[1,1,1,1],"defMod":[1,1,1.12,1,1,1,1,1],"matSetId":6},{"id":5807,"atkMod":[1.34,1,1.34,1],"bonusMod":[1,1,1,1],"defMod":[1,1,1.14,1,1,1,1,1],"matSetId":7},{"id":5808,"atkMod":[1.41,1,1.41,1],"bonusMod":[1,1,1,1],"defMod":[1,1,1.16,1,1,1,1,1],"matSetId":8},{"id":5809,"atkMod":[1.48,1,1.48,1],"bonusMod":[1,1,1,1],"defMod":[1,1,1.18,1,1,1,1,1],"matSetId":9},{"id":5810,"atkMod":[1.55,1,1.55,1],"bonusMod":[1,1,1,1],"defMod":[1,1,1.2,1,1,1,1,1],"matSetId":10},{"id":6000,"atkMod":[1,1,1,1],"bonusMod":[1,1,1,1],"defMod":[1,1,1,1,1,1,1,1],"matSetId":0},{"id":6001,"atkMod":[1.05,1,1,1],"bonusMod":[1,1,1,1],"defMod":[1,1,1,1,1,1,1,1.02],"matSetId":1},{"id":6002,"atkMod":[1.1,1,1,1],"bonusMod":[1,1,1,1],"defMod":[1,1,1,1,1,1,1,1.04],"matSetId":2},{"id":6003,"atkMod":[1.15,1,1,1],"bonusMod":[1,1,1,1],"defMod":[1,1,1,1,1,1,1,1.06],"matSetId":3},{"id":6004,"atkMod":[1.2,1,1,1],"bonusMod":[1,1,1,1],"defMod":[1,1,1,1,1,1,1,1.08],"matSetId":4},{"id":6005,"atkMod":[1.25,1,1,1],"bonusMod":[1,1,1,1],"defMod":[1,1,1,1,1,1,1,1.1],"matSetId":5},{"id":6006,"atkMod":[1.31,1,1,1],"bonusMod":[1,1,1,1],"defMod":[1,1,1,1,1,1,1,1.12],"matSetId":6},{"id":6007,"atkMod":[1.37,1,1,1],"bonusMod":[1,1,1,1],"defMod":[1,1,1,1,1,1,1,1.14],"matSetId":7},{"id":6008,"atkMod":[1.43,1,1,1],"bonusMod":[1,1,1,1],"defMod":[1,1,1,1,1,1,1,1.16],"matSetId":8},{"id":6009,"atkMod":[1.49,1,1,1],"bonusMod":[1,1,1,1],"defMod":[1,1,1,1,1,1,1,1.18],"matSetId":9},{"id":6010,"atkMod":[1.55,1,1,1],"bonusMod":[1,1,1,1],"defMod":[1,1,1,1,1,1,1,1.2],"matSetId":10},{"id":6011,"atkMod":[1.62,1,1,1],"bonusMod":[1,1,1,1],"defMod":[1,1,1,1,1,1,1,1.21],"matSetId":11},{"id":6012,"atkMod":[1.69,1,1,1],"bonusMod":[1,1,1,1],"defMod":[1,1,1,1,1,1,1,1.22],"matSetId":12},{"id":6013,"atkMod":[1.76,1,1,1],"bonusMod":[1,1,1,1],"defMod":[1,1,1,1,1,1,1,1.23],"matSetId":13},{"id":6014,"atkMod":[1.83,1,1,1],"bonusMod":[1,1,1,1],"defMod":[1,1,1,1,1,1,1,1.24],"matSetId":14},{"id":6015,"atkMod":[2,1,1,1],"bonusMod":[1,1,1,1],"defMod":[1,1,1,1,1,1,1,1.25],"matSetId":15},{"id":6100,"atkMod":[1.55,1,1,1],"bonusMod":[1,1,1,1],"defMod":[1,1,1,1,1,1,1,1.25],"matSetId":0},{"id":6101,"atkMod":[1.62,1,1,1],"bonusMod":[1,1,1,1],"defMod":[1,1,1,1,1,1,1,1.26],"matSetId":1},{"id":6102,"atkMod":[1.69,1,1,1],"bonusMod":[1,1,1,1],"defMod":[1,1,1,1,1,1,1,1.27],"matSetId":2},{"id":6103,"atkMod":[1.76,1,1,1],"bonusMod":[1,1,1,1],"defMod":[1,1,1,1,1,1,1,1.28],"matSetId":3},{"id":6104,"atkMod":[1.83,1,1,1],"bonusMod":[1,1,1,1],"defMod":[1,1,1,1,1,1,1,1.29],"matSetId":4},{"id":6105,"atkMod":[2,1,1,1],"bonusMod":[1,1,1,1],"defMod":[1,1,1,1,1,1,1,1.3],"matSetId":5},{"id":6200,"atkMod":[1.2,1,1,1.2],"bonusMod":[1,1,1,1],"defMod":[1,1,1,1.2,1,1,1,1],"matSetId":0},{"id":6201,"atkMod":[1.28,1,1,1.28],"bonusMod":[1,1,1,1],"defMod":[1,1,1,1.22,1,1,1,1],"matSetId":1},{"id":6202,"atkMod":[1.36,1,1,1.36],"bonusMod":[1,1,1,1],"defMod":[1,1,1,1.24,1,1,1,1],"matSetId":2},{"id":6203,"atkMod":[1.44,1,1,1.44],"bonusMod":[1,1,1,1],"defMod":[1,1,1,1.26,1,1,1,1],"matSetId":3},{"id":6204,"atkMod":[1.52,1,1,1.52],"bonusMod":[1,1,1,1],"defMod":[1,1,1,1.28,1,1,1,1],"matSetId":4},{"id":6205,"atkMod":[1.6,1,1,1.6],"bonusMod":[1,1,1,1],"defMod":[1,1,1,1.3,1,1,1,1],"matSetId":5},{"id":6400,"atkMod":[1.25,1.25,1,1],"bonusMod":[1,1,1,1],"defMod":[1,1,1,1,1,1,1,1],"matSetId":0},{"id":6401,"atkMod":[1.31,1.31,1,1],"bonusMod":[1,1,1,1],"defMod":[1,1.03,1,1,1,1,1,1],"matSetId":1},{"id":6402,"atkMod":[1.37,1.37,1,1],"bonusMod":[1,1,1,1],"defMod":[1,1.06,1,1,1,1,1,1],"matSetId":2},{"id":6403,"atkMod":[1.43,1.43,1,1],"bonusMod":[1,1,1,1],"defMod":[1,1.09,1,1,1,1,1,1],"matSetId":3},{"id":6404,"atkMod":[1.49,1.49,1,1],"bonusMod":[1,1,1,1],"defMod":[1,1.12,1,1,1,1,1,1],"matSetId":4},{"id":6405,"atkMod":[1.55,1.55,1,1],"bonusMod":[1,1,1,1],"defMod":[1,1.15,1,1,1,1,1,1],"matSetId":5},{"id":6406,"atkMod":[1.62,1.62,1,1],"bonusMod":[1,1,1,1],"defMod":[1,1.18,1,1,1,1,1,1],"matSetId":6},{"id":6407,"atkMod":[1.69,1.69,1,1],"bonusMod":[1,1,1,1],"defMod":[1,1.21,1,1,1,1,1,1],"matSetId":7},{"id":6408,"atkMod":[1.76,1.76,1,1],"bonusMod":[1,1,1,1],"defMod":[1,1.24,1,1,1,1,1,1],"matSetId":8},{"id":6409,"atkMod":[1.83,1.83,1,1],"bonusMod":[1,1,1,1],"defMod":[1,1.27,1,1,1,1,1,1],"matSetId":9},{"id":6410,"atkMod":[2,2,1,1],"bonusMod":[1,1,1,1],"defMod":[1,1.3,1,1,1,1,1,1],"matSetId":10},{"id":6600,"atkMod":[1.25,1.25,1,1],"bonusMod":[1,1,1,1],"defMod":[1,1,1,1,1,1,1,1],"matSetId":0},{"id":6601,"atkMod":[1.31,1.31,1,1],"bonusMod":[1,1,1,1],"defMod":[1,1,1,1,1,1,1,1],"matSetId":1},{"id":6602,"atkMod":[1.37,1.37,1,1],"bonusMod":[1,1,1,1],"defMod":[1,1,1,1,1,1,1,1],"matSetId":2},{"id":6603,"atkMod":[1.43,1.43,1,1],"bonusMod":[1,1,1,1],"defMod":[1,1,1,1,1,1,1,1],"matSetId":3},{"id":6604,"atkMod":[1.49,1.49,1,1],"bonusMod":[1,1,1,1],"defMod":[1,1,1,1,1,1,1,1],"matSetId":4},{"id":6605,"atkMod":[1.55,1.55,1,1],"bonusMod":[1,1,1,1],"defMod":[1,1,1,1,1,1,1,1],"matSetId":5},{"id":6606,"atkMod":[1.62,1.62,1,1],"bonusMod":[1,1,1,1],"defMod":[1,1,1,1,1,1,1,1],"matSetId":6},{"id":6607,"atkMod":[1.69,1.69,1,1],"bonusMod":[1,1,1,1],"defMod":[1,1,1,1,1,1,1,1],"matSetId":7},{"id":6608,"atkMod":[1.76,1.76,1,1],"bonusMod":[1,1,1,1],"defMod":[1,1,1,1,1,1,1,1],"matSetId":8},{"id":6609,"atkMod":[1.83,1.83,1,1],"bonusMod":[1,1,1,1],"defMod":[1,1,1,1,1,1,1,1],"matSetId":9},{"id":6610,"atkMod":[2,2,1,1],"bonusMod":[1,1,1,1],"defMod":[1,1,1,1,1,1,1,1],"matSetId":10},{"id":6800,"atkMod":[1,1,1,1],"bonusMod":[1,1,1,1],"defMod":[1,1,1,1,1,1,1,1],"matSetId":0},{"id":6801,"atkMod":[1.04,1,1.04,1],"bonusMod":[1,1,1,1],"defMod":[1,1,1.03,1,1,1,1,1],"matSetId":1},{"id":6802,"atkMod":[1.08,1,1.08,1],"bonusMod":[1,1,1,1],"defMod":[1,1,1.06,1,1,1,1,1],"matSetId":2},{"id":6803,"atkMod":[1.12,1,1.12,1],"bonusMod":[1,1,1,1],"defMod":[1,1,1.09,1,1,1,1,1],"matSetId":3},{"id":6804,"atkMod":[1.16,1,1.16,1],"bonusMod":[1,1,1,1],"defMod":[1,1,1.12,1,1,1,1,1],"matSetId":4},{"id":6805,"atkMod":[1.2,1,1.2,1],"bonusMod":[1,1,1,1],"defMod":[1,1,1.15,1,1,1,1,1],"matSetId":5},{"id":6806,"atkMod":[1.27,1,1.27,1],"bonusMod":[1,1,1,1],"defMod":[1,1,1.18,1,1,1,1,1],"matSetId":6},{"id":6807,"atkMod":[1.34,1,1.34,1],"bonusMod":[1,1,1,1],"defMod":[1,1,1.21,1,1,1,1,1],"matSetId":7},{"id":6808,"atkMod":[1.41,1,1.41,1],"bonusMod":[1,1,1,1],"defMod":[1,1,1.24,1,1,1,1,1],"matSetId":8},{"id":6809,"atkMod":[1.48,1,1.48,1],"bonusMod":[1,1,1,1],"defMod":[1,1,1.27,1,1,1,1,1],"matSetId":9},{"id":6810,"atkMod":[1.55,1,1.55,1],"bonusMod":[1,1,1,1],"defMod":[1,1,1.3,1,1,1,1,1],"matSetId":10},{"id":7200,"atkMod":[1.2,1,1,1.2],"bonusMod":[1,1,1,1],"defMod":[1,1,1,1,1,1,1,1],"matSetId":0},{"id":7201,"atkMod":[1.28,1,1,1.28],"bonusMod":[1,1,1,1],"defMod":[1,1,1,1,1,1,1,1],"matSetId":1},{"id":7202,"atkMod":[1.36,1,1,1.36],"bonusMod":[1,1,1,1],"defMod":[1,1,1,1,1,1,1,1],"matSetId":2},{"id":7203,"atkMod":[1.44,1,1,1.44],"bonusMod":[1,1,1,1],"defMod":[1,1,1,1,1,1,1,1],"matSetId":3},{"id":7204,"atkMod":[1.52,1,1,1.52],"bonusMod":[1,1,1,1],"defMod":[1,1,1,1,1,1,1,1],"matSetId":4},{"id":7205,"atkMod":[1.6,1,1,1.6],"bonusMod":[1,1,1,1],"defMod":[1,1,1,1,1,1,1,1],"matSetId":5},{"id":7400,"atkMod":[1.25,1.25,1,1],"bonusMod":[1,1,1,1],"defMod":[1,1,1,1,1,1,1,1],"matSetId":0},{"id":7401,"atkMod":[1.31,1.31,1,1],"bonusMod":[1,1,1,1],"defMod":[1,1,1,1,1,1,1,1],"matSetId":1},{"id":7402,"atkMod":[1.37,1.37,1,1],"bonusMod":[1,1,1,1],"defMod":[1,1,1,1,1,1,1,1],"matSetId":2},{"id":7403,"atkMod":[1.43,1.43,1,1],"bonusMod":[1,1,1,1],"defMod":[1,1,1,1,1,1,1,1],"matSetId":3},{"id":7404,"atkMod":[1.49,1.49,1,1],"bonusMod":[1,1,1,1],"defMod":[1,1,1,1,1,1,1,1],"matSetId":4},{"id":7405,"atkMod":[1.55,1.55,1,1],"bonusMod":[1,1,1,1],"defMod":[1,1,1,1,1,1,1,1],"matSetId":5},{"id":7406,"atkMod":[1.62,1.62,1,1],"bonusMod":[1,1,1,1],"defMod":[1,1,1,1,1,1,1,1],"matSetId":6},{"id":7407,"atkMod":[1.69,1.69,1,1],"bonusMod":[1,1,1,1],"defMod":[1,1,1,1,1,1,1,1],"matSetId":7},{"id":7408,"atkMod":[1.76,1.76,1,1],"bonusMod":[1,1,1,1],"defMod":[1,1,1,1,1,1,1,1],"matSetId":8},{"id":7409,"atkMod":[1.83,1.83,1,1],"bonusMod":[1,1,1,1],"defMod":[1,1,1,1,1,1,1,1],"matSetId":9},{"id":7410,"atkMod":[2,2,1,1],"bonusMod":[1,1,1,1],"defMod":[1,1,1,1,1,1,1,1],"matSetId":10},{"id":7800,"atkMod":[1,1,1,1],"bonusMod":[1,1,1,1],"defMod":[1,1,1,1,1,1,1,1],"matSetId":0},{"id":7801,"atkMod":[1.04,1,1.04,1],"bonusMod":[1,1,1,1],"defMod":[1,1,1,1,1,1,1,1],"matSetId":1},{"id":7802,"atkMod":[1.08,1,1.08,1],"bonusMod":[1,1,1,1],"defMod":[1,1,1,1,1,1,1,1],"matSetId":2},{"id":7803,"atkMod":[1.12,1,1.12,1],"bonusMod":[1,1,1,1],"defMod":[1,1,1,1,1,1,1,1],"matSetId":3},{"id":7804,"atkMod":[1.16,1,1.16,1],"bonusMod":[1,1,1,1],"defMod":[1,1,1,1,1,1,1,1],"matSetId":4},{"id":7805,"atkMod":[1.2,1,1.2,1],"bonusMod":[1,1,1,1],"defMod":[1,1,1,1,1,1,1,1],"matSetId":5},{"id":7806,"atkMod":[1.27,1,1.27,1],"bonusMod":[1,1,1,1],"defMod":[1,1,1,1,1,1,1,1],"matSetId":6},{"id":7807,"atkMod":[1.34,1,1.34,1],"bonusMod":[1,1,1,1],"defMod":[1,1,1,1,1,1,1,1],"matSetId":7},{"id":7808,"atkMod":[1.41,1,1.41,1],"bonusMod":[1,1,1,1],"defMod":[1,1,1,1,1,1,1,1],"matSetId":8},{"id":7809,"atkMod":[1.48,1,1.48,1],"bonusMod":[1,1,1,1],"defMod":[1,1,1,1,1,1,1,1],"matSetId":9},{"id":7810,"atkMod":[1.55,1,1.55,1],"bonusMod":[1,1,1,1],"defMod":[1,1,1,1,1,1,1,1],"matSetId":10},{"id":8000,"atkMod":[1,1,1,1],"bonusMod":[1,1,1,1],"defMod":[1,1,1,1,1,1,1,1],"matSetId":0},{"id":8001,"atkMod":[1.7,1,1,1],"bonusMod":[1,1,1,1],"defMod":[1,1,1,1,1,1,1,1],"matSetId":1},{"id":8002,"atkMod":[2,1,1,1],"bonusMod":[1,1,1,1],"defMod":[1,1,1,1,1,1,1,1],"matSetId":2},{"id":8003,"atkMod":[2.3,1,1,1],"bonusMod":[1,1,1,1],"defMod":[1,1,1,1,1,1,1,1],"matSetId":3},{"id":8004,"atkMod":[2.6,1,1,1],"bonusMod":[1,1,1,1],"defMod":[1,1,1,1,1,1,1,1],"matSetId":4},{"id":8005,"atkMod":[2.9,1,1,1],"bonusMod":[1,1,1,1],"defMod":[1,1,1,1,1,1,1,1],"matSetId":5},{"id":8006,"atkMod":[3.3,1,1,1],"bonusMod":[1,1,1,1],"defMod":[1,1,1,1,1,1,1,1],"matSetId":6},{"id":8007,"atkMod":[3.6,1,1,1],"bonusMod":[1,1,1,1],"defMod":[1,1,1,1,1,1,1,1],"matSetId":7},{"id":8008,"atkMod":[3.9,1,1,1],"bonusMod":[1,1,1,1],"defMod":[1,1,1,1,1,1,1,1],"matSetId":8},{"id":8009,"atkMod":[4.2,1,1,1],"bonusMod":[1,1,1,1],"defMod":[1,1,1,1,1,1,1,1],"matSetId":9},{"id":8010,"atkMod":[4.5,1,1,1],"bonusMod":[1,1,1,1],"defMod":[1,1,1,1,1,1,1,1],"matSetId":10},{"id":8011,"atkMod":[4.9,1,1,1],"bonusMod":[1,1,1,1],"defMod":[1,1,1,1,1,1,1,1],"matSetId":11},{"id":8012,"atkMod":[5.2,1,1,1],"bonusMod":[1,1,1,1],"defMod":[1,1,1,1,1,1,1,1],"matSetId":12},{"id":8013,"atkMod":[5.5,1,1,1],"bonusMod":[1,1,1,1],"defMod":[1,1,1,1,1,1,1,1],"matSetId":13},{"id":8014,"atkMod":[5.8,1,1,1],"bonusMod":[1,1,1,1],"defMod":[1,1,1,1,1,1,1,1],"matSetId":14},{"id":8015,"atkMod":[6.2,1,1,1],"bonusMod":[1,1,1,1],"defMod":[1,1,1,1,1,1,1,1],"matSetId":15},{"id":8100,"atkMod":[5.2,1,1,1],"bonusMod":[1,1,1,1],"defMod":[1,1,1,1,1,1,1,1],"matSetId":0},{"id":8101,"atkMod":[5.5,1,1,1],"bonusMod":[1,1,1,1],"defMod":[1,1,1,1,1,1,1,1],"matSetId":1},{"id":8102,"atkMod":[5.8,1,1,1],"bonusMod":[1,1,1,1],"defMod":[1,1,1,1,1,1,1,1],"matSetId":2},{"id":8103,"atkMod":[6.1,1,1,1],"bonusMod":[1,1,1,1],"defMod":[1,1,1,1,1,1,1,1],"matSetId":3},{"id":8104,"atkMod":[6.4,1,1,1],"bonusMod":[1,1,1,1],"defMod":[1,1,1,1,1,1,1,1],"matSetId":4},{"id":8105,"atkMod":[6.8,1,1,1],"bonusMod":[1,1,1,1],"defMod":[1,1,1,1,1,1,1,1],"matSetId":5},{"id":8200,"atkMod":[2.8,1,1,2.6],"bonusMod":[1,1,1,1],"defMod":[1,1,1,1,1,1,1,1],"matSetId":0},{"id":8201,"atkMod":[3,1,1,2.8],"bonusMod":[1,1,1,1],"defMod":[1,1,1,1,1,1,1,1],"matSetId":1},{"id":8202,"atkMod":[3.2,1,1,3],"bonusMod":[1,1,1,1],"defMod":[1,1,1,1,1,1,1,1],"matSetId":2},{"id":8203,"atkMod":[3.4,1,1,3.2],"bonusMod":[1,1,1,1],"defMod":[1,1,1,1,1,1,1,1],"matSetId":3},{"id":8204,"atkMod":[3.6,1,1,3.4],"bonusMod":[1,1,1,1],"defMod":[1,1,1,1,1,1,1,1],"matSetId":4},{"id":8205,"atkMod":[3.8,1,1,3.6],"bonusMod":[1,1,1,1],"defMod":[1,1,1,1,1,1,1,1],"matSetId":5},{"id":8400,"atkMod":[2.5,2.3,1,1],"bonusMod":[1,1,1,1],"defMod":[1,1,1,1,1,1,1,1],"matSetId":0},{"id":8401,"atkMod":[2.79,2.58,1,1],"bonusMod":[1,1,1,1],"defMod":[1,1,1,1,1,1,1,1],"matSetId":1},{"id":8402,"atkMod":[3.08,2.86,1,1],"bonusMod":[1,1,1,1],"defMod":[1,1,1,1,1,1,1,1],"matSetId":2},{"id":8403,"atkMod":[3.37,3.14,1,1],"bonusMod":[1,1,1,1],"defMod":[1,1,1,1,1,1,1,1],"matSetId":3},{"id":8404,"atkMod":[3.66,3.42,1,1],"bonusMod":[1,1,1,1],"defMod":[1,1,1,1,1,1,1,1],"matSetId":4},{"id":8405,"atkMod":[3.95,3.7,1,1],"bonusMod":[1,1,1,1],"defMod":[1,1,1,1,1,1,1,1],"matSetId":5},{"id":8406,"atkMod":[4.24,3.98,1,1],"bonusMod":[1,1,1,1],"defMod":[1,1,1,1,1,1,1,1],"matSetId":6},{"id":8407,"atkMod":[4.53,4.26,1,1],"bonusMod":[1,1,1,1],"defMod":[1,1,1,1,1,1,1,1],"matSetId":7},{"id":8408,"atkMod":[4.82,4.54,1,1],"bonusMod":[1,1,1,1],"defMod":[1,1,1,1,1,1,1,1],"matSetId":8},{"id":8409,"atkMod":[5.11,4.82,1,1],"bonusMod":[1,1,1,1],"defMod":[1,1,1,1,1,1,1,1],"matSetId":9},{"id":8410,"atkMod":[5.4,5.14,1,1],"bonusMod":[1,1,1,1],"defMod":[1,1,1,1,1,1,1,1],"matSetId":10},{"id":8600,"atkMod":[2.5,2.5,1,1],"bonusMod":[1,1,1,1],"defMod":[1,1,1,1,1,1,1,1],"matSetId":0},{"id":8601,"atkMod":[2.8,2.8,1,1],"bonusMod":[1,1,1,1],"defMod":[1,1,1,1,1,1,1,1],"matSetId":1},{"id":8602,"atkMod":[3.1,3.1,1,1],"bonusMod":[1,1,1,1],"defMod":[1,1,1,1,1,1,1,1],"matSetId":2},{"id":8603,"atkMod":[3.4,3.4,1,1],"bonusMod":[1,1,1,1],"defMod":[1,1,1,1,1,1,1,1],"matSetId":3},{"id":8604,"atkMod":[3.7,3.7,1,1],"bonusMod":[1,1,1,1],"defMod":[1,1,1,1,1,1,1,1],"matSetId":4},{"id":8605,"atkMod":[4,4,1,1],"bonusMod":[1,1,1,1],"defMod":[1,1,1,1,1,1,1,1],"matSetId":5},{"id":8606,"atkMod":[4.3,4.3,1,1],"bonusMod":[1,1,1,1],"defMod":[1,1,1,1,1,1,1,1],"matSetId":6},{"id":8607,"atkMod":[4.6,4.6,1,1],"bonusMod":[1,1,1,1],"defMod":[1,1,1,1,1,1,1,1],"matSetId":7},{"id":8608,"atkMod":[4.9,4.9,1,1],"bonusMod":[1,1,1,1],"defMod":[1,1,1,1,1,1,1,1],"matSetId":8},{"id":8609,"atkMod":[5.2,5.2,1,1],"bonusMod":[1,1,1,1],"defMod":[1,1,1,1,1,1,1,1],"matSetId":9},{"id":8610,"atkMod":[5.5,5.5,1,1],"bonusMod":[1,1,1,1],"defMod":[1,1,1,1,1,1,1,1],"matSetId":10},{"id":8800,"atkMod":[1.8,1,1.8,1],"bonusMod":[1,1,1,1],"defMod":[1,1,1,1,1,1,1,1],"matSetId":0},{"id":8801,"atkMod":[2.03,1,2.03,1],"bonusMod":[1,1,1,1],"defMod":[1,1,1,1,1,1,1,1],"matSetId":1},{"id":8802,"atkMod":[2.26,1,2.26,1],"bonusMod":[1,1,1,1],"defMod":[1,1,1,1,1,1,1,1],"matSetId":2},{"id":8803,"atkMod":[2.49,1,2.49,1],"bonusMod":[1,1,1,1],"defMod":[1,1,1,1,1,1,1,1],"matSetId":3},{"id":8804,"atkMod":[2.72,1,2.72,1],"bonusMod":[1,1,1,1],"defMod":[1,1,1,1,1,1,1,1],"matSetId":4},{"id":8805,"atkMod":[2.95,1,2.95,1],"bonusMod":[1,1,1,1],"defMod":[1,1,1,1,1,1,1,1],"matSetId":5},{"id":8806,"atkMod":[3.2,1,3.2,1],"bonusMod":[1,1,1,1],"defMod":[1,1,1,1,1,1,1,1],"matSetId":6},{"id":8807,"atkMod":[3.43,1,3.43,1],"bonusMod":[1,1,1,1],"defMod":[1,1,1,1,1,1,1,1],"matSetId":7},{"id":8808,"atkMod":[3.66,1,3.66,1],"bonusMod":[1,1,1,1],"defMod":[1,1,1,1,1,1,1,1],"matSetId":8},{"id":8809,"atkMod":[3.89,1,3.89,1],"bonusMod":[1,1,1,1],"defMod":[1,1,1,1,1,1,1,1],"matSetId":9},{"id":8810,"atkMod":[4.15,1,4.15,1],"bonusMod":[1,1,1,1],"defMod":[1,1,1,1,1,1,1,1],"matSetId":10},{"id":9200,"atkMod":[3.7,1,1,4.1],"bonusMod":[1,1,1,1],"defMod":[1,1,1,1,1,1,1,1],"matSetId":0},{"id":9201,"atkMod":[3.88,1,1,4.28],"bonusMod":[1,1,1,1],"defMod":[1,1,1,1,1,1,1,1],"matSetId":1},{"id":9202,"atkMod":[4.06,1,1,4.46],"bonusMod":[1,1,1,1],"defMod":[1,1,1,1,1,1,1,1],"matSetId":2},{"id":9203,"atkMod":[4.24,1,1,4.64],"bonusMod":[1,1,1,1],"defMod":[1,1,1,1,1,1,1,1],"matSetId":3},{"id":9204,"atkMod":[4.42,1,1,4.82],"bonusMod":[1,1,1,1],"defMod":[1,1,1,1,1,1,1,1],"matSetId":4},{"id":9205,"atkMod":[4.6,1,1,5],"bonusMod":[1,1,1,1],"defMod":[1,1,1,1,1,1,1,1],"matSetId":5},{"id":9500,"atkMod":[2,2,1,1],"bonusMod":[1.15,1.15,1.05,1],"defMod":[1,1,1,1,1,1,1,1],"matSetId":0},{"id":9501,"atkMod":[2.08,2.06,1,1],"bonusMod":[1.15,1.15,1.12,1],"defMod":[1,1,1,1,1,1,1,1],"matSetId":1},{"id":9502,"atkMod":[2.16,2.12,1,1],"bonusMod":[1.15,1.15,1.19,1],"defMod":[1,1,1,1,1,1,1,1],"matSetId":2},{"id":9503,"atkMod":[2.24,2.18,1,1],"bonusMod":[1.15,1.15,1.26,1],"defMod":[1,1,1,1,1,1,1,1],"matSetId":3},{"id":9504,"atkMod":[2.32,2.24,1,1],"bonusMod":[1.2,1.2,1.33,1],"defMod":[1,1,1,1,1,1,1,1],"matSetId":4},{"id":9505,"atkMod":[2.4,2.32,1,1],"bonusMod":[1.2,1.2,1.4,1],"defMod":[1,1,1,1,1,1,1,1],"matSetId":5},{"id":9800,"atkMod":[1.8,1,1.8,1],"bonusMod":[1,1,1,1],"defMod":[1,1,1,1,1,1,1,1],"matSetId":0},{"id":9801,"atkMod":[2.07,1,2.07,1],"bonusMod":[1,1,1,1],"defMod":[1,1,1,1,1,1,1,1],"matSetId":1},{"id":9802,"atkMod":[2.34,1,2.34,1],"bonusMod":[1,1,1,1],"defMod":[1,1,1,1,1,1,1,1],"matSetId":2},{"id":9803,"atkMod":[2.61,1,2.61,1],"bonusMod":[1,1,1,1],"defMod":[1,1,1,1,1,1,1,1],"matSetId":3},{"id":9804,"atkMod":[2.88,1,2.88,1],"bonusMod":[1,1,1,1],"defMod":[1,1,1,1,1,1,1,1],"matSetId":4},{"id":9805,"atkMod":[3.15,1,3.15,1],"bonusMod":[1,1,1,1],"defMod":[1,1,1,1,1,1,1,1],"matSetId":5},{"id":9806,"atkMod":[3.42,1,3.42,1],"bonusMod":[1,1,1,1],"defMod":[1,1,1,1,1,1,1,1],"matSetId":6},{"id":9807,"atkMod":[3.69,1,3.69,1],"bonusMod":[1,1,1,1],"defMod":[1,1,1,1,1,1,1,1],"matSetId":7},{"id":9808,"atkMod":[3.96,1,3.96,1],"bonusMod":[1,1,1,1],"defMod":[1,1,1,1,1,1,1,1],"matSetId":8},{"id":9809,"atkMod":[4.23,1,4.23,1],"bonusMod":[1,1,1,1],"defMod":[1,1,1,1,1,1,1,1],"matSetId":9},{"id":9810,"atkMod":[4.5,1,4.5,1],"bonusMod":[1,1,1,1],"defMod":[1,1,1,1,1,1,1,1],"matSetId":10},{"id":9900,"atkMod":[2.5,1,2.7,1],"bonusMod":[1,1,1,1],"defMod":[1,1,1,1,1,1,1,1],"matSetId":0},{"id":9901,"atkMod":[2.8,1,3.04,1],"bonusMod":[1,1,1,1],"defMod":[1,1,1,1,1,1,1,1],"matSetId":1},{"id":9902,"atkMod":[3.1,1,3.38,1],"bonusMod":[1,1,1,1],"defMod":[1,1,1,1,1,1,1,1],"matSetId":2},{"id":9903,"atkMod":[3.4,1,3.72,1],"bonusMod":[1,1,1,1],"defMod":[1,1,1,1,1,1,1,1],"matSetId":3},{"id":9904,"atkMod":[3.7,1,4.06,1],"bonusMod":[1,1,1,1],"defMod":[1,1,1,1,1,1,1,1],"matSetId":4},{"id":9905,"atkMod":[4,1,4.4,1],"bonusMod":[1,1,1,1],"defMod":[1,1,1,1,1,1,1,1],"matSetId":5}]
+[
+  {
+    "id": 0,
+    "atkMod": [
+      1,
+      1,
+      1,
+      1
+    ],
+    "bonusMod": [
+      1,
+      1,
+      1,
+      1
+    ],
+    "defMod": [
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1
+    ],
+    "matSetId": 0
+  },
+  {
+    "id": 1,
+    "atkMod": [
+      1.1,
+      1,
+      1,
+      1
+    ],
+    "bonusMod": [
+      1.05,
+      1.05,
+      1,
+      1
+    ],
+    "defMod": [
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1
+    ],
+    "matSetId": 1
+  },
+  {
+    "id": 2,
+    "atkMod": [
+      1.2,
+      1,
+      1,
+      1
+    ],
+    "bonusMod": [
+      1.05,
+      1.05,
+      1,
+      1
+    ],
+    "defMod": [
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1
+    ],
+    "matSetId": 2
+  },
+  {
+    "id": 3,
+    "atkMod": [
+      1.3,
+      1,
+      1,
+      1
+    ],
+    "bonusMod": [
+      1.05,
+      1.05,
+      1,
+      1
+    ],
+    "defMod": [
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1
+    ],
+    "matSetId": 3
+  },
+  {
+    "id": 4,
+    "atkMod": [
+      1.4,
+      1,
+      1,
+      1
+    ],
+    "bonusMod": [
+      1.05,
+      1.05,
+      1,
+      1
+    ],
+    "defMod": [
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1
+    ],
+    "matSetId": 4
+  },
+  {
+    "id": 5,
+    "atkMod": [
+      1.5,
+      1,
+      1,
+      1
+    ],
+    "bonusMod": [
+      1.05,
+      1.05,
+      1,
+      1
+    ],
+    "defMod": [
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1
+    ],
+    "matSetId": 5
+  },
+  {
+    "id": 6,
+    "atkMod": [
+      1.6,
+      1,
+      1,
+      1
+    ],
+    "bonusMod": [
+      1.1,
+      1.1,
+      1,
+      1
+    ],
+    "defMod": [
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1
+    ],
+    "matSetId": 6
+  },
+  {
+    "id": 7,
+    "atkMod": [
+      1.7,
+      1,
+      1,
+      1
+    ],
+    "bonusMod": [
+      1.1,
+      1.1,
+      1,
+      1
+    ],
+    "defMod": [
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1
+    ],
+    "matSetId": 7
+  },
+  {
+    "id": 8,
+    "atkMod": [
+      1.8,
+      1,
+      1,
+      1
+    ],
+    "bonusMod": [
+      1.1,
+      1.1,
+      1,
+      1
+    ],
+    "defMod": [
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1
+    ],
+    "matSetId": 8
+  },
+  {
+    "id": 9,
+    "atkMod": [
+      1.9,
+      1,
+      1,
+      1
+    ],
+    "bonusMod": [
+      1.1,
+      1.1,
+      1,
+      1
+    ],
+    "defMod": [
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1
+    ],
+    "matSetId": 9
+  },
+  {
+    "id": 10,
+    "atkMod": [
+      2,
+      1,
+      1,
+      1
+    ],
+    "bonusMod": [
+      1.1,
+      1.1,
+      1,
+      1
+    ],
+    "defMod": [
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1
+    ],
+    "matSetId": 10
+  },
+  {
+    "id": 11,
+    "atkMod": [
+      2.1,
+      1,
+      1,
+      1
+    ],
+    "bonusMod": [
+      1.15,
+      1.15,
+      1,
+      1
+    ],
+    "defMod": [
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1
+    ],
+    "matSetId": 11
+  },
+  {
+    "id": 12,
+    "atkMod": [
+      2.2,
+      1,
+      1,
+      1
+    ],
+    "bonusMod": [
+      1.15,
+      1.15,
+      1,
+      1
+    ],
+    "defMod": [
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1
+    ],
+    "matSetId": 12
+  },
+  {
+    "id": 13,
+    "atkMod": [
+      2.3,
+      1,
+      1,
+      1
+    ],
+    "bonusMod": [
+      1.15,
+      1.15,
+      1,
+      1
+    ],
+    "defMod": [
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1
+    ],
+    "matSetId": 13
+  },
+  {
+    "id": 14,
+    "atkMod": [
+      2.4,
+      1,
+      1,
+      1
+    ],
+    "bonusMod": [
+      1.2,
+      1.2,
+      1,
+      1
+    ],
+    "defMod": [
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1
+    ],
+    "matSetId": 14
+  },
+  {
+    "id": 15,
+    "atkMod": [
+      2.5,
+      1,
+      1,
+      1
+    ],
+    "bonusMod": [
+      1.2,
+      1.2,
+      1,
+      1
+    ],
+    "defMod": [
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1
+    ],
+    "matSetId": 15
+  },
+  {
+    "id": 100,
+    "atkMod": [
+      2.2,
+      1,
+      1,
+      1
+    ],
+    "bonusMod": [
+      1.15,
+      1.15,
+      1,
+      1
+    ],
+    "defMod": [
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1
+    ],
+    "matSetId": 0
+  },
+  {
+    "id": 101,
+    "atkMod": [
+      2.3,
+      1,
+      1,
+      1
+    ],
+    "bonusMod": [
+      1.15,
+      1.15,
+      1,
+      1
+    ],
+    "defMod": [
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1
+    ],
+    "matSetId": 1
+  },
+  {
+    "id": 102,
+    "atkMod": [
+      2.4,
+      1,
+      1,
+      1
+    ],
+    "bonusMod": [
+      1.15,
+      1.15,
+      1,
+      1
+    ],
+    "defMod": [
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1
+    ],
+    "matSetId": 2
+  },
+  {
+    "id": 103,
+    "atkMod": [
+      2.5,
+      1,
+      1,
+      1
+    ],
+    "bonusMod": [
+      1.15,
+      1.15,
+      1,
+      1
+    ],
+    "defMod": [
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1
+    ],
+    "matSetId": 3
+  },
+  {
+    "id": 104,
+    "atkMod": [
+      2.6,
+      1,
+      1,
+      1
+    ],
+    "bonusMod": [
+      1.2,
+      1.2,
+      1,
+      1
+    ],
+    "defMod": [
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1
+    ],
+    "matSetId": 4
+  },
+  {
+    "id": 105,
+    "atkMod": [
+      2.7,
+      1,
+      1,
+      1
+    ],
+    "bonusMod": [
+      1.2,
+      1.2,
+      1,
+      1
+    ],
+    "defMod": [
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1
+    ],
+    "matSetId": 5
+  },
+  {
+    "id": 200,
+    "atkMod": [
+      1.8,
+      1,
+      1,
+      1.8
+    ],
+    "bonusMod": [
+      1,
+      1,
+      1,
+      1
+    ],
+    "defMod": [
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1
+    ],
+    "matSetId": 0
+  },
+  {
+    "id": 201,
+    "atkMod": [
+      1.94,
+      1,
+      1,
+      1.94
+    ],
+    "bonusMod": [
+      1,
+      1,
+      1,
+      1
+    ],
+    "defMod": [
+      1,
+      1,
+      1,
+      1.08,
+      1,
+      1,
+      1,
+      1
+    ],
+    "matSetId": 1
+  },
+  {
+    "id": 202,
+    "atkMod": [
+      2.08,
+      1,
+      1,
+      2.08
+    ],
+    "bonusMod": [
+      1,
+      1,
+      1,
+      1
+    ],
+    "defMod": [
+      1,
+      1,
+      1,
+      1.16,
+      1,
+      1,
+      1,
+      1
+    ],
+    "matSetId": 2
+  },
+  {
+    "id": 203,
+    "atkMod": [
+      2.22,
+      1,
+      1,
+      2.22
+    ],
+    "bonusMod": [
+      1,
+      1,
+      1,
+      1
+    ],
+    "defMod": [
+      1,
+      1,
+      1,
+      1.24,
+      1,
+      1,
+      1,
+      1
+    ],
+    "matSetId": 3
+  },
+  {
+    "id": 204,
+    "atkMod": [
+      2.36,
+      1,
+      1,
+      2.36
+    ],
+    "bonusMod": [
+      1,
+      1,
+      1,
+      1
+    ],
+    "defMod": [
+      1,
+      1,
+      1,
+      1.32,
+      1,
+      1,
+      1,
+      1
+    ],
+    "matSetId": 4
+  },
+  {
+    "id": 205,
+    "atkMod": [
+      2.5,
+      1,
+      1,
+      2.5
+    ],
+    "bonusMod": [
+      1,
+      1,
+      1,
+      1
+    ],
+    "defMod": [
+      1,
+      1,
+      1,
+      1.4,
+      1,
+      1,
+      1,
+      1
+    ],
+    "matSetId": 5
+  },
+  {
+    "id": 300,
+    "atkMod": [
+      1.5,
+      1,
+      1,
+      1
+    ],
+    "bonusMod": [
+      1.1,
+      1.1,
+      1,
+      1
+    ],
+    "defMod": [
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1
+    ],
+    "matSetId": 0
+  },
+  {
+    "id": 301,
+    "atkMod": [
+      1.6,
+      1,
+      1,
+      1
+    ],
+    "bonusMod": [
+      1.1,
+      1.1,
+      1,
+      1
+    ],
+    "defMod": [
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1
+    ],
+    "matSetId": 1
+  },
+  {
+    "id": 302,
+    "atkMod": [
+      1.7,
+      1,
+      1,
+      1
+    ],
+    "bonusMod": [
+      1.1,
+      1.1,
+      1,
+      1
+    ],
+    "defMod": [
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1
+    ],
+    "matSetId": 2
+  },
+  {
+    "id": 303,
+    "atkMod": [
+      1.8,
+      1,
+      1,
+      1
+    ],
+    "bonusMod": [
+      1.1,
+      1.1,
+      1,
+      1
+    ],
+    "defMod": [
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1
+    ],
+    "matSetId": 3
+  },
+  {
+    "id": 304,
+    "atkMod": [
+      1.9,
+      1,
+      1,
+      1
+    ],
+    "bonusMod": [
+      1.1,
+      1.1,
+      1,
+      1
+    ],
+    "defMod": [
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1
+    ],
+    "matSetId": 4
+  },
+  {
+    "id": 305,
+    "atkMod": [
+      2,
+      1,
+      1,
+      1
+    ],
+    "bonusMod": [
+      1.1,
+      1.1,
+      1,
+      1
+    ],
+    "defMod": [
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1
+    ],
+    "matSetId": 5
+  },
+  {
+    "id": 400,
+    "atkMod": [
+      1.5,
+      1.5,
+      1,
+      1
+    ],
+    "bonusMod": [
+      1.1,
+      1.1,
+      1.1,
+      1
+    ],
+    "defMod": [
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1
+    ],
+    "matSetId": 0
+  },
+  {
+    "id": 401,
+    "atkMod": [
+      1.6,
+      1.6,
+      1,
+      1
+    ],
+    "bonusMod": [
+      1.1,
+      1.1,
+      1.1,
+      1
+    ],
+    "defMod": [
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1
+    ],
+    "matSetId": 1
+  },
+  {
+    "id": 402,
+    "atkMod": [
+      1.7,
+      1.7,
+      1,
+      1
+    ],
+    "bonusMod": [
+      1.1,
+      1.1,
+      1.1,
+      1
+    ],
+    "defMod": [
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1
+    ],
+    "matSetId": 2
+  },
+  {
+    "id": 403,
+    "atkMod": [
+      1.8,
+      1.8,
+      1,
+      1
+    ],
+    "bonusMod": [
+      1.1,
+      1.1,
+      1.1,
+      1
+    ],
+    "defMod": [
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1
+    ],
+    "matSetId": 3
+  },
+  {
+    "id": 404,
+    "atkMod": [
+      1.9,
+      1.9,
+      1,
+      1
+    ],
+    "bonusMod": [
+      1.1,
+      1.1,
+      1.1,
+      1
+    ],
+    "defMod": [
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1
+    ],
+    "matSetId": 4
+  },
+  {
+    "id": 405,
+    "atkMod": [
+      2,
+      2,
+      1,
+      1
+    ],
+    "bonusMod": [
+      1.1,
+      1.1,
+      1.1,
+      1
+    ],
+    "defMod": [
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1
+    ],
+    "matSetId": 5
+  },
+  {
+    "id": 406,
+    "atkMod": [
+      2.1,
+      2.1,
+      1,
+      1
+    ],
+    "bonusMod": [
+      1.15,
+      1.15,
+      1.15,
+      1
+    ],
+    "defMod": [
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1
+    ],
+    "matSetId": 6
+  },
+  {
+    "id": 407,
+    "atkMod": [
+      2.2,
+      2.2,
+      1,
+      1
+    ],
+    "bonusMod": [
+      1.15,
+      1.15,
+      1.15,
+      1
+    ],
+    "defMod": [
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1
+    ],
+    "matSetId": 7
+  },
+  {
+    "id": 408,
+    "atkMod": [
+      2.3,
+      2.3,
+      1,
+      1
+    ],
+    "bonusMod": [
+      1.15,
+      1.15,
+      1.15,
+      1
+    ],
+    "defMod": [
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1
+    ],
+    "matSetId": 8
+  },
+  {
+    "id": 409,
+    "atkMod": [
+      2.4,
+      2.4,
+      1,
+      1
+    ],
+    "bonusMod": [
+      1.2,
+      1.2,
+      1.2,
+      1
+    ],
+    "defMod": [
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1
+    ],
+    "matSetId": 9
+  },
+  {
+    "id": 410,
+    "atkMod": [
+      2.5,
+      2.5,
+      1,
+      1
+    ],
+    "bonusMod": [
+      1.2,
+      1.2,
+      1.2,
+      1
+    ],
+    "defMod": [
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1
+    ],
+    "matSetId": 10
+  },
+  {
+    "id": 500,
+    "atkMod": [
+      2,
+      2,
+      1,
+      1
+    ],
+    "bonusMod": [
+      1.15,
+      1.15,
+      1.15,
+      1
+    ],
+    "defMod": [
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1
+    ],
+    "matSetId": 0
+  },
+  {
+    "id": 501,
+    "atkMod": [
+      2.08,
+      2.06,
+      1,
+      1
+    ],
+    "bonusMod": [
+      1.15,
+      1.15,
+      1.28,
+      1
+    ],
+    "defMod": [
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1
+    ],
+    "matSetId": 1
+  },
+  {
+    "id": 502,
+    "atkMod": [
+      2.16,
+      2.12,
+      1,
+      1
+    ],
+    "bonusMod": [
+      1.15,
+      1.15,
+      1.41,
+      1
+    ],
+    "defMod": [
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1
+    ],
+    "matSetId": 2
+  },
+  {
+    "id": 503,
+    "atkMod": [
+      2.24,
+      2.18,
+      1,
+      1
+    ],
+    "bonusMod": [
+      1.15,
+      1.15,
+      1.54,
+      1
+    ],
+    "defMod": [
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1
+    ],
+    "matSetId": 3
+  },
+  {
+    "id": 504,
+    "atkMod": [
+      2.32,
+      2.24,
+      1,
+      1
+    ],
+    "bonusMod": [
+      1.2,
+      1.2,
+      1.67,
+      1
+    ],
+    "defMod": [
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1
+    ],
+    "matSetId": 4
+  },
+  {
+    "id": 505,
+    "atkMod": [
+      2.4,
+      2.32,
+      1,
+      1
+    ],
+    "bonusMod": [
+      1.2,
+      1.2,
+      1.8,
+      1
+    ],
+    "defMod": [
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1
+    ],
+    "matSetId": 5
+  },
+  {
+    "id": 600,
+    "atkMod": [
+      1.5,
+      1.5,
+      1,
+      1
+    ],
+    "bonusMod": [
+      1.1,
+      1.1,
+      1,
+      1.1
+    ],
+    "defMod": [
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1
+    ],
+    "matSetId": 0
+  },
+  {
+    "id": 601,
+    "atkMod": [
+      1.6,
+      1.6,
+      1,
+      1
+    ],
+    "bonusMod": [
+      1.1,
+      1.1,
+      1,
+      1.1
+    ],
+    "defMod": [
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1
+    ],
+    "matSetId": 1
+  },
+  {
+    "id": 602,
+    "atkMod": [
+      1.7,
+      1.7,
+      1,
+      1
+    ],
+    "bonusMod": [
+      1.1,
+      1.1,
+      1,
+      1.1
+    ],
+    "defMod": [
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1
+    ],
+    "matSetId": 2
+  },
+  {
+    "id": 603,
+    "atkMod": [
+      1.8,
+      1.8,
+      1,
+      1
+    ],
+    "bonusMod": [
+      1.1,
+      1.1,
+      1,
+      1.1
+    ],
+    "defMod": [
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1
+    ],
+    "matSetId": 3
+  },
+  {
+    "id": 604,
+    "atkMod": [
+      1.9,
+      1.9,
+      1,
+      1
+    ],
+    "bonusMod": [
+      1.1,
+      1.1,
+      1,
+      1.1
+    ],
+    "defMod": [
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1
+    ],
+    "matSetId": 4
+  },
+  {
+    "id": 605,
+    "atkMod": [
+      2,
+      2,
+      1,
+      1
+    ],
+    "bonusMod": [
+      1.1,
+      1.1,
+      1,
+      1.1
+    ],
+    "defMod": [
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1
+    ],
+    "matSetId": 5
+  },
+  {
+    "id": 606,
+    "atkMod": [
+      2.1,
+      2.1,
+      1,
+      1
+    ],
+    "bonusMod": [
+      1.15,
+      1.15,
+      1,
+      1.15
+    ],
+    "defMod": [
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1
+    ],
+    "matSetId": 6
+  },
+  {
+    "id": 607,
+    "atkMod": [
+      2.2,
+      2.2,
+      1,
+      1
+    ],
+    "bonusMod": [
+      1.15,
+      1.15,
+      1,
+      1.15
+    ],
+    "defMod": [
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1
+    ],
+    "matSetId": 7
+  },
+  {
+    "id": 608,
+    "atkMod": [
+      2.3,
+      2.3,
+      1,
+      1
+    ],
+    "bonusMod": [
+      1.15,
+      1.15,
+      1,
+      1.15
+    ],
+    "defMod": [
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1
+    ],
+    "matSetId": 8
+  },
+  {
+    "id": 609,
+    "atkMod": [
+      2.4,
+      2.4,
+      1,
+      1
+    ],
+    "bonusMod": [
+      1.2,
+      1.2,
+      1,
+      1.2
+    ],
+    "defMod": [
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1
+    ],
+    "matSetId": 9
+  },
+  {
+    "id": 610,
+    "atkMod": [
+      2.5,
+      2.5,
+      1,
+      1
+    ],
+    "bonusMod": [
+      1.2,
+      1.2,
+      1,
+      1.2
+    ],
+    "defMod": [
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1
+    ],
+    "matSetId": 10
+  },
+  {
+    "id": 700,
+    "atkMod": [
+      2,
+      2,
+      1,
+      1
+    ],
+    "bonusMod": [
+      1.15,
+      1.15,
+      1,
+      1.15
+    ],
+    "defMod": [
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1
+    ],
+    "matSetId": 0
+  },
+  {
+    "id": 701,
+    "atkMod": [
+      2.12,
+      2.1,
+      1,
+      1
+    ],
+    "bonusMod": [
+      1.15,
+      1.15,
+      1,
+      1.15
+    ],
+    "defMod": [
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1
+    ],
+    "matSetId": 1
+  },
+  {
+    "id": 702,
+    "atkMod": [
+      2.24,
+      2.2,
+      1,
+      1
+    ],
+    "bonusMod": [
+      1.15,
+      1.15,
+      1,
+      1.15
+    ],
+    "defMod": [
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1
+    ],
+    "matSetId": 2
+  },
+  {
+    "id": 703,
+    "atkMod": [
+      2.36,
+      2.3,
+      1,
+      1
+    ],
+    "bonusMod": [
+      1.15,
+      1.15,
+      1,
+      1.15
+    ],
+    "defMod": [
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1
+    ],
+    "matSetId": 3
+  },
+  {
+    "id": 704,
+    "atkMod": [
+      2.48,
+      2.4,
+      1,
+      1
+    ],
+    "bonusMod": [
+      1.2,
+      1.2,
+      1,
+      1.2
+    ],
+    "defMod": [
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1
+    ],
+    "matSetId": 4
+  },
+  {
+    "id": 705,
+    "atkMod": [
+      2.6,
+      2.5,
+      1,
+      1
+    ],
+    "bonusMod": [
+      1.2,
+      1.2,
+      1,
+      1.2
+    ],
+    "defMod": [
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1
+    ],
+    "matSetId": 5
+  },
+  {
+    "id": 800,
+    "atkMod": [
+      1.3,
+      1,
+      1.3,
+      1
+    ],
+    "bonusMod": [
+      1,
+      1,
+      1,
+      1
+    ],
+    "defMod": [
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1
+    ],
+    "matSetId": 0
+  },
+  {
+    "id": 801,
+    "atkMod": [
+      1.4,
+      1,
+      1.4,
+      1
+    ],
+    "bonusMod": [
+      1,
+      1,
+      1,
+      1
+    ],
+    "defMod": [
+      1,
+      1,
+      1.01,
+      1,
+      1,
+      1,
+      1,
+      1
+    ],
+    "matSetId": 1
+  },
+  {
+    "id": 802,
+    "atkMod": [
+      1.5,
+      1,
+      1.5,
+      1
+    ],
+    "bonusMod": [
+      1,
+      1,
+      1,
+      1
+    ],
+    "defMod": [
+      1,
+      1,
+      1.02,
+      1,
+      1,
+      1,
+      1,
+      1
+    ],
+    "matSetId": 2
+  },
+  {
+    "id": 803,
+    "atkMod": [
+      1.6,
+      1,
+      1.6,
+      1
+    ],
+    "bonusMod": [
+      1,
+      1,
+      1,
+      1
+    ],
+    "defMod": [
+      1,
+      1,
+      1.03,
+      1,
+      1,
+      1,
+      1,
+      1
+    ],
+    "matSetId": 3
+  },
+  {
+    "id": 804,
+    "atkMod": [
+      1.7,
+      1,
+      1.7,
+      1
+    ],
+    "bonusMod": [
+      1,
+      1,
+      1,
+      1
+    ],
+    "defMod": [
+      1,
+      1,
+      1.04,
+      1,
+      1,
+      1,
+      1,
+      1
+    ],
+    "matSetId": 4
+  },
+  {
+    "id": 805,
+    "atkMod": [
+      1.8,
+      1,
+      1.8,
+      1
+    ],
+    "bonusMod": [
+      1,
+      1,
+      1,
+      1
+    ],
+    "defMod": [
+      1,
+      1,
+      1.05,
+      1,
+      1,
+      1,
+      1,
+      1
+    ],
+    "matSetId": 5
+  },
+  {
+    "id": 806,
+    "atkMod": [
+      1.92,
+      1,
+      1.92,
+      1
+    ],
+    "bonusMod": [
+      1,
+      1,
+      1,
+      1
+    ],
+    "defMod": [
+      1,
+      1,
+      1.06,
+      1,
+      1,
+      1,
+      1,
+      1
+    ],
+    "matSetId": 6
+  },
+  {
+    "id": 807,
+    "atkMod": [
+      2.04,
+      1,
+      2.04,
+      1
+    ],
+    "bonusMod": [
+      1,
+      1,
+      1,
+      1
+    ],
+    "defMod": [
+      1,
+      1,
+      1.07,
+      1,
+      1,
+      1,
+      1,
+      1
+    ],
+    "matSetId": 7
+  },
+  {
+    "id": 808,
+    "atkMod": [
+      2.16,
+      1,
+      2.16,
+      1
+    ],
+    "bonusMod": [
+      1,
+      1,
+      1,
+      1
+    ],
+    "defMod": [
+      1,
+      1,
+      1.08,
+      1,
+      1,
+      1,
+      1,
+      1
+    ],
+    "matSetId": 8
+  },
+  {
+    "id": 809,
+    "atkMod": [
+      2.28,
+      1,
+      2.28,
+      1
+    ],
+    "bonusMod": [
+      1,
+      1,
+      1,
+      1
+    ],
+    "defMod": [
+      1,
+      1,
+      1.09,
+      1,
+      1,
+      1,
+      1,
+      1
+    ],
+    "matSetId": 9
+  },
+  {
+    "id": 810,
+    "atkMod": [
+      2.4,
+      1,
+      2.4,
+      1
+    ],
+    "bonusMod": [
+      1,
+      1,
+      1,
+      1
+    ],
+    "defMod": [
+      1,
+      1,
+      1.1,
+      1,
+      1,
+      1,
+      1,
+      1
+    ],
+    "matSetId": 10
+  },
+  {
+    "id": 900,
+    "atkMod": [
+      1.8,
+      1,
+      1.8,
+      1
+    ],
+    "bonusMod": [
+      1,
+      1,
+      1,
+      1
+    ],
+    "defMod": [
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1
+    ],
+    "matSetId": 0
+  },
+  {
+    "id": 901,
+    "atkMod": [
+      1.9,
+      1,
+      1.9,
+      1
+    ],
+    "bonusMod": [
+      1,
+      1,
+      1,
+      1
+    ],
+    "defMod": [
+      1,
+      1,
+      1.02,
+      1,
+      1,
+      1,
+      1,
+      1
+    ],
+    "matSetId": 1
+  },
+  {
+    "id": 902,
+    "atkMod": [
+      2,
+      1,
+      2,
+      1
+    ],
+    "bonusMod": [
+      1,
+      1,
+      1,
+      1
+    ],
+    "defMod": [
+      1,
+      1,
+      1.04,
+      1,
+      1,
+      1,
+      1,
+      1
+    ],
+    "matSetId": 2
+  },
+  {
+    "id": 903,
+    "atkMod": [
+      2.1,
+      1,
+      2.1,
+      1
+    ],
+    "bonusMod": [
+      1,
+      1,
+      1,
+      1
+    ],
+    "defMod": [
+      1,
+      1,
+      1.06,
+      1,
+      1,
+      1,
+      1,
+      1
+    ],
+    "matSetId": 3
+  },
+  {
+    "id": 904,
+    "atkMod": [
+      2.2,
+      1,
+      2.2,
+      1
+    ],
+    "bonusMod": [
+      1,
+      1,
+      1,
+      1
+    ],
+    "defMod": [
+      1,
+      1,
+      1.08,
+      1,
+      1,
+      1,
+      1,
+      1
+    ],
+    "matSetId": 4
+  },
+  {
+    "id": 905,
+    "atkMod": [
+      2.3,
+      1,
+      2.3,
+      1
+    ],
+    "bonusMod": [
+      1,
+      1,
+      1,
+      1
+    ],
+    "defMod": [
+      1,
+      1,
+      1.1,
+      1,
+      1,
+      1,
+      1,
+      1
+    ],
+    "matSetId": 5
+  },
+  {
+    "id": 1000,
+    "atkMod": [
+      1,
+      1,
+      1,
+      1
+    ],
+    "bonusMod": [
+      1,
+      1,
+      1,
+      1
+    ],
+    "defMod": [
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1
+    ],
+    "matSetId": 0
+  },
+  {
+    "id": 1001,
+    "atkMod": [
+      1.1,
+      1.1,
+      1.1,
+      1.1
+    ],
+    "bonusMod": [
+      1,
+      1,
+      1,
+      1
+    ],
+    "defMod": [
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1
+    ],
+    "matSetId": 1
+  },
+  {
+    "id": 1002,
+    "atkMod": [
+      1.2,
+      1.2,
+      1.2,
+      1.2
+    ],
+    "bonusMod": [
+      1,
+      1,
+      1,
+      1
+    ],
+    "defMod": [
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1
+    ],
+    "matSetId": 2
+  },
+  {
+    "id": 1003,
+    "atkMod": [
+      1.3,
+      1.3,
+      1.3,
+      1.3
+    ],
+    "bonusMod": [
+      1,
+      1,
+      1,
+      1
+    ],
+    "defMod": [
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1
+    ],
+    "matSetId": 3
+  },
+  {
+    "id": 1004,
+    "atkMod": [
+      1.4,
+      1.4,
+      1.4,
+      1.4
+    ],
+    "bonusMod": [
+      1,
+      1,
+      1,
+      1
+    ],
+    "defMod": [
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1
+    ],
+    "matSetId": 4
+  },
+  {
+    "id": 1005,
+    "atkMod": [
+      1.5,
+      1.5,
+      1.5,
+      1.5
+    ],
+    "bonusMod": [
+      1,
+      1,
+      1,
+      1
+    ],
+    "defMod": [
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1
+    ],
+    "matSetId": 5
+  },
+  {
+    "id": 1100,
+    "atkMod": [
+      1,
+      1,
+      1,
+      1
+    ],
+    "bonusMod": [
+      1,
+      1,
+      1,
+      1
+    ],
+    "defMod": [
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1
+    ],
+    "matSetId": 0
+  },
+  {
+    "id": 1101,
+    "atkMod": [
+      1.1,
+      1.1,
+      1.1,
+      1.1
+    ],
+    "bonusMod": [
+      1.05,
+      1.05,
+      1.05,
+      1.05
+    ],
+    "defMod": [
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1
+    ],
+    "matSetId": 1
+  },
+  {
+    "id": 1102,
+    "atkMod": [
+      1.2,
+      1.2,
+      1.2,
+      1.2
+    ],
+    "bonusMod": [
+      1.1,
+      1.1,
+      1.1,
+      1.1
+    ],
+    "defMod": [
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1
+    ],
+    "matSetId": 2
+  },
+  {
+    "id": 1103,
+    "atkMod": [
+      1.3,
+      1.3,
+      1.3,
+      1.3
+    ],
+    "bonusMod": [
+      1.1,
+      1.1,
+      1.1,
+      1.1
+    ],
+    "defMod": [
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1
+    ],
+    "matSetId": 3
+  },
+  {
+    "id": 1104,
+    "atkMod": [
+      1.4,
+      1.4,
+      1.4,
+      1.4
+    ],
+    "bonusMod": [
+      1.15,
+      1.15,
+      1.15,
+      1.15
+    ],
+    "defMod": [
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1
+    ],
+    "matSetId": 4
+  },
+  {
+    "id": 1105,
+    "atkMod": [
+      1.5,
+      1.5,
+      1.5,
+      1.5
+    ],
+    "bonusMod": [
+      1.2,
+      1.2,
+      1.2,
+      1.2
+    ],
+    "defMod": [
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1
+    ],
+    "matSetId": 5
+  },
+  {
+    "id": 1200,
+    "atkMod": [
+      1,
+      1,
+      1,
+      1
+    ],
+    "bonusMod": [
+      1,
+      1,
+      1,
+      1
+    ],
+    "defMod": [
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1
+    ],
+    "matSetId": 0
+  },
+  {
+    "id": 1201,
+    "atkMod": [
+      1.1,
+      1.1,
+      1.1,
+      1.1
+    ],
+    "bonusMod": [
+      1,
+      1,
+      1,
+      1
+    ],
+    "defMod": [
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1
+    ],
+    "matSetId": 1
+  },
+  {
+    "id": 1202,
+    "atkMod": [
+      1.2,
+      1.2,
+      1.2,
+      1.2
+    ],
+    "bonusMod": [
+      1,
+      1,
+      1,
+      1
+    ],
+    "defMod": [
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1
+    ],
+    "matSetId": 2
+  },
+  {
+    "id": 1203,
+    "atkMod": [
+      1.3,
+      1.3,
+      1.3,
+      1.3
+    ],
+    "bonusMod": [
+      1,
+      1,
+      1,
+      1
+    ],
+    "defMod": [
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1
+    ],
+    "matSetId": 3
+  },
+  {
+    "id": 1204,
+    "atkMod": [
+      1.4,
+      1.4,
+      1.4,
+      1.4
+    ],
+    "bonusMod": [
+      1,
+      1,
+      1,
+      1
+    ],
+    "defMod": [
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1
+    ],
+    "matSetId": 4
+  },
+  {
+    "id": 1205,
+    "atkMod": [
+      1.5,
+      1.5,
+      1.5,
+      1.5
+    ],
+    "bonusMod": [
+      1,
+      1,
+      1,
+      1
+    ],
+    "defMod": [
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1
+    ],
+    "matSetId": 5
+  },
+  {
+    "id": 1300,
+    "atkMod": [
+      1,
+      1,
+      1,
+      1
+    ],
+    "bonusMod": [
+      1,
+      1,
+      1,
+      1
+    ],
+    "defMod": [
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1
+    ],
+    "matSetId": 0
+  },
+  {
+    "id": 1301,
+    "atkMod": [
+      1.05,
+      1.05,
+      1.05,
+      1.05
+    ],
+    "bonusMod": [
+      1,
+      1,
+      1,
+      1
+    ],
+    "defMod": [
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1.05
+    ],
+    "matSetId": 1
+  },
+  {
+    "id": 1302,
+    "atkMod": [
+      1.1,
+      1.1,
+      1.1,
+      1.1
+    ],
+    "bonusMod": [
+      1,
+      1,
+      1,
+      1
+    ],
+    "defMod": [
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1.1
+    ],
+    "matSetId": 2
+  },
+  {
+    "id": 1303,
+    "atkMod": [
+      1.15,
+      1.15,
+      1.15,
+      1.15
+    ],
+    "bonusMod": [
+      1,
+      1,
+      1,
+      1
+    ],
+    "defMod": [
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1.15
+    ],
+    "matSetId": 3
+  },
+  {
+    "id": 1304,
+    "atkMod": [
+      1.2,
+      1.2,
+      1.2,
+      1.2
+    ],
+    "bonusMod": [
+      1,
+      1,
+      1,
+      1
+    ],
+    "defMod": [
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1.2
+    ],
+    "matSetId": 4
+  },
+  {
+    "id": 1305,
+    "atkMod": [
+      1.25,
+      1.25,
+      1.25,
+      1.25
+    ],
+    "bonusMod": [
+      1,
+      1,
+      1,
+      1
+    ],
+    "defMod": [
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1.3
+    ],
+    "matSetId": 5
+  },
+  {
+    "id": 1400,
+    "atkMod": [
+      1,
+      1,
+      1,
+      1
+    ],
+    "bonusMod": [
+      1,
+      1,
+      1,
+      1
+    ],
+    "defMod": [
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1
+    ],
+    "matSetId": 0
+  },
+  {
+    "id": 1401,
+    "atkMod": [
+      1.05,
+      1.05,
+      1.05,
+      1.05
+    ],
+    "bonusMod": [
+      1,
+      1,
+      1,
+      1
+    ],
+    "defMod": [
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1.04
+    ],
+    "matSetId": 1
+  },
+  {
+    "id": 1402,
+    "atkMod": [
+      1.1,
+      1.1,
+      1.1,
+      1.1
+    ],
+    "bonusMod": [
+      1,
+      1,
+      1,
+      1
+    ],
+    "defMod": [
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1.08
+    ],
+    "matSetId": 2
+  },
+  {
+    "id": 1403,
+    "atkMod": [
+      1.15,
+      1.15,
+      1.15,
+      1.15
+    ],
+    "bonusMod": [
+      1,
+      1,
+      1,
+      1
+    ],
+    "defMod": [
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1.12
+    ],
+    "matSetId": 3
+  },
+  {
+    "id": 1404,
+    "atkMod": [
+      1.2,
+      1.2,
+      1.2,
+      1.2
+    ],
+    "bonusMod": [
+      1,
+      1,
+      1,
+      1
+    ],
+    "defMod": [
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1.16
+    ],
+    "matSetId": 4
+  },
+  {
+    "id": 1405,
+    "atkMod": [
+      1.25,
+      1.25,
+      1.25,
+      1.25
+    ],
+    "bonusMod": [
+      1,
+      1,
+      1,
+      1
+    ],
+    "defMod": [
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1.2
+    ],
+    "matSetId": 5
+  },
+  {
+    "id": 1500,
+    "atkMod": [
+      1,
+      1,
+      1,
+      1
+    ],
+    "bonusMod": [
+      1,
+      1,
+      1,
+      1
+    ],
+    "defMod": [
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1
+    ],
+    "matSetId": 0
+  },
+  {
+    "id": 1501,
+    "atkMod": [
+      1.05,
+      1.05,
+      1.05,
+      1.05
+    ],
+    "bonusMod": [
+      1,
+      1,
+      1,
+      1
+    ],
+    "defMod": [
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1
+    ],
+    "matSetId": 1
+  },
+  {
+    "id": 1502,
+    "atkMod": [
+      1.1,
+      1.1,
+      1.1,
+      1.1
+    ],
+    "bonusMod": [
+      1,
+      1,
+      1,
+      1
+    ],
+    "defMod": [
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1
+    ],
+    "matSetId": 2
+  },
+  {
+    "id": 1503,
+    "atkMod": [
+      1.15,
+      1.15,
+      1.15,
+      1.15
+    ],
+    "bonusMod": [
+      1,
+      1,
+      1,
+      1
+    ],
+    "defMod": [
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1
+    ],
+    "matSetId": 3
+  },
+  {
+    "id": 1504,
+    "atkMod": [
+      1.2,
+      1.2,
+      1.2,
+      1.2
+    ],
+    "bonusMod": [
+      1,
+      1,
+      1,
+      1
+    ],
+    "defMod": [
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1
+    ],
+    "matSetId": 4
+  },
+  {
+    "id": 1505,
+    "atkMod": [
+      1.25,
+      1.25,
+      1.25,
+      1.25
+    ],
+    "bonusMod": [
+      1,
+      1,
+      1,
+      1
+    ],
+    "defMod": [
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1
+    ],
+    "matSetId": 5
+  },
+  {
+    "id": 2000,
+    "atkMod": [
+      1,
+      1,
+      1,
+      1
+    ],
+    "bonusMod": [
+      1,
+      1,
+      1,
+      1
+    ],
+    "defMod": [
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1
+    ],
+    "matSetId": 0
+  },
+  {
+    "id": 2001,
+    "atkMod": [
+      1.1,
+      1,
+      1,
+      1
+    ],
+    "bonusMod": [
+      1.05,
+      1.05,
+      1,
+      1
+    ],
+    "defMod": [
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1
+    ],
+    "matSetId": 1
+  },
+  {
+    "id": 2002,
+    "atkMod": [
+      1.2,
+      1,
+      1,
+      1
+    ],
+    "bonusMod": [
+      1.05,
+      1.05,
+      1,
+      1
+    ],
+    "defMod": [
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1
+    ],
+    "matSetId": 2
+  },
+  {
+    "id": 2003,
+    "atkMod": [
+      1.3,
+      1,
+      1,
+      1
+    ],
+    "bonusMod": [
+      1.05,
+      1.05,
+      1,
+      1
+    ],
+    "defMod": [
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1
+    ],
+    "matSetId": 3
+  },
+  {
+    "id": 2004,
+    "atkMod": [
+      1.4,
+      1,
+      1,
+      1
+    ],
+    "bonusMod": [
+      1.05,
+      1.05,
+      1,
+      1
+    ],
+    "defMod": [
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1
+    ],
+    "matSetId": 4
+  },
+  {
+    "id": 2005,
+    "atkMod": [
+      1.5,
+      1,
+      1,
+      1
+    ],
+    "bonusMod": [
+      1.05,
+      1.05,
+      1,
+      1
+    ],
+    "defMod": [
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1
+    ],
+    "matSetId": 5
+  },
+  {
+    "id": 2006,
+    "atkMod": [
+      1.57,
+      1,
+      1,
+      1
+    ],
+    "bonusMod": [
+      1.1,
+      1.1,
+      1,
+      1
+    ],
+    "defMod": [
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1
+    ],
+    "matSetId": 6
+  },
+  {
+    "id": 2007,
+    "atkMod": [
+      1.64,
+      1,
+      1,
+      1
+    ],
+    "bonusMod": [
+      1.1,
+      1.1,
+      1,
+      1
+    ],
+    "defMod": [
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1
+    ],
+    "matSetId": 7
+  },
+  {
+    "id": 2008,
+    "atkMod": [
+      1.71,
+      1,
+      1,
+      1
+    ],
+    "bonusMod": [
+      1.1,
+      1.1,
+      1,
+      1
+    ],
+    "defMod": [
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1
+    ],
+    "matSetId": 8
+  },
+  {
+    "id": 2009,
+    "atkMod": [
+      1.78,
+      1,
+      1,
+      1
+    ],
+    "bonusMod": [
+      1.1,
+      1.1,
+      1,
+      1
+    ],
+    "defMod": [
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1
+    ],
+    "matSetId": 9
+  },
+  {
+    "id": 2010,
+    "atkMod": [
+      1.85,
+      1,
+      1,
+      1
+    ],
+    "bonusMod": [
+      1.1,
+      1.1,
+      1,
+      1
+    ],
+    "defMod": [
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1
+    ],
+    "matSetId": 10
+  },
+  {
+    "id": 2011,
+    "atkMod": [
+      1.9,
+      1,
+      1,
+      1
+    ],
+    "bonusMod": [
+      1.15,
+      1.15,
+      1,
+      1
+    ],
+    "defMod": [
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1
+    ],
+    "matSetId": 11
+  },
+  {
+    "id": 2012,
+    "atkMod": [
+      1.95,
+      1,
+      1,
+      1
+    ],
+    "bonusMod": [
+      1.15,
+      1.15,
+      1,
+      1
+    ],
+    "defMod": [
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1
+    ],
+    "matSetId": 12
+  },
+  {
+    "id": 2013,
+    "atkMod": [
+      2,
+      1,
+      1,
+      1
+    ],
+    "bonusMod": [
+      1.15,
+      1.15,
+      1,
+      1
+    ],
+    "defMod": [
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1
+    ],
+    "matSetId": 13
+  },
+  {
+    "id": 2014,
+    "atkMod": [
+      2.05,
+      1,
+      1,
+      1
+    ],
+    "bonusMod": [
+      1.2,
+      1.2,
+      1,
+      1
+    ],
+    "defMod": [
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1
+    ],
+    "matSetId": 14
+  },
+  {
+    "id": 2015,
+    "atkMod": [
+      2.1,
+      1,
+      1,
+      1
+    ],
+    "bonusMod": [
+      1.2,
+      1.2,
+      1,
+      1
+    ],
+    "defMod": [
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1
+    ],
+    "matSetId": 15
+  },
+  {
+    "id": 2100,
+    "atkMod": [
+      2,
+      1,
+      1,
+      1
+    ],
+    "bonusMod": [
+      1.15,
+      1.15,
+      1,
+      1
+    ],
+    "defMod": [
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1
+    ],
+    "matSetId": 0
+  },
+  {
+    "id": 2101,
+    "atkMod": [
+      2.05,
+      1,
+      1,
+      1
+    ],
+    "bonusMod": [
+      1.15,
+      1.15,
+      1,
+      1
+    ],
+    "defMod": [
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1
+    ],
+    "matSetId": 1
+  },
+  {
+    "id": 2102,
+    "atkMod": [
+      2.1,
+      1,
+      1,
+      1
+    ],
+    "bonusMod": [
+      1.15,
+      1.15,
+      1,
+      1
+    ],
+    "defMod": [
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1
+    ],
+    "matSetId": 2
+  },
+  {
+    "id": 2103,
+    "atkMod": [
+      2.15,
+      1,
+      1,
+      1
+    ],
+    "bonusMod": [
+      1.15,
+      1.15,
+      1,
+      1
+    ],
+    "defMod": [
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1
+    ],
+    "matSetId": 3
+  },
+  {
+    "id": 2104,
+    "atkMod": [
+      2.2,
+      1,
+      1,
+      1
+    ],
+    "bonusMod": [
+      1.2,
+      1.2,
+      1,
+      1
+    ],
+    "defMod": [
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1
+    ],
+    "matSetId": 4
+  },
+  {
+    "id": 2105,
+    "atkMod": [
+      2.25,
+      1,
+      1,
+      1
+    ],
+    "bonusMod": [
+      1.2,
+      1.2,
+      1,
+      1
+    ],
+    "defMod": [
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1
+    ],
+    "matSetId": 5
+  },
+  {
+    "id": 2200,
+    "atkMod": [
+      1.71,
+      1,
+      1,
+      1.71
+    ],
+    "bonusMod": [
+      1,
+      1,
+      1,
+      1
+    ],
+    "defMod": [
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1
+    ],
+    "matSetId": 0
+  },
+  {
+    "id": 2201,
+    "atkMod": [
+      1.77,
+      1,
+      1,
+      1.77
+    ],
+    "bonusMod": [
+      1,
+      1,
+      1,
+      1
+    ],
+    "defMod": [
+      1,
+      1,
+      1,
+      1.08,
+      1,
+      1,
+      1,
+      1
+    ],
+    "matSetId": 1
+  },
+  {
+    "id": 2202,
+    "atkMod": [
+      1.83,
+      1,
+      1,
+      1.83
+    ],
+    "bonusMod": [
+      1,
+      1,
+      1,
+      1
+    ],
+    "defMod": [
+      1,
+      1,
+      1,
+      1.16,
+      1,
+      1,
+      1,
+      1
+    ],
+    "matSetId": 2
+  },
+  {
+    "id": 2203,
+    "atkMod": [
+      1.89,
+      1,
+      1,
+      1.89
+    ],
+    "bonusMod": [
+      1,
+      1,
+      1,
+      1
+    ],
+    "defMod": [
+      1,
+      1,
+      1,
+      1.24,
+      1,
+      1,
+      1,
+      1
+    ],
+    "matSetId": 3
+  },
+  {
+    "id": 2204,
+    "atkMod": [
+      1.95,
+      1,
+      1,
+      1.95
+    ],
+    "bonusMod": [
+      1,
+      1,
+      1,
+      1
+    ],
+    "defMod": [
+      1,
+      1,
+      1,
+      1.32,
+      1,
+      1,
+      1,
+      1
+    ],
+    "matSetId": 4
+  },
+  {
+    "id": 2205,
+    "atkMod": [
+      2.04,
+      1,
+      1,
+      2.04
+    ],
+    "bonusMod": [
+      1,
+      1,
+      1,
+      1
+    ],
+    "defMod": [
+      1,
+      1,
+      1,
+      1.4,
+      1,
+      1,
+      1,
+      1
+    ],
+    "matSetId": 5
+  },
+  {
+    "id": 2300,
+    "atkMod": [
+      1.5,
+      1,
+      1,
+      1
+    ],
+    "bonusMod": [
+      1.1,
+      1.1,
+      1,
+      1
+    ],
+    "defMod": [
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1
+    ],
+    "matSetId": 0
+  },
+  {
+    "id": 2301,
+    "atkMod": [
+      1.57,
+      1,
+      1,
+      1
+    ],
+    "bonusMod": [
+      1.1,
+      1.1,
+      1,
+      1
+    ],
+    "defMod": [
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1
+    ],
+    "matSetId": 1
+  },
+  {
+    "id": 2302,
+    "atkMod": [
+      1.64,
+      1,
+      1,
+      1
+    ],
+    "bonusMod": [
+      1.1,
+      1.1,
+      1,
+      1
+    ],
+    "defMod": [
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1
+    ],
+    "matSetId": 2
+  },
+  {
+    "id": 2303,
+    "atkMod": [
+      1.71,
+      1,
+      1,
+      1
+    ],
+    "bonusMod": [
+      1.1,
+      1.1,
+      1,
+      1
+    ],
+    "defMod": [
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1
+    ],
+    "matSetId": 3
+  },
+  {
+    "id": 2304,
+    "atkMod": [
+      1.78,
+      1,
+      1,
+      1
+    ],
+    "bonusMod": [
+      1.1,
+      1.1,
+      1,
+      1
+    ],
+    "defMod": [
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1
+    ],
+    "matSetId": 4
+  },
+  {
+    "id": 2305,
+    "atkMod": [
+      1.85,
+      1,
+      1,
+      1
+    ],
+    "bonusMod": [
+      1.1,
+      1.1,
+      1,
+      1
+    ],
+    "defMod": [
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1
+    ],
+    "matSetId": 5
+  },
+  {
+    "id": 2400,
+    "atkMod": [
+      1.5,
+      1.5,
+      1,
+      1
+    ],
+    "bonusMod": [
+      1.1,
+      1.1,
+      1.1,
+      1
+    ],
+    "defMod": [
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1
+    ],
+    "matSetId": 0
+  },
+  {
+    "id": 2401,
+    "atkMod": [
+      1.57,
+      1.57,
+      1,
+      1
+    ],
+    "bonusMod": [
+      1.1,
+      1.1,
+      1.1,
+      1
+    ],
+    "defMod": [
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1
+    ],
+    "matSetId": 1
+  },
+  {
+    "id": 2402,
+    "atkMod": [
+      1.64,
+      1.64,
+      1,
+      1
+    ],
+    "bonusMod": [
+      1.1,
+      1.1,
+      1.1,
+      1
+    ],
+    "defMod": [
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1
+    ],
+    "matSetId": 2
+  },
+  {
+    "id": 2403,
+    "atkMod": [
+      1.71,
+      1.71,
+      1,
+      1
+    ],
+    "bonusMod": [
+      1.1,
+      1.1,
+      1.1,
+      1
+    ],
+    "defMod": [
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1
+    ],
+    "matSetId": 3
+  },
+  {
+    "id": 2404,
+    "atkMod": [
+      1.78,
+      1.78,
+      1,
+      1
+    ],
+    "bonusMod": [
+      1.1,
+      1.1,
+      1.1,
+      1
+    ],
+    "defMod": [
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1
+    ],
+    "matSetId": 4
+  },
+  {
+    "id": 2405,
+    "atkMod": [
+      1.85,
+      1.85,
+      1,
+      1
+    ],
+    "bonusMod": [
+      1.1,
+      1.1,
+      1.1,
+      1
+    ],
+    "defMod": [
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1
+    ],
+    "matSetId": 5
+  },
+  {
+    "id": 2406,
+    "atkMod": [
+      1.9,
+      1.9,
+      1,
+      1
+    ],
+    "bonusMod": [
+      1.15,
+      1.15,
+      1.15,
+      1
+    ],
+    "defMod": [
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1
+    ],
+    "matSetId": 6
+  },
+  {
+    "id": 2407,
+    "atkMod": [
+      1.95,
+      1.95,
+      1,
+      1
+    ],
+    "bonusMod": [
+      1.15,
+      1.15,
+      1.15,
+      1
+    ],
+    "defMod": [
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1
+    ],
+    "matSetId": 7
+  },
+  {
+    "id": 2408,
+    "atkMod": [
+      2,
+      2,
+      1,
+      1
+    ],
+    "bonusMod": [
+      1.15,
+      1.15,
+      1.15,
+      1
+    ],
+    "defMod": [
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1
+    ],
+    "matSetId": 8
+  },
+  {
+    "id": 2409,
+    "atkMod": [
+      2.05,
+      2.05,
+      1,
+      1
+    ],
+    "bonusMod": [
+      1.2,
+      1.2,
+      1.2,
+      1
+    ],
+    "defMod": [
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1
+    ],
+    "matSetId": 9
+  },
+  {
+    "id": 2410,
+    "atkMod": [
+      2.1,
+      2.1,
+      1,
+      1
+    ],
+    "bonusMod": [
+      1.2,
+      1.2,
+      1.2,
+      1
+    ],
+    "defMod": [
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1
+    ],
+    "matSetId": 10
+  },
+  {
+    "id": 2500,
+    "atkMod": [
+      1.8,
+      1.8,
+      1,
+      1
+    ],
+    "bonusMod": [
+      1.15,
+      1.15,
+      1.15,
+      1
+    ],
+    "defMod": [
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1
+    ],
+    "matSetId": 0
+  },
+  {
+    "id": 2501,
+    "atkMod": [
+      1.74,
+      1.73,
+      1,
+      1
+    ],
+    "bonusMod": [
+      1.15,
+      1.15,
+      1.28,
+      1
+    ],
+    "defMod": [
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1
+    ],
+    "matSetId": 1
+  },
+  {
+    "id": 2502,
+    "atkMod": [
+      1.79,
+      1.78,
+      1,
+      1
+    ],
+    "bonusMod": [
+      1.15,
+      1.15,
+      1.41,
+      1
+    ],
+    "defMod": [
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1
+    ],
+    "matSetId": 2
+  },
+  {
+    "id": 2503,
+    "atkMod": [
+      1.84,
+      1.83,
+      1,
+      1
+    ],
+    "bonusMod": [
+      1.15,
+      1.15,
+      1.54,
+      1
+    ],
+    "defMod": [
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1
+    ],
+    "matSetId": 3
+  },
+  {
+    "id": 2504,
+    "atkMod": [
+      1.89,
+      1.88,
+      1,
+      1
+    ],
+    "bonusMod": [
+      1.2,
+      1.2,
+      1.67,
+      1
+    ],
+    "defMod": [
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1
+    ],
+    "matSetId": 4
+  },
+  {
+    "id": 2505,
+    "atkMod": [
+      1.94,
+      1.93,
+      1,
+      1
+    ],
+    "bonusMod": [
+      1.2,
+      1.2,
+      1.8,
+      1
+    ],
+    "defMod": [
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1
+    ],
+    "matSetId": 5
+  },
+  {
+    "id": 2600,
+    "atkMod": [
+      1.5,
+      1.5,
+      1,
+      1
+    ],
+    "bonusMod": [
+      1.1,
+      1.1,
+      1,
+      1.1
+    ],
+    "defMod": [
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1
+    ],
+    "matSetId": 0
+  },
+  {
+    "id": 2601,
+    "atkMod": [
+      1.57,
+      1.57,
+      1,
+      1
+    ],
+    "bonusMod": [
+      1.1,
+      1.1,
+      1,
+      1.1
+    ],
+    "defMod": [
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1
+    ],
+    "matSetId": 1
+  },
+  {
+    "id": 2602,
+    "atkMod": [
+      1.64,
+      1.64,
+      1,
+      1
+    ],
+    "bonusMod": [
+      1.1,
+      1.1,
+      1,
+      1.1
+    ],
+    "defMod": [
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1
+    ],
+    "matSetId": 2
+  },
+  {
+    "id": 2603,
+    "atkMod": [
+      1.71,
+      1.71,
+      1,
+      1
+    ],
+    "bonusMod": [
+      1.1,
+      1.1,
+      1,
+      1.1
+    ],
+    "defMod": [
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1
+    ],
+    "matSetId": 3
+  },
+  {
+    "id": 2604,
+    "atkMod": [
+      1.78,
+      1.78,
+      1,
+      1
+    ],
+    "bonusMod": [
+      1.1,
+      1.1,
+      1,
+      1.1
+    ],
+    "defMod": [
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1
+    ],
+    "matSetId": 4
+  },
+  {
+    "id": 2605,
+    "atkMod": [
+      1.85,
+      1.85,
+      1,
+      1
+    ],
+    "bonusMod": [
+      1.1,
+      1.1,
+      1,
+      1.1
+    ],
+    "defMod": [
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1
+    ],
+    "matSetId": 5
+  },
+  {
+    "id": 2606,
+    "atkMod": [
+      1.9,
+      1.9,
+      1,
+      1
+    ],
+    "bonusMod": [
+      1.15,
+      1.15,
+      1,
+      1.15
+    ],
+    "defMod": [
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1
+    ],
+    "matSetId": 6
+  },
+  {
+    "id": 2607,
+    "atkMod": [
+      1.95,
+      1.95,
+      1,
+      1
+    ],
+    "bonusMod": [
+      1.15,
+      1.15,
+      1,
+      1.15
+    ],
+    "defMod": [
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1
+    ],
+    "matSetId": 7
+  },
+  {
+    "id": 2608,
+    "atkMod": [
+      2,
+      2,
+      1,
+      1
+    ],
+    "bonusMod": [
+      1.15,
+      1.15,
+      1,
+      1.15
+    ],
+    "defMod": [
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1
+    ],
+    "matSetId": 8
+  },
+  {
+    "id": 2609,
+    "atkMod": [
+      2.05,
+      2.05,
+      1,
+      1
+    ],
+    "bonusMod": [
+      1.2,
+      1.2,
+      1,
+      1.2
+    ],
+    "defMod": [
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1
+    ],
+    "matSetId": 9
+  },
+  {
+    "id": 2610,
+    "atkMod": [
+      2.1,
+      2.1,
+      1,
+      1
+    ],
+    "bonusMod": [
+      1.2,
+      1.2,
+      1,
+      1.2
+    ],
+    "defMod": [
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1
+    ],
+    "matSetId": 10
+  },
+  {
+    "id": 2700,
+    "atkMod": [
+      1.85,
+      1.85,
+      1,
+      1
+    ],
+    "bonusMod": [
+      1.15,
+      1.15,
+      1,
+      1.15
+    ],
+    "defMod": [
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1
+    ],
+    "matSetId": 0
+  },
+  {
+    "id": 2701,
+    "atkMod": [
+      1.91,
+      1.9,
+      1,
+      1
+    ],
+    "bonusMod": [
+      1.15,
+      1.15,
+      1,
+      1.15
+    ],
+    "defMod": [
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1
+    ],
+    "matSetId": 1
+  },
+  {
+    "id": 2702,
+    "atkMod": [
+      1.97,
+      1.95,
+      1,
+      1
+    ],
+    "bonusMod": [
+      1.15,
+      1.15,
+      1,
+      1.15
+    ],
+    "defMod": [
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1
+    ],
+    "matSetId": 2
+  },
+  {
+    "id": 2703,
+    "atkMod": [
+      2.03,
+      2,
+      1,
+      1
+    ],
+    "bonusMod": [
+      1.15,
+      1.15,
+      1,
+      1.15
+    ],
+    "defMod": [
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1
+    ],
+    "matSetId": 3
+  },
+  {
+    "id": 2704,
+    "atkMod": [
+      2.09,
+      2.05,
+      1,
+      1
+    ],
+    "bonusMod": [
+      1.2,
+      1.2,
+      1,
+      1.2
+    ],
+    "defMod": [
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1
+    ],
+    "matSetId": 4
+  },
+  {
+    "id": 2705,
+    "atkMod": [
+      2.15,
+      2.1,
+      1,
+      1
+    ],
+    "bonusMod": [
+      1.2,
+      1.2,
+      1,
+      1.2
+    ],
+    "defMod": [
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1
+    ],
+    "matSetId": 5
+  },
+  {
+    "id": 2800,
+    "atkMod": [
+      1.34,
+      1,
+      1.34,
+      1
+    ],
+    "bonusMod": [
+      1,
+      1,
+      1,
+      1
+    ],
+    "defMod": [
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1
+    ],
+    "matSetId": 0
+  },
+  {
+    "id": 2801,
+    "atkMod": [
+      1.41,
+      1,
+      1.41,
+      1
+    ],
+    "bonusMod": [
+      1,
+      1,
+      1,
+      1
+    ],
+    "defMod": [
+      1,
+      1,
+      1.01,
+      1,
+      1,
+      1,
+      1,
+      1
+    ],
+    "matSetId": 1
+  },
+  {
+    "id": 2802,
+    "atkMod": [
+      1.48,
+      1,
+      1.48,
+      1
+    ],
+    "bonusMod": [
+      1,
+      1,
+      1,
+      1
+    ],
+    "defMod": [
+      1,
+      1,
+      1.02,
+      1,
+      1,
+      1,
+      1,
+      1
+    ],
+    "matSetId": 2
+  },
+  {
+    "id": 2803,
+    "atkMod": [
+      1.55,
+      1,
+      1.55,
+      1
+    ],
+    "bonusMod": [
+      1,
+      1,
+      1,
+      1
+    ],
+    "defMod": [
+      1,
+      1,
+      1.03,
+      1,
+      1,
+      1,
+      1,
+      1
+    ],
+    "matSetId": 3
+  },
+  {
+    "id": 2804,
+    "atkMod": [
+      1.62,
+      1,
+      1.62,
+      1
+    ],
+    "bonusMod": [
+      1,
+      1,
+      1,
+      1
+    ],
+    "defMod": [
+      1,
+      1,
+      1.04,
+      1,
+      1,
+      1,
+      1,
+      1
+    ],
+    "matSetId": 4
+  },
+  {
+    "id": 2805,
+    "atkMod": [
+      1.71,
+      1,
+      1.71,
+      1
+    ],
+    "bonusMod": [
+      1,
+      1,
+      1,
+      1
+    ],
+    "defMod": [
+      1,
+      1,
+      1.05,
+      1,
+      1,
+      1,
+      1,
+      1
+    ],
+    "matSetId": 5
+  },
+  {
+    "id": 2806,
+    "atkMod": [
+      1.75,
+      1,
+      1.75,
+      1
+    ],
+    "bonusMod": [
+      1,
+      1,
+      1,
+      1
+    ],
+    "defMod": [
+      1,
+      1,
+      1.06,
+      1,
+      1,
+      1,
+      1,
+      1
+    ],
+    "matSetId": 6
+  },
+  {
+    "id": 2807,
+    "atkMod": [
+      1.79,
+      1,
+      1.79,
+      1
+    ],
+    "bonusMod": [
+      1,
+      1,
+      1,
+      1
+    ],
+    "defMod": [
+      1,
+      1,
+      1.07,
+      1,
+      1,
+      1,
+      1,
+      1
+    ],
+    "matSetId": 7
+  },
+  {
+    "id": 2808,
+    "atkMod": [
+      1.83,
+      1,
+      1.83,
+      1
+    ],
+    "bonusMod": [
+      1,
+      1,
+      1,
+      1
+    ],
+    "defMod": [
+      1,
+      1,
+      1.08,
+      1,
+      1,
+      1,
+      1,
+      1
+    ],
+    "matSetId": 8
+  },
+  {
+    "id": 2809,
+    "atkMod": [
+      1.87,
+      1,
+      1.87,
+      1
+    ],
+    "bonusMod": [
+      1,
+      1,
+      1,
+      1
+    ],
+    "defMod": [
+      1,
+      1,
+      1.09,
+      1,
+      1,
+      1,
+      1,
+      1
+    ],
+    "matSetId": 9
+  },
+  {
+    "id": 2810,
+    "atkMod": [
+      1.95,
+      1,
+      1.95,
+      1
+    ],
+    "bonusMod": [
+      1,
+      1,
+      1,
+      1
+    ],
+    "defMod": [
+      1,
+      1,
+      1.1,
+      1,
+      1,
+      1,
+      1,
+      1
+    ],
+    "matSetId": 10
+  },
+  {
+    "id": 2900,
+    "atkMod": [
+      1.71,
+      1,
+      1.71,
+      1
+    ],
+    "bonusMod": [
+      1,
+      1,
+      1,
+      1
+    ],
+    "defMod": [
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1
+    ],
+    "matSetId": 0
+  },
+  {
+    "id": 2901,
+    "atkMod": [
+      1.74,
+      1,
+      1.74,
+      1
+    ],
+    "bonusMod": [
+      1,
+      1,
+      1,
+      1
+    ],
+    "defMod": [
+      1,
+      1,
+      1.02,
+      1,
+      1,
+      1,
+      1,
+      1
+    ],
+    "matSetId": 1
+  },
+  {
+    "id": 2902,
+    "atkMod": [
+      1.77,
+      1,
+      1.77,
+      1
+    ],
+    "bonusMod": [
+      1,
+      1,
+      1,
+      1
+    ],
+    "defMod": [
+      1,
+      1,
+      1.04,
+      1,
+      1,
+      1,
+      1,
+      1
+    ],
+    "matSetId": 2
+  },
+  {
+    "id": 2903,
+    "atkMod": [
+      1.8,
+      1,
+      1.8,
+      1
+    ],
+    "bonusMod": [
+      1,
+      1,
+      1,
+      1
+    ],
+    "defMod": [
+      1,
+      1,
+      1.06,
+      1,
+      1,
+      1,
+      1,
+      1
+    ],
+    "matSetId": 3
+  },
+  {
+    "id": 2904,
+    "atkMod": [
+      1.83,
+      1,
+      1.83,
+      1
+    ],
+    "bonusMod": [
+      1,
+      1,
+      1,
+      1
+    ],
+    "defMod": [
+      1,
+      1,
+      1.08,
+      1,
+      1,
+      1,
+      1,
+      1
+    ],
+    "matSetId": 4
+  },
+  {
+    "id": 2905,
+    "atkMod": [
+      1.88,
+      1,
+      1.88,
+      1
+    ],
+    "bonusMod": [
+      1,
+      1,
+      1,
+      1
+    ],
+    "defMod": [
+      1,
+      1,
+      1.1,
+      1,
+      1,
+      1,
+      1,
+      1
+    ],
+    "matSetId": 5
+  },
+  {
+    "id": 3200,
+    "atkMod": [
+      2.4,
+      1,
+      1,
+      2.8
+    ],
+    "bonusMod": [
+      1,
+      1,
+      1,
+      1
+    ],
+    "defMod": [
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1
+    ],
+    "matSetId": 0
+  },
+  {
+    "id": 3201,
+    "atkMod": [
+      2.58,
+      1,
+      1,
+      2.98
+    ],
+    "bonusMod": [
+      1,
+      1,
+      1,
+      1
+    ],
+    "defMod": [
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1
+    ],
+    "matSetId": 1
+  },
+  {
+    "id": 3202,
+    "atkMod": [
+      2.76,
+      1,
+      1,
+      3.16
+    ],
+    "bonusMod": [
+      1,
+      1,
+      1,
+      1
+    ],
+    "defMod": [
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1
+    ],
+    "matSetId": 2
+  },
+  {
+    "id": 3203,
+    "atkMod": [
+      2.94,
+      1,
+      1,
+      3.34
+    ],
+    "bonusMod": [
+      1,
+      1,
+      1,
+      1
+    ],
+    "defMod": [
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1
+    ],
+    "matSetId": 3
+  },
+  {
+    "id": 3204,
+    "atkMod": [
+      3.12,
+      1,
+      1,
+      3.52
+    ],
+    "bonusMod": [
+      1,
+      1,
+      1,
+      1
+    ],
+    "defMod": [
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1
+    ],
+    "matSetId": 4
+  },
+  {
+    "id": 3205,
+    "atkMod": [
+      3.3,
+      1,
+      1,
+      3.7
+    ],
+    "bonusMod": [
+      1,
+      1,
+      1,
+      1
+    ],
+    "defMod": [
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1
+    ],
+    "matSetId": 5
+  },
+  {
+    "id": 3800,
+    "atkMod": [
+      1.5,
+      1,
+      1.5,
+      1
+    ],
+    "bonusMod": [
+      1,
+      1,
+      1,
+      1
+    ],
+    "defMod": [
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1
+    ],
+    "matSetId": 0
+  },
+  {
+    "id": 3801,
+    "atkMod": [
+      1.68,
+      1,
+      1.68,
+      1
+    ],
+    "bonusMod": [
+      1,
+      1,
+      1,
+      1
+    ],
+    "defMod": [
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1
+    ],
+    "matSetId": 1
+  },
+  {
+    "id": 3802,
+    "atkMod": [
+      1.86,
+      1,
+      1.86,
+      1
+    ],
+    "bonusMod": [
+      1,
+      1,
+      1,
+      1
+    ],
+    "defMod": [
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1
+    ],
+    "matSetId": 2
+  },
+  {
+    "id": 3803,
+    "atkMod": [
+      2.04,
+      1,
+      2.04,
+      1
+    ],
+    "bonusMod": [
+      1,
+      1,
+      1,
+      1
+    ],
+    "defMod": [
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1
+    ],
+    "matSetId": 3
+  },
+  {
+    "id": 3804,
+    "atkMod": [
+      2.22,
+      1,
+      2.22,
+      1
+    ],
+    "bonusMod": [
+      1,
+      1,
+      1,
+      1
+    ],
+    "defMod": [
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1
+    ],
+    "matSetId": 4
+  },
+  {
+    "id": 3805,
+    "atkMod": [
+      2.4,
+      1,
+      2.4,
+      1
+    ],
+    "bonusMod": [
+      1,
+      1,
+      1,
+      1
+    ],
+    "defMod": [
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1
+    ],
+    "matSetId": 5
+  },
+  {
+    "id": 3806,
+    "atkMod": [
+      2.58,
+      1,
+      2.58,
+      1
+    ],
+    "bonusMod": [
+      1,
+      1,
+      1,
+      1
+    ],
+    "defMod": [
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1
+    ],
+    "matSetId": 6
+  },
+  {
+    "id": 3807,
+    "atkMod": [
+      2.76,
+      1,
+      2.76,
+      1
+    ],
+    "bonusMod": [
+      1,
+      1,
+      1,
+      1
+    ],
+    "defMod": [
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1
+    ],
+    "matSetId": 7
+  },
+  {
+    "id": 3808,
+    "atkMod": [
+      2.94,
+      1,
+      2.94,
+      1
+    ],
+    "bonusMod": [
+      1,
+      1,
+      1,
+      1
+    ],
+    "defMod": [
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1
+    ],
+    "matSetId": 8
+  },
+  {
+    "id": 3809,
+    "atkMod": [
+      3.12,
+      1,
+      3.12,
+      1
+    ],
+    "bonusMod": [
+      1,
+      1,
+      1,
+      1
+    ],
+    "defMod": [
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1
+    ],
+    "matSetId": 9
+  },
+  {
+    "id": 3810,
+    "atkMod": [
+      3.3,
+      1,
+      3.3,
+      1
+    ],
+    "bonusMod": [
+      1,
+      1,
+      1,
+      1
+    ],
+    "defMod": [
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1
+    ],
+    "matSetId": 10
+  },
+  {
+    "id": 3900,
+    "atkMod": [
+      1.9,
+      1,
+      2.1,
+      1
+    ],
+    "bonusMod": [
+      1,
+      1,
+      1,
+      1
+    ],
+    "defMod": [
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1
+    ],
+    "matSetId": 0
+  },
+  {
+    "id": 3901,
+    "atkMod": [
+      2.05,
+      1,
+      2.29,
+      1
+    ],
+    "bonusMod": [
+      1,
+      1,
+      1,
+      1
+    ],
+    "defMod": [
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1
+    ],
+    "matSetId": 1
+  },
+  {
+    "id": 3902,
+    "atkMod": [
+      2.2,
+      1,
+      2.48,
+      1
+    ],
+    "bonusMod": [
+      1,
+      1,
+      1,
+      1
+    ],
+    "defMod": [
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1
+    ],
+    "matSetId": 2
+  },
+  {
+    "id": 3903,
+    "atkMod": [
+      2.35,
+      1,
+      2.67,
+      1
+    ],
+    "bonusMod": [
+      1,
+      1,
+      1,
+      1
+    ],
+    "defMod": [
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1
+    ],
+    "matSetId": 3
+  },
+  {
+    "id": 3904,
+    "atkMod": [
+      2.5,
+      1,
+      2.86,
+      1
+    ],
+    "bonusMod": [
+      1,
+      1,
+      1,
+      1
+    ],
+    "defMod": [
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1
+    ],
+    "matSetId": 4
+  },
+  {
+    "id": 3905,
+    "atkMod": [
+      2.65,
+      1,
+      3.05,
+      1
+    ],
+    "bonusMod": [
+      1,
+      1,
+      1,
+      1
+    ],
+    "defMod": [
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1
+    ],
+    "matSetId": 5
+  },
+  {
+    "id": 5000,
+    "atkMod": [
+      1,
+      1,
+      1,
+      1
+    ],
+    "bonusMod": [
+      1,
+      1,
+      1,
+      1
+    ],
+    "defMod": [
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1
+    ],
+    "matSetId": 0
+  },
+  {
+    "id": 5001,
+    "atkMod": [
+      1.05,
+      1,
+      1,
+      1
+    ],
+    "bonusMod": [
+      1,
+      1,
+      1,
+      1
+    ],
+    "defMod": [
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1.01
+    ],
+    "matSetId": 1
+  },
+  {
+    "id": 5002,
+    "atkMod": [
+      1.1,
+      1,
+      1,
+      1
+    ],
+    "bonusMod": [
+      1,
+      1,
+      1,
+      1
+    ],
+    "defMod": [
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1.02
+    ],
+    "matSetId": 2
+  },
+  {
+    "id": 5003,
+    "atkMod": [
+      1.15,
+      1,
+      1,
+      1
+    ],
+    "bonusMod": [
+      1,
+      1,
+      1,
+      1
+    ],
+    "defMod": [
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1.03
+    ],
+    "matSetId": 3
+  },
+  {
+    "id": 5004,
+    "atkMod": [
+      1.2,
+      1,
+      1,
+      1
+    ],
+    "bonusMod": [
+      1,
+      1,
+      1,
+      1
+    ],
+    "defMod": [
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1.04
+    ],
+    "matSetId": 4
+  },
+  {
+    "id": 5005,
+    "atkMod": [
+      1.25,
+      1,
+      1,
+      1
+    ],
+    "bonusMod": [
+      1,
+      1,
+      1,
+      1
+    ],
+    "defMod": [
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1.05
+    ],
+    "matSetId": 5
+  },
+  {
+    "id": 5006,
+    "atkMod": [
+      1.31,
+      1,
+      1,
+      1
+    ],
+    "bonusMod": [
+      1,
+      1,
+      1,
+      1
+    ],
+    "defMod": [
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1.08
+    ],
+    "matSetId": 6
+  },
+  {
+    "id": 5007,
+    "atkMod": [
+      1.37,
+      1,
+      1,
+      1
+    ],
+    "bonusMod": [
+      1,
+      1,
+      1,
+      1
+    ],
+    "defMod": [
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1.09
+    ],
+    "matSetId": 7
+  },
+  {
+    "id": 5008,
+    "atkMod": [
+      1.43,
+      1,
+      1,
+      1
+    ],
+    "bonusMod": [
+      1,
+      1,
+      1,
+      1
+    ],
+    "defMod": [
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1.1
+    ],
+    "matSetId": 8
+  },
+  {
+    "id": 5009,
+    "atkMod": [
+      1.49,
+      1,
+      1,
+      1
+    ],
+    "bonusMod": [
+      1,
+      1,
+      1,
+      1
+    ],
+    "defMod": [
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1.11
+    ],
+    "matSetId": 9
+  },
+  {
+    "id": 5010,
+    "atkMod": [
+      1.55,
+      1,
+      1,
+      1
+    ],
+    "bonusMod": [
+      1,
+      1,
+      1,
+      1
+    ],
+    "defMod": [
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1.12
+    ],
+    "matSetId": 10
+  },
+  {
+    "id": 5011,
+    "atkMod": [
+      1.62,
+      1,
+      1,
+      1
+    ],
+    "bonusMod": [
+      1,
+      1,
+      1,
+      1
+    ],
+    "defMod": [
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1.14
+    ],
+    "matSetId": 11
+  },
+  {
+    "id": 5012,
+    "atkMod": [
+      1.69,
+      1,
+      1,
+      1
+    ],
+    "bonusMod": [
+      1,
+      1,
+      1,
+      1
+    ],
+    "defMod": [
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1.15
+    ],
+    "matSetId": 12
+  },
+  {
+    "id": 5013,
+    "atkMod": [
+      1.76,
+      1,
+      1,
+      1
+    ],
+    "bonusMod": [
+      1,
+      1,
+      1,
+      1
+    ],
+    "defMod": [
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1.16
+    ],
+    "matSetId": 13
+  },
+  {
+    "id": 5014,
+    "atkMod": [
+      1.83,
+      1,
+      1,
+      1
+    ],
+    "bonusMod": [
+      1,
+      1,
+      1,
+      1
+    ],
+    "defMod": [
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1.18
+    ],
+    "matSetId": 14
+  },
+  {
+    "id": 5015,
+    "atkMod": [
+      2,
+      1,
+      1,
+      1
+    ],
+    "bonusMod": [
+      1,
+      1,
+      1,
+      1
+    ],
+    "defMod": [
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1.2
+    ],
+    "matSetId": 15
+  },
+  {
+    "id": 5100,
+    "atkMod": [
+      1.55,
+      1,
+      1,
+      1
+    ],
+    "bonusMod": [
+      1,
+      1,
+      1,
+      1
+    ],
+    "defMod": [
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1.2
+    ],
+    "matSetId": 0
+  },
+  {
+    "id": 5101,
+    "atkMod": [
+      1.62,
+      1,
+      1,
+      1
+    ],
+    "bonusMod": [
+      1,
+      1,
+      1,
+      1
+    ],
+    "defMod": [
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1.21
+    ],
+    "matSetId": 1
+  },
+  {
+    "id": 5102,
+    "atkMod": [
+      1.69,
+      1,
+      1,
+      1
+    ],
+    "bonusMod": [
+      1,
+      1,
+      1,
+      1
+    ],
+    "defMod": [
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1.22
+    ],
+    "matSetId": 2
+  },
+  {
+    "id": 5103,
+    "atkMod": [
+      1.76,
+      1,
+      1,
+      1
+    ],
+    "bonusMod": [
+      1,
+      1,
+      1,
+      1
+    ],
+    "defMod": [
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1.23
+    ],
+    "matSetId": 3
+  },
+  {
+    "id": 5104,
+    "atkMod": [
+      1.83,
+      1,
+      1,
+      1
+    ],
+    "bonusMod": [
+      1,
+      1,
+      1,
+      1
+    ],
+    "defMod": [
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1.24
+    ],
+    "matSetId": 4
+  },
+  {
+    "id": 5105,
+    "atkMod": [
+      2,
+      1,
+      1,
+      1
+    ],
+    "bonusMod": [
+      1,
+      1,
+      1,
+      1
+    ],
+    "defMod": [
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1.25
+    ],
+    "matSetId": 5
+  },
+  {
+    "id": 5200,
+    "atkMod": [
+      1.2,
+      1,
+      1,
+      1.2
+    ],
+    "bonusMod": [
+      1,
+      1,
+      1,
+      1
+    ],
+    "defMod": [
+      1,
+      1,
+      1,
+      1.12,
+      1,
+      1,
+      1,
+      1
+    ],
+    "matSetId": 0
+  },
+  {
+    "id": 5201,
+    "atkMod": [
+      1.28,
+      1,
+      1,
+      1.28
+    ],
+    "bonusMod": [
+      1,
+      1,
+      1,
+      1
+    ],
+    "defMod": [
+      1,
+      1,
+      1,
+      1.14,
+      1,
+      1,
+      1,
+      1
+    ],
+    "matSetId": 1
+  },
+  {
+    "id": 5202,
+    "atkMod": [
+      1.36,
+      1,
+      1,
+      1.36
+    ],
+    "bonusMod": [
+      1,
+      1,
+      1,
+      1
+    ],
+    "defMod": [
+      1,
+      1,
+      1,
+      1.15,
+      1,
+      1,
+      1,
+      1
+    ],
+    "matSetId": 2
+  },
+  {
+    "id": 5203,
+    "atkMod": [
+      1.44,
+      1,
+      1,
+      1.44
+    ],
+    "bonusMod": [
+      1,
+      1,
+      1,
+      1
+    ],
+    "defMod": [
+      1,
+      1,
+      1,
+      1.16,
+      1,
+      1,
+      1,
+      1
+    ],
+    "matSetId": 3
+  },
+  {
+    "id": 5204,
+    "atkMod": [
+      1.52,
+      1,
+      1,
+      1.52
+    ],
+    "bonusMod": [
+      1,
+      1,
+      1,
+      1
+    ],
+    "defMod": [
+      1,
+      1,
+      1,
+      1.18,
+      1,
+      1,
+      1,
+      1
+    ],
+    "matSetId": 4
+  },
+  {
+    "id": 5205,
+    "atkMod": [
+      1.6,
+      1,
+      1,
+      1.6
+    ],
+    "bonusMod": [
+      1,
+      1,
+      1,
+      1
+    ],
+    "defMod": [
+      1,
+      1,
+      1,
+      1.2,
+      1,
+      1,
+      1,
+      1
+    ],
+    "matSetId": 5
+  },
+  {
+    "id": 5400,
+    "atkMod": [
+      1.25,
+      1.25,
+      1,
+      1
+    ],
+    "bonusMod": [
+      1,
+      1,
+      1,
+      1
+    ],
+    "defMod": [
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1
+    ],
+    "matSetId": 0
+  },
+  {
+    "id": 5401,
+    "atkMod": [
+      1.31,
+      1.31,
+      1,
+      1
+    ],
+    "bonusMod": [
+      1,
+      1,
+      1,
+      1
+    ],
+    "defMod": [
+      1,
+      1.02,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1
+    ],
+    "matSetId": 1
+  },
+  {
+    "id": 5402,
+    "atkMod": [
+      1.37,
+      1.37,
+      1,
+      1
+    ],
+    "bonusMod": [
+      1,
+      1,
+      1,
+      1
+    ],
+    "defMod": [
+      1,
+      1.04,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1
+    ],
+    "matSetId": 2
+  },
+  {
+    "id": 5403,
+    "atkMod": [
+      1.43,
+      1.43,
+      1,
+      1
+    ],
+    "bonusMod": [
+      1,
+      1,
+      1,
+      1
+    ],
+    "defMod": [
+      1,
+      1.06,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1
+    ],
+    "matSetId": 3
+  },
+  {
+    "id": 5404,
+    "atkMod": [
+      1.49,
+      1.49,
+      1,
+      1
+    ],
+    "bonusMod": [
+      1,
+      1,
+      1,
+      1
+    ],
+    "defMod": [
+      1,
+      1.08,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1
+    ],
+    "matSetId": 4
+  },
+  {
+    "id": 5405,
+    "atkMod": [
+      1.55,
+      1.55,
+      1,
+      1
+    ],
+    "bonusMod": [
+      1,
+      1,
+      1,
+      1
+    ],
+    "defMod": [
+      1,
+      1.1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1
+    ],
+    "matSetId": 5
+  },
+  {
+    "id": 5406,
+    "atkMod": [
+      1.62,
+      1.62,
+      1,
+      1
+    ],
+    "bonusMod": [
+      1,
+      1,
+      1,
+      1
+    ],
+    "defMod": [
+      1,
+      1.12,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1
+    ],
+    "matSetId": 6
+  },
+  {
+    "id": 5407,
+    "atkMod": [
+      1.69,
+      1.69,
+      1,
+      1
+    ],
+    "bonusMod": [
+      1,
+      1,
+      1,
+      1
+    ],
+    "defMod": [
+      1,
+      1.14,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1
+    ],
+    "matSetId": 7
+  },
+  {
+    "id": 5408,
+    "atkMod": [
+      1.76,
+      1.76,
+      1,
+      1
+    ],
+    "bonusMod": [
+      1,
+      1,
+      1,
+      1
+    ],
+    "defMod": [
+      1,
+      1.16,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1
+    ],
+    "matSetId": 8
+  },
+  {
+    "id": 5409,
+    "atkMod": [
+      1.83,
+      1.83,
+      1,
+      1
+    ],
+    "bonusMod": [
+      1,
+      1,
+      1,
+      1
+    ],
+    "defMod": [
+      1,
+      1.18,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1
+    ],
+    "matSetId": 9
+  },
+  {
+    "id": 5410,
+    "atkMod": [
+      2,
+      2,
+      1,
+      1
+    ],
+    "bonusMod": [
+      1,
+      1,
+      1,
+      1
+    ],
+    "defMod": [
+      1,
+      1.2,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1
+    ],
+    "matSetId": 10
+  },
+  {
+    "id": 5600,
+    "atkMod": [
+      1.25,
+      1.25,
+      1,
+      1
+    ],
+    "bonusMod": [
+      1,
+      1,
+      1,
+      1
+    ],
+    "defMod": [
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1
+    ],
+    "matSetId": 0
+  },
+  {
+    "id": 5601,
+    "atkMod": [
+      1.31,
+      1.31,
+      1,
+      1
+    ],
+    "bonusMod": [
+      1,
+      1,
+      1,
+      1
+    ],
+    "defMod": [
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1
+    ],
+    "matSetId": 1
+  },
+  {
+    "id": 5602,
+    "atkMod": [
+      1.37,
+      1.37,
+      1,
+      1
+    ],
+    "bonusMod": [
+      1,
+      1,
+      1,
+      1
+    ],
+    "defMod": [
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1
+    ],
+    "matSetId": 2
+  },
+  {
+    "id": 5603,
+    "atkMod": [
+      1.43,
+      1.43,
+      1,
+      1
+    ],
+    "bonusMod": [
+      1,
+      1,
+      1,
+      1
+    ],
+    "defMod": [
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1
+    ],
+    "matSetId": 3
+  },
+  {
+    "id": 5604,
+    "atkMod": [
+      1.49,
+      1.49,
+      1,
+      1
+    ],
+    "bonusMod": [
+      1,
+      1,
+      1,
+      1
+    ],
+    "defMod": [
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1
+    ],
+    "matSetId": 4
+  },
+  {
+    "id": 5605,
+    "atkMod": [
+      1.55,
+      1.55,
+      1,
+      1
+    ],
+    "bonusMod": [
+      1,
+      1,
+      1,
+      1
+    ],
+    "defMod": [
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1
+    ],
+    "matSetId": 5
+  },
+  {
+    "id": 5606,
+    "atkMod": [
+      1.62,
+      1.62,
+      1,
+      1
+    ],
+    "bonusMod": [
+      1,
+      1,
+      1,
+      1
+    ],
+    "defMod": [
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1
+    ],
+    "matSetId": 6
+  },
+  {
+    "id": 5607,
+    "atkMod": [
+      1.69,
+      1.69,
+      1,
+      1
+    ],
+    "bonusMod": [
+      1,
+      1,
+      1,
+      1
+    ],
+    "defMod": [
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1
+    ],
+    "matSetId": 7
+  },
+  {
+    "id": 5608,
+    "atkMod": [
+      1.76,
+      1.76,
+      1,
+      1
+    ],
+    "bonusMod": [
+      1,
+      1,
+      1,
+      1
+    ],
+    "defMod": [
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1
+    ],
+    "matSetId": 8
+  },
+  {
+    "id": 5609,
+    "atkMod": [
+      1.83,
+      1.83,
+      1,
+      1
+    ],
+    "bonusMod": [
+      1,
+      1,
+      1,
+      1
+    ],
+    "defMod": [
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1
+    ],
+    "matSetId": 9
+  },
+  {
+    "id": 5610,
+    "atkMod": [
+      2,
+      2,
+      1,
+      1
+    ],
+    "bonusMod": [
+      1,
+      1,
+      1,
+      1
+    ],
+    "defMod": [
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1
+    ],
+    "matSetId": 10
+  },
+  {
+    "id": 5800,
+    "atkMod": [
+      1,
+      1,
+      1,
+      1
+    ],
+    "bonusMod": [
+      1,
+      1,
+      1,
+      1
+    ],
+    "defMod": [
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1
+    ],
+    "matSetId": 0
+  },
+  {
+    "id": 5801,
+    "atkMod": [
+      1.04,
+      1,
+      1.04,
+      1
+    ],
+    "bonusMod": [
+      1,
+      1,
+      1,
+      1
+    ],
+    "defMod": [
+      1,
+      1,
+      1.02,
+      1,
+      1,
+      1,
+      1,
+      1
+    ],
+    "matSetId": 1
+  },
+  {
+    "id": 5802,
+    "atkMod": [
+      1.08,
+      1,
+      1.08,
+      1
+    ],
+    "bonusMod": [
+      1,
+      1,
+      1,
+      1
+    ],
+    "defMod": [
+      1,
+      1,
+      1.04,
+      1,
+      1,
+      1,
+      1,
+      1
+    ],
+    "matSetId": 2
+  },
+  {
+    "id": 5803,
+    "atkMod": [
+      1.12,
+      1,
+      1.12,
+      1
+    ],
+    "bonusMod": [
+      1,
+      1,
+      1,
+      1
+    ],
+    "defMod": [
+      1,
+      1,
+      1.06,
+      1,
+      1,
+      1,
+      1,
+      1
+    ],
+    "matSetId": 3
+  },
+  {
+    "id": 5804,
+    "atkMod": [
+      1.16,
+      1,
+      1.16,
+      1
+    ],
+    "bonusMod": [
+      1,
+      1,
+      1,
+      1
+    ],
+    "defMod": [
+      1,
+      1,
+      1.08,
+      1,
+      1,
+      1,
+      1,
+      1
+    ],
+    "matSetId": 4
+  },
+  {
+    "id": 5805,
+    "atkMod": [
+      1.2,
+      1,
+      1.2,
+      1
+    ],
+    "bonusMod": [
+      1,
+      1,
+      1,
+      1
+    ],
+    "defMod": [
+      1,
+      1,
+      1.1,
+      1,
+      1,
+      1,
+      1,
+      1
+    ],
+    "matSetId": 5
+  },
+  {
+    "id": 5806,
+    "atkMod": [
+      1.27,
+      1,
+      1.27,
+      1
+    ],
+    "bonusMod": [
+      1,
+      1,
+      1,
+      1
+    ],
+    "defMod": [
+      1,
+      1,
+      1.12,
+      1,
+      1,
+      1,
+      1,
+      1
+    ],
+    "matSetId": 6
+  },
+  {
+    "id": 5807,
+    "atkMod": [
+      1.34,
+      1,
+      1.34,
+      1
+    ],
+    "bonusMod": [
+      1,
+      1,
+      1,
+      1
+    ],
+    "defMod": [
+      1,
+      1,
+      1.14,
+      1,
+      1,
+      1,
+      1,
+      1
+    ],
+    "matSetId": 7
+  },
+  {
+    "id": 5808,
+    "atkMod": [
+      1.41,
+      1,
+      1.41,
+      1
+    ],
+    "bonusMod": [
+      1,
+      1,
+      1,
+      1
+    ],
+    "defMod": [
+      1,
+      1,
+      1.16,
+      1,
+      1,
+      1,
+      1,
+      1
+    ],
+    "matSetId": 8
+  },
+  {
+    "id": 5809,
+    "atkMod": [
+      1.48,
+      1,
+      1.48,
+      1
+    ],
+    "bonusMod": [
+      1,
+      1,
+      1,
+      1
+    ],
+    "defMod": [
+      1,
+      1,
+      1.18,
+      1,
+      1,
+      1,
+      1,
+      1
+    ],
+    "matSetId": 9
+  },
+  {
+    "id": 5810,
+    "atkMod": [
+      1.55,
+      1,
+      1.55,
+      1
+    ],
+    "bonusMod": [
+      1,
+      1,
+      1,
+      1
+    ],
+    "defMod": [
+      1,
+      1,
+      1.2,
+      1,
+      1,
+      1,
+      1,
+      1
+    ],
+    "matSetId": 10
+  },
+  {
+    "id": 6000,
+    "atkMod": [
+      1,
+      1,
+      1,
+      1
+    ],
+    "bonusMod": [
+      1,
+      1,
+      1,
+      1
+    ],
+    "defMod": [
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1
+    ],
+    "matSetId": 0
+  },
+  {
+    "id": 6001,
+    "atkMod": [
+      1.05,
+      1,
+      1,
+      1
+    ],
+    "bonusMod": [
+      1,
+      1,
+      1,
+      1
+    ],
+    "defMod": [
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1.02
+    ],
+    "matSetId": 1
+  },
+  {
+    "id": 6002,
+    "atkMod": [
+      1.1,
+      1,
+      1,
+      1
+    ],
+    "bonusMod": [
+      1,
+      1,
+      1,
+      1
+    ],
+    "defMod": [
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1.04
+    ],
+    "matSetId": 2
+  },
+  {
+    "id": 6003,
+    "atkMod": [
+      1.15,
+      1,
+      1,
+      1
+    ],
+    "bonusMod": [
+      1,
+      1,
+      1,
+      1
+    ],
+    "defMod": [
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1.06
+    ],
+    "matSetId": 3
+  },
+  {
+    "id": 6004,
+    "atkMod": [
+      1.2,
+      1,
+      1,
+      1
+    ],
+    "bonusMod": [
+      1,
+      1,
+      1,
+      1
+    ],
+    "defMod": [
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1.08
+    ],
+    "matSetId": 4
+  },
+  {
+    "id": 6005,
+    "atkMod": [
+      1.25,
+      1,
+      1,
+      1
+    ],
+    "bonusMod": [
+      1,
+      1,
+      1,
+      1
+    ],
+    "defMod": [
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1.1
+    ],
+    "matSetId": 5
+  },
+  {
+    "id": 6006,
+    "atkMod": [
+      1.31,
+      1,
+      1,
+      1
+    ],
+    "bonusMod": [
+      1,
+      1,
+      1,
+      1
+    ],
+    "defMod": [
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1.12
+    ],
+    "matSetId": 6
+  },
+  {
+    "id": 6007,
+    "atkMod": [
+      1.37,
+      1,
+      1,
+      1
+    ],
+    "bonusMod": [
+      1,
+      1,
+      1,
+      1
+    ],
+    "defMod": [
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1.14
+    ],
+    "matSetId": 7
+  },
+  {
+    "id": 6008,
+    "atkMod": [
+      1.43,
+      1,
+      1,
+      1
+    ],
+    "bonusMod": [
+      1,
+      1,
+      1,
+      1
+    ],
+    "defMod": [
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1.16
+    ],
+    "matSetId": 8
+  },
+  {
+    "id": 6009,
+    "atkMod": [
+      1.49,
+      1,
+      1,
+      1
+    ],
+    "bonusMod": [
+      1,
+      1,
+      1,
+      1
+    ],
+    "defMod": [
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1.18
+    ],
+    "matSetId": 9
+  },
+  {
+    "id": 6010,
+    "atkMod": [
+      1.55,
+      1,
+      1,
+      1
+    ],
+    "bonusMod": [
+      1,
+      1,
+      1,
+      1
+    ],
+    "defMod": [
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1.2
+    ],
+    "matSetId": 10
+  },
+  {
+    "id": 6011,
+    "atkMod": [
+      1.62,
+      1,
+      1,
+      1
+    ],
+    "bonusMod": [
+      1,
+      1,
+      1,
+      1
+    ],
+    "defMod": [
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1.21
+    ],
+    "matSetId": 11
+  },
+  {
+    "id": 6012,
+    "atkMod": [
+      1.69,
+      1,
+      1,
+      1
+    ],
+    "bonusMod": [
+      1,
+      1,
+      1,
+      1
+    ],
+    "defMod": [
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1.22
+    ],
+    "matSetId": 12
+  },
+  {
+    "id": 6013,
+    "atkMod": [
+      1.76,
+      1,
+      1,
+      1
+    ],
+    "bonusMod": [
+      1,
+      1,
+      1,
+      1
+    ],
+    "defMod": [
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1.23
+    ],
+    "matSetId": 13
+  },
+  {
+    "id": 6014,
+    "atkMod": [
+      1.83,
+      1,
+      1,
+      1
+    ],
+    "bonusMod": [
+      1,
+      1,
+      1,
+      1
+    ],
+    "defMod": [
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1.24
+    ],
+    "matSetId": 14
+  },
+  {
+    "id": 6015,
+    "atkMod": [
+      2,
+      1,
+      1,
+      1
+    ],
+    "bonusMod": [
+      1,
+      1,
+      1,
+      1
+    ],
+    "defMod": [
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1.25
+    ],
+    "matSetId": 15
+  },
+  {
+    "id": 6100,
+    "atkMod": [
+      1.55,
+      1,
+      1,
+      1
+    ],
+    "bonusMod": [
+      1,
+      1,
+      1,
+      1
+    ],
+    "defMod": [
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1.25
+    ],
+    "matSetId": 0
+  },
+  {
+    "id": 6101,
+    "atkMod": [
+      1.62,
+      1,
+      1,
+      1
+    ],
+    "bonusMod": [
+      1,
+      1,
+      1,
+      1
+    ],
+    "defMod": [
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1.26
+    ],
+    "matSetId": 1
+  },
+  {
+    "id": 6102,
+    "atkMod": [
+      1.69,
+      1,
+      1,
+      1
+    ],
+    "bonusMod": [
+      1,
+      1,
+      1,
+      1
+    ],
+    "defMod": [
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1.27
+    ],
+    "matSetId": 2
+  },
+  {
+    "id": 6103,
+    "atkMod": [
+      1.76,
+      1,
+      1,
+      1
+    ],
+    "bonusMod": [
+      1,
+      1,
+      1,
+      1
+    ],
+    "defMod": [
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1.28
+    ],
+    "matSetId": 3
+  },
+  {
+    "id": 6104,
+    "atkMod": [
+      1.83,
+      1,
+      1,
+      1
+    ],
+    "bonusMod": [
+      1,
+      1,
+      1,
+      1
+    ],
+    "defMod": [
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1.29
+    ],
+    "matSetId": 4
+  },
+  {
+    "id": 6105,
+    "atkMod": [
+      2,
+      1,
+      1,
+      1
+    ],
+    "bonusMod": [
+      1,
+      1,
+      1,
+      1
+    ],
+    "defMod": [
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1.3
+    ],
+    "matSetId": 5
+  },
+  {
+    "id": 6200,
+    "atkMod": [
+      1.2,
+      1,
+      1,
+      1.2
+    ],
+    "bonusMod": [
+      1,
+      1,
+      1,
+      1
+    ],
+    "defMod": [
+      1,
+      1,
+      1,
+      1.2,
+      1,
+      1,
+      1,
+      1
+    ],
+    "matSetId": 0
+  },
+  {
+    "id": 6201,
+    "atkMod": [
+      1.28,
+      1,
+      1,
+      1.28
+    ],
+    "bonusMod": [
+      1,
+      1,
+      1,
+      1
+    ],
+    "defMod": [
+      1,
+      1,
+      1,
+      1.22,
+      1,
+      1,
+      1,
+      1
+    ],
+    "matSetId": 1
+  },
+  {
+    "id": 6202,
+    "atkMod": [
+      1.36,
+      1,
+      1,
+      1.36
+    ],
+    "bonusMod": [
+      1,
+      1,
+      1,
+      1
+    ],
+    "defMod": [
+      1,
+      1,
+      1,
+      1.24,
+      1,
+      1,
+      1,
+      1
+    ],
+    "matSetId": 2
+  },
+  {
+    "id": 6203,
+    "atkMod": [
+      1.44,
+      1,
+      1,
+      1.44
+    ],
+    "bonusMod": [
+      1,
+      1,
+      1,
+      1
+    ],
+    "defMod": [
+      1,
+      1,
+      1,
+      1.26,
+      1,
+      1,
+      1,
+      1
+    ],
+    "matSetId": 3
+  },
+  {
+    "id": 6204,
+    "atkMod": [
+      1.52,
+      1,
+      1,
+      1.52
+    ],
+    "bonusMod": [
+      1,
+      1,
+      1,
+      1
+    ],
+    "defMod": [
+      1,
+      1,
+      1,
+      1.28,
+      1,
+      1,
+      1,
+      1
+    ],
+    "matSetId": 4
+  },
+  {
+    "id": 6205,
+    "atkMod": [
+      1.6,
+      1,
+      1,
+      1.6
+    ],
+    "bonusMod": [
+      1,
+      1,
+      1,
+      1
+    ],
+    "defMod": [
+      1,
+      1,
+      1,
+      1.3,
+      1,
+      1,
+      1,
+      1
+    ],
+    "matSetId": 5
+  },
+  {
+    "id": 6400,
+    "atkMod": [
+      1.25,
+      1.25,
+      1,
+      1
+    ],
+    "bonusMod": [
+      1,
+      1,
+      1,
+      1
+    ],
+    "defMod": [
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1
+    ],
+    "matSetId": 0
+  },
+  {
+    "id": 6401,
+    "atkMod": [
+      1.31,
+      1.31,
+      1,
+      1
+    ],
+    "bonusMod": [
+      1,
+      1,
+      1,
+      1
+    ],
+    "defMod": [
+      1,
+      1.03,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1
+    ],
+    "matSetId": 1
+  },
+  {
+    "id": 6402,
+    "atkMod": [
+      1.37,
+      1.37,
+      1,
+      1
+    ],
+    "bonusMod": [
+      1,
+      1,
+      1,
+      1
+    ],
+    "defMod": [
+      1,
+      1.06,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1
+    ],
+    "matSetId": 2
+  },
+  {
+    "id": 6403,
+    "atkMod": [
+      1.43,
+      1.43,
+      1,
+      1
+    ],
+    "bonusMod": [
+      1,
+      1,
+      1,
+      1
+    ],
+    "defMod": [
+      1,
+      1.09,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1
+    ],
+    "matSetId": 3
+  },
+  {
+    "id": 6404,
+    "atkMod": [
+      1.49,
+      1.49,
+      1,
+      1
+    ],
+    "bonusMod": [
+      1,
+      1,
+      1,
+      1
+    ],
+    "defMod": [
+      1,
+      1.12,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1
+    ],
+    "matSetId": 4
+  },
+  {
+    "id": 6405,
+    "atkMod": [
+      1.55,
+      1.55,
+      1,
+      1
+    ],
+    "bonusMod": [
+      1,
+      1,
+      1,
+      1
+    ],
+    "defMod": [
+      1,
+      1.15,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1
+    ],
+    "matSetId": 5
+  },
+  {
+    "id": 6406,
+    "atkMod": [
+      1.62,
+      1.62,
+      1,
+      1
+    ],
+    "bonusMod": [
+      1,
+      1,
+      1,
+      1
+    ],
+    "defMod": [
+      1,
+      1.18,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1
+    ],
+    "matSetId": 6
+  },
+  {
+    "id": 6407,
+    "atkMod": [
+      1.69,
+      1.69,
+      1,
+      1
+    ],
+    "bonusMod": [
+      1,
+      1,
+      1,
+      1
+    ],
+    "defMod": [
+      1,
+      1.21,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1
+    ],
+    "matSetId": 7
+  },
+  {
+    "id": 6408,
+    "atkMod": [
+      1.76,
+      1.76,
+      1,
+      1
+    ],
+    "bonusMod": [
+      1,
+      1,
+      1,
+      1
+    ],
+    "defMod": [
+      1,
+      1.24,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1
+    ],
+    "matSetId": 8
+  },
+  {
+    "id": 6409,
+    "atkMod": [
+      1.83,
+      1.83,
+      1,
+      1
+    ],
+    "bonusMod": [
+      1,
+      1,
+      1,
+      1
+    ],
+    "defMod": [
+      1,
+      1.27,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1
+    ],
+    "matSetId": 9
+  },
+  {
+    "id": 6410,
+    "atkMod": [
+      2,
+      2,
+      1,
+      1
+    ],
+    "bonusMod": [
+      1,
+      1,
+      1,
+      1
+    ],
+    "defMod": [
+      1,
+      1.3,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1
+    ],
+    "matSetId": 10
+  },
+  {
+    "id": 6600,
+    "atkMod": [
+      1.25,
+      1.25,
+      1,
+      1
+    ],
+    "bonusMod": [
+      1,
+      1,
+      1,
+      1
+    ],
+    "defMod": [
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1
+    ],
+    "matSetId": 0
+  },
+  {
+    "id": 6601,
+    "atkMod": [
+      1.31,
+      1.31,
+      1,
+      1
+    ],
+    "bonusMod": [
+      1,
+      1,
+      1,
+      1
+    ],
+    "defMod": [
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1
+    ],
+    "matSetId": 1
+  },
+  {
+    "id": 6602,
+    "atkMod": [
+      1.37,
+      1.37,
+      1,
+      1
+    ],
+    "bonusMod": [
+      1,
+      1,
+      1,
+      1
+    ],
+    "defMod": [
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1
+    ],
+    "matSetId": 2
+  },
+  {
+    "id": 6603,
+    "atkMod": [
+      1.43,
+      1.43,
+      1,
+      1
+    ],
+    "bonusMod": [
+      1,
+      1,
+      1,
+      1
+    ],
+    "defMod": [
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1
+    ],
+    "matSetId": 3
+  },
+  {
+    "id": 6604,
+    "atkMod": [
+      1.49,
+      1.49,
+      1,
+      1
+    ],
+    "bonusMod": [
+      1,
+      1,
+      1,
+      1
+    ],
+    "defMod": [
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1
+    ],
+    "matSetId": 4
+  },
+  {
+    "id": 6605,
+    "atkMod": [
+      1.55,
+      1.55,
+      1,
+      1
+    ],
+    "bonusMod": [
+      1,
+      1,
+      1,
+      1
+    ],
+    "defMod": [
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1
+    ],
+    "matSetId": 5
+  },
+  {
+    "id": 6606,
+    "atkMod": [
+      1.62,
+      1.62,
+      1,
+      1
+    ],
+    "bonusMod": [
+      1,
+      1,
+      1,
+      1
+    ],
+    "defMod": [
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1
+    ],
+    "matSetId": 6
+  },
+  {
+    "id": 6607,
+    "atkMod": [
+      1.69,
+      1.69,
+      1,
+      1
+    ],
+    "bonusMod": [
+      1,
+      1,
+      1,
+      1
+    ],
+    "defMod": [
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1
+    ],
+    "matSetId": 7
+  },
+  {
+    "id": 6608,
+    "atkMod": [
+      1.76,
+      1.76,
+      1,
+      1
+    ],
+    "bonusMod": [
+      1,
+      1,
+      1,
+      1
+    ],
+    "defMod": [
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1
+    ],
+    "matSetId": 8
+  },
+  {
+    "id": 6609,
+    "atkMod": [
+      1.83,
+      1.83,
+      1,
+      1
+    ],
+    "bonusMod": [
+      1,
+      1,
+      1,
+      1
+    ],
+    "defMod": [
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1
+    ],
+    "matSetId": 9
+  },
+  {
+    "id": 6610,
+    "atkMod": [
+      2,
+      2,
+      1,
+      1
+    ],
+    "bonusMod": [
+      1,
+      1,
+      1,
+      1
+    ],
+    "defMod": [
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1
+    ],
+    "matSetId": 10
+  },
+  {
+    "id": 6800,
+    "atkMod": [
+      1,
+      1,
+      1,
+      1
+    ],
+    "bonusMod": [
+      1,
+      1,
+      1,
+      1
+    ],
+    "defMod": [
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1
+    ],
+    "matSetId": 0
+  },
+  {
+    "id": 6801,
+    "atkMod": [
+      1.04,
+      1,
+      1.04,
+      1
+    ],
+    "bonusMod": [
+      1,
+      1,
+      1,
+      1
+    ],
+    "defMod": [
+      1,
+      1,
+      1.03,
+      1,
+      1,
+      1,
+      1,
+      1
+    ],
+    "matSetId": 1
+  },
+  {
+    "id": 6802,
+    "atkMod": [
+      1.08,
+      1,
+      1.08,
+      1
+    ],
+    "bonusMod": [
+      1,
+      1,
+      1,
+      1
+    ],
+    "defMod": [
+      1,
+      1,
+      1.06,
+      1,
+      1,
+      1,
+      1,
+      1
+    ],
+    "matSetId": 2
+  },
+  {
+    "id": 6803,
+    "atkMod": [
+      1.12,
+      1,
+      1.12,
+      1
+    ],
+    "bonusMod": [
+      1,
+      1,
+      1,
+      1
+    ],
+    "defMod": [
+      1,
+      1,
+      1.09,
+      1,
+      1,
+      1,
+      1,
+      1
+    ],
+    "matSetId": 3
+  },
+  {
+    "id": 6804,
+    "atkMod": [
+      1.16,
+      1,
+      1.16,
+      1
+    ],
+    "bonusMod": [
+      1,
+      1,
+      1,
+      1
+    ],
+    "defMod": [
+      1,
+      1,
+      1.12,
+      1,
+      1,
+      1,
+      1,
+      1
+    ],
+    "matSetId": 4
+  },
+  {
+    "id": 6805,
+    "atkMod": [
+      1.2,
+      1,
+      1.2,
+      1
+    ],
+    "bonusMod": [
+      1,
+      1,
+      1,
+      1
+    ],
+    "defMod": [
+      1,
+      1,
+      1.15,
+      1,
+      1,
+      1,
+      1,
+      1
+    ],
+    "matSetId": 5
+  },
+  {
+    "id": 6806,
+    "atkMod": [
+      1.27,
+      1,
+      1.27,
+      1
+    ],
+    "bonusMod": [
+      1,
+      1,
+      1,
+      1
+    ],
+    "defMod": [
+      1,
+      1,
+      1.18,
+      1,
+      1,
+      1,
+      1,
+      1
+    ],
+    "matSetId": 6
+  },
+  {
+    "id": 6807,
+    "atkMod": [
+      1.34,
+      1,
+      1.34,
+      1
+    ],
+    "bonusMod": [
+      1,
+      1,
+      1,
+      1
+    ],
+    "defMod": [
+      1,
+      1,
+      1.21,
+      1,
+      1,
+      1,
+      1,
+      1
+    ],
+    "matSetId": 7
+  },
+  {
+    "id": 6808,
+    "atkMod": [
+      1.41,
+      1,
+      1.41,
+      1
+    ],
+    "bonusMod": [
+      1,
+      1,
+      1,
+      1
+    ],
+    "defMod": [
+      1,
+      1,
+      1.24,
+      1,
+      1,
+      1,
+      1,
+      1
+    ],
+    "matSetId": 8
+  },
+  {
+    "id": 6809,
+    "atkMod": [
+      1.48,
+      1,
+      1.48,
+      1
+    ],
+    "bonusMod": [
+      1,
+      1,
+      1,
+      1
+    ],
+    "defMod": [
+      1,
+      1,
+      1.27,
+      1,
+      1,
+      1,
+      1,
+      1
+    ],
+    "matSetId": 9
+  },
+  {
+    "id": 6810,
+    "atkMod": [
+      1.55,
+      1,
+      1.55,
+      1
+    ],
+    "bonusMod": [
+      1,
+      1,
+      1,
+      1
+    ],
+    "defMod": [
+      1,
+      1,
+      1.3,
+      1,
+      1,
+      1,
+      1,
+      1
+    ],
+    "matSetId": 10
+  },
+  {
+    "id": 7200,
+    "atkMod": [
+      1.2,
+      1,
+      1,
+      1.2
+    ],
+    "bonusMod": [
+      1,
+      1,
+      1,
+      1
+    ],
+    "defMod": [
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1
+    ],
+    "matSetId": 0
+  },
+  {
+    "id": 7201,
+    "atkMod": [
+      1.28,
+      1,
+      1,
+      1.28
+    ],
+    "bonusMod": [
+      1,
+      1,
+      1,
+      1
+    ],
+    "defMod": [
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1
+    ],
+    "matSetId": 1
+  },
+  {
+    "id": 7202,
+    "atkMod": [
+      1.36,
+      1,
+      1,
+      1.36
+    ],
+    "bonusMod": [
+      1,
+      1,
+      1,
+      1
+    ],
+    "defMod": [
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1
+    ],
+    "matSetId": 2
+  },
+  {
+    "id": 7203,
+    "atkMod": [
+      1.44,
+      1,
+      1,
+      1.44
+    ],
+    "bonusMod": [
+      1,
+      1,
+      1,
+      1
+    ],
+    "defMod": [
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1
+    ],
+    "matSetId": 3
+  },
+  {
+    "id": 7204,
+    "atkMod": [
+      1.52,
+      1,
+      1,
+      1.52
+    ],
+    "bonusMod": [
+      1,
+      1,
+      1,
+      1
+    ],
+    "defMod": [
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1
+    ],
+    "matSetId": 4
+  },
+  {
+    "id": 7205,
+    "atkMod": [
+      1.6,
+      1,
+      1,
+      1.6
+    ],
+    "bonusMod": [
+      1,
+      1,
+      1,
+      1
+    ],
+    "defMod": [
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1
+    ],
+    "matSetId": 5
+  },
+  {
+    "id": 7400,
+    "atkMod": [
+      1.25,
+      1.25,
+      1,
+      1
+    ],
+    "bonusMod": [
+      1,
+      1,
+      1,
+      1
+    ],
+    "defMod": [
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1
+    ],
+    "matSetId": 0
+  },
+  {
+    "id": 7401,
+    "atkMod": [
+      1.31,
+      1.31,
+      1,
+      1
+    ],
+    "bonusMod": [
+      1,
+      1,
+      1,
+      1
+    ],
+    "defMod": [
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1
+    ],
+    "matSetId": 1
+  },
+  {
+    "id": 7402,
+    "atkMod": [
+      1.37,
+      1.37,
+      1,
+      1
+    ],
+    "bonusMod": [
+      1,
+      1,
+      1,
+      1
+    ],
+    "defMod": [
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1
+    ],
+    "matSetId": 2
+  },
+  {
+    "id": 7403,
+    "atkMod": [
+      1.43,
+      1.43,
+      1,
+      1
+    ],
+    "bonusMod": [
+      1,
+      1,
+      1,
+      1
+    ],
+    "defMod": [
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1
+    ],
+    "matSetId": 3
+  },
+  {
+    "id": 7404,
+    "atkMod": [
+      1.49,
+      1.49,
+      1,
+      1
+    ],
+    "bonusMod": [
+      1,
+      1,
+      1,
+      1
+    ],
+    "defMod": [
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1
+    ],
+    "matSetId": 4
+  },
+  {
+    "id": 7405,
+    "atkMod": [
+      1.55,
+      1.55,
+      1,
+      1
+    ],
+    "bonusMod": [
+      1,
+      1,
+      1,
+      1
+    ],
+    "defMod": [
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1
+    ],
+    "matSetId": 5
+  },
+  {
+    "id": 7406,
+    "atkMod": [
+      1.62,
+      1.62,
+      1,
+      1
+    ],
+    "bonusMod": [
+      1,
+      1,
+      1,
+      1
+    ],
+    "defMod": [
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1
+    ],
+    "matSetId": 6
+  },
+  {
+    "id": 7407,
+    "atkMod": [
+      1.69,
+      1.69,
+      1,
+      1
+    ],
+    "bonusMod": [
+      1,
+      1,
+      1,
+      1
+    ],
+    "defMod": [
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1
+    ],
+    "matSetId": 7
+  },
+  {
+    "id": 7408,
+    "atkMod": [
+      1.76,
+      1.76,
+      1,
+      1
+    ],
+    "bonusMod": [
+      1,
+      1,
+      1,
+      1
+    ],
+    "defMod": [
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1
+    ],
+    "matSetId": 8
+  },
+  {
+    "id": 7409,
+    "atkMod": [
+      1.83,
+      1.83,
+      1,
+      1
+    ],
+    "bonusMod": [
+      1,
+      1,
+      1,
+      1
+    ],
+    "defMod": [
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1
+    ],
+    "matSetId": 9
+  },
+  {
+    "id": 7410,
+    "atkMod": [
+      2,
+      2,
+      1,
+      1
+    ],
+    "bonusMod": [
+      1,
+      1,
+      1,
+      1
+    ],
+    "defMod": [
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1
+    ],
+    "matSetId": 10
+  },
+  {
+    "id": 7800,
+    "atkMod": [
+      1,
+      1,
+      1,
+      1
+    ],
+    "bonusMod": [
+      1,
+      1,
+      1,
+      1
+    ],
+    "defMod": [
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1
+    ],
+    "matSetId": 0
+  },
+  {
+    "id": 7801,
+    "atkMod": [
+      1.04,
+      1,
+      1.04,
+      1
+    ],
+    "bonusMod": [
+      1,
+      1,
+      1,
+      1
+    ],
+    "defMod": [
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1
+    ],
+    "matSetId": 1
+  },
+  {
+    "id": 7802,
+    "atkMod": [
+      1.08,
+      1,
+      1.08,
+      1
+    ],
+    "bonusMod": [
+      1,
+      1,
+      1,
+      1
+    ],
+    "defMod": [
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1
+    ],
+    "matSetId": 2
+  },
+  {
+    "id": 7803,
+    "atkMod": [
+      1.12,
+      1,
+      1.12,
+      1
+    ],
+    "bonusMod": [
+      1,
+      1,
+      1,
+      1
+    ],
+    "defMod": [
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1
+    ],
+    "matSetId": 3
+  },
+  {
+    "id": 7804,
+    "atkMod": [
+      1.16,
+      1,
+      1.16,
+      1
+    ],
+    "bonusMod": [
+      1,
+      1,
+      1,
+      1
+    ],
+    "defMod": [
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1
+    ],
+    "matSetId": 4
+  },
+  {
+    "id": 7805,
+    "atkMod": [
+      1.2,
+      1,
+      1.2,
+      1
+    ],
+    "bonusMod": [
+      1,
+      1,
+      1,
+      1
+    ],
+    "defMod": [
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1
+    ],
+    "matSetId": 5
+  },
+  {
+    "id": 7806,
+    "atkMod": [
+      1.27,
+      1,
+      1.27,
+      1
+    ],
+    "bonusMod": [
+      1,
+      1,
+      1,
+      1
+    ],
+    "defMod": [
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1
+    ],
+    "matSetId": 6
+  },
+  {
+    "id": 7807,
+    "atkMod": [
+      1.34,
+      1,
+      1.34,
+      1
+    ],
+    "bonusMod": [
+      1,
+      1,
+      1,
+      1
+    ],
+    "defMod": [
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1
+    ],
+    "matSetId": 7
+  },
+  {
+    "id": 7808,
+    "atkMod": [
+      1.41,
+      1,
+      1.41,
+      1
+    ],
+    "bonusMod": [
+      1,
+      1,
+      1,
+      1
+    ],
+    "defMod": [
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1
+    ],
+    "matSetId": 8
+  },
+  {
+    "id": 7809,
+    "atkMod": [
+      1.48,
+      1,
+      1.48,
+      1
+    ],
+    "bonusMod": [
+      1,
+      1,
+      1,
+      1
+    ],
+    "defMod": [
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1
+    ],
+    "matSetId": 9
+  },
+  {
+    "id": 7810,
+    "atkMod": [
+      1.55,
+      1,
+      1.55,
+      1
+    ],
+    "bonusMod": [
+      1,
+      1,
+      1,
+      1
+    ],
+    "defMod": [
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1
+    ],
+    "matSetId": 10
+  },
+  {
+    "id": 8000,
+    "atkMod": [
+      1,
+      1,
+      1,
+      1
+    ],
+    "bonusMod": [
+      1,
+      1,
+      1,
+      1
+    ],
+    "defMod": [
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1
+    ],
+    "matSetId": 0
+  },
+  {
+    "id": 8001,
+    "atkMod": [
+      1.7,
+      1,
+      1,
+      1
+    ],
+    "bonusMod": [
+      1,
+      1,
+      1,
+      1
+    ],
+    "defMod": [
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1
+    ],
+    "matSetId": 1
+  },
+  {
+    "id": 8002,
+    "atkMod": [
+      2,
+      1,
+      1,
+      1
+    ],
+    "bonusMod": [
+      1,
+      1,
+      1,
+      1
+    ],
+    "defMod": [
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1
+    ],
+    "matSetId": 2
+  },
+  {
+    "id": 8003,
+    "atkMod": [
+      2.3,
+      1,
+      1,
+      1
+    ],
+    "bonusMod": [
+      1,
+      1,
+      1,
+      1
+    ],
+    "defMod": [
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1
+    ],
+    "matSetId": 3
+  },
+  {
+    "id": 8004,
+    "atkMod": [
+      2.6,
+      1,
+      1,
+      1
+    ],
+    "bonusMod": [
+      1,
+      1,
+      1,
+      1
+    ],
+    "defMod": [
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1
+    ],
+    "matSetId": 4
+  },
+  {
+    "id": 8005,
+    "atkMod": [
+      2.9,
+      1,
+      1,
+      1
+    ],
+    "bonusMod": [
+      1,
+      1,
+      1,
+      1
+    ],
+    "defMod": [
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1
+    ],
+    "matSetId": 5
+  },
+  {
+    "id": 8006,
+    "atkMod": [
+      3.3,
+      1,
+      1,
+      1
+    ],
+    "bonusMod": [
+      1,
+      1,
+      1,
+      1
+    ],
+    "defMod": [
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1
+    ],
+    "matSetId": 6
+  },
+  {
+    "id": 8007,
+    "atkMod": [
+      3.6,
+      1,
+      1,
+      1
+    ],
+    "bonusMod": [
+      1,
+      1,
+      1,
+      1
+    ],
+    "defMod": [
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1
+    ],
+    "matSetId": 7
+  },
+  {
+    "id": 8008,
+    "atkMod": [
+      3.9,
+      1,
+      1,
+      1
+    ],
+    "bonusMod": [
+      1,
+      1,
+      1,
+      1
+    ],
+    "defMod": [
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1
+    ],
+    "matSetId": 8
+  },
+  {
+    "id": 8009,
+    "atkMod": [
+      4.2,
+      1,
+      1,
+      1
+    ],
+    "bonusMod": [
+      1,
+      1,
+      1,
+      1
+    ],
+    "defMod": [
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1
+    ],
+    "matSetId": 9
+  },
+  {
+    "id": 8010,
+    "atkMod": [
+      4.5,
+      1,
+      1,
+      1
+    ],
+    "bonusMod": [
+      1,
+      1,
+      1,
+      1
+    ],
+    "defMod": [
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1
+    ],
+    "matSetId": 10
+  },
+  {
+    "id": 8011,
+    "atkMod": [
+      4.9,
+      1,
+      1,
+      1
+    ],
+    "bonusMod": [
+      1,
+      1,
+      1,
+      1
+    ],
+    "defMod": [
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1
+    ],
+    "matSetId": 11
+  },
+  {
+    "id": 8012,
+    "atkMod": [
+      5.2,
+      1,
+      1,
+      1
+    ],
+    "bonusMod": [
+      1,
+      1,
+      1,
+      1
+    ],
+    "defMod": [
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1
+    ],
+    "matSetId": 12
+  },
+  {
+    "id": 8013,
+    "atkMod": [
+      5.5,
+      1,
+      1,
+      1
+    ],
+    "bonusMod": [
+      1,
+      1,
+      1,
+      1
+    ],
+    "defMod": [
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1
+    ],
+    "matSetId": 13
+  },
+  {
+    "id": 8014,
+    "atkMod": [
+      5.8,
+      1,
+      1,
+      1
+    ],
+    "bonusMod": [
+      1,
+      1,
+      1,
+      1
+    ],
+    "defMod": [
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1
+    ],
+    "matSetId": 14
+  },
+  {
+    "id": 8015,
+    "atkMod": [
+      6.2,
+      1,
+      1,
+      1
+    ],
+    "bonusMod": [
+      1,
+      1,
+      1,
+      1
+    ],
+    "defMod": [
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1
+    ],
+    "matSetId": 15
+  },
+  {
+    "id": 8100,
+    "atkMod": [
+      5.2,
+      1,
+      1,
+      1
+    ],
+    "bonusMod": [
+      1,
+      1,
+      1,
+      1
+    ],
+    "defMod": [
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1
+    ],
+    "matSetId": 0
+  },
+  {
+    "id": 8101,
+    "atkMod": [
+      5.5,
+      1,
+      1,
+      1
+    ],
+    "bonusMod": [
+      1,
+      1,
+      1,
+      1
+    ],
+    "defMod": [
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1
+    ],
+    "matSetId": 1
+  },
+  {
+    "id": 8102,
+    "atkMod": [
+      5.8,
+      1,
+      1,
+      1
+    ],
+    "bonusMod": [
+      1,
+      1,
+      1,
+      1
+    ],
+    "defMod": [
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1
+    ],
+    "matSetId": 2
+  },
+  {
+    "id": 8103,
+    "atkMod": [
+      6.1,
+      1,
+      1,
+      1
+    ],
+    "bonusMod": [
+      1,
+      1,
+      1,
+      1
+    ],
+    "defMod": [
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1
+    ],
+    "matSetId": 3
+  },
+  {
+    "id": 8104,
+    "atkMod": [
+      6.4,
+      1,
+      1,
+      1
+    ],
+    "bonusMod": [
+      1,
+      1,
+      1,
+      1
+    ],
+    "defMod": [
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1
+    ],
+    "matSetId": 4
+  },
+  {
+    "id": 8105,
+    "atkMod": [
+      6.8,
+      1,
+      1,
+      1
+    ],
+    "bonusMod": [
+      1,
+      1,
+      1,
+      1
+    ],
+    "defMod": [
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1
+    ],
+    "matSetId": 5
+  },
+  {
+    "id": 8200,
+    "atkMod": [
+      2.8,
+      1,
+      1,
+      2.6
+    ],
+    "bonusMod": [
+      1,
+      1,
+      1,
+      1
+    ],
+    "defMod": [
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1
+    ],
+    "matSetId": 0
+  },
+  {
+    "id": 8201,
+    "atkMod": [
+      3,
+      1,
+      1,
+      2.8
+    ],
+    "bonusMod": [
+      1,
+      1,
+      1,
+      1
+    ],
+    "defMod": [
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1
+    ],
+    "matSetId": 1
+  },
+  {
+    "id": 8202,
+    "atkMod": [
+      3.2,
+      1,
+      1,
+      3
+    ],
+    "bonusMod": [
+      1,
+      1,
+      1,
+      1
+    ],
+    "defMod": [
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1
+    ],
+    "matSetId": 2
+  },
+  {
+    "id": 8203,
+    "atkMod": [
+      3.4,
+      1,
+      1,
+      3.2
+    ],
+    "bonusMod": [
+      1,
+      1,
+      1,
+      1
+    ],
+    "defMod": [
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1
+    ],
+    "matSetId": 3
+  },
+  {
+    "id": 8204,
+    "atkMod": [
+      3.6,
+      1,
+      1,
+      3.4
+    ],
+    "bonusMod": [
+      1,
+      1,
+      1,
+      1
+    ],
+    "defMod": [
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1
+    ],
+    "matSetId": 4
+  },
+  {
+    "id": 8205,
+    "atkMod": [
+      3.8,
+      1,
+      1,
+      3.6
+    ],
+    "bonusMod": [
+      1,
+      1,
+      1,
+      1
+    ],
+    "defMod": [
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1
+    ],
+    "matSetId": 5
+  },
+  {
+    "id": 8400,
+    "atkMod": [
+      2.5,
+      2.3,
+      1,
+      1
+    ],
+    "bonusMod": [
+      1,
+      1,
+      1,
+      1
+    ],
+    "defMod": [
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1
+    ],
+    "matSetId": 0
+  },
+  {
+    "id": 8401,
+    "atkMod": [
+      2.79,
+      2.58,
+      1,
+      1
+    ],
+    "bonusMod": [
+      1,
+      1,
+      1,
+      1
+    ],
+    "defMod": [
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1
+    ],
+    "matSetId": 1
+  },
+  {
+    "id": 8402,
+    "atkMod": [
+      3.08,
+      2.86,
+      1,
+      1
+    ],
+    "bonusMod": [
+      1,
+      1,
+      1,
+      1
+    ],
+    "defMod": [
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1
+    ],
+    "matSetId": 2
+  },
+  {
+    "id": 8403,
+    "atkMod": [
+      3.37,
+      3.14,
+      1,
+      1
+    ],
+    "bonusMod": [
+      1,
+      1,
+      1,
+      1
+    ],
+    "defMod": [
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1
+    ],
+    "matSetId": 3
+  },
+  {
+    "id": 8404,
+    "atkMod": [
+      3.66,
+      3.42,
+      1,
+      1
+    ],
+    "bonusMod": [
+      1,
+      1,
+      1,
+      1
+    ],
+    "defMod": [
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1
+    ],
+    "matSetId": 4
+  },
+  {
+    "id": 8405,
+    "atkMod": [
+      3.95,
+      3.7,
+      1,
+      1
+    ],
+    "bonusMod": [
+      1,
+      1,
+      1,
+      1
+    ],
+    "defMod": [
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1
+    ],
+    "matSetId": 5
+  },
+  {
+    "id": 8406,
+    "atkMod": [
+      4.24,
+      3.98,
+      1,
+      1
+    ],
+    "bonusMod": [
+      1,
+      1,
+      1,
+      1
+    ],
+    "defMod": [
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1
+    ],
+    "matSetId": 6
+  },
+  {
+    "id": 8407,
+    "atkMod": [
+      4.53,
+      4.26,
+      1,
+      1
+    ],
+    "bonusMod": [
+      1,
+      1,
+      1,
+      1
+    ],
+    "defMod": [
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1
+    ],
+    "matSetId": 7
+  },
+  {
+    "id": 8408,
+    "atkMod": [
+      4.82,
+      4.54,
+      1,
+      1
+    ],
+    "bonusMod": [
+      1,
+      1,
+      1,
+      1
+    ],
+    "defMod": [
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1
+    ],
+    "matSetId": 8
+  },
+  {
+    "id": 8409,
+    "atkMod": [
+      5.11,
+      4.82,
+      1,
+      1
+    ],
+    "bonusMod": [
+      1,
+      1,
+      1,
+      1
+    ],
+    "defMod": [
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1
+    ],
+    "matSetId": 9
+  },
+  {
+    "id": 8410,
+    "atkMod": [
+      5.4,
+      5.14,
+      1,
+      1
+    ],
+    "bonusMod": [
+      1,
+      1,
+      1,
+      1
+    ],
+    "defMod": [
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1
+    ],
+    "matSetId": 10
+  },
+  {
+    "id": 8600,
+    "atkMod": [
+      2.5,
+      2.5,
+      1,
+      1
+    ],
+    "bonusMod": [
+      1,
+      1,
+      1,
+      1
+    ],
+    "defMod": [
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1
+    ],
+    "matSetId": 0
+  },
+  {
+    "id": 8601,
+    "atkMod": [
+      2.8,
+      2.8,
+      1,
+      1
+    ],
+    "bonusMod": [
+      1,
+      1,
+      1,
+      1
+    ],
+    "defMod": [
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1
+    ],
+    "matSetId": 1
+  },
+  {
+    "id": 8602,
+    "atkMod": [
+      3.1,
+      3.1,
+      1,
+      1
+    ],
+    "bonusMod": [
+      1,
+      1,
+      1,
+      1
+    ],
+    "defMod": [
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1
+    ],
+    "matSetId": 2
+  },
+  {
+    "id": 8603,
+    "atkMod": [
+      3.4,
+      3.4,
+      1,
+      1
+    ],
+    "bonusMod": [
+      1,
+      1,
+      1,
+      1
+    ],
+    "defMod": [
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1
+    ],
+    "matSetId": 3
+  },
+  {
+    "id": 8604,
+    "atkMod": [
+      3.7,
+      3.7,
+      1,
+      1
+    ],
+    "bonusMod": [
+      1,
+      1,
+      1,
+      1
+    ],
+    "defMod": [
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1
+    ],
+    "matSetId": 4
+  },
+  {
+    "id": 8605,
+    "atkMod": [
+      4,
+      4,
+      1,
+      1
+    ],
+    "bonusMod": [
+      1,
+      1,
+      1,
+      1
+    ],
+    "defMod": [
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1
+    ],
+    "matSetId": 5
+  },
+  {
+    "id": 8606,
+    "atkMod": [
+      4.3,
+      4.3,
+      1,
+      1
+    ],
+    "bonusMod": [
+      1,
+      1,
+      1,
+      1
+    ],
+    "defMod": [
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1
+    ],
+    "matSetId": 6
+  },
+  {
+    "id": 8607,
+    "atkMod": [
+      4.6,
+      4.6,
+      1,
+      1
+    ],
+    "bonusMod": [
+      1,
+      1,
+      1,
+      1
+    ],
+    "defMod": [
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1
+    ],
+    "matSetId": 7
+  },
+  {
+    "id": 8608,
+    "atkMod": [
+      4.9,
+      4.9,
+      1,
+      1
+    ],
+    "bonusMod": [
+      1,
+      1,
+      1,
+      1
+    ],
+    "defMod": [
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1
+    ],
+    "matSetId": 8
+  },
+  {
+    "id": 8609,
+    "atkMod": [
+      5.2,
+      5.2,
+      1,
+      1
+    ],
+    "bonusMod": [
+      1,
+      1,
+      1,
+      1
+    ],
+    "defMod": [
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1
+    ],
+    "matSetId": 9
+  },
+  {
+    "id": 8610,
+    "atkMod": [
+      5.5,
+      5.5,
+      1,
+      1
+    ],
+    "bonusMod": [
+      1,
+      1,
+      1,
+      1
+    ],
+    "defMod": [
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1
+    ],
+    "matSetId": 10
+  },
+  {
+    "id": 8800,
+    "atkMod": [
+      1.8,
+      1,
+      1.8,
+      1
+    ],
+    "bonusMod": [
+      1,
+      1,
+      1,
+      1
+    ],
+    "defMod": [
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1
+    ],
+    "matSetId": 0
+  },
+  {
+    "id": 8801,
+    "atkMod": [
+      2.03,
+      1,
+      2.03,
+      1
+    ],
+    "bonusMod": [
+      1,
+      1,
+      1,
+      1
+    ],
+    "defMod": [
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1
+    ],
+    "matSetId": 1
+  },
+  {
+    "id": 8802,
+    "atkMod": [
+      2.26,
+      1,
+      2.26,
+      1
+    ],
+    "bonusMod": [
+      1,
+      1,
+      1,
+      1
+    ],
+    "defMod": [
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1
+    ],
+    "matSetId": 2
+  },
+  {
+    "id": 8803,
+    "atkMod": [
+      2.49,
+      1,
+      2.49,
+      1
+    ],
+    "bonusMod": [
+      1,
+      1,
+      1,
+      1
+    ],
+    "defMod": [
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1
+    ],
+    "matSetId": 3
+  },
+  {
+    "id": 8804,
+    "atkMod": [
+      2.72,
+      1,
+      2.72,
+      1
+    ],
+    "bonusMod": [
+      1,
+      1,
+      1,
+      1
+    ],
+    "defMod": [
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1
+    ],
+    "matSetId": 4
+  },
+  {
+    "id": 8805,
+    "atkMod": [
+      2.95,
+      1,
+      2.95,
+      1
+    ],
+    "bonusMod": [
+      1,
+      1,
+      1,
+      1
+    ],
+    "defMod": [
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1
+    ],
+    "matSetId": 5
+  },
+  {
+    "id": 8806,
+    "atkMod": [
+      3.2,
+      1,
+      3.2,
+      1
+    ],
+    "bonusMod": [
+      1,
+      1,
+      1,
+      1
+    ],
+    "defMod": [
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1
+    ],
+    "matSetId": 6
+  },
+  {
+    "id": 8807,
+    "atkMod": [
+      3.43,
+      1,
+      3.43,
+      1
+    ],
+    "bonusMod": [
+      1,
+      1,
+      1,
+      1
+    ],
+    "defMod": [
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1
+    ],
+    "matSetId": 7
+  },
+  {
+    "id": 8808,
+    "atkMod": [
+      3.66,
+      1,
+      3.66,
+      1
+    ],
+    "bonusMod": [
+      1,
+      1,
+      1,
+      1
+    ],
+    "defMod": [
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1
+    ],
+    "matSetId": 8
+  },
+  {
+    "id": 8809,
+    "atkMod": [
+      3.89,
+      1,
+      3.89,
+      1
+    ],
+    "bonusMod": [
+      1,
+      1,
+      1,
+      1
+    ],
+    "defMod": [
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1
+    ],
+    "matSetId": 9
+  },
+  {
+    "id": 8810,
+    "atkMod": [
+      4.15,
+      1,
+      4.15,
+      1
+    ],
+    "bonusMod": [
+      1,
+      1,
+      1,
+      1
+    ],
+    "defMod": [
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1
+    ],
+    "matSetId": 10
+  },
+  {
+    "id": 9200,
+    "atkMod": [
+      3.7,
+      1,
+      1,
+      4.1
+    ],
+    "bonusMod": [
+      1,
+      1,
+      1,
+      1
+    ],
+    "defMod": [
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1
+    ],
+    "matSetId": 0
+  },
+  {
+    "id": 9201,
+    "atkMod": [
+      3.88,
+      1,
+      1,
+      4.28
+    ],
+    "bonusMod": [
+      1,
+      1,
+      1,
+      1
+    ],
+    "defMod": [
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1
+    ],
+    "matSetId": 1
+  },
+  {
+    "id": 9202,
+    "atkMod": [
+      4.06,
+      1,
+      1,
+      4.46
+    ],
+    "bonusMod": [
+      1,
+      1,
+      1,
+      1
+    ],
+    "defMod": [
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1
+    ],
+    "matSetId": 2
+  },
+  {
+    "id": 9203,
+    "atkMod": [
+      4.24,
+      1,
+      1,
+      4.64
+    ],
+    "bonusMod": [
+      1,
+      1,
+      1,
+      1
+    ],
+    "defMod": [
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1
+    ],
+    "matSetId": 3
+  },
+  {
+    "id": 9204,
+    "atkMod": [
+      4.42,
+      1,
+      1,
+      4.82
+    ],
+    "bonusMod": [
+      1,
+      1,
+      1,
+      1
+    ],
+    "defMod": [
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1
+    ],
+    "matSetId": 4
+  },
+  {
+    "id": 9205,
+    "atkMod": [
+      4.6,
+      1,
+      1,
+      5
+    ],
+    "bonusMod": [
+      1,
+      1,
+      1,
+      1
+    ],
+    "defMod": [
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1
+    ],
+    "matSetId": 5
+  },
+  {
+    "id": 9500,
+    "atkMod": [
+      2,
+      2,
+      1,
+      1
+    ],
+    "bonusMod": [
+      1.15,
+      1.15,
+      1.05,
+      1
+    ],
+    "defMod": [
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1
+    ],
+    "matSetId": 0
+  },
+  {
+    "id": 9501,
+    "atkMod": [
+      2.08,
+      2.06,
+      1,
+      1
+    ],
+    "bonusMod": [
+      1.15,
+      1.15,
+      1.12,
+      1
+    ],
+    "defMod": [
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1
+    ],
+    "matSetId": 1
+  },
+  {
+    "id": 9502,
+    "atkMod": [
+      2.16,
+      2.12,
+      1,
+      1
+    ],
+    "bonusMod": [
+      1.15,
+      1.15,
+      1.19,
+      1
+    ],
+    "defMod": [
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1
+    ],
+    "matSetId": 2
+  },
+  {
+    "id": 9503,
+    "atkMod": [
+      2.24,
+      2.18,
+      1,
+      1
+    ],
+    "bonusMod": [
+      1.15,
+      1.15,
+      1.26,
+      1
+    ],
+    "defMod": [
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1
+    ],
+    "matSetId": 3
+  },
+  {
+    "id": 9504,
+    "atkMod": [
+      2.32,
+      2.24,
+      1,
+      1
+    ],
+    "bonusMod": [
+      1.2,
+      1.2,
+      1.33,
+      1
+    ],
+    "defMod": [
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1
+    ],
+    "matSetId": 4
+  },
+  {
+    "id": 9505,
+    "atkMod": [
+      2.4,
+      2.32,
+      1,
+      1
+    ],
+    "bonusMod": [
+      1.2,
+      1.2,
+      1.4,
+      1
+    ],
+    "defMod": [
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1
+    ],
+    "matSetId": 5
+  },
+  {
+    "id": 9800,
+    "atkMod": [
+      1.8,
+      1,
+      1.8,
+      1
+    ],
+    "bonusMod": [
+      1,
+      1,
+      1,
+      1
+    ],
+    "defMod": [
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1
+    ],
+    "matSetId": 0
+  },
+  {
+    "id": 9801,
+    "atkMod": [
+      2.07,
+      1,
+      2.07,
+      1
+    ],
+    "bonusMod": [
+      1,
+      1,
+      1,
+      1
+    ],
+    "defMod": [
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1
+    ],
+    "matSetId": 1
+  },
+  {
+    "id": 9802,
+    "atkMod": [
+      2.34,
+      1,
+      2.34,
+      1
+    ],
+    "bonusMod": [
+      1,
+      1,
+      1,
+      1
+    ],
+    "defMod": [
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1
+    ],
+    "matSetId": 2
+  },
+  {
+    "id": 9803,
+    "atkMod": [
+      2.61,
+      1,
+      2.61,
+      1
+    ],
+    "bonusMod": [
+      1,
+      1,
+      1,
+      1
+    ],
+    "defMod": [
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1
+    ],
+    "matSetId": 3
+  },
+  {
+    "id": 9804,
+    "atkMod": [
+      2.88,
+      1,
+      2.88,
+      1
+    ],
+    "bonusMod": [
+      1,
+      1,
+      1,
+      1
+    ],
+    "defMod": [
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1
+    ],
+    "matSetId": 4
+  },
+  {
+    "id": 9805,
+    "atkMod": [
+      3.15,
+      1,
+      3.15,
+      1
+    ],
+    "bonusMod": [
+      1,
+      1,
+      1,
+      1
+    ],
+    "defMod": [
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1
+    ],
+    "matSetId": 5
+  },
+  {
+    "id": 9806,
+    "atkMod": [
+      3.42,
+      1,
+      3.42,
+      1
+    ],
+    "bonusMod": [
+      1,
+      1,
+      1,
+      1
+    ],
+    "defMod": [
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1
+    ],
+    "matSetId": 6
+  },
+  {
+    "id": 9807,
+    "atkMod": [
+      3.69,
+      1,
+      3.69,
+      1
+    ],
+    "bonusMod": [
+      1,
+      1,
+      1,
+      1
+    ],
+    "defMod": [
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1
+    ],
+    "matSetId": 7
+  },
+  {
+    "id": 9808,
+    "atkMod": [
+      3.96,
+      1,
+      3.96,
+      1
+    ],
+    "bonusMod": [
+      1,
+      1,
+      1,
+      1
+    ],
+    "defMod": [
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1
+    ],
+    "matSetId": 8
+  },
+  {
+    "id": 9809,
+    "atkMod": [
+      4.23,
+      1,
+      4.23,
+      1
+    ],
+    "bonusMod": [
+      1,
+      1,
+      1,
+      1
+    ],
+    "defMod": [
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1
+    ],
+    "matSetId": 9
+  },
+  {
+    "id": 9810,
+    "atkMod": [
+      4.5,
+      1,
+      4.5,
+      1
+    ],
+    "bonusMod": [
+      1,
+      1,
+      1,
+      1
+    ],
+    "defMod": [
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1
+    ],
+    "matSetId": 10
+  },
+  {
+    "id": 9900,
+    "atkMod": [
+      2.5,
+      1,
+      2.7,
+      1
+    ],
+    "bonusMod": [
+      1,
+      1,
+      1,
+      1
+    ],
+    "defMod": [
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1
+    ],
+    "matSetId": 0
+  },
+  {
+    "id": 9901,
+    "atkMod": [
+      2.8,
+      1,
+      3.04,
+      1
+    ],
+    "bonusMod": [
+      1,
+      1,
+      1,
+      1
+    ],
+    "defMod": [
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1
+    ],
+    "matSetId": 1
+  },
+  {
+    "id": 9902,
+    "atkMod": [
+      3.1,
+      1,
+      3.38,
+      1
+    ],
+    "bonusMod": [
+      1,
+      1,
+      1,
+      1
+    ],
+    "defMod": [
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1
+    ],
+    "matSetId": 2
+  },
+  {
+    "id": 9903,
+    "atkMod": [
+      3.4,
+      1,
+      3.72,
+      1
+    ],
+    "bonusMod": [
+      1,
+      1,
+      1,
+      1
+    ],
+    "defMod": [
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1
+    ],
+    "matSetId": 3
+  },
+  {
+    "id": 9904,
+    "atkMod": [
+      3.7,
+      1,
+      4.06,
+      1
+    ],
+    "bonusMod": [
+      1,
+      1,
+      1,
+      1
+    ],
+    "defMod": [
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1
+    ],
+    "matSetId": 4
+  },
+  {
+    "id": 9905,
+    "atkMod": [
+      4,
+      1,
+      4.4,
+      1
+    ],
+    "bonusMod": [
+      1,
+      1,
+      1,
+      1
+    ],
+    "defMod": [
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1
+    ],
+    "matSetId": 5
+  }
+]
