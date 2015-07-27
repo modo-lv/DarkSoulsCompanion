@@ -1,0 +1,126 @@
+[
+  {
+    "title": "Fog gates",
+    "labels": "spoiler",
+    "content": "<ul><li><strong>First</strong>: {Bed of Chaos} boss fight."
+  },
+  {
+    "title": "Lava Lake",
+    "children": [
+      {
+        "labels": "item",
+        "title": "Soul of a Brave Warrior"
+      },
+      {
+        "labels": "item",
+        "title": "Soul of a Brave Warrior"
+      },
+      {
+        "labels": "item",
+        "title": "Soul of a Great Hero"
+      },
+      {
+        "labels": "item",
+        "title": "Twin Humanities"
+      },
+      {
+        "labels": ["bonfire", "secret"],
+        "title": "Lava Lake"
+      }
+    ]
+  },
+  {
+    "title": "Ruins",
+    "children": [
+      {
+        "labels": "item",
+        "title": "Large Soul of a Brave Warrior"
+      },
+      {
+        "labels": "item",
+        "title": "Soul of a Hero"
+      },
+      {
+        "labels": "item",
+        "title": "Rare Ring of Sacrifice"
+      },
+      {
+        "labels": "enemy",
+        "title": "Titanite Demon",
+        "items": "Demon Titanite (2)"
+      },
+      {
+        "labels": "item",
+        "title": "Crystal Lizard"
+      },
+      {
+        "labels": "enemy",
+        "title": "Chaos Bug",
+        "items": "Sunlight Maggot",
+        "setVar": "enemy|Chaos Bug|dead|not"
+      },
+      {
+        "labels": "shortcut",
+        "title": "Gate to outer Demon Ruins",
+        "if": "covenant|Chaos Servant|2",
+        "setVar": "global|izalith-shortcut|not"
+      },
+      {
+        "title": "Basement",
+        "children": [
+          {
+            "labels": "npc",
+            "title": "Siegmeyer of Catarina"
+          },
+          {
+            "labels": "item",
+            "title": "Green Titanite Shard (2)"
+          },
+          {
+            "labels": "item",
+            "title": "Soul of a Brave Warrior"
+          },
+          {
+            "labels": "item",
+            "title": "Red Titanite Chunk"
+          },
+          {
+            "labels": "item",
+            "title": "Red Titanite Chunk"
+          },
+          {
+            "labels": "item",
+            "title": "Titanite Slab"
+          }
+        ]
+      },
+      {
+        "labels": "enemy",
+        "title": "Daughter of Chaos",
+        "items": "Izalith Catalyst"
+      },
+      {
+        "labels": "invasion",
+        "title": "Knight Kirk"
+      },
+      {
+        "labels": "item",
+        "title": "Pyromancy: Chaos Fire Whip"
+      },
+      {
+        "labels": "enemy",
+        "title": "Bed of Chaos",
+        "children": [
+          {
+            "labels": "item",
+            "title": "Lord Soul, Humanity"
+          },
+          {
+            "labels": "bonfire",
+            "title": "Bed of Chaos"
+          }
+        ]
+      }
+    ]
+  }
+]

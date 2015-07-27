@@ -1,7 +1,62 @@
 [
   {
+    "title": "Fog gates",
+    "labels": "spoiler",
+    "content": "<ul><li><strong>First</strong>: Passing through.</li></ul>"
+  },
+  {
     "labels": "item",
     "title": "Large Soul of a Proud Knight",
     "id": "7db36d7d-802b-4fc8-803c-a7194a030f41"
-  }
+  },
+  {
+    "title": "Kicked down",
+    "children": [
+      {
+        "labels": "item",
+        "title": "Large Soul of a Proud Knight"
+      },
+      {
+        "labels": "item",
+        "title": "Large Soul of a Proud Knight"
+      },
+      {
+        "labels": "item",
+        "title": "Skull Lantern"
+      },
+      {
+        "labels": "item",
+        "title": "White Titanite Chunk"
+      }
+    ]
+  },
+  {
+    "labels": "enemy",
+    "title": "Black Knight",
+    "items": "White Titanite Chunk"
+  },
+  {
+    "labels": "item",
+    "title": "Soul of a Brave Warrior"
+  },
+  {
+    "labels": "item",
+    "title": "Effigy Shield"
+  },
+  {
+    "labels": "item",
+    "title": "Covetous Serpent Ring"
+  },
+  {
+    "labels": "item",
+    "title": "White Titanite Chunk"
+  },
+  {
+    "labels": "item",
+    "title": "Soul of a Brave Warrior"
+  },
+  {
+    "labels": "enemy",
+    "title": "Crystal Lizard"
+  },
 ]

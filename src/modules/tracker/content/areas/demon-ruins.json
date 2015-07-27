@@ -1,5 +1,10 @@
 [
   {
+    "title": "Fog gates",
+    "labels": "spoiler",
+    "content": "<ul><li><strong>First</strong>: {Firesage Demon} boss fight.</li></ul>"
+  },
+  {
     "labels": "spoiler",
     "title": "Fog gates",
     "children": [
@@ -34,7 +39,7 @@
     "id": "ab4fe0a2-0cfa-42f9-9c7b-db27491a9a1c"
   },
   {
-    "title": "Around the main building",
+    "title": "Outer ruins",
     "if": "enemy|Ceaseless Discharge|dead",
     "children": [
       {
@@ -51,6 +56,11 @@
         "labels": "item",
         "title": "Soul of a Proud Knight",
         "id": "741239c7-702e-418d-9916-fd61b3543273"
+      },
+      {
+        "labels": "invasion",
+        "title": "Knight Kirk",
+        "if": "global|lordvessel-placed"
       },
       {
         "labels": "bonfire",
@@ -81,11 +91,75 @@
     "id": "29dbd377-8d21-4923-b68e-12bf53e1a86d"
   },
   {
-    "title": "Main Building",
+    "title": "Inner ruins",
     "if": [
-      "global|lordvessel",
+      "global|lordvessel-placed",
       "enemy|Ceaseless Discharge|dead"
     ],
-    "id": "ff809933-20ac-45fe-a4e1-379c9c47edb8"
+    "id": "ff809933-20ac-45fe-a4e1-379c9c47edb8",
+    "children": [
+      {
+        "labels": "item",
+        "title": "Soul of a Brave Warrior"
+      },
+      {
+        "labels": "shortcut",
+        "title": "Gate to Lost Izalith",
+        "if": "covenant|Chaos Servant|2",
+        "setVar": "global|izalith-shortcut|not",
+        "children": [
+          {
+            "labels": "enemy",
+            "title": "Chaos Bug",
+            "items": "Sunlight Maggot",
+            "setVar": "enemy|Chaos Bug|dead|not"
+          }
+        ]
+      },
+      {
+        "labels": "enemy",
+        "title": "Firesage Demon",
+        "items": "Humanity, Demon's Catalyst"
+      },
+      {
+        "labels": "bonfire",
+        "title": "Inner Demon Ruins",
+        "if" : "enemy|Firesage Demon|dead"
+      },
+      {
+        "labels": "item",
+        "title": "Soul of a Brave Warrior",
+        "if" : "enemy|Firesage Demon|dead"
+      },
+      {
+        "labels": "shortcut",
+        "title": "Elevator to Quelaag's Domain",
+        "if" : "enemy|Firesage Demon|dead"
+      },
+      {
+        "labels": "enemy",
+        "title": "Centipede Demon",
+        "items": "Humanity, Homeward Bone, Orange Charred Ring",
+        "if" : "enemy|Firesage Demon|dead"
+      }
+    ]
+  },
+  {
+    "title": "Lava lake",
+    "if": ["global|lordvessel-placed", "enemy|Centipede Demon|dead"],
+    "children": [
+      {
+        "labels": "item",
+        "title": "Green Titanite Shard"
+      },
+      {
+        "labels": "bonfire",
+        "title": "Lava Lake shore"
+      },
+      {
+        "labels": "npc",
+        "title": "Solaire of Astora"
+      }
+    ]
   }
 ]

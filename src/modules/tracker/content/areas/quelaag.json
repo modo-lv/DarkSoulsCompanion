@@ -108,6 +108,10 @@
                 ],
                 "content": "Egghead infection has a chance to occur every time one of the {Egg Burdened} use their grab attack on you. Successful infection will manifest as the character scratching his head while standing still, and eventually blossom into a full egg covering the player's head. This will prevent the player from wearing helmets and will absorb half of all the souls acquired from then on. After absorbing 100000 souls the egg will grow bigger and kick attack will be replaced with a larva biting attack",
                 "id": "0d63811f-9d72-46b9-858a-4ea6f4c636d9"
+              },
+              {
+                "labels": "item",
+                "title": "Helm of Thorns, Armor of Thorns, Gauntlets of Thorns, Leggings of Thorns"
               }
             ],
             "id": "fa79e9f0-e121-4b17-98ba-47f6f4e69608"
