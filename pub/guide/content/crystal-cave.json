@@ -1,0 +1,36 @@
+[
+  {
+    "labels": "item",
+    "title": "Humanity"
+  },
+  {
+    "labels": "enemy",
+    "title": "Crystal Lizard"
+  },
+  {
+    "labels": "enemy",
+    "title": "Crystal Lizard"
+  },
+  {
+    "labels": "enemy",
+    "title": "Crystal Lizard"
+  },
+  {
+    "labels": "item",
+    "title": "Blue Titanite Slab"
+  },
+  {
+    "labels": "item",
+    "title": "Blue Titanite Chunk"
+  },
+  {
+    "labels": "item",
+    "title": "Soul of a Hero"
+  },
+  {
+    "labels": "enemy",
+    "title": "Seath the Scaleless",
+    "tail": "Moonlight Greatsword",
+    "items": "Bequeathed Lord Soul Shard, Humanity"
+  }
+]

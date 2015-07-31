@@ -323,6 +323,12 @@ processWeapons = (folder = '.')!->
 			..upgradeCost = +rawWeapon.\BasicPrice
 			..upgradeId = +rawWeapon.\ReinforceTypeId
 
+			# Dark Hand cannot be upgraded, but the weapon data says it can.
+			if rawWeapon.\IsDarkHand .toLowerCase! == \true
+				..upgradeId = -1
+				..matSetId = -1
+
+
 
 		# Weapons without names cannot be recognized and so are useless
 		if not weapon.name? then continue

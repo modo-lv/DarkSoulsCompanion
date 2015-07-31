@@ -1,0 +1,172 @@
+[
+  {
+    "title": "Fog gates",
+    "labels": "spoiler",
+    "content": "<ul><li><strong>First</strong>: {Seath the Scaleless} first battle.</li><li>Passing through.</li></ul>"
+  },
+  {
+    "labels": "enemy, dlc",
+    "title": "Crystal Golem",
+    "items": "Broken Pendant"
+  },
+  {
+    "title": "Library",
+    "children": [
+      {
+        "labels": "item",
+        "title": "Soul of a Brave Warrior"
+      },
+      {
+        "labels": "item",
+        "title": "Twinkling Titanite"
+      },
+      {
+        "labels": "item",
+        "title": "Twinkling Titanite"
+      },
+      {
+        "labels": "item",
+        "title": "Crystal Knight Shield"
+      },
+      {
+        "labels": "enemy",
+        "title": "Crystal Lizard",
+        "content": "On the bending stairs at the top of the elevator ride."
+      },
+      {
+        "labels": "enemy, warning, spoiler",
+        "title": "Seath the Scaleless",
+        "action": "die",
+        "content": "This fight cannot be won and you're supposed to die, but that doesn't prevent the loss of souls and Humanity."
+      }
+    ]
+  },
+  {
+    "title": "Archive Tower",
+    "children": [
+      {
+        "labels": "item",
+        "title": "Archive Tower Cell Key"
+      },
+      {
+        "labels": "item",
+        "title": "Maiden Hood, Maiden Robe, Maiden Gloves, Maiden Skirt, White Seance Ring"
+      },
+      {
+        "labels": "item",
+        "title": "Archive Prison Extra Key"
+      },
+      {
+        "labels": "item",
+        "title": "Large Soul of a Brave Warrior",
+        "if": "item|Archive Prison Extra Key"
+      },
+      {
+        "labels": "item",
+        "title": "Soul of a Brave Warrior",
+        "if": "item|Archive Prison Extra Key"
+      },
+      {
+        "labels": "item",
+        "title": "Archive Tower Giant Door Key"
+      },
+      {
+        "labels": "item",
+        "title": "Miracle: Soothing Sunlight"
+      },
+      {
+        "labels": "item",
+        "title": "Miracle: Bountiful Sunlight"
+      },
+      {
+        "labels": "npc",
+        "title": "Big Hat Logan"
+      },
+      {
+        "labels": "item",
+        "title": "Fire Keeper Soul",
+        "if" : "item|Archive Tower Giant Cell Key"
+      }
+    ]
+  },
+  {
+    "title": "Library Revisited",
+    "if": "item|Archive Tower Giant Door Key",
+    "children": [
+      {
+        "labels": "item",
+        "title": "Sorcery: Strong Magic Shield"
+      },
+      {
+        "labels": "item",
+        "title": "Twinkling Titanite"
+      },
+      {
+        "labels": "shortcut",
+        "title": "Secret door"
+      },
+      {
+        "labels": "item",
+        "title": "Blue Titanite Chunk"
+      },
+      {
+        "labels": "item",
+        "title": "Six-Eyed Helm of the Channelers, Robe of the Channelers, Gauntlets of the Channelers, Waistcloth of the Channelers"
+      },
+      {
+        "labels": "item",
+        "title": "Archive Tower Giant Cell Key"
+      },
+      {
+        "labels": "item",
+        "title": "Enchanted Falchion"
+      },
+      {
+        "labels": "item",
+        "title": "Crystal Ember"
+      },
+      {
+        "labels": "switch",
+        "title": "Exit lever",
+        "setVar" : "global|crystal-cave-available"
+      },
+      {
+        "labels": "item",
+        "title": "Prism Stone (20)",
+        "if": "global|crystal-cave-available"
+      },
+      {
+        "labels": "item",
+        "title": "Avelyn"
+      }
+    ]
+  },
+  {
+    "title": "Crystal Woods",
+    "if" : "global|crystal-cave-available",
+    "children": [
+      {
+        "labels": "item",
+        "title": "Blue Titanite Chunk"
+      },
+      {
+        "labels": "item",
+        "title": "Crystalline Helm, Crystalline Armor, Crystalline Gauntlets, Crystalline Leggings"
+      },
+      {
+        "labels": "item",
+        "title": "enemy",
+        "title": "Big Hat Logan",
+        "items": "Sorcery: White Dragon Breath, Big Hat, Tin Crystallization Ctlyst."
+      },
+      {
+        "labels": "item",
+        "title": "Large Magic Ember"
+      },
+      {
+        "labels": "item",
+        "title": "Soul of a Great Hero"
+      }
+    ]
+  }
+]

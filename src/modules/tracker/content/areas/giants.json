@@ -2,7 +2,8 @@
   {
     "title": "Fog gates",
     "labels": "spoiler",
-    "content": "<ul><li><strong>First</strong>: Passing through.</li></ul>"
+    "content": "<ol><li>Passing through.</li><li>{Gravelord Nito} boss fight.</li></ul>",
+    "id": "81871069-ea63-4d46-aae7-a87dd6c24f48"
   },
   {
     "labels": "item",
@@ -10,53 +11,144 @@
     "id": "7db36d7d-802b-4fc8-803c-a7194a030f41"
   },
   {
+    "labels": "item",
+    "title": "Soul of a Brave Warrior",
+    "id": "50ccf871-b83a-410b-b908-487e01c562d4"
+  },
+  {
+    "labels": "item",
+    "title": "Large Divine Ember",
+    "id": "546257ca-9503-4e07-957f-d9b2222639f5"
+  },
+  {
+    "labels": "item",
+    "title": "Large Soul of a Proud Knight",
+    "id": "ea0b76eb-7d98-4536-bde1-9c92c95630e0"
+  },
+  {
+    "labels": "item",
+    "title": "Large Soul of a Proud Knight",
+    "id": "ec27106b-c150-423f-aec5-2cb2eb2165c8"
+  },
+  {
+    "labels": "item",
+    "title": "Eye of Death (3)",
+    "id": "e688f222-7899-4293-b1bf-1072eb6b35d1"
+  },
+  {
+    "labels": "item",
+    "title": "Large Soul of a Proud Knight",
+    "id": "61dfe217-a96b-47f4-93b6-3f59c6b42c8e"
+  },
+  {
     "title": "Kicked down",
     "children": [
       {
         "labels": "item",
-        "title": "Large Soul of a Proud Knight"
+        "title": "Large Soul of a Proud Knight",
+        "id": "6f67b204-1f06-4d5b-902d-cc42047fd7fc"
       },
       {
         "labels": "item",
-        "title": "Large Soul of a Proud Knight"
+        "title": "Large Soul of a Proud Knight",
+        "id": "7bdde86b-d696-4e3e-b6ba-74f9bc4945c2"
       },
       {
         "labels": "item",
-        "title": "Skull Lantern"
+        "title": "Skull Lantern",
+        "id": "c5402695-b67d-481d-af14-0e9c31fe850b"
       },
       {
         "labels": "item",
-        "title": "White Titanite Chunk"
+        "title": "White Titanite Chunk",
+        "id": "039d4d44-496b-4260-8369-bdec4033a439"
       }
-    ]
+    ],
+    "id": "0fec8e2b-20a8-420a-897a-579fc896e083"
   },
   {
     "labels": "enemy",
     "title": "Black Knight",
-    "items": "White Titanite Chunk"
+    "items": "White Titanite Chunk",
+    "id": "0f721681-cd7f-4549-acfb-b3306327692d"
   },
   {
     "labels": "item",
-    "title": "Soul of a Brave Warrior"
+    "title": "Soul of a Brave Warrior",
+    "id": "6f655d61-bf20-46bb-8f17-4b17202ccfd4"
   },
   {
     "labels": "item",
-    "title": "Effigy Shield"
+    "title": "Effigy Shield",
+    "id": "6a26ed11-5e7a-43c1-b926-42e86802db84"
   },
   {
     "labels": "item",
-    "title": "Covetous Serpent Ring"
+    "title": "Covetous Serpent Ring",
+    "id": "3892bd54-537a-48ab-862e-48baf7b924bd"
   },
   {
     "labels": "item",
-    "title": "White Titanite Chunk"
+    "title": "White Titanite Chunk",
+    "id": "8d5094da-bcc2-4012-8ccc-c20d4513c109"
   },
   {
     "labels": "item",
-    "title": "Soul of a Brave Warrior"
+    "title": "Soul of a Brave Warrior",
+    "id": "b02af73c-0f8d-4f9d-bb63-ee94c5320a9c"
+  },
+  {
+    "labels": "invasion",
+    "title": "Paladin Leeroy",
+    "id": "c7da500f-42c8-4228-bbbe-d7b96ac1d816"
   },
   {
     "labels": "enemy",
-    "title": "Crystal Lizard"
+    "title": "Crystal Lizard",
+    "items": "Humanity (2), Grant, Sancts",
+    "id": "ed5fa9c3-5015-4708-adf3-95f63a68ccc3"
   },
+  {
+    "title": "Pinwheel cave",
+    "children": [
+      {
+        "labels": "item",
+        "title": "Soul of a Hero",
+        "id": "4e645a01-3c44-4d85-b1f5-5d7b96475aae"
+      },
+      {
+        "labels": "item",
+        "title": "White Titanite Chunk",
+        "id": "6a2f574a-908f-4d92-8ffc-b77ce271142b"
+      },
+      {
+        "labels": "item",
+        "title": "White Titanite Slab",
+        "id": "1870ae0f-d1a7-4848-b4a3-c74bbedd97fb"
+      },
+      {
+        "labels": "item",
+        "title": "Soul of a Hero",
+        "id": "ca8f426d-f5a7-4bc3-9904-21c38051064d"
+      }
+    ],
+    "id": "63e90c09-66a4-44f8-bd51-29040219b937"
+  },
+  {
+    "title": "Nito's Cave",
+    "children": [
+      {
+        "labels": "enemy",
+        "title": "Gravelord Nito",
+        "items": "Lord Soul, Humanity",
+        "id": "3cbfdd48-7335-411b-8b08-d282aa9a22d7"
+      },
+      {
+        "labels": "item",
+        "title": "Paladin Helm, Paladin Armor, Paladin Gauntlets, Paladin Leggings",
+        "id": "2f84c9a5-58c7-4cc8-a88d-25135b0ae7bb"
+      }
+    ],
+    "id": "d6467f28-2896-4cc1-9d3e-8697d938cac9"
+  }
 ]

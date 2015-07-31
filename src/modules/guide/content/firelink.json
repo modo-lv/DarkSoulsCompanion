@@ -392,5 +392,15 @@
       }
     ],
     "id": "b3e83898-ada2-4d4f-b98c-0ecc25ef8949"
+  },
+  {
+    "labels": "npc",
+    "title": "Patches",
+    "children": [
+      {
+        "labels": "gesture",
+        "title": "Prostration"
+      }
+    ]
   }
 ]
